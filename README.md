@@ -3,6 +3,7 @@ An Inventory management system for keeping track of available products, adding, 
 
 
 BACKEND
+
     Routes:
         GET : ('/') => 
         GET : ('/products') =>
@@ -23,3 +24,11 @@ BACKEND
         DELETE : ('/products') => 
         DELETE : ('/products/:id') =>
         DELETE : ('/users/:id') =>
+
+    Controllers:
+
+
+    Error Handling:
+
+
+    Validators:

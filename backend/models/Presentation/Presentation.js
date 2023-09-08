@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
 const { Schema } = mongoose;
 
-const ProductSchema = new Schema(
+const PresentationSchema = new Schema(
   {
-
+    presentationName: String,
     name: {
       type: String,
     },
@@ -25,4 +25,4 @@ const ProductSchema = new Schema(
   { timestamps: true }
 );
 
-export default mongoose.model("Product", ProductSchema);
+export default mongoose.model("Presentation", PresentationSchema);

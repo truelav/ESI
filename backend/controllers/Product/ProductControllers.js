@@ -1,6 +1,7 @@
 import Product from "../../models/Product/Product.js";
 
 export const createProduct = async (req, res) => {
+  
   const {
     name,
     brand,
@@ -44,24 +45,3 @@ export const getAllProducts = async (req, res) => {
     res.status(500).json({ message: error });
   }
 };
-
-// name: {
-//   type: String,
-//   required: true,
-// },
-// brand: {
-//   type: String,
-//   required: true,
-// },
-// description: String,
-// category: {
-//   type: String,
-//   required: true,
-// },
-// subcategory: String,
-// quantity: {
-//   type: Number,
-//   required: true,
-// },
-// images: [String],
-// location: String,
