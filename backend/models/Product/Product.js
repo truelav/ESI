@@ -5,22 +5,19 @@ const ProductSchema = new Schema(
   {
     name: {
       type: String,
-      required: true,
     },
     brand: {
       type: String,
-      required: true,
     },
     description: String,
     category: {
       type: String,
-      required: true,
     },
     subcategory: String,
     quantity: {
       type: Number,
-      required: true,
     },
+    price: Number,
     images: [String],
     location: String,
   },
