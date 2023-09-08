@@ -4,7 +4,7 @@ import * as ProductsControllers from "../../controllers/Product/ProductControlle
 
 const router = express.Router();
 
-router.post("/", ProductsControllers.createProduct);
 router.get("/", ProductsControllers.getAllProducts);
+router.post("/", ProductsControllers.createProduct);
 
 export default router;

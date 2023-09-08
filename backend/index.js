@@ -9,7 +9,7 @@ import { engine } from "express-handlebars";
 import allRoutes from "./routes/index.js";
 
 //start server
-const PORT = process.env.PORT ?? 8000;
+const PORT = process.env.PORT ?? 8888;
 const app = express();
 
 //connect to DB
