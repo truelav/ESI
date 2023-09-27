@@ -1,11 +1,10 @@
 ABOUT
 An Inventory management system for keeping track of available products, adding, modifying and removing. Also it will have account permissions based on roles (Sales, Customer). It will have a searchable catalog and multiple filters and sorts. Also it will have a function to automatically create a PDF presentation based o selected products
 
-
 BACKEND
 
     Routes:
-        GET : ('/') => 
+        GET : ('/') =>
         GET : ('/products') =>
         GET : ('/products/:id') =>
         GET : ('/users') =>
@@ -17,11 +16,11 @@ BACKEND
         POST : ('/users/:id') =>
         POST : ('/presentation')
 
-        PUT : ('/products') => 
-        PUT : ('/products/:id') => 
+        PUT : ('/products') =>
+        PUT : ('/products/:id') =>
         PUT : ('/users/:id') =>
 
-        DELETE : ('/products') => 
+        DELETE : ('/products') =>
         DELETE : ('/products/:id') =>
         DELETE : ('/users/:id') =>
 
@@ -32,3 +31,13 @@ BACKEND
 
 
     Validators:
+
+FRONTEND
+
+    Routes:
+        ( "/" )
+        ( "/login" )
+        ( "/products" )
+        ( "/dashboard" )
+        ( "/presentation" )
+
