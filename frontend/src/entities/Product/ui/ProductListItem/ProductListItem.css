@@ -1,0 +1,16 @@
+.ProductListItem {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 1fr 2fr 1fr 1fr 1fr;
+}
+
+.ProductListItem_Container {
+  display: flex;
+  margin: auto;
+  padding-top: 17px;
+  padding-bottom: 17px;
+}
+
+.ProductListItem_Image {
+  max-height: 100px;
+}
