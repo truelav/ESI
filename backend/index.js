@@ -7,6 +7,8 @@ import jwt from "jsonwebtoken";
 import { engine } from "express-handlebars";
 
 import allRoutes from "./routes/index.js";
+import session from "express-session";
+import cookieParser from "cookie-parser";
 
 //start server
 const PORT = process.env.PORT ?? 8888;
@@ -27,6 +29,9 @@ const connectDB = async () => {
 app.use(morgan("tiny"));
 app.use(express.json());
 app.use(cors());
+app.use(cookieParser())
+app.use(session({ secret: "esi-secret-123", resave: false, saveUninitialized: false, cookie: {maxAge: 1000 * 60 * 5} }))
+
 
 app.use("/api", allRoutes);
 

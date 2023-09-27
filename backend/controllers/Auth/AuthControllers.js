@@ -68,6 +68,14 @@ export const login = async (req, res) => {
   }
 };
 
+export const logout = async (req, res) => {
+  try {
+    req.session.destroy()
+  } catch(err){
+    res.redirect('/')
+  }
+}
+
 export const authorizeMe = async (req, res) => {
   try {
     const user = await User.findById(req.id);
