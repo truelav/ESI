@@ -36,6 +36,10 @@ export const register = async (req, res) => {
 };
 
 export const login = async (req, res) => {
+
+  const { email, name } = req.body
+  req.session.user = { name, isLoggedIn: true}
+
   try {
     const user = await User.findOne({ email: req.body.email });
 
@@ -61,6 +65,8 @@ export const login = async (req, res) => {
       admin: user.role === "admin",
     });
 
+    await req.session.save()
+    
     res.status(200).json({ message: "Login Successful", token });
   } catch (error) {
     console.log(error);
@@ -70,9 +76,10 @@ export const login = async (req, res) => {
 
 export const logout = async (req, res) => {
   try {
-    req.session.destroy()
-  } catch(err){
+    await req.session.destroy()
     res.redirect('/')
+  } catch(err){
+    res.status(404).json({ message: "User not found", error });
   }
 }
 
