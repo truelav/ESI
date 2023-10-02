@@ -49,7 +49,6 @@ app.use(
 
 
 app.use("/api", allRoutes);
-
 app.use("/", (req, res) => res.send("Hello World ESI"));
 
 app.listen(PORT, (err) => {
