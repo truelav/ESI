@@ -15,12 +15,14 @@ import cookieParser from "cookie-parser";
 const PORT = process.env.PORT ?? 8888;
 const app = express();
 
-
 //connect to DB
+const dbString = "mongodb://127.0.0.1:27017/ESI";
+
 const connectDB = async () => {
   try {
     mongoose.set("strictQuery", false);
-    await mongoose.connect("mongodb://127.0.0.1:27017/ESI");
+    await mongoose.connect(dbString);
+
     console.log("Connected to the DB");
   } catch (err) {
     console.log(err);
@@ -29,24 +31,23 @@ const connectDB = async () => {
 
 // session store
 const store = MongoStore.create({
-  mongoUrl: "mongodb://127.0.0.1:27017/ESI"
-})
+  mongoUrl: dbString,
+});
 
 //middleware
 app.use(morgan("tiny"));
 app.use(express.json());
 app.use(cors());
-app.use(cookieParser())
+app.use(cookieParser());
 app.use(
-  session({ 
-    secret: "esi-secret-123", 
-    resave: false, 
-    saveUninitialized: false, 
-    cookie: {maxAge: 1000 * 60 * 5},
-    store: store 
+  session({
+    secret: "esi-secret-123",
+    resave: false,
+    saveUninitialized: false,
+    cookie: { maxAge: 1000 * 60 * 5 },
+    store: store,
   })
-)
-
+);
 
 app.use("/api", allRoutes);
 app.use("/", (req, res) => res.send("Hello World ESI"));

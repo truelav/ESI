@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken";
 import User from "../../models/User/User.js";
 
 export const register = async (req, res) => {
+  console.log("request: " + req.body);
   try {
     const { name, email, password, role } = req.body;
 

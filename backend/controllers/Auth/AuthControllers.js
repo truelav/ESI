@@ -3,6 +3,8 @@ import jwt from "jsonwebtoken";
 import User from "../../models/User/User.js";
 
 export const register = async (req, res) => {
+  console.log(req.body.name);
+
   try {
     const { name, email, password, role } = req.body;
 
@@ -16,18 +18,20 @@ export const register = async (req, res) => {
       role,
     });
 
+    await newUser.save();
+
     const userPayload = {
       _id: newUser._id,
     };
 
-    await newUser.save();
-
     const token = jwt.sign(userPayload, "secret123", {
       expiresIn: "1d",
-      admin: role === "admin",
     });
 
-    res.status(201).json(`${req.body.name} was created with success`);
+    res.status(201).json({
+      message: `${req.body.name} was created with success`,
+      token: token,
+    });
   } catch (error) {
     res.status(500).json({
       message: "Could not register user",
@@ -36,9 +40,8 @@ export const register = async (req, res) => {
 };
 
 export const login = async (req, res) => {
-
-  const { email, name } = req.body
-  req.session.user = { name, isLoggedIn: true}
+  const { email, name } = req.body;
+  req.session.user = { name, isLoggedIn: true };
 
   try {
     const user = await User.findOne({ email: req.body.email });
@@ -65,8 +68,8 @@ export const login = async (req, res) => {
       admin: user.role === "admin",
     });
 
-    await req.session.save()
-    
+    await req.session.save();
+
     res.status(200).json({ message: "Login Successful", token });
   } catch (error) {
     console.log(error);
@@ -76,12 +79,12 @@ export const login = async (req, res) => {
 
 export const logout = async (req, res) => {
   try {
-    await req.session.destroy()
-    res.redirect('/')
-  } catch(err){
+    await req.session.destroy();
+    res.redirect("/");
+  } catch (err) {
     res.status(404).json({ message: "User not found", error });
   }
-}
+};
 
 export const authorizeMe = async (req, res) => {
   try {
