@@ -1,18 +1,20 @@
 import jwt from "jsonwebtoken";
 
 const verifyJWToken = (req, res, next) => {
-  try {
-    const token = req.headers["x-access-token"];
-    // console.log(req.headers);
-    if (!token) {
-      return res.status(403).send({ message: "No token provided!" });
-    }
-    const decoded = jwt.verify(token, "secret123", () => {});
+  const token = req.headers["x-access-token"];
+  console.log("token: " + token);
+
+  const x = jwt.verify(token, "secret123", function (err, decoded) {
+    if (err) throw err;
     console.log(decoded);
-    next();
-  } catch (error) {
-    console.log(error);
-  }
+    if (x != true) {
+      res.json({ auth: false });
+    } else {
+      res.json({ auth: true });
+    }
+  });
+
+  //   next();
 };
 
 export default verifyJWToken;

@@ -28,12 +28,13 @@ export const register = async (req, res) => {
     };
 
     const token = jwt.sign(userPayload, "secret123", {
-      expiresIn: Math.floor(Date.now() / 1000) + 60 * 60,
+      expiresIn: "1d",
     });
 
     res.status(201).json({
       message: `${req.body.name} was created with success`,
       token,
+      data: userPayload,
     });
   } catch (error) {
     res.status(500).json({
@@ -66,12 +67,16 @@ export const login = async (req, res) => {
     };
 
     const token = jwt.sign(userPayload, "secret123", {
-      expiresIn: Math.floor(Date.now() / 1000) + 60 * 60,
+      expiresIn: "1d",
     });
 
     await req.session.save();
 
-    res.status(200).json({ message: "Login Successful", token });
+    res.status(200).json({
+      message: "Login Successful",
+      token,
+      data: userPayload,
+    });
   } catch (error) {
     console.log(error);
     res.status(500).json(error);
@@ -80,19 +85,7 @@ export const login = async (req, res) => {
 
 export const logout = async (req, res) => {
   try {
-    await req.session.destroy();
-    res.redirect("/");
   } catch (error) {
-    res.status(404).json({ message: "User not found", error });
-  }
-};
-
-export const authorizeMe = async (req, res) => {
-  try {
-    const user = await User.findById(req.id);
-    res.status(200).json({ message: "Success", user });
-  } catch (error) {
-    console.log(error);
     res.status(404).json({ message: "User not found", error });
   }
 };
