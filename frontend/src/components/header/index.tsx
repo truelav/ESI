@@ -1,6 +1,8 @@
 
 import { Link, NavLink } from "react-router-dom"
 
+import './styles.css'
+
 export default function Header() {
     // const activeStyles = {
     //     fontWeight: "bold",
@@ -14,6 +16,7 @@ export default function Header() {
             <nav>
                 <NavLink 
                     to="dashboard"
+                    className=""
                     // style={({isActive}) => isActive ? activeStyles : null}
                 >
                     Dashboard
@@ -31,11 +34,10 @@ export default function Header() {
                     Contact
                 </NavLink>
                 <Link to="login" className="login-link">
-                    {/* <img 
-                        src="../assets/images/avatar-icon.png" 
-                        className="login-icon"
-                    /> */}
                     Login
+                </Link>
+                <Link to="register" className="login-link">
+                    Register
                 </Link>
             </nav>
         </header>
