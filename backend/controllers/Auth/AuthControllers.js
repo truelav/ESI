@@ -3,10 +3,13 @@ import jwt from "jsonwebtoken";
 import User from "../../models/User/User.js";
 
 export const register = async (req, res) => {
-  console.log(req.body.name);
-
+  console.log(req.body);
+  const { name, email, password, role } = req.body;
   try {
-    const { name, email, password, role } = req.body;
+    const user = await User.findOne({ email });
+    if (user) {
+      res.status(400).json({ message: `user with ${email} already exists` });
+    }
 
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
@@ -25,12 +28,12 @@ export const register = async (req, res) => {
     };
 
     const token = jwt.sign(userPayload, "secret123", {
-      expiresIn: "1d",
+      expiresIn: Math.floor(Date.now() / 1000) + 60 * 60,
     });
 
     res.status(201).json({
       message: `${req.body.name} was created with success`,
-      token: token,
+      token,
     });
   } catch (error) {
     res.status(500).json({
@@ -40,9 +43,8 @@ export const register = async (req, res) => {
 };
 
 export const login = async (req, res) => {
-  const { email, name } = req.body;
-  req.session.user = { name, isLoggedIn: true };
-
+  const { email, password } = req.body;
+  console.log(req.body);
   try {
     const user = await User.findOne({ email: req.body.email });
 
@@ -64,8 +66,7 @@ export const login = async (req, res) => {
     };
 
     const token = jwt.sign(userPayload, "secret123", {
-      expiresIn: "1d",
-      admin: user.role === "admin",
+      expiresIn: Math.floor(Date.now() / 1000) + 60 * 60,
     });
 
     await req.session.save();
@@ -81,7 +82,7 @@ export const logout = async (req, res) => {
   try {
     await req.session.destroy();
     res.redirect("/");
-  } catch (err) {
+  } catch (error) {
     res.status(404).json({ message: "User not found", error });
   }
 };
@@ -90,8 +91,8 @@ export const authorizeMe = async (req, res) => {
   try {
     const user = await User.findById(req.id);
     res.status(200).json({ message: "Success", user });
-  } catch (err) {
-    console.log(err);
+  } catch (error) {
+    console.log(error);
     res.status(404).json({ message: "User not found", error });
   }
 };

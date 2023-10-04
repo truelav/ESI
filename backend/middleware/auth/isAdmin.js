@@ -10,10 +10,12 @@ const isAdmin = async (req, res, next) => {
     if (user.role !== "ADMIN") {
       res.status(400).json({ message: `user has no admin permissions` });
     }
-    console.log("use is admin");
+    console.log("user is admin");
     next();
   } catch (error) {
     console.log(error);
     res.send(500).json({ message: error });
   }
 };
+
+export default isAdmin;

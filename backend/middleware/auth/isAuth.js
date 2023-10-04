@@ -1,8 +1,16 @@
+import User from "../../models/User/User";
+
 const isAuth = async (req, res, next) => {
-  if (!req.session.isLoggedIn) {
-    return res.redirect("/login");
+  const { id } = req.id;
+  console.log("userID: " + id);
+  try {
+    const user = await User.findById(req.id);
+    res.status(200).json({ message: "Success", user });
+    next();
+  } catch (error) {
+    console.log(error);
+    res.status(404).json({ message: "User not found", error });
   }
-  next();
 };
 
-export default isAuth
+export default isAuth;
