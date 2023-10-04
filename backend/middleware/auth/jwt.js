@@ -4,6 +4,10 @@ const verifyJWToken = (req, res, next) => {
   const token = req.headers["x-access-token"];
   console.log("token: " + token);
 
+  if(!token){
+    return res.json({message: "no permission"})
+  }
+
   const x = jwt.verify(token, "secret123", function (err, decoded) {
     if (err) throw err;
     console.log(decoded);

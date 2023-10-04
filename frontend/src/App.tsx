@@ -1,50 +1,27 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { createBrowserRouter, createRoutesFromElements, RouterProvider, Route } from "react-router-dom";
+import Layout from "./components/layout";
+import Home from "./pages/HomePage";
+import RegistrationPage from "./pages/RegistrationPage";
+import ProductsPage from "./pages/ProductsPage";
+import LoginPage from "./pages/LoginPage";
+import NotFound from "./pages/NotFoundPage";
 
-// import axiosClient from "./lib/axios";
-import { Navbar } from "./widgets/Navbar";
 
-import "./App.css";
-import { ProductList } from "./entities/Product/ui/ProductList/ProductList";
+
+const router = createBrowserRouter(createRoutesFromElements(
+  <Route path="/" element={<Layout />}>
+    <Route index element={<Home />} />
+    <Route path="products" element={<ProductsPage />} />
+    <Route path="register" element={<RegistrationPage />} />
+    <Route path="login" element={<LoginPage />} />
+    <Route path="*" element={<NotFound />} />
+  </Route>
+))
 
 function App() {
-  const [products, setProducts] = useState([]);
-
-  const getAllProducts = async () => {
-    try {
-      const allProducts = await axios.get("http://localhost:8888/api/products");
-      if (allProducts.data) {
-        setProducts(allProducts.data);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    getAllProducts();
-  }, []);
-
   return (
-    <>
-      <Navbar />
-      <h1>ESI Enterprises</h1>
-      <div className="card">
-        {/* {products.map((item, idx) => (
-          <div key={item?._id}>
-            <p>{item?.name}</p>
-          </div>
-        ))} */}
-        <ProductList products={products} />
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  );
+    <RouterProvider router={router} />
+  )
 }
 
-export default App;
+export default App

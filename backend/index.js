@@ -3,11 +3,10 @@ import morgan from "morgan";
 import cors from "cors";
 import mongoose from "mongoose";
 import MongoStore from "connect-mongo";
-
-import allRoutes from "./routes/index.js";
 import cookieParser from "cookie-parser";
+import session from "express-session";
+import allRoutes from "./routes/index.js";
 
-import Role from "./models/Role/Role.js";
 
 //start server
 const PORT = process.env.PORT ?? 8888;
@@ -26,33 +25,6 @@ const connectDB = async () => {
     console.log(err);
   }
 };
-
-// function initial() {
-//   Role.estimatedDocumentCount()
-//     .then((count) => {
-//       if (count === 0) {
-//         new Role({
-//           name: "user",
-//         })
-//           .save()
-//           .then(() => console.log("user role creted"));
-
-//         new Role({
-//           name: "moderator",
-//         })
-//           .save()
-//           .then(() => console.log("moderator role creted"));
-
-//         new Role({
-//           name: "admin",
-//         })
-//           .save()
-//           .then(() => console.log("admin role creted"));
-//       }
-//     })
-//     .catch((error) => console.log(error));
-// }
-// initial();
 
 // session store
 const store = MongoStore.create({
