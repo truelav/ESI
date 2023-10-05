@@ -1,7 +1,5 @@
 import JwtStrategy from ("passport-jwt").Strategy
 import ExtractJwt from('passport-jwt').ExtractJwt;
-import fs from "fs";
-import path from "path"
 import User from "../models/User/User";
 
 const options = {

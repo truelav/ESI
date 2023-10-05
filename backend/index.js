@@ -7,40 +7,19 @@ import cookieParser from "cookie-parser";
 import env from "dotenv"
 import session from "express-session";
 import allRoutes from "./routes/index.js";
+import connectDB from "./config/db.config.js";
 
 
 //start server
 const PORT = process.env.PORT ?? 8888;
 const app = express();
 const dotenv = env.config().parsed
-console.log(dotenv)
 
-//connect to DB
-const dbString = "mongodb://127.0.0.1:27017/ESI";
-
-const connectDB = async () => {
-  try {
-    mongoose.set("strictQuery", false);
-    await mongoose.connect(dbString);
-
-    console.log("Connected to the DB");
-  } catch (err) {
-    console.log(err);
-  }
-};
 
 // session store
-const store = MongoStore.create({
-  mongoUrl: dbString,
-});
-
-//middleware
-app.use(morgan("tiny"));
-app.use(express.json());
-app.use(cors());
-app.use(cookieParser());
-app.use(express.urlencoded({ extended: true }));
-
+// const store = MongoStore.create({
+//   mongoUrl: dbString,
+// });
 // app.use(
 //   session({
 //     secret: "esi-secret-123",
@@ -50,6 +29,14 @@ app.use(express.urlencoded({ extended: true }));
 //     store: store,
 //   })
 // );
+
+//middleware
+app.use(morgan("tiny"));
+app.use(express.json());
+app.use(cors());
+app.use(cookieParser());
+app.use(express.urlencoded({ extended: true }));
+
 
 app.use("/api", allRoutes);
 app.use("/", (req, res) => res.send("Hello World ESI"));
