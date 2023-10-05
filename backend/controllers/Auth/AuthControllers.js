@@ -47,7 +47,7 @@ export const login = async (req, res) => {
   const { email, password } = req.body;
   console.log(req.body);
   try {
-    const user = await User.findOne({ email: req.body.email });
+    const user = await User.findOne({ email });
 
     if (!user) {
       return res.status(404).json(`User ${req.body.email} was not found`);
@@ -77,6 +77,7 @@ export const login = async (req, res) => {
       token,
       data: userPayload,
     });
+    
   } catch (error) {
     console.log(error);
     res.status(500).json(error);

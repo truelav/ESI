@@ -4,6 +4,7 @@ import cors from "cors";
 import mongoose from "mongoose";
 import MongoStore from "connect-mongo";
 import cookieParser from "cookie-parser";
+import env from "dotenv"
 import session from "express-session";
 import allRoutes from "./routes/index.js";
 
@@ -11,6 +12,8 @@ import allRoutes from "./routes/index.js";
 //start server
 const PORT = process.env.PORT ?? 8888;
 const app = express();
+const dotenv = env.config().parsed
+console.log(dotenv)
 
 //connect to DB
 const dbString = "mongodb://127.0.0.1:27017/ESI";
