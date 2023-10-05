@@ -2,15 +2,17 @@
 // import { SyntheticEvent, useState } from 'react';
 import axios from 'axios';
 import {Formik, Form, Field, ErrorMessage} from 'formik'
-// import {Button} from 'react-bootstrap';
-// import {Form} from 'react-bootstrap';
 
 function RegistrationForm() {
   return (
         <Formik
             initialValues={{ name: "", email: '', password: '', re_password: "" }}
             validate={values => {
-                const errors = {};
+                const errors = {
+                    email: "",
+                    password: "",
+                    re_password: ""
+                };
                 if (!values.email) errors.email = 'Required';
                 if(!values.password) errors.password = 'Required';
                 if(!values.re_password) errors.re_password = 'Required';
@@ -19,11 +21,6 @@ function RegistrationForm() {
                 return errors;
             }}
             onSubmit={async (values, { setSubmitting, resetForm }) => {
-                // setTimeout(() => {
-                // alert(JSON.stringify(values, null, 2));
-                // setSubmitting(false);
-                // console.log(values)
-                // }, 400);
                 try {
                     const response = await axios({
                         method: "POST",
@@ -32,13 +29,13 @@ function RegistrationForm() {
                     })
                     setSubmitting(false);
                     console.log(response.data)
-                    // resetForm()
+                    resetForm()
                 } catch(error){
                     setSubmitting(false)
                     console.log(error)
                 }
             }}
-            >
+        >
             {({ isSubmitting }) => (
                 <Form>
                     <label className="label">Fullname</label>
@@ -54,7 +51,7 @@ function RegistrationForm() {
                     <Field type="password" name="re_password" />
                     <ErrorMessage name="re_password" component="div" />
                     <button type="submit" disabled={isSubmitting}>
-                        Submit
+                        Register Now
                     </button>
                 </Form>
             )}
