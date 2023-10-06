@@ -24,7 +24,7 @@ export const register = async (req, res) => {
     await newUser.save();
 
     const userPayload = {
-      _id: newUser._id,
+      id: newUser._id,
     };
 
     const token = jwt.sign(userPayload, "secret123", {
@@ -54,7 +54,7 @@ export const login = async (req, res) => {
     }
 
     const isPasswordCorrect = await bcrypt.compare(
-      req.body.password,
+      password,
       user?.password
     );
 
@@ -70,8 +70,8 @@ export const login = async (req, res) => {
       expiresIn: "1d",
     });
 
-    await req.session.save();
-
+    // await req.session.save();
+    res.cookie('jwt_cookie', token)
     res.status(200).json({
       message: "Login Successful",
       token,
