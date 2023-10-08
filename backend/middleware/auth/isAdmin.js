@@ -1,4 +1,5 @@
-import User from "../../models/User/User";
+import User from "../../models/User/User.js";
+import Role from "../../models/Role/Role.js";
 
 const isAdmin = async (req, res, next) => {
   const { id } = req.id;
@@ -7,9 +8,12 @@ const isAdmin = async (req, res, next) => {
     if (!user) {
       res.status(500).json({ message: `user not found` });
     }
-    if (user.role !== "ADMIN") {
+
+    const role = await Role.findById(user.role);
+    if (role !== "admin") {
       res.status(400).json({ message: `user has no admin permissions` });
     }
+
     console.log("user is admin");
     next();
   } catch (error) {

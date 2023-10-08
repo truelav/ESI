@@ -1,4 +1,6 @@
+import { token } from "morgan";
 import User from "../../models/User/User";
+import verifyJWToken from "./verifyJWToken";
 
 const isAuth = async (req, res, next) => {
   const { id } = req.id;
@@ -6,6 +8,9 @@ const isAuth = async (req, res, next) => {
   try {
     const user = await User.findById(req.id);
     res.status(200).json({ message: "Success", user });
+
+    //verify the use token
+    verifyJWToken(token);
     next();
   } catch (error) {
     console.log(error);

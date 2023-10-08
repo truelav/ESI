@@ -1,13 +1,14 @@
 import express from "express";
 import * as ProductControllers from "../../controllers/Product/index.js";
-
-import verifyJWToken from "../../middleware/auth/jwt.js";
+import isAuth from "../../middleware/auth/isLoggedIn.js";
+import isAdmin from "../../middleware/auth/isAdmin.js";
+import isLoggedIn from "../../middleware/auth/isLoggedIn.js";
 
 const router = express.Router();
 
-router.get("/", verifyJWToken, ProductControllers.getAllProducts);
-router.get("/:id", ProductControllers.getProduct);
-router.post("/addOne", ProductControllers.addProduct);
+router.get("/", isLoggedIn, ProductControllers.getAllProducts);
+router.get("/:id", isLoggedIn, ProductControllers.getProduct);
+router.post("/addOne", isLoggedIn, isAdmin, ProductControllers.addProduct);
 router.post("/addMultiple", ProductControllers.addMultipleProducts);
 router.put("/", ProductControllers.editMultipleProducts);
 router.put("/:id", ProductControllers.editProduct);
