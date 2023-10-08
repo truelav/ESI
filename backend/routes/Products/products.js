@@ -6,7 +6,7 @@ import isLoggedIn from "../../middleware/auth/isLoggedIn.js";
 
 const router = express.Router();
 
-router.get("/", isLoggedIn, ProductControllers.getAllProducts);
+router.get("/", ProductControllers.getAllProducts);
 router.get("/:id", isLoggedIn, ProductControllers.getProduct);
 router.post("/addOne", isLoggedIn, isAdmin, ProductControllers.addProduct);
 router.post("/addMultiple", ProductControllers.addMultipleProducts);

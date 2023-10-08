@@ -2,13 +2,13 @@ import User from "../../models/User/User.js";
 import verifyJWToken from "./verifyJWToken.js";
 
 const isLoggedIn = async (req, res, next) => {
-  const { id } = req.id;
-  console.log("userID: " + id);
+  console.log("userID: " + req.headers);
   try {
-    const user = await User.findById(req.id);
+    const userID = req.headers["userID"];
     const token = req.headers["x-access-token"];
+    const user = await User.findById(userID);
 
-    //verify the user exists
+    // verify the user exists
     if (!user) {
       res.status(500).json({ message: `user not found` });
     }

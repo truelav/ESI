@@ -14,7 +14,7 @@ const verifyJWToken = (token) => {
     console.log(decoded);
     if (x != true) {
       // res.json({ auth: false });
-      return "non-authorized";
+      // return "non-authorized";
     } else {
       // res.json({ auth: true });
       return "non-authorized";

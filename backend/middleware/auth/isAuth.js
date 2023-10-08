@@ -1,5 +1,5 @@
 import { token } from "morgan";
-import User from "../../models/User/User";
+import User from "../../models/User/User.js";
 import verifyJWToken from "./verifyJWToken";
 
 const isAuth = async (req, res, next) => {
