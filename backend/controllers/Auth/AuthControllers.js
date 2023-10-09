@@ -28,9 +28,10 @@ export const register = async (req, res) => {
     };
 
     const token = jwt.sign(userPayload, "secret123", {
-      expiresIn: "1d",
+      expiresIn: "1h",
     });
 
+    res.cookie("jwt_token", token);
     res.status(201).json({
       message: `${req.body.name} was created with success`,
       token,
@@ -45,7 +46,7 @@ export const register = async (req, res) => {
 
 export const login = async (req, res) => {
   const { email, password } = req.body;
-  console.log(req.body);
+  // console.log(req.body);
   try {
     const user = await User.findOne({ email });
 
@@ -53,10 +54,7 @@ export const login = async (req, res) => {
       return res.status(404).json(`User ${req.body.email} was not found`);
     }
 
-    const isPasswordCorrect = await bcrypt.compare(
-      password,
-      user?.password
-    );
+    const isPasswordCorrect = await bcrypt.compare(password, user?.password);
 
     if (!isPasswordCorrect) {
       return res.status(403).json("Password or Email Incorrect");
@@ -67,17 +65,16 @@ export const login = async (req, res) => {
     };
 
     const token = jwt.sign(userPayload, "secret123", {
-      expiresIn: "1d",
+      expiresIn: "1h",
     });
 
     // await req.session.save();
-    res.cookie('jwt_cookie', token)
+    res.cookie("jwt_token", token, { httpOnly: true });
     res.status(200).json({
       message: "Login Successful",
       token,
       data: userPayload,
     });
-    
   } catch (error) {
     console.log(error);
     res.status(500).json(error);

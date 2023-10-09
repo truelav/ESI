@@ -2,39 +2,42 @@ import express from "express";
 import morgan from "morgan";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import env from "dotenv"
+import env from "dotenv";
+import MongoStore from "connect-mongo";
 import session from "express-session";
 import allRoutes from "./routes/index.js";
 import connectDB from "./config/db.config.js";
 
-
 //start server
 const PORT = process.env.PORT ?? 8888;
 const app = express();
-const dotenv = env.config().parsed
-
+const dotenv = env.config().parsed;
 
 // session store
-// const store = MongoStore.create({
-//   mongoUrl: dbString,
-// });
-// app.use(
-//   session({
-//     secret: "esi-secret-123",
-//     resave: false,
-//     saveUninitialized: false,
-//     cookie: { maxAge: 1000 * 60 * 5 },
-//     store: store,
-//   })
-// );
+const store = MongoStore.create({
+  mongoUrl: "mongodb://127.0.0.1:27017/ESI",
+});
+app.use(
+  session({
+    secret: "esi-secret-123",
+    resave: false,
+    saveUninitialized: false,
+    cookie: { maxAge: 1000 * 60 * 5 },
+    store: store,
+  })
+);
 
 //middleware
+app.use(
+  express.urlencoded({
+    extended: true,
+  })
+);
 app.use(morgan("tiny"));
 app.use(express.json());
 app.use(cors());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
-
 
 app.use("/api", allRoutes);
 app.use("/", (req, res) => res.send("Hello World ESI"));
