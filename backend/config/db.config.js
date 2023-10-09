@@ -1,11 +1,9 @@
 import mongoose from "mongoose";
 import env from "dotenv";
-import MongoStore from "connect-mongo";
 
 const dotenv = env.config();
 const devConnection = process.env.MONGODB_STRING;
 const prodConnection = process.env.DB_STRING_PROD;
-console.log(devConnection);
 
 const connectDB = async () => {
   try {

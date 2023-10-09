@@ -1,25 +1,25 @@
 import jwt from "jsonwebtoken";
+import dotenv from "dotenv"
 
-const verifyJWToken = (token) => {
+const verifyJWToken = (req, res, next) => {
   console.log("token: " + token);
+  const authHeader = req.headers['authorization']
 
-  if (!token) {
-    return res.json({ message: "no permission" });
+  if (!authHeader) {
+    return res.status(401).json({ message: "no permission" });
   }
 
-  const x = jwt.verify(token, "secret123", function (error, decoded) {
-    if (error) {
-      return error;
+  console.log("Bearer Token: " + authHeader)
+
+  jwt.verify(
+    token, 
+    "secret123", 
+    (error, decoded) => {
+      if (error) return res.sendStatus(403).json({message: "invalid token"}); //invalid token
+      req.user = decoded.username;
+      next()
     }
-    console.log(decoded);
-    if (x != true) {
-      // res.json({ auth: false });
-      // return "non-authorized";
-    } else {
-      // res.json({ auth: true });
-      return "non-authorized";
-    }
-  });
+  );
 };
 
 export default verifyJWToken;

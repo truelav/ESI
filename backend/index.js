@@ -14,30 +14,26 @@ const app = express();
 const dotenv = env.config().parsed;
 
 // session store
-const store = MongoStore.create({
-  mongoUrl: "mongodb://127.0.0.1:27017/ESI",
-});
-app.use(
-  session({
-    secret: "esi-secret-123",
-    resave: false,
-    saveUninitialized: false,
-    cookie: { maxAge: 1000 * 60 * 5 },
-    store: store,
-  })
-);
+// const store = MongoStore.create({
+//   mongoUrl: "mongodb://127.0.0.1:27017/ESI",
+// });
+// app.use(
+//   session({
+//     secret: "esi-secret-123",
+//     resave: false,
+//     saveUninitialized: false,
+//     cookie: { maxAge: 1000 * 60 * 5 },
+//     store: store,
+//   })
+// );
 
 //middleware
-app.use(
-  express.urlencoded({
-    extended: true,
-  })
-);
+
 app.use(morgan("tiny"));
 app.use(express.json());
 app.use(cors());
-app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 app.use("/api", allRoutes);
 app.use("/", (req, res) => res.send("Hello World ESI"));

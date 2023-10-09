@@ -1,9 +1,10 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import User from "../../models/User/User.js";
+import Role from "../../models/Role/Role.js";
 
 export const register = async (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   const { name, email, password, role } = req.body;
   try {
     const user = await User.findOne({ email });
@@ -24,17 +25,18 @@ export const register = async (req, res) => {
     await newUser.save();
 
     const userPayload = {
-      id: newUser._id,
+      username: user.name,
+      role: userRole
     };
 
-    const token = jwt.sign(userPayload, "secret123", {
+    const accessToken = jwt.sign(userPayload, "secret123", {
       expiresIn: "1h",
     });
 
-    res.cookie("jwt_token", token);
+    res.cookie("jwt_token", accessToken, { httpOnly: true, secure: true });
     res.status(201).json({
       message: `${req.body.name} was created with success`,
-      token,
+      accessToken,
       data: userPayload,
     });
   } catch (error) {
@@ -55,24 +57,30 @@ export const login = async (req, res) => {
     }
 
     const isPasswordCorrect = await bcrypt.compare(password, user?.password);
+    const userRole = await Role.findById(user.role)
 
     if (!isPasswordCorrect) {
       return res.status(403).json("Password or Email Incorrect");
     }
 
     const userPayload = {
-      id: user._doc._id,
+      username: user.name,
+      role: userRole
     };
 
-    const token = jwt.sign(userPayload, "secret123", {
+    const accessToken = jwt.sign(userPayload, "secret123", {
       expiresIn: "1h",
     });
 
+    const refreshToken = jwt.sign(userPayload, "secret123", {
+      expiresIn: "1h"
+    })
+
     // await req.session.save();
-    res.cookie("jwt_token", token, { httpOnly: true });
+    res.cookie("jwt_token", accessToken, { httpOnly: true, secure: true });
     res.status(200).json({
       message: "Login Successful",
-      token,
+      accessToken,
       data: userPayload,
     });
   } catch (error) {
