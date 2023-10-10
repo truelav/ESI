@@ -3,10 +3,11 @@ import morgan from "morgan";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import env from "dotenv";
-import MongoStore from "connect-mongo";
-import session from "express-session";
+// import MongoStore from "connect-mongo";
+// import session from "express-session";
 import allRoutes from "./routes/index.js";
 import connectDB from "./config/db.config.js";
+import { corsOptions } from "./config/cors/corsOptions.js";
 
 //start server
 const PORT = process.env.PORT ?? 8888;
@@ -31,7 +32,7 @@ const dotenv = env.config().parsed;
 
 app.use(morgan("tiny"));
 app.use(express.json());
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 

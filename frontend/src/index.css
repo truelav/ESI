@@ -14,9 +14,11 @@
   -webkit-text-size-adjust: 100%;
 }
 
+/* VARIABLES */
+
 a {
   font-weight: 500;
-  color: #d5d7fd;
+  color: #595b92;
   text-decoration: inherit;
 }
 a:hover {
