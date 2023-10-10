@@ -14,7 +14,7 @@ function ProductsPage() {
       const response = await axios.get("http://localhost:8888/api/products", {
         withCredentials: true,
       });
-      if (!response) {
+      if (!response.data) {
         console.log(response);
         return "No products found";
       }
@@ -31,9 +31,9 @@ function ProductsPage() {
     // const controller = new AbortController()
     getAllProducts();
 
-    return () => {
-      console.log("cleanup getAllProducts");
-    };
+    // return () => {
+    //   console.log("cleanup getAllProducts");
+    // };
   }, []);
 
   return (

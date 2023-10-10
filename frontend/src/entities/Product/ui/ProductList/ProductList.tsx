@@ -11,8 +11,14 @@ interface ProductListProps {
 export const ProductList = (props: ProductListProps) => {
   const { className, products, isLoading } = props;
 
+  console.log(products);
+
   if (isLoading) {
     return <>Loading...</>;
+  }
+
+  if (!products || !products.length) {
+    return <>No Products Found</>;
   }
 
   return (
