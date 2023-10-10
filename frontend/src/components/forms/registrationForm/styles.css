@@ -1,0 +1,16 @@
+.registration-form {
+  padding: 15px;
+  border: solid 1px black;
+}
+
+.formik-div {
+}
+
+.label {
+  display: block;
+}
+
+.formik_error_message {
+  color: rgb(194, 65, 65);
+  font-size: 14px;
+}
