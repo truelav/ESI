@@ -3,9 +3,9 @@ import dotenv from "dotenv"
 
 const verifyJWToken = (req, res, next) => {
   console.log("token: " + token);
-  const authHeader = req.headers['authorization']
+  const authHeader = req.headers.authorization || req.headers.Authorization
 
-  if (!authHeader) {
+  if (!authHeader?.startsWith('Bearer')) {
     return res.status(401).json({ message: "no permission" });
   }
 
