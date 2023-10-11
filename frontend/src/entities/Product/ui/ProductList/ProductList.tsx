@@ -23,9 +23,9 @@ export const ProductList = (props: ProductListProps) => {
 
   return (
     <div className={className}>
-      {products?.map((product) => (
+      {/* {products.map((product) => (
         <ProductListItem key={product._id} product={product} />
-      ))}
+      ))} */}
     </div>
   );
 };
