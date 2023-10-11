@@ -64,20 +64,34 @@ export const login = async (req, res) => {
     }
 
     const userPayload = {
-      username: user.name,
-      role: userRole
+      "UserInfo": {
+        username: user.name,
+        role: userRole
+      }
     };
 
-    const accessToken = jwt.sign(userPayload, "secret123", {
-      expiresIn: "1h",
-    });
+    const accessToken = jwt.sign(
+      userPayload,
+      "secret123", 
+      {
+        expiresIn: "1h",
+      }
+    );
 
-    const refreshToken = jwt.sign(userPayload, "secret123", {
-      expiresIn: "1h"
-    })
+    const refreshToken = jwt.sign(
+      userPayload,
+      "secret123", 
+      {
+        expiresIn: "1h"
+      }
+    )
 
     // await req.session.save();
-    res.cookie("jwt_token", accessToken, { httpOnly: true, secure: true });
+    res.cookie(
+      "jwt_token", 
+      accessToken, 
+      // { httpOnly: true, secure: true, maxAge: 900000}
+    );
     res.status(200).json({
       message: "Login Successful",
       accessToken,
@@ -91,6 +105,13 @@ export const login = async (req, res) => {
 
 export const logout = async (req, res) => {
   try {
+    const cookies = req.cookies
+    if(!cookies?.jwt_token){
+      return res.status(204).json({messange: "no content"})
+    } else {
+      res.clearCookie("jwt_token")
+      res.json({message: "Logout success"})
+    }
   } catch (error) {
     res.status(404).json({ message: "User not found", error });
   }
