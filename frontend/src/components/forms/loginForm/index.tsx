@@ -1,19 +1,8 @@
 // import { SyntheticEvent, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux'
 import { Formik, Form, Field, ErrorMessage } from "formik";
-
-import { authService } from '../../../features/auth/services/authService';
+// import { authService } from '../../../features/auth/services/authService';
 
 function LoginForm() {
-  const dispatch = useDispatch()
-  const {
-    email,
-    password,
-    loading,
-    error,
-    success,
-    user
-  } = useSelector((state) => state.auth)
 
 
 
@@ -43,8 +32,7 @@ function LoginForm() {
       //   }
       // }}
       onSubmit={async (values) => {
-        const result = await dispatch(authService(values))
-        console.log(result)
+        console.log(values)
       }}
     >
       {({ isSubmitting }) => (
