@@ -24,21 +24,7 @@ export const register = async (req, res) => {
 
     await newUser.save();
 
-    const userPayload = {
-      username: user.name,
-      role: userRole
-    };
-
-    const accessToken = jwt.sign(userPayload, "secret123", {
-      expiresIn: "1h",
-    });
-
-    res.cookie("jwt_token", accessToken, { httpOnly: true, secure: true });
-    res.status(201).json({
-      message: `${req.body.name} was created with success`,
-      accessToken,
-      data: userPayload,
-    });
+    res.status(201).json({ message: `${req.body.name} was created with success` });
   } catch (error) {
     res.status(500).json({
       message: "Could not register user",

@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import User from "../../models/User/User.js";
-import verifyJWToken from "./verifyJWToken.js";
+import verifyJWT from "./verifyJWT.js";
 
 const isLoggedIn = async (req, res, next) => {
   console.log("userID: " + req.headers["jwt_token"]);
