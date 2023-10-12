@@ -8,7 +8,6 @@
 
     /* Bundler mode */
     "moduleResolution": "node",
-    "emitDeclarationOnly": "declaration",
     "allowImportingTsExtensions": true,
     "allowSyntheticDefaultImports": true,
     // "moduleResolutionBundler": true,
