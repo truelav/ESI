@@ -3,7 +3,6 @@ import { Button } from "react-bootstrap";
 import { Product, ProductView } from "../../model/types/product";
 
 import "./ProductListItem.css";
-import { Link } from "react-router-dom";
 
 interface ProductListPropsItem {
   className?: string;
@@ -34,9 +33,7 @@ export const ProductListItem = memo((props: ProductListPropsItem) => {
           <p>{product?.quantity}</p>
         </div>
         <div className="ProductListItem_Container">
-          <Link to="">
-            <Button variant="primary">Learn More</Button>
-          </Link>
+          <Button variant="primary">Learn More</Button>
         </div>
       </div>
     </>
