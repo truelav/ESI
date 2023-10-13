@@ -26,11 +26,11 @@ export const UserList = () => {
 
     if (isSuccess) {
 
-        // const { ids } = users
+        const { ids } = data
 
-        // const tableContent = ids?.length
-        //     ? ids.map(userId => <User key={userId} userId={userId} />)
-        //     : null
+        const tableContent = ids?.length
+            ? ids.map(userId => <User key={userId} userId={userId} />)
+            : null
         console.log(data)
         return (
             <table className="table table--users">
@@ -42,7 +42,7 @@ export const UserList = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {/* {tableContent} */}
+                    {tableContent}
                 </tbody>
             </table>
         )
