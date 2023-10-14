@@ -1,5 +1,6 @@
 // Dashboard Page
 
+import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 export default function Dashboard() {
@@ -7,10 +8,19 @@ export default function Dashboard() {
     <>
       <h1>Welcome to Dashboard</h1>
       <div>
-        <Link to="register">Create New User</Link>
+        <Button>
+          <Link to="register">Users</Link>
+        </Button>
       </div>
       <div>
-        <Link to="products">Go to Products</Link>
+        <Button>
+          <Link to="products">Products</Link>
+        </Button>
+      </div>
+      <div>
+        <Button>
+          <Link to="presentations">Presentations</Link>
+        </Button>
       </div>
     </>
   );

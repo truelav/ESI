@@ -51,7 +51,7 @@ export const ProductList = () => {
   }
 
   if (isError) {
-    content = <>No Products Found : {error}</>;
+    content = <>No Products Found : {JSON.stringify(error)}</>;
   }
 
   if (isSuccess) {

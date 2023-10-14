@@ -9,7 +9,7 @@ export interface Product {
   subcategory?: string;
   price: number;
   quantity: number;
-  images: string[];
+  images?: string[];
   location?: string;
 }
 

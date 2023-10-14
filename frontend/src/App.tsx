@@ -29,18 +29,28 @@ const router = createBrowserRouter(
         <Route path="users">
           <Route index element={<UserList />} />
         </Route>
+        {/* END DASHBOARD/USERS */}
         <Route path="register">
           <Route index element={<RegistrationPage />} />
         </Route>
+        {/* END DASHBOARD/REGISTER */}
+        <Route path="products">
+          <Route index element={<ProductsPage />} />
+          {/* END DASHBOARD/PRODUCTS */}
+          <Route path=":id">
+            <Route index element={<ProductDetailsPage />} />
+          </Route>
+          {/* END DASHBOARD/PRODUCTS/:ID */}
+        </Route>
       </Route>
+      {/* END DASHBOARD */}
+
       <Route path="products">
         <Route index element={<ProductsPage />} />
         <Route path=":id">
           <Route index element={<ProductDetailsPage />} />
         </Route>
       </Route>
-      {/* END DASHBOARD */}
-      <Route path="products" element={<ProductsPage />} />
       <Route path="login" element={<LoginPage />} />
       <Route path="*" element={<NotFound />} />
     </Route>

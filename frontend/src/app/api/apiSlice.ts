@@ -35,7 +35,20 @@ export const apiSlice = createApi({
       }),
       invalidatesTags: [{ type: "Products", id: "List" }],
     }),
+    editSingleProduct: builder.mutation<Product, Product>({
+      query: (product) => ({
+        url: `/products/${product._id}`,
+        method: "PUT",
+        body: product,
+      }),
+    }),
+    // User API Routes [ 1. /auth  2. /login  3. /register]
   }),
 });
 
-export const { useGetAllProductsQuery, useGetSingleProductQuery } = apiSlice;
+export const {
+  useGetAllProductsQuery,
+  useGetSingleProductQuery,
+  useAddSingleProductsMutation,
+  useEditSingleProductMutation,
+} = apiSlice;
