@@ -34,7 +34,7 @@ export const ProductListItem = memo((props: ProductListPropsItem) => {
           <p>{product?.quantity}</p>
         </div>
         <div className="ProductListItem_Container">
-          <Link to="">
+          <Link to={`/products/${product?._id}`}>
             <Button variant="primary">Learn More</Button>
           </Link>
         </div>

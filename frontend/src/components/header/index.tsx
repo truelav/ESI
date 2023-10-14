@@ -3,7 +3,7 @@ import { Link, NavLink, useLocation } from "react-router-dom";
 import "./styles.css";
 
 export default function Header() {
-  const { pathname } = useLocation();
+  // const { pathname } = useLocation();
   //   const navigate = useNavigate();
   // const activeStyles = {
   //     fontWeight: "bold",
@@ -11,7 +11,7 @@ export default function Header() {
   //     color: "#161616"
   // }
 
-  console.log(pathname);
+  // console.log(pathname);
 
   return (
     <header>

@@ -1,8 +1,4 @@
 // Products Page
-import { useEffect, useState } from "react";
-import axios from "axios";
-
-// import axiosClient from "./lib/axios";
 
 import { ProductList } from "../../entities/Product/ui/ProductList/ProductList";
 

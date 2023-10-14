@@ -16,6 +16,7 @@ import ProductsPage from "./pages/ProductsPage";
 import LoginPage from "./pages/LoginPage";
 import NotFound from "./pages/NotFoundPage";
 import Dashboard from "./pages/DashboardPage";
+import ProductDetailsPage from "./pages/ProductDetailsPage";
 import { UserList } from "./features/users/ui/usersList/usersList";
 
 const router = createBrowserRouter(
@@ -25,14 +26,17 @@ const router = createBrowserRouter(
       {/* END HOME */}
       <Route path="dashboard" element={<DashboardLayout />}>
         <Route index element={<Dashboard />} />
-        <Route path="users"> 
+        <Route path="users">
           <Route index element={<UserList />} />
         </Route>
         <Route path="register">
           <Route index element={<RegistrationPage />} />
         </Route>
-        <Route path="products">
-          <Route index element={<ProductsPage />} />
+      </Route>
+      <Route path="products">
+        <Route index element={<ProductsPage />} />
+        <Route path=":id">
+          <Route index element={<ProductDetailsPage />} />
         </Route>
       </Route>
       {/* END DASHBOARD */}
