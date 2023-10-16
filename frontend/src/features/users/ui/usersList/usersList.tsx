@@ -29,7 +29,7 @@ export const UserList = () => {
         const { ids } = data
 
         const tableContent = ids?.length
-            ? ids.map(userId => <User key={userId} userId={userId} />)
+            ? ids.map((userId: string) => <User key={userId} userId={userId} />)
             : null
         console.log(data)
         return (

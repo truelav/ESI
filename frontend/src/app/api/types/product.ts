@@ -14,6 +14,7 @@ export interface Product {
   quantity: number;
   images: string[];
   location?: string;
+  updatedAt: string;
 }
 
 export enum ProductView {

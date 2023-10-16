@@ -1,0 +1,17 @@
+.dash_products_page_wrapper {
+    border: 1px solid gray;
+    padding: 20px;
+    border-radius: 25px;
+}
+
+.dash_products_nav_container {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid gray;;
+}
+
+.dash_products_filter_container {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid gray;
+}

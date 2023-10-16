@@ -6,6 +6,7 @@ export default function Sidebar() {
   return (
     <>
       <nav className="sidebar-nav">
+        <p>Admin Nav</p>
         <NavLink to="/dashboard" className="sidebar-navlink">
           Dashboard
         </NavLink>

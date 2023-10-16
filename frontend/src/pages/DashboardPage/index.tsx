@@ -1,27 +1,13 @@
 // Dashboard Page
 
-import { Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Container } from "react-bootstrap";
 
 export default function Dashboard() {
   return (
     <>
-      <h1>Welcome to Dashboard</h1>
-      <div>
-        <Button>
-          <Link to="register">Users</Link>
-        </Button>
-      </div>
-      <div>
-        <Button>
-          <Link to="products">Products</Link>
-        </Button>
-      </div>
-      <div>
-        <Button>
-          <Link to="presentations">Presentations</Link>
-        </Button>
-      </div>
+      <Container>
+        <h2>Welcome to Dashboard admin</h2>
+      </Container>
     </>
   );
 }

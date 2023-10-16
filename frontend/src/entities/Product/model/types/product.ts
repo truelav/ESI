@@ -6,11 +6,11 @@ export interface Product {
   brand: string;
   description: string;
   category: string;
-  subcategory?: string;
+  subcategory: string;
   price: number;
   quantity: number;
-  images?: string[];
-  location?: string;
+  images: string[];
+  location: string;
 }
 
 //need to add active and inactive property to users and products

@@ -19,6 +19,7 @@ import Dashboard from "./pages/DashboardPage";
 import ContactPage from "./pages/ContactPages";
 import ProductDetailsPage from "./pages/ProductDetailsPage";
 import { UserList } from "./features/users/ui/usersList/usersList";
+import DashProductsPage from "./pages/DashboardPage/DashProductsPage/DashProductsPage";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -36,7 +37,7 @@ const router = createBrowserRouter(
         </Route>
         {/* END DASHBOARD/REGISTER */}
         <Route path="products">
-          <Route index element={<ProductsPage />} />
+          <Route index element={<DashProductsPage />} />
           {/* END DASHBOARD/PRODUCTS */}
           <Route path=":id">
             <Route index element={<ProductDetailsPage />} />
