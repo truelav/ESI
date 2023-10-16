@@ -1,6 +1,6 @@
 import Product from "../../models/Product/Product.js";
 
-export const addProduct = async (req, res) => {
+export const addSingleProduct = async (req, res) => {
   
     const {
       name,
@@ -29,7 +29,7 @@ export const addProduct = async (req, res) => {
   
       res
         .status(200)
-        .json({ message: `The new product ${newProduct.name} with added ` });
+        .json({ message: `The new product ${newProduct.name} with added `, newProduct });
     } catch (err) {
       console.log(err);
       res.status(500).json({ message: err });

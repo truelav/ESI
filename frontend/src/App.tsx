@@ -21,6 +21,7 @@ import ProductDetailsPage from "./pages/ProductDetailsPage";
 import { UserList } from "./features/users/ui/usersList/usersList";
 import DashProductsPage from "./pages/DashboardPage/DashProductsPage/DashProductsPage";
 import DashProductDetailsPage from "./pages/DashboardPage/DashProductDetailsPage/DashProductDetailsPage";
+import DashAddSingleProduct from "./pages/DashboardPage/DashAddSingleProduct/DashAddSingleProduct";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -44,6 +45,9 @@ const router = createBrowserRouter(
             <Route index element={<DashProductDetailsPage />} />
           </Route>
           {/* END DASHBOARD/PRODUCTS/:ID */}
+          <Route path="addSingleProduct">
+            <Route index element={<DashAddSingleProduct />} />
+          </Route>
         </Route>
       </Route>
       {/* END DASHBOARD */}

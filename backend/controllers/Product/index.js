@@ -1,7 +1,7 @@
 
-export {getProduct} from './GetProduct.js'
+export {getSingleProduct} from './GetSingleProduct.js'
 export {getAllProducts} from './GetAllProducts.js'
-export {addProduct} from './AddProduct.js'
+export {addSingleProduct} from './AddSingleProduct.js'
 export {addMultipleProducts} from './AddMultipleProducts.js'
 export {editProduct} from './EditProduct.js'
 export {editMultipleProducts} from './EditMultipleProducts.js'

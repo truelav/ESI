@@ -1,6 +1,6 @@
 import Product from "../../models/Product/Product.js";
 
-export const getProduct = async (req, res) => {
+export const getSingleProduct = async (req, res) => {
     
     const id = req.params.id
     console.log(id)

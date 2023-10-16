@@ -2,20 +2,19 @@ import { SyntheticEvent, useState } from "react"
 import { Button } from "react-bootstrap"
 import {useAddSingleProductMutation} from "../../../app/api/apiSlice"
 
-function AddProductForm() {
+function AddSingleProductForm() {
 
     const [formValues, setFormValues] = useState({
-        _id: "",
-        name: "",
+        name: "VAIO Laptop",
         status: "active",
-        brand: "",
-        description: "",
-        category: "",
-        subcategory: "",
+        brand: "VAIO",
+        description: "Model: VWFC71639 Windows 11 Home 13th Gen Intel Core i7-1355U Processor (3.70 GHz, up to 5.00 GHz, 12M Cache) ",
+        category: "electronics",
+        subcategory: "laptops",
         quantity: 1,
         price: 1,
-        images: [""],
-        location: "",
+        images: ["https://fastly.picsum.photos/id/460/600/400.jpg?hmac=txE53BmGsSPaNUp4ZhIQmbewaKJFtGHlb5kPaS96s8c"],
+        location: "chisinau",
     })
 
     const [addSingleProduct, {isLoading}] = useAddSingleProductMutation()
@@ -79,4 +78,4 @@ function AddProductForm() {
     );
 }
 
-export default AddProductForm;
+export default AddSingleProductForm;
