@@ -1,0 +1,13 @@
+/* SIDEBAR LAYOUT STYLES */
+
+.sidebar-nav {
+  display: grid;
+  grid-template-columns: 1fr;
+  margin-top: 60px;
+}
+
+.sidebar-navlink {
+  display: block;
+  padding-top: 7px;
+  padding-bottom: 7px;
+}

@@ -16,6 +16,7 @@ import ProductsPage from "./pages/ProductsPage";
 import LoginPage from "./pages/LoginPage";
 import NotFound from "./pages/NotFoundPage";
 import Dashboard from "./pages/DashboardPage";
+import ContactPage from "./pages/ContactPages";
 import ProductDetailsPage from "./pages/ProductDetailsPage";
 import { UserList } from "./features/users/ui/usersList/usersList";
 
@@ -52,6 +53,7 @@ const router = createBrowserRouter(
         </Route>
       </Route>
       <Route path="login" element={<LoginPage />} />
+      <Route path="contact" element={<ContactPage />} />
       <Route path="*" element={<NotFound />} />
     </Route>
   )
