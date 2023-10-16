@@ -14,7 +14,7 @@ export const DashProductListItem = memo((props: ProductListPropsItem) => {
   const { product } = props;
   return (
     <>
-        <Link to={`dashboard/products/${product?._id}`}>
+        <Link to={`/dashboard/products/${product?._id}`}>
             <div className="Dash_ProductListItem">
                 <div className="Dash_ProductListItem_Container">
                     <img

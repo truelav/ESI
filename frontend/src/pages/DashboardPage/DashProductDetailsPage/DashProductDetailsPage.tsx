@@ -5,11 +5,11 @@ import { DashProductDetails } from "../../../components/products/DashProductDeta
 function DashProductDetailsPage() {
   return (
     <>
-        <div className="dash_products_page_wrapper">
-            <Container>
-                <DashProductDetails/>
-            </Container>
-        </div>
+      <div className="dash_products_page_wrapper">
+          <Container>
+              <DashProductDetails/>
+          </Container>
+      </div>
     </>
   );
 }

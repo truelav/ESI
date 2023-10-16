@@ -1,11 +1,7 @@
 // import { SyntheticEvent, useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from "formik";
-// import { authService } from '../../../features/auth/services/authService';
-
 function LoginForm() {
-
-
-
+  
   return (
     <Formik
       initialValues={{ email: "", password: "" }}
