@@ -20,6 +20,7 @@ import ContactPage from "./pages/ContactPages";
 import ProductDetailsPage from "./pages/ProductDetailsPage";
 import { UserList } from "./features/users/ui/usersList/usersList";
 import DashProductsPage from "./pages/DashboardPage/DashProductsPage/DashProductsPage";
+import DashProductDetailsPage from "./pages/DashboardPage/DashProductDetailsPage/DashProductDetailsPage";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -40,7 +41,7 @@ const router = createBrowserRouter(
           <Route index element={<DashProductsPage />} />
           {/* END DASHBOARD/PRODUCTS */}
           <Route path=":id">
-            <Route index element={<ProductDetailsPage />} />
+            <Route index element={<DashProductDetailsPage />} />
           </Route>
           {/* END DASHBOARD/PRODUCTS/:ID */}
         </Route>
