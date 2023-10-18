@@ -26,7 +26,6 @@ export const addSingleProduct = async (req, res) => {
       });
   
       await newProduct.save();
-  
       res
         .status(200)
         .json({ message: `The new product ${newProduct.name} with added `, newProduct });

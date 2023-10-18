@@ -13,7 +13,7 @@ export const DashProductsList = () => {
     isError,
     error,
   } = useGetAllProductsQuery();
-
+  const [allProducts, setAllProducts] = useState([])
   const [selectedProducts, setSelectedProducts] = useState({})
   const handleToggleSelectProducts = (id: string) => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
