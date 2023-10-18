@@ -41,3 +41,20 @@ FRONTEND
         ( "/dashboard" )
         ( "/presentation" )
 
+
+TO DO LIST :
+
+    [ ] - BACKEND : Finish All the Products Controllers (AddMultipleProducts, EditProduct, DeactivateSingle, ActivateSingle, DeactivateMultiple and ActivateMultiple)
+    [ ] - BACKEND : Finish Authorization (Create JWT Cookie, Validate JWT Cookie, Refresh JWT and pull user role)
+    [ ] - BACKEND : Handle Upload Images For Products and Users
+    [ ] - BACKEND : Handle Upload Files
+    [ ] - BACKEND : Create PDF Presentation and Provide Download Link
+    [ ] - BACKEND : Error Handling
+
+    [ ] - FRONTEND : Create Skeletons for Components
+    [ ] - FRONTEND : Implement Async - Lazy Loading
+    [ ] - FRONTEND : Implement Error Boundaries
+    [ ] - FRONTEND : Implement Forms Validations
+    [ ] - FRONTEND : Implement File Upload Validations
+    [ ] - FRONTEND : Create All Dashboard Routes and Pages (Components)
+
