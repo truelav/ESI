@@ -1,4 +1,4 @@
-import { Container } from "react-bootstrap";
+import { Button, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { DashProductsList } from "../../../components/products/DashProductsList/dashProductsList";
 
@@ -11,23 +11,29 @@ function DashProductsPage() {
             <Container>
                 <div className="dash_products_nav_container">
                     <Link to="/">
-                        <p>Import Products</p>
+                        <Button className="dash_products_nav_button">
+                            <p>Import Products</p>
+                        </Button>
                     </Link>
                     <Link to="addSingleProduct">
-                        <p>Add Product</p>
+                        <Button className="dash_products_nav_button">
+                            <p>Add Product</p>
+                        </Button>
                     </Link>
                     <Link to="">
-                        <p>Export Presentation</p>
+                        <Button className="dash_products_nav_button">
+                            <p>Export Presentation</p>
+                        </Button>
                     </Link>
                 </div>
             </Container>
-            <Container>
+            {/* <Container>
                 <div className="dash_products_filter_container">
                     <p>All</p>
                     <p>Active</p>
                     <p>Inactive</p>
                 </div>
-            </Container>
+            </Container> */}
             <Container>
                 <DashProductsList />
             </Container>

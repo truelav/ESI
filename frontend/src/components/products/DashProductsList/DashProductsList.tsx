@@ -3,6 +3,7 @@ import { useGetAllProductsQuery } from "../../../app/api/apiSlice";
 import { DashProductListItem } from "../DashProductListItem/DashProductListItem";
 import { Product } from "../../../entities/Product/model/types/product";
 import { DashProductListHead } from "./DashProductListHead";
+import { useState } from "react";
 
 export const DashProductsList = () => {
   const {
@@ -12,6 +13,24 @@ export const DashProductsList = () => {
     isError,
     error,
   } = useGetAllProductsQuery();
+
+  const [selectedProducts, setSelectedProducts] = useState({})
+  const handleToggleSelectProducts = (id: string) => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    if(selectedProducts[id]){
+      setSelectedProducts({
+        ...selectedProducts,
+        [id]: false
+      })
+    } else {
+      setSelectedProducts({
+        ...selectedProducts,
+        [id]: true
+      })
+    }
+    console.log(selectedProducts)
+  }
 
   let content = <div></div>;
 
@@ -30,7 +49,7 @@ export const DashProductsList = () => {
         {products.map((product: Product) => (
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
-          <DashProductListItem key={product._id} product={product} />
+          <DashProductListItem key={product._id} product={product} handleToggleSelectProducts={handleToggleSelectProducts}/>
         ))}
       </>
     )
