@@ -35,11 +35,20 @@ BACKEND
 FRONTEND
 
     Routes:
+
         ( "/" )
-        ( "/login" )
-        ( "/products" )
-        ( "/dashboard" )
-        ( "/presentation" )
+
+        PUBLIC ROUTES
+            ( "/login" )
+            ( "/contact" )
+
+        PROTECTED ROUTES
+
+            ( "/products" )
+
+            ( "/dashboard" ) -> ( "/inventory" ) -> ( "/users" ) -> ( "/products" )
+            
+            ( "/presentation" )
 
 
 TO DO LIST :
