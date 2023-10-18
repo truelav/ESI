@@ -1,4 +1,4 @@
-import { SyntheticEvent, useState } from "react"
+import { ChangeEvent, useState } from "react"
 import { Button } from "react-bootstrap"
 import {useAddSingleProductMutation} from "../../../app/api/apiSlice"
 
@@ -18,13 +18,36 @@ function AddSingleProductForm() {
     })
 
     const [addSingleProduct, {isLoading}] = useAddSingleProductMutation()
-    const handleOnUpdateForm = (e: SyntheticEvent) => {
+
+    const handleResetFormInputs = () => {
+        setFormValues({
+            name: "",
+            status: "",
+            brand: "",
+            description: "",
+            category: "",
+            subcategory: "",
+            quantity: 1,
+            price: 1,
+            images: ["https://fastly.picsum.photos/id/460/600/400.jpg?hmac=txE53BmGsSPaNUp4ZhIQmbewaKJFtGHlb5kPaS96s8c"],
+            location: "",
+        })
+    }
+
+    const handleOnUpdateForm = (e: ChangeEvent<HTMLInputElement>) => {
         e.preventDefault()
+        setFormValues({
+            ...formValues,
+            [e.target.name]: e.target.value
+        })
     }
     const handleOnSubmitForm = async () => { 
         try {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
             const result =  await addSingleProduct(formValues).unwrap()
             console.log(result)
+            handleResetFormInputs()
         } catch(error){
             console.log("Failed to save new producet : " + error)
         }
@@ -39,7 +62,7 @@ function AddSingleProductForm() {
             <div className="">
                 <div className="">
                     <p>Title</p>
-                    <input className="" id="" name="title" type="text" onChange={handleOnUpdateForm}/>
+                    <input className="" id="" name="name" type="text" onChange={handleOnUpdateForm}/>
                 </div>
                 <div>
                     <p>Status</p>

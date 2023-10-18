@@ -42,6 +42,13 @@ export const apiSlice = createApi({
         body: product,
       }),
     }),
+    deleteSingleProduct: builder.mutation<{success: boolean; id: number}, number>({
+      query: (id) => ({
+        url: `/products/${id}`,
+        method: "DELETE",
+        providesTags: [{ type: "Products", id: "List" }],
+      })
+    })
     // User API Routes [ 1. /auth  2. /login  3. /register]
   }),
 });

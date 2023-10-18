@@ -12,7 +12,7 @@ router.post("/", ProductControllers.addSingleProduct);
 router.post("/addMultiple", ProductControllers.addMultipleProducts);
 router.put("/", ProductControllers.editMultipleProducts);
 router.put("/:id", ProductControllers.editProduct);
-router.delete("/:id", ProductControllers.removeProduct);
-router.delete("/", ProductControllers.removeMultipleProducts);
+router.delete("/:id", ProductControllers.deleteSingleProduct);
+router.delete("/", ProductControllers.deleteMultipleProducts);
 
 export default router;
