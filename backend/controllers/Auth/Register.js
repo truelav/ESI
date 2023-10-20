@@ -1,6 +1,7 @@
 import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
 import User from "../../models/User/User.js";
+import { generateAccessToken } from "../../middleware/auth/generateAccessToken.js";
+import { generateRefreshToken } from "../../middleware/auth/generateRefreshToken.js";
 
 export const register = async (req, res) => {
   console.log("request: " + req.body);
@@ -25,18 +26,16 @@ export const register = async (req, res) => {
       role,
     });
 
-    const userPayload = {
-      _id: newUser._id,
-    };
+    const userData = {name: newUser.name, email: newUser.email, role: newUser.role, refreshToken}
 
     await newUser.save();
 
-    const token = jwt.sign(userPayload, "secret123", {
-      expiresIn: "1d",
-      admin: role === "admin",
-    });
 
-    res.status(201).json(`${req.body.name} was created with success`);
+    const accessToken = generateAccessToken(user)
+    const refreshToken = generateRefreshToken(user)
+
+    res.cookie('refreshToken', )
+    res.status(201).json({message: `${req.body.name} was created with success`, user: userData});
   } catch (error) {
     res.status(500).json({
       message: "Could not register user",

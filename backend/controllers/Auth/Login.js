@@ -1,8 +1,7 @@
 import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
-import { createToken } from "../../middleware/auth/createJWT.js";
-import { refreshToken } from "../../middleware/auth/refreshJWT.js";
 import User from "../../models/User/User.js";
+import { generateAccessToken } from "../../middleware/auth/generateAccessToken.js";
+import { generateRefreshToken } from "../../middleware/auth/generateRefreshToken.js";
 
 export const login = async (req, res) => {
   const { email, password } = req.body;
@@ -23,8 +22,8 @@ export const login = async (req, res) => {
       return res.status(403).json("Password or Email Incorrect");
     }
 
-    const accessToken = createToken(user)
-    const refreshToken = refreshToken(user)
+    const accessToken = generateAccessToken(user)
+    const refreshToken = generateRefreshToken(user)
 
     res.status(200).json({ message: "Login Successful", accessToken, refreshToken });
   } catch (error) {

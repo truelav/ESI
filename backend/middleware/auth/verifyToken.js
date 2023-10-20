@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv"
 
-const verifyJWT = async (req, res, next) => {
+const verifyToken = async (req, res, next) => {
   console.log("token: " + token);
   const authHeader = req.headers.authorization || req.headers.Authorization
 
@@ -23,4 +23,4 @@ const verifyJWT = async (req, res, next) => {
   );
 };
 
-export default verifyJWT;
+export default verifyToken;
