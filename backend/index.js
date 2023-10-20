@@ -3,11 +3,10 @@ import morgan from "morgan";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import env from "dotenv";
-// import MongoStore from "connect-mongo";
-// import session from "express-session";
 import allRoutes from "./routes/index.js";
 import connectDB from "./config/db.config.js";
 import { corsOptions } from "./config/cors/corsOptions.js";
+import { errorMiddleware } from "./middleware/error/errorMiddleware.js"
 
 //start server
 const PORT = process.env.PORT ?? 8888;
@@ -28,8 +27,6 @@ const dotenv = env.config().parsed;
 //   })
 // );
 
-//middleware
-
 app.use(morgan("tiny"));
 app.use(express.json());
 app.use(cors(corsOptions));
@@ -38,6 +35,9 @@ app.use(cookieParser());
 
 app.use("/api", allRoutes);
 app.use("/", (req, res) => res.send("Hello World ESI"));
+
+// Error Middleware
+app.use(errorMiddleware);
 
 app.listen(PORT, (err) => {
   if (err) return console.log(err);

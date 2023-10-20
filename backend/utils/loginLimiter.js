@@ -1,5 +1,5 @@
 import rateLimit from 'express-rate-limiter';
-import {logEvents } from '../error/logEvents.js'
+import {logEvents } from '../middleware/error/logEvents.js'
 
 export const loginLimiter = rateLimit({
     windowMs: 60 * 1000,  // 1 minute window

@@ -3,8 +3,7 @@ import jwt from "jsonwebtoken";
 import User from "../../models/User/User.js";
 import Role from "../../models/Role/Role.js";
 
-export const register = async (req, res) => {
-  // console.log(req.body);
+export const register = async (req, res, next) => {
   const { name, email, password, role } = req.body;
   try {
     const user = await User.findOne({ email });
@@ -26,9 +25,7 @@ export const register = async (req, res) => {
 
     res.status(201).json({ message: `${req.body.name} was created with success` });
   } catch (error) {
-    res.status(500).json({
-      message: "Could not register user",
-    });
+    next(error)
   }
 };
 
@@ -102,3 +99,23 @@ export const logout = async (req, res) => {
     res.status(404).json({ message: "User not found", error });
   }
 };
+
+export const refresh = async (req, res, next) => {
+  try {
+    const {refreshToken} = req.cookies;
+    const userData = await userService.refresh(refreshToken);
+    res.cookie('refreshToken', userData.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true})
+    return res.json(userData);
+  } catch (e) {
+      next(e);
+  }
+}
+
+export const getUsers = async (req, res, next) => {
+  try {
+      const users = await userService.getAllUsers();
+      return res.json(users);
+  } catch (e) {
+      next(e);
+  }
+}
