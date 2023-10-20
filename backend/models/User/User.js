@@ -15,6 +15,10 @@ const UserSchema = new Schema(
       type: String,
       required: true,
     },
+    isActive:{
+      type: Boolean,
+      default: false
+    }, 
     roles: [
       {
         type: mongoose.Schema.Types.ObjectId,

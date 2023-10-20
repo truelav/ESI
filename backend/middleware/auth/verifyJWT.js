@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv"
 
-const verifyJWT = (req, res, next) => {
+const verifyJWT = async (req, res, next) => {
   console.log("token: " + token);
   const authHeader = req.headers.authorization || req.headers.Authorization
 
