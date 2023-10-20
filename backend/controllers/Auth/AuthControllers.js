@@ -2,28 +2,42 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import User from "../../models/User/User.js";
 import Role from "../../models/Role/Role.js";
+import UserDto from "../../utils/user_dto.js";
+import JWToken from "../../models/JWToken/JWToken.js";
+import { generateAccessToken, generateRefreshToken, saveToken } from "../../services/token_service.js";
 
 export const register = async (req, res, next) => {
+
   const { name, email, password, role } = req.body;
+
   try {
     const user = await User.findOne({ email });
     if (user) {
-      res.status(400).json({ message: `user with ${email} already exists` });
+      return res.status(400).json({ message: `user with ${email} already exists` });
     }
 
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
-
     const newUser = new User({
       name,
       email,
-      password: hashedPassword,
       role,
+      password: hashedPassword,
     });
 
-    await newUser.save();
+    const userDto = new UserDto(newUser)
+    const accessToken = generateAccessToken({...userDto})
+    const refreshToken = generateRefreshToken({...userDto})
+    const newToken = new JWToken({
+      user: userDto.id,
+      refreshToken
+    })
 
-    res.status(201).json({ message: `${req.body.name} was created with success` });
+    await newUser.save();
+    await newToken.save()
+    
+    res.status(201).json({ message: `${req.body.name} was created with success`, userDto, accessToken, refreshToken });
+    return 
   } catch (error) {
     next(error)
   }
@@ -31,55 +45,45 @@ export const register = async (req, res, next) => {
 
 export const login = async (req, res) => {
   const { email, password } = req.body;
-  // console.log(req.body);
   try {
     const user = await User.findOne({ email });
-
     if (!user) {
       return res.status(404).json(`User ${req.body.email} was not found`);
     }
 
     const isPasswordCorrect = await bcrypt.compare(password, user?.password);
     const userRole = await Role.findById(user.role)
-
     if (!isPasswordCorrect) {
       return res.status(403).json("Password or Email Incorrect");
     }
 
-    const userPayload = {
+    const payload = {
       "UserInfo": {
         username: user.name,
         role: userRole
       }
     };
 
-    const accessToken = jwt.sign(
-      userPayload,
-      "secret123", 
-      {
-        expiresIn: "1h",
-      }
-    );
+    const userDto = new UserDto(newUser)
+    const accessToken = generateAccessToken({...userDto})
+    const refreshToken = generateRefreshToken({...userDto})
 
-    const refreshToken = jwt.sign(
-      userPayload,
-      "secret123", 
-      {
-        expiresIn: "1h"
-      }
-    )
+    await saveToken(userDto.id, refreshToken)
 
     // await req.session.save();
     res.cookie(
-      "jwt_token", 
+      "refreshToken", 
       accessToken, 
-      // { httpOnly: true, secure: true, maxAge: 900000}
+      refreshToken,
+      { httpOnly: true, secure: true, maxAge: 900000}
     );
+
     res.status(200).json({
       message: "Login Successful",
       accessToken,
-      data: userPayload,
+      userDto
     });
+
   } catch (error) {
     console.log(error);
     res.status(500).json(error);
@@ -106,16 +110,30 @@ export const refresh = async (req, res, next) => {
     const userData = await userService.refresh(refreshToken);
     res.cookie('refreshToken', userData.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true})
     return res.json(userData);
-  } catch (e) {
-      next(e);
+  } catch (error) {
+      next(error);
   }
 }
 
 export const getUsers = async (req, res, next) => {
   try {
-      const users = await userService.getAllUsers();
+      const users = await User.find({});
+
+      if(!users){
+        res.status(400).json({message: "no users found", users: []})
+      }
+
       return res.json(users);
-  } catch (e) {
-      next(e);
+      
+  } catch (error) {
+      next(error);
+  }
+}
+
+export const activateUser = async () => {
+  try{
+
+  } catch(error){
+
   }
 }

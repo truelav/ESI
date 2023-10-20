@@ -34,7 +34,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.use("/api", allRoutes);
-app.use("/", (req, res) => res.send("Hello World ESI"));
+// app.use("/", (req, res) => res.send("Hello World ESI"));
 
 // Error Middleware
 app.use(errorMiddleware);

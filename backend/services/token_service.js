@@ -48,7 +48,7 @@ export const findToken = async (refreshToken) => {
     return tokenData
 }
 
-export const deleteToken = (refreshToken) => {
+export const deleteToken = async (refreshToken) => {
     const tokenData = await JWToken.delete({ refreshToken })
     return tokenData
 }
