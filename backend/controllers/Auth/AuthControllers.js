@@ -37,7 +37,6 @@ export const register = async (req, res, next) => {
     await newToken.save()
     
     res.status(201).json({ message: `${req.body.name} was created with success`, userDto, accessToken, refreshToken });
-    return 
   } catch (error) {
     next(error)
   }
@@ -53,18 +52,12 @@ export const login = async (req, res) => {
 
     const isPasswordCorrect = await bcrypt.compare(password, user?.password);
     const userRole = await Role.findById(user.role)
+
     if (!isPasswordCorrect) {
       return res.status(403).json("Password or Email Incorrect");
     }
 
-    const payload = {
-      "UserInfo": {
-        username: user.name,
-        role: userRole
-      }
-    };
-
-    const userDto = new UserDto(newUser)
+    const userDto = new UserDto(user)
     const accessToken = generateAccessToken({...userDto})
     const refreshToken = generateRefreshToken({...userDto})
 
