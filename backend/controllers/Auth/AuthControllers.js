@@ -36,7 +36,12 @@ export const register = async (req, res, next) => {
     await newUser.save();
     await newToken.save()
     
-    res.status(201).json({ message: `${req.body.name} was created with success`, userDto, accessToken, refreshToken });
+    res.status(201).json({ 
+      message: `${req.body.name} was created with success`, 
+      userDto, 
+      accessToken, 
+      refreshToken 
+    });
   } catch (error) {
     next(error)
   }
@@ -74,6 +79,7 @@ export const login = async (req, res) => {
     res.status(200).json({
       message: "Login Successful",
       accessToken,
+      refreshToken,
       userDto
     });
 
