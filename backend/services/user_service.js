@@ -2,23 +2,40 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import User from "../../models/User/User.js";
 import Role from "../../models/Role/Role.js";
-import UserDto from '../utils/user_dto.js'
-import ApiError from '../middleware/error/apiError.js'
-import User from '../models/User/User.js'
+import UserDto from "../utils/user_dto.js";
+import ApiError from "../middleware/error/apiError.js";
+import User from "../models/User/User.js";
 
-export const register = async (name, email, password, role) => {
-    const candidate = await UserModel.findOne({email})
-    if (candidate) {
-        throw ApiError.BadRequest(`Пользователь с почтовым адресом ${email} уже существует`)
-    }
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
+export const register = async (user) => {
+  const { name, email, password, roles, isActivated } = user;
 
-    const user = await User.create({name, email, password: hashedPassword})
+  const user = await User.findOne({ email });
+  if (user) {
+    return; // new Error with the status that the user with this email already taken
+  }
 
-    const userDto = new UserDto(user); // id, email, isActivated
-    const tokens = tokenService.generateTokens({...userDto});
-    await tokenService.saveToken(userDto.id, tokens.refreshToken);
+  const salt = await bcrypt.genSalt(10);
+  const hashedPassword = await bcrypt.hash(password, salt);
+  const newUser = new User({
+    name,
+    email,
+    roles,
+    password: hashedPassword,
+  });
 
-    return {...tokens, user: userDto}
-}
+  const userDto = new UserDto(newUser);
+
+  const accessToken = generateAccessToken({ ...userDto });
+  const refreshToken = generateRefreshToken({ ...userDto });
+  const newToken = new JWToken({
+    user: userDto.id,
+    refreshToken,
+  });
+
+  await newUser.save();
+  await newToken.save();
+
+  return { userDto, accessToken, refreshToken };
+};
+
+export const login = async () => {};
