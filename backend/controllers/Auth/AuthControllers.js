@@ -63,7 +63,7 @@ export const login = async (req, res) => {
     }
 
     const isPasswordCorrect = await bcrypt.compare(password, user?.password);
-    const userRole = await Role.findById(user.role);
+    // const userRole = await Role.findById(user.role);
 
     if (!isPasswordCorrect) {
       return res.status(403).json("Password or Email Incorrect");
@@ -115,7 +115,7 @@ export const refresh = async (req, res, next) => {
     const userData = validateRefreshToken(refreshToken);
     const refreshTokenFromDB = await findToken(refreshToken);
 
-    console.log("userdata: " + userData, "tokenFromDB: " + refreshTokenFromDB);
+    // console.log("userdata: " + userData, "tokenFromDB: " + refreshTokenFromDB);
 
     if (!userData || !refreshTokenFromDB) {
       return res.status(400).json({ message: "Unauthorized error" });
@@ -137,7 +137,11 @@ export const refresh = async (req, res, next) => {
       httpOnly: true,
       secure: true,
     });
-    return res.json(userData);
+    return res.json({
+      userDto,
+      accessToken: tokens.accessToken,
+      refreshToken: tokens.refreshToken,
+    });
   } catch (error) {
     next(error);
   }

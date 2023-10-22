@@ -42,15 +42,14 @@ export const validateRefreshToken = (token) => {
   try {
     const userData = jwt.verify(
       token,
-      process.env.JWT_REFRESH_TOKEN_SECRET,
-      (error, decoded) => {
-        if (error) {
-          return null; //invalid token
-        }
-        return decoded;
-      }
+      process.env.JWT_REFRESH_TOKEN_SECRET
+      //   (error, decoded) => {
+      //     if (error) {
+      //       return null; //invalid token
+      //     }
+      //     return decoded;
+      //   }
     );
-    console.log("inside validate Refresh function: " + userData);
     return userData;
   } catch (error) {
     return null;
