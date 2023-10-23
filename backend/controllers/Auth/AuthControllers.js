@@ -163,9 +163,16 @@ export const getUsers = async (req, res, next) => {
   }
 };
 
+export const editUser = async () => {
+  try {
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const activateUser = async () => {
   try {
-    const userId = req.body._id;
+    const userId = req.body.id;
     const user = await User.findById(userId);
     if (!user) {
       res.status(400).json({ message: "no users found" });
@@ -190,7 +197,7 @@ export const activateUser = async () => {
 
 export const deactivateUser = async () => {
   try {
-    const userId = req.body._id;
+    const userId = req.body.id;
     const user = await User.findById(userId);
     if (!user) {
       res.status(400).json({ message: "no users found" });
