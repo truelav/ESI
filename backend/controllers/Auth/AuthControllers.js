@@ -10,6 +10,7 @@ import {
   validateRefreshToken,
   findToken,
   generateTokens,
+  deleteToken,
 } from "../../services/token_service.js";
 
 export const register = async (req, res, next) => {
@@ -95,27 +96,28 @@ export const login = async (req, res) => {
 
 export const logout = async (req, res) => {
   try {
-    const cookies = req.cookies;
-    if (!cookies?.jwt_token) {
-      return res.status(204).json({ messange: "no content" });
-    } else {
-      res.clearCookie("jwt_token");
-      res.json({ message: "Logout success" });
+    const { refreshToken } = req.cookies;
+    const userData = validateRefreshToken(refreshToken);
+
+    if (refreshToken || !userData) {
+      return res
+        .status(204)
+        .json({ messange: "no authorization token available" });
     }
+
+    const token = await deleteToken(refreshToken);
+    res.clearCookie("refreshToken");
+    res.status(200).json({ message: "Logout success", token });
   } catch (error) {
     res.status(404).json({ message: "User not found", error });
   }
 };
 
 export const refresh = async (req, res, next) => {
-  console.log(req.cookies);
-
   try {
     const { refreshToken } = req.cookies;
     const userData = validateRefreshToken(refreshToken);
     const refreshTokenFromDB = await findToken(refreshToken);
-
-    // console.log("userdata: " + userData, "tokenFromDB: " + refreshTokenFromDB);
 
     if (!userData || !refreshTokenFromDB) {
       return res.status(400).json({ message: "Unauthorized error" });
@@ -163,10 +165,50 @@ export const getUsers = async (req, res, next) => {
 
 export const activateUser = async () => {
   try {
-  } catch (error) {}
+    const userId = req.body._id;
+    const user = await User.findById(userId);
+    if (!user) {
+      res.status(400).json({ message: "no users found" });
+    }
+
+    const updatedUser = await User.findOneAndUpdate(
+      { _id: userId },
+      { $set: { isActive: true } },
+      {
+        upsert: true,
+        returnDocument: "after", // this is new !
+      }
+    );
+
+    res
+      .status(200)
+      .json({ message: "User Updated Successfully", user: updatedUser });
+  } catch (error) {
+    next(error);
+  }
 };
 
 export const deactivateUser = async () => {
   try {
-  } catch (error) {}
+    const userId = req.body._id;
+    const user = await User.findById(userId);
+    if (!user) {
+      res.status(400).json({ message: "no users found" });
+    }
+
+    const updatedUser = await User.findOneAndUpdate(
+      { _id: userId },
+      { $set: { isActive: true } },
+      {
+        upsert: false,
+        returnDocument: "after", // this is new !
+      }
+    );
+
+    res
+      .status(200)
+      .json({ message: "User Updated Successfully", user: updatedUser });
+  } catch (error) {
+    next(error);
+  }
 };
