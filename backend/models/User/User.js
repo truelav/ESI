@@ -15,14 +15,15 @@ const UserSchema = new Schema(
       type: String,
       required: true,
     },
-    isActive:{
+    isActive: {
       type: Boolean,
-      default: false
-    }, 
+      default: false,
+    },
     roles: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Role",
+        default: "651cb8dd371b760710810b8a",
       },
     ],
     role: String,

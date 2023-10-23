@@ -6,7 +6,7 @@ import env from "dotenv";
 import allRoutes from "./routes/index.js";
 import connectDB from "./config/db.config.js";
 import { corsOptions } from "./config/cors/corsOptions.js";
-import { errorMiddleware } from "./middleware/error/errorMiddleware.js"
+import { errorMiddleware } from "./middleware/error/errorMiddleware.js";
 
 //start server
 const PORT = process.env.PORT ?? 8888;
@@ -35,6 +35,8 @@ app.use(cookieParser());
 
 app.use("/api", allRoutes);
 // app.use("/", (req, res) => res.send("Hello World ESI"));
+
+// EFIM
 
 // Error Middleware
 app.use(errorMiddleware);
