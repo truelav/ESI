@@ -1,5 +1,6 @@
 import { Outlet } from "react-router-dom";
 import { Container } from "react-bootstrap";
+import { Card } from "@shopify/polaris";
 
 import "./styles.css";
 
@@ -12,10 +13,14 @@ export default function DashboardLayout() {
         <Container>
           <div className="dashboard-outer-container">
             <div className="dashboard-inner-container grid-1">
-              <Sidebar />
+              <Card>
+                <Sidebar />
+              </Card>
             </div>
             <div className="dashboard-inner-container grid-4">
-              <Outlet />
+              <Card>
+                <Outlet />
+              </Card>
             </div>
           </div>
         </Container>

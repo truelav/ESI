@@ -1,4 +1,3 @@
-
 import { useGetAllProductsQuery } from "../../../app/api/apiSlice";
 import { DashProductListItem } from "../DashProductListItem/DashProductListItem";
 import { Product } from "../../../entities/Product/model/types/product";
@@ -13,24 +12,24 @@ export const DashProductsList = () => {
     isError,
     error,
   } = useGetAllProductsQuery();
-  const [allProducts, setAllProducts] = useState([])
-  const [selectedProducts, setSelectedProducts] = useState({})
+  // const [allProducts, setAllProducts] = useState([])
+  const [selectedProducts, setSelectedProducts] = useState({});
   const handleToggleSelectProducts = (id: string) => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    if(selectedProducts[id]){
+    if (selectedProducts[id]) {
       setSelectedProducts({
         ...selectedProducts,
-        [id]: false
-      })
+        [id]: false,
+      });
     } else {
       setSelectedProducts({
         ...selectedProducts,
-        [id]: true
-      })
+        [id]: true,
+      });
     }
-    console.log(selectedProducts)
-  }
+    console.log(selectedProducts);
+  };
 
   let content = <div></div>;
 
@@ -43,16 +42,20 @@ export const DashProductsList = () => {
   }
 
   if (isSuccess) {
-    content =  (
+    content = (
       <>
         <DashProductListHead />
         {products.map((product: Product) => (
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-          <DashProductListItem key={product._id} product={product} handleToggleSelectProducts={handleToggleSelectProducts}/>
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          <DashProductListItem
+            key={product._id}
+            product={product}
+            handleToggleSelectProducts={handleToggleSelectProducts}
+          />
         ))}
       </>
-    )
+    );
   }
 
   return (

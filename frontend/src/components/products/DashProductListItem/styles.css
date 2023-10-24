@@ -1,29 +1,29 @@
 .dash_product_list_item_wrapper {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 .dash_product_list_item_checkbox {
-    display: flex;
-    margin: auto;
-    padding: 15px;
+  display: flex;
+  margin: auto;
+  padding: 15px;
 }
 
 .Dash_ProductListItem {
-    display: grid;
-    grid-template-columns: 1fr 1fr 2fr 1fr 1fr 1fr 2fr;
+  display: grid;
+  grid-template-columns: 1fr 1fr 2fr 1fr 1fr 1fr 2fr;
 }
 
 .Dash_ProductListItem_Container {
-    padding: 5px 7px;
-    border-bottom: 1px solid gray;
+  padding: 5px 7px;
+  border-bottom: 1px solid gray;
 }
 
-input[type=checkbox] {
-    width: 25px;
-    height: 25px;
+input[type="checkbox"] {
+  width: 25px;
+  height: 25px;
 }
 
 .input_checkbox {
-    margin: auto;
+  margin: auto;
 }

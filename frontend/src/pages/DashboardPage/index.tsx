@@ -1,6 +1,6 @@
 // Dashboard Page
 
-import { Container } from "react-bootstrap";
+import { Container, Card, Placeholder } from "react-bootstrap";
 
 export default function Dashboard() {
   return (
@@ -8,10 +8,21 @@ export default function Dashboard() {
       <Container>
         <h2>Welcome to Dashboard admin</h2>
         <div>
-        <form action="http://localhost:8888/api/products/addMultiple" method="post" encType="multipart/form-data">
-          <input type="file" name="csv" />
-          <button type="submit">Upload</button>
-        </form>
+          <Container>
+            <form
+              action="http://localhost:8888/api/products/addMultiple"
+              method="post"
+              encType="multipart/form-data"
+            >
+              <input type="file" name="csv" />
+              <button type="submit">Upload</button>
+            </form>
+          </Container>
+          <>
+            <p aria-hidden="true">
+              <Placeholder xs={6} bg="primary" />
+            </p>
+          </>
         </div>
       </Container>
     </>
