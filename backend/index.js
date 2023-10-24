@@ -7,6 +7,7 @@ import allRoutes from "./routes/index.js";
 import connectDB from "./config/db.config.js";
 import { corsOptions } from "./config/cors/corsOptions.js";
 import { errorMiddleware } from "./middleware/error/errorMiddleware.js";
+import multer from "multer";
 
 //start server
 const PORT = process.env.PORT ?? 8888;

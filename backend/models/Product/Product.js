@@ -10,6 +10,9 @@ const ProductSchema = new Schema(
     brand: {
       type: String,
     },
+    model: {
+      type: String
+    },
     description: String,
     category: {
       type: String,
@@ -21,6 +24,9 @@ const ProductSchema = new Schema(
     price: Number,
     images: [String],
     location: String,
+    upc: {
+      type: String
+    }
   },
   { timestamps: true }
 );

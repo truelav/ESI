@@ -10,12 +10,12 @@ const router = express.Router();
 router.get("/", ProductControllers.getAllProducts);
 router.get("/:id", ProductControllers.getSingleProduct);
 router.post("/", ProductControllers.addSingleProduct);
-router.post("/addMultiple", ProductControllers.addMultipleProducts);
 router.put("/", ProductControllers.editMultipleProducts);
 router.put("/:id", ProductControllers.editProduct);
 router.delete("/:id", ProductControllers.deleteSingleProduct);
 router.delete("/", ProductControllers.deleteMultipleProducts);
 
+router.post("/addMultiple", upload.single('csv'), ProductControllers.addMultipleProducts);
 router.post("/upload", upload.single('image'), ProductControllers.uploadProductImage)
 
 export default router;
