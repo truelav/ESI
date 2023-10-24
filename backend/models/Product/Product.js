@@ -3,7 +3,6 @@ const { Schema } = mongoose;
 
 const ProductSchema = new Schema(
   {
-
     name: {
       type: String,
     },
@@ -11,22 +10,33 @@ const ProductSchema = new Schema(
       type: String,
     },
     model: {
-      type: String
+      type: String,
     },
-    description: String,
+    description: {
+      type: String,
+    },
     category: {
       type: String,
     },
-    subcategory: String,
+    subcategory: {
+      type: String,
+      default: "electronics",
+    },
     quantity: {
       type: Number,
     },
-    price: Number,
-    images: [String],
-    location: String,
+    price: {
+      type: Number,
+      default: 0,
+    },
+    images: {
+      type: String,
+      default:
+        "https://unsplash.com/photos/black-cordless-headphones-beside-closed-black-laptop-computer-and-smartphone-_aXa21cf7rY",
+    },
     upc: {
-      type: String
-    }
+      type: String,
+    },
   },
   { timestamps: true }
 );

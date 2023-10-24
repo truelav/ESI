@@ -47,11 +47,15 @@ FRONTEND
             ( "/products" )
 
             ( "/dashboard" ) -> ( "/inventory" ) -> ( "/users" ) -> ( "/products" )
-            
+
             ( "/presentation" )
 
-
 TO DO LIST :
+
+    [ ] - BACKEND - Import many items
+                    1. Import CSV File and parse each column, and save in DB
+    [ ] - BACKEND - Save Image for Product
+                    1. Import CSV File and parse each column, and save in DB
 
     [ ] - BACKEND : Finish All the Products Controllers (AddMultipleProducts, EditProduct, DeactivateSingle, ActivateSingle, DeactivateMultiple and ActivateMultiple)
     [ ] - BACKEND : Finish Authorization (Create JWT Cookie, Validate JWT Cookie, Refresh JWT and pull user role)
@@ -66,4 +70,3 @@ TO DO LIST :
     [ ] - FRONTEND : Implement Forms Validations
     [ ] - FRONTEND : Implement File Upload Validations
     [ ] - FRONTEND : Create All Dashboard Routes and Pages (Components)
-

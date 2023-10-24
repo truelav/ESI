@@ -1,8 +1,5 @@
 import express from "express";
 import * as ProductControllers from "../../controllers/Product/index.js";
-import isAuth from "../../middleware/auth/isLoggedIn.js";
-import isAdmin from "../../middleware/auth/isAdmin.js";
-import isLoggedIn from "../../middleware/auth/isLoggedIn.js";
 import { upload } from "../../middleware/upload/index.js";
 
 const router = express.Router();
@@ -15,7 +12,15 @@ router.put("/:id", ProductControllers.editProduct);
 router.delete("/:id", ProductControllers.deleteSingleProduct);
 router.delete("/", ProductControllers.deleteMultipleProducts);
 
-router.post("/addMultiple", upload.single('csv'), ProductControllers.addMultipleProducts);
-router.post("/upload", upload.single('image'), ProductControllers.uploadProductImage)
+router.post(
+  "/addMultiple",
+  upload.single("csv"),
+  ProductControllers.addMultipleProducts
+);
+router.post(
+  "/upload",
+  upload.single("image"),
+  ProductControllers.uploadProductImage
+);
 
 export default router;
