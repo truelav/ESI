@@ -12,9 +12,10 @@ export const addMultipleProducts = async (req, res) => {
       .createReadStream(buffer)
       .pipe(parse({ delimiter: ",", ignoreEmpty: true }))
       .on("data", (row) => {
-        const newProduct = new Product({
-          name: row.Brand,
+        const product = new Product({
+          name: row.Name,
           brand: row.Brand,
+          model: row.Model,
           description: row.Description,
           category: row.Category,
           subcategory: row.subcategory,
@@ -23,15 +24,35 @@ export const addMultipleProducts = async (req, res) => {
           upc: row.UPC,
         });
 
-        newProducts.push(newProduct);
+        newProducts.push(product);
       })
       .on("end", async () => {
+        const bulkOps = newProducts.map((product) => ({
+          updateOne: {
+            filter: { model: product.model },
+            update: {
+              $set: {
+                name: product.name,
+                brand: product.brand,
+                model: product.model,
+                description: product.description,
+                category: product.category,
+                subcategory: product.subcategory,
+                quantity: product.quantity,
+                images: product.images,
+                upc: product.upc,
+              },
+            },
+            upsert: true, // Creates a new document if no match is found
+          },
+        }));
         console.log(newProducts);
-        await Product.insertMany(newProducts)
-          .then(() => {
+        await Product.bulkWrite(bulkOps)
+          .then((result) => {
+            console.log(result);
             res
               .status(200)
-              .json(`success, all ${newProducts.length} were added`);
+              .json(`success, all ${newProducts.length} were added, ${result}`);
           })
           .catch((error) => {
             console.error(error);

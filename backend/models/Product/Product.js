@@ -27,12 +27,11 @@ const ProductSchema = new Schema(
     },
     price: {
       type: Number,
-      default: 0,
     },
     images: {
       type: String,
       default:
-        "https://unsplash.com/photos/black-cordless-headphones-beside-closed-black-laptop-computer-and-smartphone-_aXa21cf7rY",
+        "https://us.vaio.com/cdn/shop/files/VAIO-16-F-Series-Notebook-FHD-Intel-Core-i7-1355U-10-Core-16GB-RAM-1TB-SSD-Fingerprint-Scanner-THX-Spatial-Audio-HD-Camera-HDMI-Windows-11-Home-Silve_3cc1cf37-1f2d-4501-9585-6ef60466a.webp?v=1696054599",
     },
     upc: {
       type: String,
