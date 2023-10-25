@@ -1,32 +1,54 @@
+import { Card, CardBody, Grid, GridItem } from "@chakra-ui/react";
+import { CardTextComponent } from "../../../shared/ui/Product/Card/CardText";
+
 export const DashProductListHead = () => {
   return (
-    <>
-      <div className="Dash_ProductListItem">
-        {/* <div className="Dash_ProductListItem_Container">
-          <p>Select</p>
-        </div> */}
-        <div className="Dash_ProductListItem_Container">
-          <p>Prod Img</p>
-        </div>
-        <div className="Dash_ProductListItem_Container">
-          <p>Status</p>
-        </div>
-        <div className="Dash_ProductListItem_Container">
-          <p>Prod Name</p>
-        </div>
-        <div className="Dash_ProductListItem_Container">
-          <p>Quantity</p>
-        </div>
-        <div className="Dash_ProductListItem_Container">
-          <p>Brand</p>
-        </div>
-        <div className="Dash_ProductListItem_Container">
-          <p>Category</p>
-        </div>
-        <div className="Dash_ProductListItem_Container">
-          <p>Updated At</p>
-        </div>
-      </div>
-    </>
+      <Card variant="outline">
+        <CardBody>
+            <Grid templateColumns='repeat(7, 1fr)' gap={4}>
+              <GridItem colSpan={1}>
+                  <CardTextComponent>
+                    Select
+                  </CardTextComponent>
+              </GridItem>
+
+              <GridItem colSpan={1}>
+                <CardTextComponent>
+                  Prod Image
+                </CardTextComponent>
+              </GridItem>
+
+              <GridItem colSpan={1}>
+                <CardTextComponent>
+                  Brand
+                  </CardTextComponent>
+              </GridItem>
+
+              <GridItem colSpan={1}>
+                <CardTextComponent>
+                  Status
+                </CardTextComponent>
+              </GridItem>
+
+              <GridItem colSpan={1}>
+                <CardTextComponent>
+                  Quantity
+                </CardTextComponent>
+              </GridItem>
+
+              <GridItem colSpan={1}>
+                <CardTextComponent>
+                  Category
+                </CardTextComponent>
+              </GridItem>
+
+              <GridItem colSpan={1}>
+                <CardTextComponent>
+                  Updated At
+                </CardTextComponent>
+              </GridItem>
+          </Grid>
+        </CardBody>
+      </Card>
   );
 };

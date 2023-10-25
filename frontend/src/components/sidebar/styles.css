@@ -1,13 +1,19 @@
 /* SIDEBAR LAYOUT STYLES */
 
+.sidebar-wrapper {
+  height: 100%;
+  align-items: stretch;
+  padding-left: 25px;
+  padding-top: 50px;
+}
+
 .sidebar-nav {
   display: grid;
   grid-template-columns: 1fr;
-  margin-top: 60px;
 }
 
 .sidebar-navlink {
   display: block;
-  padding-top: 7px;
-  padding-bottom: 7px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }

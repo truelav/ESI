@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import { Container } from "react-bootstrap";
+import { Grid, GridItem } from "@chakra-ui/react";
 
 import "./styles.css";
 
@@ -8,18 +8,14 @@ import Sidebar from "../../sidebar";
 export default function DashboardLayout() {
   return (
     <div className="dashboard-wrapper">
-      <main>
-        <Container>
-          <div className="dashboard-outer-container">
-            <div className="dashboard-inner-container grid-1">
-                <Sidebar />
-            </div>
-            <div className="dashboard-inner-container grid-4">
-                <Outlet />
-            </div>
-          </div>
-        </Container>
-      </main>
+        <Grid templateColumns='repeat(12, 1fr)' gap={4}>
+          <GridItem colSpan={2}>
+              <Sidebar />
+          </GridItem>
+          <GridItem colSpan={10} className="dashboard-body-wrapper">
+              <Outlet />
+          </GridItem>
+        </Grid>
     </div>
   );
 }

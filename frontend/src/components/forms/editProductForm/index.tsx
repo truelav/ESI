@@ -1,7 +1,7 @@
 import { memo } from "react";
 import { useGetSingleProductQuery } from "../../../app/api/apiSlice";
 import { useParams } from "react-router-dom";
-import { Button } from "react-bootstrap";
+import { Button } from "@chakra-ui/react";
 
 export const EditProductForm = memo(() => {
   const { id } = useParams();

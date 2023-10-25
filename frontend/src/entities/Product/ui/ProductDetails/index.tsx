@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { Button } from "react-bootstrap";
+import { Button } from "@chakra-ui/react";
 import { useGetSingleProductQuery } from "../../../../app/api/apiSlice";
 
 import { Link, useParams } from "react-router-dom";

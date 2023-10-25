@@ -1,4 +1,3 @@
-import fs from "fs";
 import streamifier from "streamifier";
 import parse from "csv-parser";
 import Product from "../../models/Product/Product.js";
@@ -23,7 +22,7 @@ export const addMultipleProducts = async (req, res) => {
           images: row.images,
           upc: row.UPC,
         });
-
+        //  console.log(product)
         newProducts.push(product);
       })
       .on("end", async () => {
@@ -46,10 +45,10 @@ export const addMultipleProducts = async (req, res) => {
             upsert: true, // Creates a new document if no match is found
           },
         }));
-        console.log(newProducts);
+        // console.log(newProducts);
         await Product.bulkWrite(bulkOps)
           .then((result) => {
-            console.log(result);
+            // console.log(result);
             res
               .status(200)
               .json(`success, all ${newProducts.length} were added, ${result}`);

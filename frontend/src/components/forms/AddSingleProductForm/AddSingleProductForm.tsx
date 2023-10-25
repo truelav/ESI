@@ -1,5 +1,5 @@
 import { ChangeEvent, useState } from "react"
-import { Button } from "react-bootstrap"
+import { Button } from "@chakra-ui/react"
 import {useAddSingleProductMutation} from "../../../app/api/apiSlice"
 
 function AddSingleProductForm() {

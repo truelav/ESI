@@ -1,8 +1,11 @@
+import { useState } from "react"; 
+import { Divider } from "@chakra-ui/react";
+
+
 import { useGetAllProductsQuery } from "../../../app/api/apiSlice";
-import { DashProductListItem } from "../DashProductListItem/DashProductListItem";
-import { Product } from "../../../entities/Product/model/types/product";
 import { DashProductListHead } from "./DashProductListHead";
-import { useState } from "react";
+import { ProductItemHorizontal } from "../../../shared/ui/Product/ProductItemHorizontal/ProductItemHorizontal";
+import { Product } from "../../../entities/Product/model/types/product";
 
 export const DashProductsList = () => {
   const {
@@ -45,13 +48,16 @@ export const DashProductsList = () => {
     content = (
       <>
         <DashProductListHead />
-        {products?.map((product: Product) => (
-          <DashProductListItem
-            key={product._id}
-            product={product}
-            handleToggleSelectProducts={handleToggleSelectProducts}
-          />
-        ))}
+        <Divider orientation="horizontal"/>
+        <div>
+          {products?.map((product: Product) => (
+            <ProductItemHorizontal
+              key={product._id}
+              product={product}
+              handleToggleSelectProducts={handleToggleSelectProducts}
+            />
+          ))}
+        </div>
       </>
     );
   }

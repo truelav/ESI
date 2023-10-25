@@ -1,12 +1,12 @@
 import { NavLink } from "react-router-dom";
+import { Card } from "@chakra-ui/react";
 
 import "./styles.css";
 
 export default function Sidebar() {
   return (
-    <>
+    <Card className="sidebar-wrapper" bg="gray.300">
       <nav className="sidebar-nav">
-        <p>Admin Nav</p>
         <NavLink to="/dashboard" className="sidebar-navlink">
           Dashboard
         </NavLink>
@@ -23,6 +23,6 @@ export default function Sidebar() {
           Presentations
         </NavLink>
       </nav>
-    </>
+    </Card>
   );
 }
