@@ -16,6 +16,9 @@ export default function Sidebar() {
         <NavLink to="inventory" className="sidebar-navlink">
           Inventory
         </NavLink>
+        <NavLink to="orders" className="sidebar-navlink">
+          Orders
+        </NavLink>
         <NavLink to="users" className="sidebar-navlink">
           Users
         </NavLink>

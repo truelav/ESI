@@ -1,4 +1,4 @@
-import { Button } from "@chakra-ui/react";
+import { Button, Container, Text } from "@chakra-ui/react";
 import { DashProductsList } from "../../../components/products/DashProductsList/DashProductsList";
 import ImportProductsModal from "../../../shared/ui/Modals/ImportProducts/ImportProductsModal"
 
@@ -9,16 +9,24 @@ function DashProductsPage() {
   return (
     <>
       <div className="dash_products_page_wrapper">
-        <div>
-        </div>
         <div className="dash_products_nav_container">
-          {/* Import Products Modal */}
-          <ImportProductsModal />
+          <Container>
+            {/* Import Products Modal */}
+            <ImportProductsModal />
+          </Container>
 
            {/* ADD Product Modal */}
-          <Button className="dash_products_nav_button">
-            <p>Add Product</p>
-          </Button>
+           <Container>
+            <Button className="dash_products_nav_button">
+              <Text>Add Product</Text>
+            </Button>
+           </Container>
+
+           <Container>
+            <Button className="dash_products_nav_button">
+              <Text>Delete Products</Text>
+            </Button>
+          </Container>
         </div>
         <DashProductsList />
       </div>

@@ -11,17 +11,19 @@ import DashboardLayout from "./components/layouts/dashboard";
 
 // PAGES
 import Home from "./pages/HomePage";
-import RegistrationPage from "./pages/RegistrationPage";
 import ProductsPage from "./pages/ProductsPage";
 import LoginPage from "./pages/LoginPage";
 import NotFound from "./pages/NotFoundPage";
 import Dashboard from "./pages/DashboardPage";
 import ContactPage from "./pages/ContactPages";
 import ProductDetailsPage from "./pages/ProductDetailsPage";
-import { UserList } from "./features/users/ui/usersList/usersList";
+import DashUsersPage from "./pages/DashboardPage/DashUsersPage/DashUsersPage";
 import DashProductsPage from "./pages/DashboardPage/DashProductsPage/DashProductsPage";
 import DashProductDetailsPage from "./pages/DashboardPage/DashProductDetailsPage/DashProductDetailsPage";
 import DashAddSingleProduct from "./pages/DashboardPage/DashAddSingleProduct/DashAddSingleProduct";
+import DashOrders from "./pages/DashboardPage/DashOrders/DashOrders";
+import DashInventory from "./pages/DashboardPage/DashInventory/DashInventory";
+import DashPresentationPage from "./pages/DashboardPage/DashPresentationsPage/DashPresentationPage";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -30,25 +32,35 @@ const router = createBrowserRouter(
       {/* END HOME */}
       <Route path="dashboard" element={<DashboardLayout />}>
         <Route index element={<Dashboard />} />
+
         <Route path="users">
-          <Route index element={<UserList />} />
+          <Route index element={<DashUsersPage />} />
         </Route>
-        {/* END DASHBOARD/USERS */}
-        <Route path="register">
-          <Route index element={<RegistrationPage />} />
+
+        <Route path="orders">
+          <Route index element={<DashOrders />} />
         </Route>
-        {/* END DASHBOARD/REGISTER */}
+
+        <Route path="inventory">
+          <Route index element={<DashInventory />} />
+        </Route>
+
+        <Route path="presentation">
+          <Route index element={<DashPresentationPage />} />
+        </Route>
+        
         <Route path="products">
           <Route index element={<DashProductsPage />} />
-          {/* END DASHBOARD/PRODUCTS */}
+
           <Route path=":id">
             <Route index element={<DashProductDetailsPage />} />
           </Route>
-          {/* END DASHBOARD/PRODUCTS/:ID */}
+
           <Route path="addSingleProduct">
             <Route index element={<DashAddSingleProduct />} />
           </Route>
         </Route>
+
       </Route>
       {/* END DASHBOARD */}
 

@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { Product } from "./types/product";
+import { Product } from "../../entities/Product/model/types/product";
+import { User } from "./types/User/User";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: "http://localhost:8888/api",
@@ -56,8 +57,13 @@ export const apiSlice = createApi({
         body: productsIds,
         providesTags: [{ type: "Products", id: "List" }],
       })
-    })
+    }),
+
     // User API Routes [ 1. /auth  2. /login  3. /register]
+    getAllUsers: builder.query<User, void>({
+      query: () => `/auth/users`,
+      providesTags: [{ type: "Users", id: "List" }],
+    }),
   }),
 });
 
@@ -67,5 +73,7 @@ export const {
   useAddSingleProductMutation,
   useEditSingleProductMutation,
   useDeleteSingleProductMutation,
-  useDeleteMultipleProductsMutation
+  useDeleteMultipleProductsMutation,
+
+  useGetAllUsersQuery
 } = apiSlice;
