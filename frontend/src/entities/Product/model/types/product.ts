@@ -1,4 +1,9 @@
 export interface Product {
+  map(
+    arg0: (
+      product: import("./product").Product
+    ) => import("react/jsx-runtime").JSX.Element
+  ): import("react/jsx-runtime").JSX.Element;
   _id: string;
   createdAt: string;
   updatedAt: string;
@@ -9,8 +14,9 @@ export interface Product {
   subcategory: string;
   price: number;
   quantity: number;
-  images: string[];
-  location: string;
+  images: string;
+  model: string;
+  upc: string;
 }
 
 //need to add active and inactive property to users and products

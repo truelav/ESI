@@ -20,11 +20,6 @@ function DashProductsPage() {
                 <p>Add Product</p>
               </Button>
             </Link>
-            <Link to="">
-              <Button className="dash_products_nav_button">
-                <p>Export Presentation</p>
-              </Button>
-            </Link>
           </div>
         </Container>
         <Container>

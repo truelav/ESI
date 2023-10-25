@@ -1,6 +1,6 @@
 // Dashboard Page
 
-import { Container, Card, Placeholder } from "react-bootstrap";
+import { Container, Placeholder } from "react-bootstrap";
 
 export default function Dashboard() {
   return (

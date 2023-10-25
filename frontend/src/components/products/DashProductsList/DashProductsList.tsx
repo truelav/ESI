@@ -28,7 +28,7 @@ export const DashProductsList = () => {
         [id]: true,
       });
     }
-    console.log(selectedProducts);
+    // console.log(selectedProducts);
   };
 
   let content = <div></div>;
@@ -45,9 +45,7 @@ export const DashProductsList = () => {
     content = (
       <>
         <DashProductListHead />
-        {products.map((product: Product) => (
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
+        {products?.map((product: Product) => (
           <DashProductListItem
             key={product._id}
             product={product}

@@ -1,8 +1,10 @@
 import { memo } from "react";
-import { Product, ProductView } from "../../../app/api/types/product";
-
-import "./styles.css";
 import { Link } from "react-router-dom";
+import { Image } from "@chakra-ui/react";
+
+import { Product, ProductView } from "../../../entities/Product/model/types/product";
+import fallback_image from "/fallback_image.jpeg"
+import "./styles.css";
 
 interface ProductListPropsItem {
   className?: string;
@@ -26,17 +28,22 @@ export const DashProductListItem = memo((props: ProductListPropsItem) => {
         <Link to={`/dashboard/products/${product?._id}`}>
           <div className="Dash_ProductListItem">
             <div className="Dash_ProductListItem_Container">
-              <img
+              <Image 
                 src={product?.images}
-                alt={product?.name}
-                className="Dash_ProductListItem_Image"
+                fallbackSrc={fallback_image}
+                alt={product?.brand}
+                boxSize='100px'
+                objectFit='contain'
+                // className="Dash_ProductListItem_Image"
+              />
+              <img
               />
             </div>
             <div className="Dash_ProductListItem_Container">
-              <h3>Active</h3>
+              <h3>{product?.brand}</h3>
             </div>
             <div className="Dash_ProductListItem_Container">
-              <h3>{product?.name}</h3>
+              <h3>Active</h3>
             </div>
             <div className="Dash_ProductListItem_Container">
               <p>{product?.quantity}</p>
