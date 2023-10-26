@@ -64,6 +64,29 @@ export const apiSlice = createApi({
       query: () => `/auth/users`,
       providesTags: [{ type: "Users", id: "List" }],
     }),
+    addUser: builder.mutation<User, User>({
+      query: (user) => ({
+        url: `/users`,
+        method: "POST",
+        body: user,
+      }),
+      invalidatesTags: [{ type: "Users", id: "List" }],
+    }),
+    editUser: builder.mutation<User, User>({
+      query: (user) => ({
+        url: `/users`,
+        method: "PUT",
+        body: user,
+      }),
+    }),
+    deleteUser: builder.mutation<{success: boolean; id: number}, number>({
+      query: (id) => ({
+        url: `/users`,
+        method: "DELETE",
+        providesTags: [{ type: "Users", id: "List" }],
+        body: id
+      })
+    }),
   }),
 });
 
@@ -75,5 +98,8 @@ export const {
   useDeleteSingleProductMutation,
   useDeleteMultipleProductsMutation,
 
-  useGetAllUsersQuery
+  useGetAllUsersQuery,
+  useAddUserMutation,
+  useEditUserMutation,
+  useDeleteUserMutation
 } = apiSlice;
