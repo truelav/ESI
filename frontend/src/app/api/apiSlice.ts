@@ -17,7 +17,7 @@ const baseQuery = fetchBaseQuery({
 
 export const apiSlice = createApi({
   baseQuery,
-  tagTypes: ["Products", "Product", "Users"],
+  tagTypes: ["Products", "Product", "User"],
   endpoints: (builder) => ({
     // Products API Routes [ 1. /products  2. /products/:id]
     getAllProducts: builder.query<Product, void>({
@@ -62,31 +62,32 @@ export const apiSlice = createApi({
     // User API Routes [ 1. /auth  2. /login  3. /register]
     getAllUsers: builder.query<User, void>({
       query: () => `/auth/users`,
-      providesTags: [{ type: "Users", id: "List" }],
+      providesTags: ["User"],
     }),
     addUser: builder.mutation<User, User>({
       query: (user) => ({
-        url: `/users`,
+        url: `/auth/users`,
         method: "POST",
         body: user,
       }),
-      invalidatesTags: [{ type: "Users", id: "List" }],
+      invalidatesTags: [ "User"],
     }),
     editUser: builder.mutation<User, User>({
       query: (user) => ({
-        url: `/users`,
+        url: `/auth/users`,
         method: "PUT",
         body: user,
       }),
     }),
-    deleteUser: builder.mutation<{success: boolean; id: number}, number>({
+    deleteUser: builder.mutation<{success: boolean; id: string}, string>({
       query: (id) => ({
-        url: `/users`,
+        url: `/auth/users/${id}`,
         method: "DELETE",
-        providesTags: [{ type: "Users", id: "List" }],
         body: id
-      })
+      }),
+      invalidatesTags: ["User"]
     }),
+    // Authorization API Routes [ 1. /auth  2. /login  3. /register]
   }),
 });
 

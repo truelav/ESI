@@ -9,7 +9,8 @@ import {
     Button,
     useDisclosure
   } from '@chakra-ui/react'
-import RegistrationForm from '../../../../components/forms/registrationForm'
+import { CreateUserForm } from '../../../../components/forms/registrationForm/createUserForm'
+// import RegistrationForm from '../../../../components/forms/registrationForm'
 
   // interface ImportProductsModalProps {
   //   isOpen: boolean,
@@ -31,7 +32,8 @@ function CreateUserModal() {
             <ModalCloseButton />
 
             <ModalBody>
-                <RegistrationForm />
+                {/* <RegistrationForm /> */}
+                <CreateUserForm />
             </ModalBody>
   
             <ModalFooter>

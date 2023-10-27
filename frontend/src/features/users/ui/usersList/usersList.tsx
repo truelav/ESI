@@ -2,7 +2,7 @@ import { useGetAllUsersQuery } from "../../../../app/api/apiSlice";
 import { User } from "../../../../app/api/types/User/User";
 import { UsersListItem } from "../usersListItem/usersListItem";
 
-export const UserList = () => {
+export const UsersList = () => {
 
     const {
         data: usersData,
@@ -24,13 +24,11 @@ export const UserList = () => {
 
     if (isSuccess) {
         content = (
-            <>
-                {/* {JSON.stringify(users)} */}
-                {/* {usersData.map((user: User) => console.log(user))} */}
+            <div>
                 {usersData?.map((user: User) =>  (
-                        <UsersListItem user={user} key={user._id}/>
+                        <UsersListItem user={user} key={user._id} />
                 ))}
-            </>
+            </div>
         )
     }
 

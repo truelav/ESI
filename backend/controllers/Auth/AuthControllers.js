@@ -14,8 +14,8 @@ import {
 } from "../../services/token_service.js";
 
 export const register = async (req, res, next) => {
-  const { name, email, password, role } = req.body;
-
+  const { name, email, password, roles } = req.body;
+  console.log(req.body)
   try {
     const user = await User.findOne({ email });
     if (user) {
@@ -29,15 +29,15 @@ export const register = async (req, res, next) => {
     const newUser = new User({
       name,
       email,
-      role,
+      roles,
       password: hashedPassword,
     });
 
-    const userDto = new UserDto(newUser);
-    const accessToken = generateAccessToken({ ...userDto });
-    const refreshToken = generateRefreshToken({ ...userDto });
+    // const userDto = new UserDto(newUser);
+    const accessToken = generateAccessToken({ ...newUser });
+    const refreshToken = generateRefreshToken({ ...newUser });
     const newToken = new JWToken({
-      user: userDto.id,
+      user: newUser.id,
       refreshToken,
     });
 
@@ -46,7 +46,7 @@ export const register = async (req, res, next) => {
 
     res.status(201).json({
       message: `${req.body.name} was created with success`,
-      userDto,
+      newUser,
       accessToken,
       refreshToken,
     });
@@ -157,11 +157,30 @@ export const getUsers = async (req, res, next) => {
       res.status(400).json({ message: "no users found", users: [] });
     }
 
+    // const users = usersList.map((user) => new UserDto(user))
+
     return res.json(users);
   } catch (error) {
     next(error);
   }
 };
+
+export const deleteUser = async (req, res) => {
+  try {
+    const userId = req.params.id
+    const user = await User.findByIdAndDelete(userId);
+
+    if (!user) {
+      res.status(400).json({ message: "no userss found" });
+    }
+
+    const userDto = new UserDto(user);
+
+    return res.json({ message: `user ${user.email} deleted success`, userDto});
+  } catch (error) {
+    next(error);
+  }
+}
 
 export const editUser = async () => {
   try {
@@ -194,6 +213,8 @@ export const activateUser = async () => {
     next(error);
   }
 };
+
+
 
 export const deactivateUser = async () => {
   try {

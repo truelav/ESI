@@ -1,5 +1,12 @@
 // import { SyntheticEvent, useState } from 'react';
 import axios from "axios";
+import {
+  FormControl,
+  FormLabel,
+  FormErrorMessage,
+  FormHelperText,
+  Input
+} from '@chakra-ui/react'
 import { Formik, Form, Field, ErrorMessage } from "formik";
 
 import "./styles.css";
@@ -7,7 +14,7 @@ import "./styles.css";
 function RegistrationForm() {
   return (
     <Formik
-      initialValues={{ name: "", email: "", password: "", re_password: "" }}
+      initialValues={{ name: "", email: "", password: "", re_password: "", roles: [], fullName: "" }}
       validate={(values) => {
         const errors = {};
         if (!values.email) errors.email = "Required";
@@ -37,15 +44,17 @@ function RegistrationForm() {
     >
       {({ isSubmitting }) => (
         <Form className="registration-form">
-          <div className="formik-div">
-            <label className="label">Fullname</label>
-            <Field type="text" name="name" />
-            <ErrorMessage
-              name="email"
-              component="div"
-              className="formik_error_message"
-            />
-          </div>
+          <FormControl>
+            <div className="formik-div">
+              <label className="label">Fullname</label>
+              <Field type="text" name="name" />
+              <ErrorMessage
+                name="email"
+                component="div"
+                className="formik_error_message"
+              />
+            </div>
+          </FormControl>
           <div className="formik-div">
             <label className="label">Email</label>
             <Field type="email" name="email" />

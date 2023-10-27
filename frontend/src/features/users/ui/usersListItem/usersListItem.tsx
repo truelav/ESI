@@ -1,22 +1,18 @@
-import { memo, FC } from "react"
-import { Link } from "react-router-dom";
+import { memo } from "react"
 import { Grid, GridItem, Avatar, Button,  } from "@chakra-ui/react";
 import { FaTrash } from "react-icons/fa"
 import { CardTextComponent } from "../../../../shared/ui/Product/Card/CardText";
 import CardComponent, {CardVariants} from "../../../../shared/ui/Product/Card/CardComponent";
 import { User } from "../../../../app/api/types/User/User";
+import { useDeleteUserMutation } from "../../../../app/api/apiSlice";
 
-// export interface UsersListITemProps {
-//     _id: string,
-//     name: string,
-//     email: string,
-//     roles: string[],
-//     createdAt: string,
-//     isActive: boolean
-// }
+export interface UsersListITemProps {
+    user: User
+}
 
-export const UsersListItem: FC<User> =  memo(({ user }) => {
-    const { _id, name, email, roles, createdAt, isActive } = user
+export const UsersListItem =  memo((props : UsersListITemProps) => {
+    const { user } = props
+    const [deletePost, response] = useDeleteUserMutation()
 
     return (
         <CardComponent cardVariant={CardVariants.outline} additionalClassNames="Dash_ProductListItem">
@@ -31,57 +27,56 @@ export const UsersListItem: FC<User> =  memo(({ user }) => {
                     </div>
                 </GridItem>
                 <GridItem colSpan={11}>
-                    <Link to={`/dashboard/users/${_id}`}>
+                    {/* <Link to={`/dashboard/users/${user._id}`}> */}
                         <Grid templateColumns='repeat(12, 1fr)' gap={4}>
 
                             <GridItem colSpan={2}>
                                 <Avatar 
                                     src=""
-                                    name={name}
-                                    size="sm"
-                                    boxSize='100px'
+                                    name={user.name}
+                                    size="lg"
                                     objectFit='contain'
                                 />
                             </GridItem> 
 
                             <GridItem colSpan={2}>
                                 <CardTextComponent>
-                                    {name}
+                                    {user.name}
                                 </CardTextComponent>
                             </GridItem>
 
                             <GridItem colSpan={2}>
                                 <CardTextComponent>
-                                    {email}
+                                    {user.email}
                                 </CardTextComponent>
                             </GridItem>
 
                             <GridItem colSpan={1}>
                                 <CardTextComponent>
-                                    {isActive ? "Active" : "Diabled"}
+                                    {user.isActive ? "Active" : "Diabled"}
                                 </CardTextComponent>
                             </GridItem>
 
                             <GridItem colSpan={2}>
                                 <CardTextComponent>
-                                    {roles.map((role: unknown) => role)}
+                                    {user?.roles?.map((role: string) => role)}
                                 </CardTextComponent>
                             </GridItem>
 
                             <GridItem colSpan={2}>
                                 <CardTextComponent>
-                                    {createdAt}
+                                    {user.createdAt}
                                 </CardTextComponent>
                             </GridItem>
 
                             <GridItem colSpan={1}>
-                                <Button>
+                                <Button onClick={() => deletePost(user._id)}>
                                     <FaTrash />
                                 </Button>
                             </GridItem>
 
                         </Grid>
-                    </Link>
+                    {/* </Link> */}
                 </GridItem>
             </Grid>
         </CardComponent>
