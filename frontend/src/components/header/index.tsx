@@ -1,5 +1,3 @@
-'use client'
-
 import {
   Box,
   Flex,
@@ -64,21 +62,21 @@ export default function WithSubnavigation() {
           justify={'flex-end'}
           direction={'row'}
           spacing={6}>
-          <Button as={'a'} fontSize={'sm'} fontWeight={400} variant={'link'} href={'#'}>
+          {/* <Button as={'a'} fontSize={'sm'} fontWeight={400} variant={'link'} href={'#'}>
             Sign In
-          </Button>
+          </Button> */}
           <Button
             as={'a'}
             display={{ base: 'none', md: 'inline-flex' }}
             fontSize={'sm'}
             fontWeight={600}
             color={'white'}
-            bg={'pink.400'}
+            bg={'blue.500'}
             href={'#'}
             _hover={{
-              bg: 'pink.300',
+              bg: 'blue.700',
             }}>
-            Sign Up
+            Sign In
           </Button>
         </Stack>
       </Flex>
