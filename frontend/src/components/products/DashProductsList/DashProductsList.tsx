@@ -31,7 +31,6 @@ export const DashProductsList = () => {
         [id]: true,
       });
     }
-    // console.log(selectedProducts);
   };
 
   let content = <div></div>;

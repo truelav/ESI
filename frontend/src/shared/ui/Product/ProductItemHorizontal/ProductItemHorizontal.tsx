@@ -1,10 +1,9 @@
 import { memo } from "react";
 import { Link } from "react-router-dom";
 import { Grid, GridItem, Image } from "@chakra-ui/react";
-
+import fallback_image from "/fallback_image.jpeg"
 import { ProductView, Product } from "../../../../entities/Product/model/types/product";
 import CardComponent, { CardVariants } from "../Card/CardComponent";
-import fallback_image from "/fallback_image.jpeg"
 import { CardTextComponent } from "../Card/CardText";
 
 interface ProductListPropsItem {

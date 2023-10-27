@@ -1,9 +1,11 @@
 import { useGetAllUsersQuery } from "../../../../app/api/apiSlice";
+import { User } from "../../../../app/api/types/User/User";
+import { UsersListItem } from "../usersListItem/usersListItem";
 
 export const UserList = () => {
 
     const {
-        data: users,
+        data: usersData,
         isLoading,
         isSuccess,
         isError,
@@ -23,7 +25,11 @@ export const UserList = () => {
     if (isSuccess) {
         content = (
             <>
-                {JSON.stringify(users)}
+                {/* {JSON.stringify(users)} */}
+                {/* {usersData.map((user: User) => console.log(user))} */}
+                {usersData?.map((user: User) =>  (
+                        <UsersListItem user={user} key={user._id}/>
+                ))}
             </>
         )
     }
