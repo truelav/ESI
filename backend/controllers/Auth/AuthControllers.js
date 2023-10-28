@@ -14,7 +14,7 @@ import {
 } from "../../services/token_service.js";
 
 export const register = async (req, res, next) => {
-  const { name, email, password, roles } = req.body;
+  const { name, email, password, role } = req.body;
   console.log(req.body)
   try {
     const user = await User.findOne({ email });
@@ -24,12 +24,14 @@ export const register = async (req, res, next) => {
         .json({ message: `user with ${email} already exists` });
     }
 
+    const userRole = await Role.findById(role).name
+
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
     const newUser = new User({
       name,
       email,
-      roles,
+      role,
       password: hashedPassword,
     });
 

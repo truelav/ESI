@@ -23,7 +23,7 @@ export function CreateUserForm() {
   
     return (
       <Formik
-        initialValues={{ name: 'Sasuke', email: 'youremail@mail.com', password: "password", roles: ["651cb8dd371b760710810b8a"] }}
+        initialValues={{ name: 'Sasuke', email: 'youremail@mail.com', password: "password", role: "651cb8dd371b760710810b8a" }}
         onSubmit={async (values, actions) => {
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore

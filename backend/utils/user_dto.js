@@ -3,12 +3,12 @@ export default class UserDto {
   name;
   id;
   isActivated;
-  roles;
+  role;
 
   constructor(model) {
     this.email = model.email;
     this.id = model._id;
     this.isActivated = model.isActivated;
-    this.roles = roles
+    this.role = model.role
   }
 }
