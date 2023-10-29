@@ -5,14 +5,14 @@ import { User } from "./types/User/User";
 const baseQuery = fetchBaseQuery({
   baseUrl: "http://localhost:8888/api",
   credentials: "include",
-  // prepareHeaders: (headers, { getState } ) => {
-  //   const token = getState().auth.token
+  // prepareHeaders: (headers, { getState }) => {
+  //   const token = getState().auth.token;
 
-  //   if(token){
-  //     headers.set("authorization", `Bearer ${token}`)
+  //   if (token) {
+  //     headers.set("authorization", `Bearer ${token}`);
   //   }
-  //   return headers
-  // }
+  //   return headers;
+  // },
 });
 
 export const apiSlice = createApi({
@@ -24,10 +24,12 @@ export const apiSlice = createApi({
       query: () => `/products`,
       providesTags: [{ type: "Products", id: "List" }],
     }),
+
     getSingleProduct: builder.query<Product, void>({
       query: (id) => `/products/${id}`,
       providesTags: [{ type: "Product", id: "List" }],
     }),
+
     addSingleProduct: builder.mutation<Product, Product>({
       query: (product) => ({
         url: `/products`,
@@ -36,6 +38,7 @@ export const apiSlice = createApi({
       }),
       invalidatesTags: [{ type: "Products", id: "List" }],
     }),
+
     editSingleProduct: builder.mutation<Product, Product>({
       query: (product) => ({
         url: `/products`,
@@ -43,20 +46,28 @@ export const apiSlice = createApi({
         body: product,
       }),
     }),
-    deleteSingleProduct: builder.mutation<{success: boolean; id: number}, number>({
+
+    deleteSingleProduct: builder.mutation<
+      { success: boolean; id: number },
+      number
+    >({
       query: (id) => ({
         url: `/products/${id}`,
         method: "DELETE",
         providesTags: [{ type: "Products", id: "List" }],
-      })
+      }),
     }),
-    deleteMultipleProducts: builder.mutation<{success: boolean; id: number}, number>({
+
+    deleteMultipleProducts: builder.mutation<
+      { success: boolean; id: number },
+      number
+    >({
       query: (productsIds) => ({
         url: `/products`,
         method: "DELETE",
         body: productsIds,
         providesTags: [{ type: "Products", id: "List" }],
-      })
+      }),
     }),
 
     // User API Routes [ 1. /auth  2. /login  3. /register]
@@ -64,14 +75,16 @@ export const apiSlice = createApi({
       query: () => `/auth/users`,
       providesTags: ["User"],
     }),
+
     addUser: builder.mutation<User, User>({
       query: (user) => ({
         url: `/auth/users`,
         method: "POST",
         body: user,
       }),
-      invalidatesTags: [ "User"],
+      invalidatesTags: ["User"],
     }),
+
     editUser: builder.mutation<User, User>({
       query: (user) => ({
         url: `/auth/users`,
@@ -79,15 +92,23 @@ export const apiSlice = createApi({
         body: user,
       }),
     }),
-    deleteUser: builder.mutation<{success: boolean; id: string}, string>({
+
+    deleteUser: builder.mutation<{ success: boolean; id: string }, string>({
       query: (id) => ({
         url: `/auth/users/${id}`,
         method: "DELETE",
-        body: id
+        body: id,
       }),
-      invalidatesTags: ["User"]
+      invalidatesTags: ["User"],
     }),
     // Authorization API Routes [ 1. /auth  2. /login  3. /register]
+    login: builder.mutation<User, User>({
+      query: (user) => ({
+        url: `/auth/login`,
+        method: "POST",
+        body: user,
+      }),
+    }),
   }),
 });
 
@@ -102,5 +123,7 @@ export const {
   useGetAllUsersQuery,
   useAddUserMutation,
   useEditUserMutation,
-  useDeleteUserMutation
+  useDeleteUserMutation,
+
+  useLoginMutation,
 } = apiSlice;

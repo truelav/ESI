@@ -61,6 +61,8 @@ TO DO LIST :
     [x] - BACKEND : Finish All the Products Controllers (AddMultipleProducts, EditProduct, DeactivateSingle, ActivateSingle, DeactivateMultiple and ActivateMultiple)
     [x] - BACKEND : Finish Authorization (Create JWT Cookie, Validate JWT Cookie, Refresh JWT and pull user role)
     [x] - BACKEND : Handle Upload CSV File and save it in the database
+
+    [ ] - BACKEND : Email Service, send registration Notification after Contact Form and after Create New User
     [ ] - BACKEND : Handle Upload Images For Products and Users
     [ ] - BACKEND : Create PDF Presentation and Provide Download Link
     [ ] - BACKEND : Error Handling

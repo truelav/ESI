@@ -6,12 +6,17 @@ import {
   FormErrorMessage,
   Input,
   Button,
+  Select,
 } from "@chakra-ui/react";
 import { useAddUserMutation } from "../../../app/api/apiSlice";
-import { SelectForm } from "../../../shared/ui/Forms/SelectForm/SelectForm";
 
-export function CreateUserForm({ onClose }) {
+interface CreateUserFormProps {
+  onClose: () => void;
+}
+
+export function CreateUserForm({ onClose }: CreateUserFormProps) {
   const [addNewUser] = useAddUserMutation();
+  const RolesOptions = ["USER", "ADMIN", "MODERATOR"];
   function validateName() {
     let error;
     // if (!value) {
@@ -71,20 +76,21 @@ export function CreateUserForm({ onClose }) {
             )}
           </Field>
 
-          <SelectForm
-            options={["USER", "ADMIN", "MODERATOR"]}
-            fieldName="role"
-            placeholder="User Role"
-          />
-          {/* <Field name="role" validate={validateName}>
+          <Field name="role" validate={validateName}>
             {({ field, form }: any) => (
               <FormControl isInvalid={form.errors.name && form.touched.name}>
-                <FormLabel>Role</FormLabel>
-                <Input {...field} placeholder="USER" />
+                <FormLabel>User Role</FormLabel>
+                <Select onChange={field.onChange} name="role" value="role">
+                  {RolesOptions?.map((optionVal) => (
+                    <option value={optionVal} key={optionVal}>
+                      {optionVal}
+                    </option>
+                  ))}
+                </Select>
                 <FormErrorMessage>{form.errors.name}</FormErrorMessage>
               </FormControl>
             )}
-          </Field> */}
+          </Field>
 
           <Button
             mt={4}

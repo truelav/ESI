@@ -9,7 +9,7 @@ import {
   Button,
   useDisclosure,
 } from "@chakra-ui/react";
-import { CreateUserForm } from "../../../../components/forms/registrationForm/createUserForm";
+import { CreateUserForm } from "../../../../components/forms/CreateUserForm/createUserForm";
 // import RegistrationForm from '../../../../components/forms/registrationForm'
 
 // interface ImportProductsModalProps {

@@ -64,19 +64,22 @@ export const register = async (req, res, next) => {
 };
 
 export const login = async (req, res) => {
-  const { email, password } = req.body;
   try {
+    const { email, password } = req.body;
+    // console.log(isPasswordCorrect, email, password);
     const user = await User.findOne({ email });
     if (!user) {
       return res.status(404).json(`User ${req.body.email} was not found`);
     }
 
     const isPasswordCorrect = await bcrypt.compare(password, user?.password);
-    // const userRole = await Role.findById(user.role);
 
     if (!isPasswordCorrect) {
       return res.status(403).json("Password or Email Incorrect");
     }
+
+    const role = user.role;
+    const userRole = ROLES_LIST.role;
 
     const userDto = new UserDto(user);
     const accessToken = generateAccessToken({ ...userDto });
