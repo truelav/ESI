@@ -17,16 +17,19 @@ const UserSchema = new Schema(
     },
     isActive: {
       type: Boolean,
-      default: false,
+      default: true,
     },
-    roles: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Role",
-        default: "651cb8dd371b760710810b8a",
-      },
-    ],
-    role: String,
+    // roles: [
+    //   {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: "Role",
+    //     default: "USER",
+    //   },
+    // ],
+    role: {
+      type: String,
+      required: true,
+    },
     phone: String,
   },
   { timestamps: true }

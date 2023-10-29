@@ -1,4 +1,5 @@
 import bcrypt from "bcryptjs";
+import { ROLES_LIST } from "../../config/roles.config.js";
 import User from "../../models/User/User.js";
 import Role from "../../models/Role/Role.js";
 import UserDto from "../../utils/user_dto.js";
@@ -14,9 +15,10 @@ import {
 } from "../../services/token_service.js";
 
 export const register = async (req, res, next) => {
-  const { name, email, password, role } = req.body;
-  console.log(req.body)
+  console.log(req.body);
   try {
+    const { name, email, password, role } = req.body;
+
     const user = await User.findOne({ email });
     if (user) {
       return res
@@ -24,7 +26,11 @@ export const register = async (req, res, next) => {
         .json({ message: `user with ${email} already exists` });
     }
 
-    const userRole = await Role.findById(role).name
+    // if (!ROLES_LIST.role) {
+    //   return res.status(400).json({
+    //     message: `something went wrong with selected user role: ${role}`,
+    //   });
+    // }
 
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
@@ -169,7 +175,7 @@ export const getUsers = async (req, res, next) => {
 
 export const deleteUser = async (req, res) => {
   try {
-    const userId = req.params.id
+    const userId = req.params.id;
     const user = await User.findByIdAndDelete(userId);
 
     if (!user) {
@@ -178,11 +184,11 @@ export const deleteUser = async (req, res) => {
 
     const userDto = new UserDto(user);
 
-    return res.json({ message: `user ${user.email} deleted success`, userDto});
+    return res.json({ message: `user ${user.email} deleted success`, userDto });
   } catch (error) {
     next(error);
   }
-}
+};
 
 export const editUser = async () => {
   try {
@@ -215,8 +221,6 @@ export const activateUser = async () => {
     next(error);
   }
 };
-
-
 
 export const deactivateUser = async () => {
   try {

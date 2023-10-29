@@ -1,51 +1,49 @@
 import {
-    Modal,
-    ModalOverlay,
-    ModalContent,
-    ModalHeader,
-    ModalFooter,
-    ModalBody,
-    ModalCloseButton,
-    Button,
-    useDisclosure
-  } from '@chakra-ui/react'
-import { CreateUserForm } from '../../../../components/forms/registrationForm/createUserForm'
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  Button,
+  useDisclosure,
+} from "@chakra-ui/react";
+import { CreateUserForm } from "../../../../components/forms/registrationForm/createUserForm";
 // import RegistrationForm from '../../../../components/forms/registrationForm'
 
-  // interface ImportProductsModalProps {
-  //   isOpen: boolean,
-  //   onClose: () => void
-  // }
+// interface ImportProductsModalProps {
+//   isOpen: boolean,
+//   onClose: () => void
+// }
 
 function CreateUserModal() {
-    const { isOpen, onOpen, onClose } = useDisclosure()
-    return (
-      <>
-        <Button className="" onClick={onOpen}>
-          <p>Create User</p>
-        </Button>
-        <Modal isOpen={isOpen} onClose={onClose}>
-          <ModalOverlay />
-          <ModalContent>
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  return (
+    <>
+      <Button className="" onClick={onOpen}>
+        <p>Create User</p>
+      </Button>
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Create New User</ModalHeader>
+          <ModalCloseButton />
 
-            <ModalHeader>Create New User</ModalHeader>
-            <ModalCloseButton />
+          <ModalBody>
+            {/* <RegistrationForm /> */}
+            <CreateUserForm onClose={onClose} />
+          </ModalBody>
 
-            <ModalBody>
-                {/* <RegistrationForm /> */}
-                <CreateUserForm />
-            </ModalBody>
-  
-            <ModalFooter>
-              <Button colorScheme='blue' mr={3} onClick={onClose}>
-                Close
-              </Button>
-            </ModalFooter>
+          <ModalFooter>
+            <Button colorScheme="blue" mr={3} onClick={onClose}>
+              Close
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+    </>
+  );
+}
 
-          </ModalContent>
-        </Modal>
-      </>
-    )
-  }
-
-  export default CreateUserModal
+export default CreateUserModal;

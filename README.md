@@ -57,12 +57,19 @@ TO DO LIST :
     [ ] - BACKEND - Save Image for Product
                     1. Import CSV File and parse each column, and save in DB
 
-    [ ] - BACKEND : Finish All the Products Controllers (AddMultipleProducts, EditProduct, DeactivateSingle, ActivateSingle, DeactivateMultiple and ActivateMultiple)
-    [ ] - BACKEND : Finish Authorization (Create JWT Cookie, Validate JWT Cookie, Refresh JWT and pull user role)
+
+    [x] - BACKEND : Finish All the Products Controllers (AddMultipleProducts, EditProduct, DeactivateSingle, ActivateSingle, DeactivateMultiple and ActivateMultiple)
+    [x] - BACKEND : Finish Authorization (Create JWT Cookie, Validate JWT Cookie, Refresh JWT and pull user role)
+    [x] - BACKEND : Handle Upload CSV File and save it in the database
     [ ] - BACKEND : Handle Upload Images For Products and Users
-    [ ] - BACKEND : Handle Upload Files
     [ ] - BACKEND : Create PDF Presentation and Provide Download Link
     [ ] - BACKEND : Error Handling
+
+    ________________________________________________________________________________________________________________
+
+    [x] - FRONTEND : Create New User Form
+    [ ] - FRONTEND : Login User
+    [ ] - FRONTEND :
 
     [ ] - FRONTEND : Create Skeletons for Components
     [ ] - FRONTEND : Implement Async - Lazy Loading
