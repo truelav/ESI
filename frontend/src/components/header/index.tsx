@@ -21,10 +21,12 @@ import {
   ChevronRightIcon,
 } from "@chakra-ui/icons";
 import logo from "/logo.png";
+import useAuth from "../../hooks/useAuth";
 
 export default function WithSubnavigation() {
   const { isOpen, onToggle } = useDisclosure();
-
+  const { auth } = useAuth()
+  console.log(auth)
   return (
     <Box>
       <Flex

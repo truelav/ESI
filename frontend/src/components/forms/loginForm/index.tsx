@@ -1,25 +1,26 @@
 import {
   Box,
   Button,
-  Checkbox,
   Container,
-  Divider,
+  // Checkbox,
+  // Divider,
+  // HStack,
   FormControl,
   FormLabel,
   Heading,
-  HStack,
   Image,
   Input,
   Stack,
   Text,
   FormErrorMessage,
 } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
 import logo from "/logo.png";
-import { OAuthButtonGroup } from "./OAuthButtonGroup";
-import { PasswordField } from "./PasswordField";
 import { useLoginMutation } from "../../../app/api/apiSlice";
+import useAuth from "../../../hooks/useAuth";
+// import { OAuthButtonGroup } from "./OAuthButtonGroup";
+// import { PasswordField } from "./PasswordField";
 
 function validateInput() {
   let error;
@@ -32,7 +33,9 @@ function validateInput() {
 }
 
 export function LoginForm() {
-  const [login] = useLoginMutation();
+  const [ login ] = useLoginMutation();
+  const { setAuth } = useAuth()
+  const navigate = useNavigate()
   return (
     <Container
       maxW="lg"
@@ -65,19 +68,24 @@ export function LoginForm() {
                 password: "",
               }}
               onSubmit={async (values, actions) => {
+                console.log(values);
                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                 // @ts-ignore
-                console.log(values);
                 const response = await login(values).unwrap();
+                const accessToken = response?.accessToken;
+                const role = response?.userDto?.role;
+                const userDto = response?.userDto
                 console.log(response);
-                // actions.resetForm();
+                setAuth({ userDto, role, accessToken })
+                actions.resetForm();
+                navigate("/products")
                 // onClose();
               }}
             >
               {(props) => (
                 <Form>
                   <Field name="email" validate={validateInput}>
-                    {({ field, form }: any) => (
+                    {({ field, form }: never) => (
                       <FormControl
                         isInvalid={form.errors.name && form.touched.name}
                       >
@@ -88,7 +96,7 @@ export function LoginForm() {
                     )}
                   </Field>
                   <Field name="password" validate={validateInput}>
-                    {({ field, form }: any) => (
+                    {({ field, form }: never) => (
                       <FormControl
                         isInvalid={form.errors.name && form.touched.name}
                       >
