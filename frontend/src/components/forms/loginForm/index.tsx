@@ -14,11 +14,11 @@ import {
   Text,
   FormErrorMessage,
 } from "@chakra-ui/react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
 import logo from "/logo.png";
 import { useLoginMutation } from "../../../app/api/apiSlice";
-import useAuth from "../../../hooks/useAuth";
+import { useCookies } from "react-cookie";
 // import { OAuthButtonGroup } from "./OAuthButtonGroup";
 // import { PasswordField } from "./PasswordField";
 
@@ -34,8 +34,9 @@ function validateInput() {
 
 export function LoginForm() {
   const [ login ] = useLoginMutation();
-  const { setAuth } = useAuth()
+  const [cookies, setCookie] = useCookies(["refreshToken"])
   const navigate = useNavigate()
+  // console.log(cookies)
   return (
     <Container
       maxW="lg"
@@ -68,17 +69,15 @@ export function LoginForm() {
                 password: "",
               }}
               onSubmit={async (values, actions) => {
-                console.log(values);
+                // console.log(values);
                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                 // @ts-ignore
                 const response = await login(values).unwrap();
-                const accessToken = response?.accessToken;
-                const role = response?.userDto?.role;
-                const userDto = response?.userDto
-                console.log(response);
-                setAuth({ userDto, role, accessToken })
-                actions.resetForm();
-                navigate("/products")
+                if(response){
+                  console.log(response);
+                  actions.resetForm();
+                  navigate("/products")
+                }
                 // onClose();
               }}
             >

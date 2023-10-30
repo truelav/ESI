@@ -20,13 +20,51 @@ import {
   ChevronDownIcon,
   ChevronRightIcon,
 } from "@chakra-ui/icons";
-import logo from "/logo.png";
-import useAuth from "../../hooks/useAuth";
+import logo from "/logo.png"
+import { useCookies } from "react-cookie";
 
 export default function WithSubnavigation() {
   const { isOpen, onToggle } = useDisclosure();
-  const { auth } = useAuth()
-  console.log(auth)
+  const [ cookies, setCookie, removeCookie ] = useCookies(["refreshToken"])
+  let content = <div></div>
+
+  if(cookies.refreshToken){
+    content = (
+          <Button
+          as={"a"}
+          display={{ base: "none", md: "inline-flex" }}
+          fontSize={"sm"}
+          fontWeight={600}
+          color={"white"}
+          bg={"blue.500"}
+          onClick={() => (removeCookie("refreshToken"))}
+          _hover={{
+            bg: "blue.700",
+          }}
+        >
+          Log Out
+      </Button>
+    )
+  } else {
+    content = (
+      <Button
+        as={"a"}
+        display={{ base: "none", md: "inline-flex" }}
+        fontSize={"sm"}
+        fontWeight={600}
+        color={"white"}
+        bg={"blue.500"}
+        href={"/login"}
+        _hover={{
+          bg: "blue.700",
+        }}
+      >
+        Log In
+      </Button>
+    )
+  }
+
+
   return (
     <Box>
       <Flex
@@ -68,25 +106,7 @@ export default function WithSubnavigation() {
           direction={"row"}
           spacing={6}
         >
-          {/* <Button as={'a'} fontSize={'sm'} fontWeight={400} variant={'link'} href={'#'}>
-            Sign In
-          </Button> */}
-          {/* <Link to="/login"> */}
-          <Button
-            as={"a"}
-            display={{ base: "none", md: "inline-flex" }}
-            fontSize={"sm"}
-            fontWeight={600}
-            color={"white"}
-            bg={"blue.500"}
-            href={"/login"}
-            _hover={{
-              bg: "blue.700",
-            }}
-          >
-            Log In
-          </Button>
-          {/* </Link> */}
+          {content}
         </Stack>
       </Flex>
 

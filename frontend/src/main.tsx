@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-// import { CookiesProvider } from "react-cookie";
+import { CookiesProvider } from "react-cookie";
 import {AuthProvider} from "./app/context/AuthProvider";
 import { store } from "./app/store";
 import { Provider } from "react-redux";
@@ -14,11 +14,11 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <Provider store={store}>
       <AuthProvider>
-        {/* <CookiesProvider> */}
+        <CookiesProvider>
           <ChakraProvider>
             <App />
           </ChakraProvider>
-        {/* </CookiesProvider> */}
+        </CookiesProvider>
       </AuthProvider>
     </Provider>
   </React.StrictMode>

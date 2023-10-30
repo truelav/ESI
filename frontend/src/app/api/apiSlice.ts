@@ -102,9 +102,16 @@ export const apiSlice = createApi({
       invalidatesTags: ["User"],
     }),
     // Authorization API Routes [ 1. /auth  2. /login  3. /register]
-    login: builder.mutation<User, User>({
+    login: builder.mutation<unknown, User>({
       query: (user) => ({
         url: `/auth/login`,
+        method: "POST",
+        body: user,
+      }),
+    }),
+    logout: builder.mutation<unknown, User>({
+      query: (user) => ({
+        url: `/auth/logout`,
         method: "POST",
         body: user,
       }),
