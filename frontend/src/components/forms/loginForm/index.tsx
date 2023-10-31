@@ -15,10 +15,11 @@ import {
   FormErrorMessage,
 } from "@chakra-ui/react";
 import { Link, useNavigate } from "react-router-dom";
-import { Formik, Form, Field } from "formik";
-import logo from "/logo.png";
-import { useLoginMutation } from "../../../app/api/apiSlice";
 import { useCookies } from "react-cookie";
+import { Formik, Form, Field } from "formik";
+// import { jwtDecode } from "jwt-decode";
+import { useLoginMutation } from "../../../app/api/apiSlice";
+import logo from "/logo.png";
 // import { OAuthButtonGroup } from "./OAuthButtonGroup";
 // import { PasswordField } from "./PasswordField";
 
@@ -33,9 +34,9 @@ function validateInput() {
 }
 
 export function LoginForm() {
-  const [ login ] = useLoginMutation();
-  const [cookies, setCookie] = useCookies(["refreshToken"])
-  const navigate = useNavigate()
+  const [login] = useLoginMutation();
+  const [cookies, setCookie] = useCookies(["refreshToken"]);
+  const navigate = useNavigate();
   // console.log(cookies)
   return (
     <Container
@@ -73,10 +74,10 @@ export function LoginForm() {
                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                 // @ts-ignore
                 const response = await login(values).unwrap();
-                if(response){
+                if (response) {
                   console.log(response);
                   actions.resetForm();
-                  navigate("/products")
+                  navigate("/products");
                 }
                 // onClose();
               }}

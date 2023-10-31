@@ -106,7 +106,7 @@ export const apiSlice = createApi({
       query: (user) => ({
         url: `/auth/login`,
         method: "POST",
-        body: user,
+        body: { ...user },
       }),
     }),
     logout: builder.mutation<unknown, User>({

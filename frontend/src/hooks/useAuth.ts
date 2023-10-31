@@ -1,10 +1,19 @@
-import { useContext, useDebugValue } from "react";
-import AuthContext from "../app/context/AuthProvider";
+import { jwtDecode } from "jwt-decode";
 
-const useAuth = () => {
-  const { auth }  = useContext(AuthContext);
-  useDebugValue(auth, (auth) => auth?.user ? "Logged In" : "Logged Out");
-  return useContext(AuthContext);
+const useAuth = ({ token }) => {
+  let isAdmin = null;
+
+  if (token) {
+    const decoded = jwtDecode(token);
+    console.log(decoded);
+    const { role, name } = decoded;
+
+    if (role === "ADMIN") isAdmin = true;
+
+    return { name, role, isAdmin: isAdmin };
+  }
+
+  return { name: "", role: "", isAdmin: false };
 };
 
 export default useAuth;
