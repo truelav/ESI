@@ -92,7 +92,7 @@ export function LoginForm() {
                 }
               }}
             >
-              {(props) => (
+              {(props: FormikProps<FormValues>) => (
                 <Form>
                   <Field name="email" validate={validateInput}>
                     {({ field, form }: never) => (

@@ -1,19 +1,25 @@
 import { jwtDecode } from "jwt-decode";
 import { useSelector } from "react-redux";
+import { selectCurrentToken } from "../features/auth/slice/authSlice";
 // import { selectCurrentToken } from "../features/auth/slice/authSlice"
-import { RootState } from "@reduxjs/toolkit/query";
+// import { RootState } from "@reduxjs/toolkit/query";
 
 const useAuth = () => {
 
-  const accessToken = useSelector((state: any) => state.auth.accessToken)
+  const accessToken = useSelector(selectCurrentToken)
   let isAdmin = null;
   let isUser = null;
   console.log(accessToken)
 
+  interface DecodedToken {
+    role: string;
+    email: string;
+  }
+
   if (accessToken) {
-    const decoded = jwtDecode(accessToken);
-    console.log(decoded);
+    const decoded: DecodedToken  = jwtDecode(accessToken);
     const { role, email } = decoded;
+    console.log(decoded);
 
     if (role === "ADMIN") isAdmin = true;
     else if (role === "USER") isUser = true;
