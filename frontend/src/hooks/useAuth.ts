@@ -1,11 +1,11 @@
 import { jwtDecode } from "jwt-decode";
 import { useSelector } from "react-redux";
-import { selectCurrentToken } from "../features/auth/slice/authSlice"
+// import { selectCurrentToken } from "../features/auth/slice/authSlice"
 import { RootState } from "@reduxjs/toolkit/query";
 
 const useAuth = () => {
 
-  const accessToken = useSelector((state: RootState) => state.auth.accessToken)
+  const accessToken = useSelector((state: any) => state.auth.accessToken)
   let isAdmin = null;
   let isUser = null;
   console.log(accessToken)
@@ -13,12 +13,12 @@ const useAuth = () => {
   if (accessToken) {
     const decoded = jwtDecode(accessToken);
     console.log(decoded);
-    const { role, name } = decoded;
+    const { role, email } = decoded;
 
     if (role === "ADMIN") isAdmin = true;
     else if (role === "USER") isUser = true;
 
-    return { username: name, role, isAdmin, isUser };
+    return { username: email, role, isAdmin, isUser };
   }
 
   return { username: "", role: null, isAdmin, isUser };

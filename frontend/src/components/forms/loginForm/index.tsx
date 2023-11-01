@@ -77,12 +77,13 @@ export function LoginForm() {
                   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                   // @ts-ignore
                   // const response = await login(values).unwrap();
-                  const { accessToken } = await login(values).unwrap();
+                  const { accessToken }  = await login(values).unwrap();
+                  console.log(accessToken)
                   if (!accessToken) {
                     console.log('Error, access token not available')
                   } else {
                     // console.log(accessToken);
-                    dispatch(setCredentials(accessToken))
+                    dispatch(setCredentials({accessToken}))
                     actions.resetForm();
                     // navigate("/products");
                   }
