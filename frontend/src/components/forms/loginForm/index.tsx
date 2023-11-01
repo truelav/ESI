@@ -1,10 +1,10 @@
 import {
-  Box,
-  Button,
-  Container,
   // Checkbox,
   // Divider,
   // HStack,
+  Box,
+  Button,
+  Container,
   FormControl,
   FormLabel,
   Heading,
@@ -14,12 +14,14 @@ import {
   Text,
   FormErrorMessage,
 } from "@chakra-ui/react";
-import { Link, useNavigate } from "react-router-dom";
-import { useCookies } from "react-cookie";
+import { useDispatch } from "react-redux";
+import { setCredentials } from "../../../features/auth/slice/authSlice";
+
+import { Link } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
-// import { jwtDecode } from "jwt-decode";
 import { useLoginMutation } from "../../../app/api/apiSlice";
 import logo from "/logo.png";
+// import { useCookies } from "react-cookie";
 // import { OAuthButtonGroup } from "./OAuthButtonGroup";
 // import { PasswordField } from "./PasswordField";
 
@@ -35,8 +37,9 @@ function validateInput() {
 
 export function LoginForm() {
   const [login] = useLoginMutation();
-  const [cookies, setCookie] = useCookies(["refreshToken"]);
-  const navigate = useNavigate();
+  const dispatch = useDispatch()
+  // const navigate = useNavigate();
+  // const [cookies, setCookie] = useCookies(["refreshToken"]);
   // console.log(cookies)
   return (
     <Container
@@ -70,16 +73,22 @@ export function LoginForm() {
                 password: "",
               }}
               onSubmit={async (values, actions) => {
-                // console.log(values);
-                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                // @ts-ignore
-                const response = await login(values).unwrap();
-                if (response) {
-                  console.log(response);
-                  actions.resetForm();
-                  navigate("/products");
+                try {
+                  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                  // @ts-ignore
+                  // const response = await login(values).unwrap();
+                  const { accessToken } = await login(values).unwrap();
+                  if (!accessToken) {
+                    console.log('Error, access token not available')
+                  } else {
+                    // console.log(accessToken);
+                    dispatch(setCredentials(accessToken))
+                    actions.resetForm();
+                    // navigate("/products");
+                  }
+                } catch(error){
+                  console.log(error)
                 }
-                // onClose();
               }}
             >
               {(props) => (

@@ -1,1 +1,0 @@
-export const selectCurrentToken = (state: any) => state.auth.token 
