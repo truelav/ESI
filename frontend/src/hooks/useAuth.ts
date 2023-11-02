@@ -1,16 +1,18 @@
 import { jwtDecode } from "jwt-decode";
-import { useSelector } from "react-redux";
-import { selectCurrentToken } from "../features/auth/slice/authSlice";
+import { useCookies } from "react-cookie";
+// import { useSelector } from "react-redux";
+// import { selectCurrentToken } from "../features/auth/slice/authSlice";
 // import { selectCurrentToken } from "../features/auth/slice/authSlice"
 // import { RootState } from "@reduxjs/toolkit/query";
 
 const useAuth = () => {
-
   // const accessToken = useSelector((state) => state.auth.accessToken)
-  const accessToken = useSelector(selectCurrentToken)
+  // const accessToken = useSelector(selectCurrentToken);
+  const [cookies] = useCookies(["authToken"]);
+  const accessToken = cookies.authToken;
   let isAdmin = null;
   let isUser = null;
-  console.log(accessToken)
+  console.log("userAuth - authTokenCookie: " + accessToken);
 
   interface DecodedToken {
     role: string;
@@ -18,7 +20,7 @@ const useAuth = () => {
   }
 
   if (accessToken) {
-    const decoded: DecodedToken  = jwtDecode(accessToken);
+    const decoded: DecodedToken = jwtDecode(accessToken);
     const { role, email } = decoded;
     console.log(role, email);
 

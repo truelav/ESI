@@ -5,10 +5,10 @@ import {
   // Checkbox,
   // Divider,
   // HStack,
+  Image,
   FormControl,
   FormLabel,
   Heading,
-  Image,
   Input,
   Stack,
   Text,
@@ -18,9 +18,16 @@ import { Link, useNavigate } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
 import { useCookies } from "react-cookie";
 import { useLoginMutation } from "../../../app/api/apiSlice";
-import logo from "/logo.png";
+// import logo from "/logo.png";
 // import { OAuthButtonGroup } from "./OAuthButtonGroup";
 // import { PasswordField } from "./PasswordField";
+
+// interface LoginResponseProps {
+//   accessToken: string;
+//   refreshToken: string;
+//   message: string;
+//   userDto: object;
+// }
 
 function validateInput() {
   let error;
@@ -34,7 +41,7 @@ function validateInput() {
 
 export function LoginForm() {
   const [login] = useLoginMutation();
-  // const [cookies, setCookie] = useCookies(["refreshToken"]);
+  const [cookies, setCookie] = useCookies(["authToken"]);
   const navigate = useNavigate();
   // console.log(cookies)
   return (
@@ -74,9 +81,13 @@ export function LoginForm() {
                 // @ts-ignore
                 const response = await login(values).unwrap();
                 if (response) {
+                  const { accessToken } = response;
+                  setCookie("authToken", accessToken, { path: "/" });
                   console.log(response);
                   actions.resetForm();
                   navigate("/products");
+                } else {
+                  throw Error("Log In Error occured");
                 }
                 // onClose();
               }}

@@ -5,14 +5,14 @@ const authSlice = createSlice({
   initialState: { accessToken: null },
   reducers: {
     setCredentials: (state, action) => {
-      console.log(action.payload)
+      console.log(action.payload);
       const { accessToken } = action.payload;
       state.accessToken = accessToken;
-      localStorage.setItem("accessToken", accessToken)
+      localStorage.setItem("accessToken", accessToken);
     },
     logOut: (state) => {
       state.accessToken = null;
-      localStorage.removeItem("accessToken")
+      localStorage.removeItem("accessToken");
     },
   },
 });
@@ -21,7 +21,8 @@ export const { setCredentials, logOut } = authSlice.actions;
 
 export default authSlice.reducer;
 
-export const selectCurrentToken = (state: { auth: { accessToken: string } }) => state.auth.accessToken;
+export const selectCurrentToken = (state: { auth: { accessToken: string } }) =>
+  state.auth.accessToken;
 
 // import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 // import { authService } from '../services/authService';

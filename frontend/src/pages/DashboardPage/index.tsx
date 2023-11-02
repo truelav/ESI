@@ -4,19 +4,21 @@ import { Container, Text } from "@chakra-ui/react";
 import useAuth from "../../hooks/useAuth";
 
 export default function Dashboard() {
-  const { username, role } = useAuth()
-  return (
-    <>
-      <Container>
-        <Text>
+  const { username, role, isAdmin } = useAuth();
+
+  if (isAdmin) {
+    return (
+      <>
+        <Container>
+          <Text>
             Welcome to Dashboard {username} : {role}
-        </Text>
-      </Container>
-      <Container>
-        <Text>
-            More Info will come soon
-        </Text>
-      </Container>
-    </>
-  );
+          </Text>
+        </Container>
+        <Container>
+          <Text>More Info will come soon</Text>
+        </Container>
+      </>
+    );
+  }
+  return <>Unauthorized</>;
 }
