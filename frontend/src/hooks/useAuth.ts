@@ -6,6 +6,7 @@ import { selectCurrentToken } from "../features/auth/slice/authSlice";
 
 const useAuth = () => {
 
+  // const accessToken = useSelector((state) => state.auth.accessToken)
   const accessToken = useSelector(selectCurrentToken)
   let isAdmin = null;
   let isUser = null;
@@ -19,7 +20,7 @@ const useAuth = () => {
   if (accessToken) {
     const decoded: DecodedToken  = jwtDecode(accessToken);
     const { role, email } = decoded;
-    console.log(decoded);
+    console.log(role, email);
 
     if (role === "ADMIN") isAdmin = true;
     else if (role === "USER") isUser = true;
