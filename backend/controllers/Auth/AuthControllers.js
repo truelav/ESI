@@ -87,11 +87,11 @@ export const login = async (req, res) => {
 
     await saveToken(userDto.id, refreshToken);
 
-    res.cookie("refreshToken", accessToken, refreshToken, {
-      httpOnly: true,
-      secure: true,
-      maxAge: 900000,
-    });
+    // res.cookie("refreshToken", accessToken, refreshToken, {
+    //   httpOnly: true,
+    //   secure: true,
+    //   maxAge: 900000,
+    // });
 
     res.status(200).json({
       message: "Login Successful",
