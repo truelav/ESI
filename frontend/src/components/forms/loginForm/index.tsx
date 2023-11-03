@@ -76,9 +76,6 @@ export function LoginForm() {
                 password: "",
               }}
               onSubmit={async (values, actions) => {
-                // console.log(values);
-                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                // @ts-ignore
                 const response = await login(values).unwrap();
                 if (response) {
                   const { accessToken } = response;

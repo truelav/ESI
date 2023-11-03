@@ -13,6 +13,7 @@ export default function Header() {
 
   const logOut = () => {
     console.log(cookies);
+
     if (cookies.authToken) {
       removeCookie("authToken", { path: "/" });
     }
