@@ -7,6 +7,7 @@ export const deleteMultipleProducts = async (req, res) => {
 
     if(idsToDelete.length === 0) {
       res.status(300).json({message: "there are no products selected to delete"})
+      return
     }
 
     Product.deleteMany({ _id: {$in: idsToDelete}}, (error) => {
