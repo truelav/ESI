@@ -1,5 +1,5 @@
-import { Card, Container, Text } from "@chakra-ui/react";
-import { StatComponent } from "../../components/stats/Stat/Stat";
+import { Container, Text } from "@chakra-ui/react";
+import { StatGroup  } from "../../components/stats/StatGroup/StatGroup";
 
 export default function Dashboard() {
   return (
@@ -7,14 +7,8 @@ export default function Dashboard() {
       <Container>
         <Text>Welcome to Dashboard</Text>
       </Container>
-      <Container>
-        <Card>
-          <StatComponent title="Products" />
-        </Card>
-        <Card>
-          <StatComponent title="Users" />
-        </Card>
-      </Container>
+          <StatGroup />
+          <StatGroup/>
       <Container>
         <Text>More Info will come soon</Text>
       </Container>
