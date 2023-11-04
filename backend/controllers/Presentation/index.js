@@ -14,25 +14,45 @@ export const createPDFPresentation = async (req, res) => {
         }
 
         const productDetails = await Product.find({ '_id': { $in: prodIDs}})
-
+        console.log(productDetails.length)
         if(!productDetails){
             res.status(300).json({message: "Oooops something went wrong in Database"})
             return
         }
 
-        const pdfPresentation = new PDFDocument();
+        const pdfPresentation = new PDFDocument({
+            displayTitle: true,
+        });
+
+        pdfPresentation.info['Title'] = 'ESI Enterprises'
+
+        const struct = pdfPresentation.struct('Document')
+        pdfPresentation.addStructure(struct)
 
         pdfPresentation
             .pipe(fs.createWriteStream('static/presentation.pdf'));
 
+
         productDetails.forEach((product) => {
-            pdfPresentation.addPage()
+            pdfPresentation.addPage({
+                size: "A4", 
+                layout: "landscape"
+            })
+
+            pdfPresentation.rect(0, 0, 300, 200).fill('#0074D9')
 
             // Embed a font, set the font size, and render some text
-            pdfPresentation
-                .fontSize(25)
-                .text(product.model + product.description, 100, 100);
-    
+            pdfPresentation.font('Helvetica-Bold').fillColor('white').fontSize(16);
+            pdfPresentation.text(product.brand, 25, 25)
+
+            // Embed a font, set the font size, and render some text
+            pdfPresentation.font('Helvetica-Bold').fillColor('white').fontSize(12);
+            pdfPresentation.text(product.model, 25, 60)
+
+            // Embed a font, set the font size, and render some text
+            pdfPresentation.font('Helvetica-Bold').fillColor('black').fontSize(12);
+            pdfPresentation.text(product.description, 400, 25)
+
             // Add an image, constrain it to a given size, and center it vertically and horizontally
             pdfPresentation.image("static/images/product.png", {
                 fit: [250, 300],
@@ -43,7 +63,7 @@ export const createPDFPresentation = async (req, res) => {
 
         pdfPresentation.end()
 
-        res.status(300).json({message: "Presentation created success"})
+        res.status(300).json({message: "Presentation created success", link: ""})
 
     } catch(error){
         console.log(error)
