@@ -17,6 +17,9 @@ app.use(cors(corsOptions));
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
+// to serve files from uploads directory
+app.use("/static", express.static("static"));
+
 app.use("/api", allRoutes);
 
 // Error Middleware

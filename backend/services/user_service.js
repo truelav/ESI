@@ -1,8 +1,8 @@
 import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
 import User from "../../models/User/User.js";
-import Role from "../../models/Role/Role.js";
 import UserDto from "../utils/user_dto.js";
+import Role from "../../models/Role/Role.js";
+import jwt from "jsonwebtoken";
 import ApiError from "../middleware/error/apiError.js";
 import User from "../models/User/User.js";
 
