@@ -6,6 +6,7 @@ import allRoutes from "./routes/index.js";
 import connectDB from "./config/db.config.js";
 import { corsOptions } from "./config/cors/corsOptions.js";
 import { errorMiddleware } from "./middleware/error/errorMiddleware.js";
+import fileUpload from "express-fileupload";
 
 //start server
 const PORT = process.env.PORT ?? 8888;
@@ -16,6 +17,15 @@ app.use(express.json());
 app.use(cors(corsOptions));
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+
+// app.use(
+//   fileUpload({
+//     limits: {
+//       fileSize: 2000000,
+//     },
+//     abortOnLimit: true,
+//   })
+// );
 
 // to serve files from uploads directory
 app.use("/static", express.static("static"));
