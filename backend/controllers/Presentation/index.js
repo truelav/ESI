@@ -1,7 +1,7 @@
 import PDFDocument from "pdfkit";
 import fs from "fs";
 import Product from "../../models/Product/Product.js";
-import { generateProductPresentation } from "../../services/presentation_service.js";
+// import { generateProductPresentation } from "../../services/presentation_service.js";
 
 export const createPDFPresentation = async (req, res) => {
   try {

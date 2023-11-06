@@ -7,7 +7,9 @@ const storage = multer.diskStorage({
     cb(null, "static/images");
   },
   filename: (req, file, cb) => {
-    cb(null, path.extname(file.originalname));
+    // cb(null, file.originalname);
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+    cb(null, req.body.brand + '-' + req.body.model + '-' + uniqueSuffix + path.extname(file.originalname));
   },
   limits: {
     fileSize: 500000,
