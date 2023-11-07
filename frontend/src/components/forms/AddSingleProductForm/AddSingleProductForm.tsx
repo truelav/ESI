@@ -1,104 +1,172 @@
-import { ChangeEvent, useState } from "react"
-import { Button } from "@chakra-ui/react"
-import {useAddSingleProductMutation} from "../../../app/api/apiSlice"
+// import { SyntheticEvent, useState } from 'react';
+import {
+  Box,
+  Container,
+  Button,
+  // Checkbox,
+  // Divider,
+  // HStack,
+  Image,
+  FormControl,
+  FormLabel,
+  Heading,
+  Input,
+  Stack,
+  Text,
+  FormErrorMessage,
+} from "@chakra-ui/react";
+import {
+  Formik,
+  Form,
+  Field,
+  ErrorMessage,
+  FormikErrors,
+  withFormik,
+  FormikProps,
+  FieldInputProps,
+} from "formik";
+import { Link } from "react-router-dom";
+import { useAddSingleProductMutation } from "../../../app/api/apiSlice";
 
-function AddSingleProductForm() {
-
-    const [formValues, setFormValues] = useState({
-        name: "VAIO Laptop",
-        status: "active",
-        brand: "VAIO",
-        description: "Model: VWFC71639 Windows 11 Home 13th Gen Intel Core i7-1355U Processor (3.70 GHz, up to 5.00 GHz, 12M Cache) ",
-        category: "electronics",
-        subcategory: "laptops",
-        quantity: 1,
-        price: 1,
-        images: ["https://fastly.picsum.photos/id/460/600/400.jpg?hmac=txE53BmGsSPaNUp4ZhIQmbewaKJFtGHlb5kPaS96s8c"],
-        location: "chisinau",
-    })
-
-    const [addSingleProduct, {isLoading}] = useAddSingleProductMutation()
-
-    const handleResetFormInputs = () => {
-        setFormValues({
-            name: "",
-            status: "",
-            brand: "",
-            description: "",
-            category: "",
-            subcategory: "",
-            quantity: 1,
-            price: 1,
-            images: ["https://fastly.picsum.photos/id/460/600/400.jpg?hmac=txE53BmGsSPaNUp4ZhIQmbewaKJFtGHlb5kPaS96s8c"],
-            location: "",
-        })
-    }
-
-    const handleOnUpdateForm = (e: ChangeEvent<HTMLInputElement>) => {
-        e.preventDefault()
-        setFormValues({
-            ...formValues,
-            [e.target.name]: e.target.value
-        })
-    }
-    const handleOnSubmitForm = async () => { 
-        try {
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            const result =  await addSingleProduct(formValues).unwrap()
-            console.log(result)
-            handleResetFormInputs()
-        } catch(error){
-            console.log("Failed to save new producet : " + error)
-        }
-    }
-
-    let content = <div></div>;
-
-    if(isLoading) {
-        content = <div>Loading ...</div>
-    } else {
-        content = (
-            <div className="">
-                <div className="">
-                    <p>Title</p>
-                    <input className="" id="" name="name" type="text" onChange={handleOnUpdateForm}/>
-                </div>
-                <div>
-                    <p>Status</p>
-                    <select>
-                        <option value="active">Active</option>
-                        <option value="draft">Draft</option>
-                    </select>
-                </div>
-                <div className="">
-                    <p>Product Brand</p>
-                    <input className="" id="" name="brand" type="text" onChange={handleOnUpdateForm}/>
-                </div>
-                <div className="">
-                    <p>Product Description</p>
-                    <input className="" id="" name="description" type="text" onChange={handleOnUpdateForm}/>
-                </div>
-                <div className="">
-                <input className="" id="" name="image" type="file" />
-                </div>
-                <div className="">
-                    <p>Product Description</p>
-                    <input className="" id="" name="description" type="text" onChange={handleOnUpdateForm}/>
-                </div>
-                <div>
-                    <Button onClick={handleOnSubmitForm}>Save Changes</Button>
-                </div>
-            </div>
-        );
-    }
-
-
-    return (
-        <>
-        <div>{content}</div>
-        </>
-    );
+function validateInput() {
+  let error;
+  // if (!value) {
+  //   error = 'Name is required'
+  // } else if (value.toLowerCase() !== 'naruto') {
+  //   error = "Jeez! You're not a fan 😱"
+  // }
+  return error;
 }
+
+interface ProductForm {
+  name: string;
+  brand: string;
+  model: string;
+  description: string;
+  category: string;
+  subcategory: string;
+  price: number;
+  quantity: number;
+  images: string;
+  upc: string;
+}
+
+interface FieldProps {
+  field: FieldInputProps<string>;
+  form: FormikProps<{ name: string; surname: string }>;
+}
+
+const AddSingleProductForm = () => {
+  //   const { touched, errors, isSubmitting, message } = props;
+  //   const initialValues: ProductForm = {};
+  const [addSingleProduct, { isLoading }] = useAddSingleProductMutation();
+  return (
+    <Container
+      maxW="lg"
+      py={{ base: "12", md: "24" }}
+      px={{ base: "0", sm: "8" }}
+    >
+      <Stack spacing="8">
+        <Stack spacing="6">
+          {/* <Image src={logo} sizes="sm" className="" alt="ESI Logo" /> */}
+          <Stack spacing={{ base: "2", md: "3" }} textAlign="center">
+            <Heading size={{ base: "xs", md: "sm" }}>Add Product</Heading>
+            <Link to="/contact">
+              <Text color="fg.muted">Don't have an account? Contact Us</Text>
+            </Link>
+          </Stack>
+        </Stack>
+        <Box
+          py={{ base: "0", sm: "8" }}
+          px={{ base: "4", sm: "10" }}
+          bg={{ base: "transparent", sm: "bg.surface" }}
+          boxShadow={{ base: "none", sm: "md" }}
+          borderRadius={{ base: "none", sm: "xl" }}
+        >
+          <Stack spacing="6">
+            <Formik
+              initialValues={{
+                email: "",
+                password: "",
+              }}
+              onSubmit={async (values, actions) => {
+                const response = await addSingleProduct(values).unwrap();
+                if (response) {
+                  console.log(response);
+                  actions.resetForm();
+                  // navigate("/products");
+                } else {
+                  throw Error("Log In Error occured");
+                }
+                // onClose();
+              }}
+            >
+              {(props) => (
+                <Form>
+                  <Field name="brand" validate={validateInput}>
+                    {({ field, form }: FieldProps) => (
+                      <FormControl
+                        isInvalid={form.errors.name && form.touched.name}
+                      >
+                        <FormLabel>Brand</FormLabel>
+                        <Input {...field} placeholder="Brand" />
+                        <FormErrorMessage>{form.errors.name}</FormErrorMessage>
+                      </FormControl>
+                    )}
+                  </Field>
+
+                  <Field name="model" validate={validateInput}>
+                    {({ field, form }: FieldProps) => (
+                      <FormControl
+                        isInvalid={form.errors?.name && form.touched.name}
+                      >
+                        <FormLabel>Model</FormLabel>
+                        <Input {...field} placeholder="Model" />
+                        <FormErrorMessage>{form.errors.name}</FormErrorMessage>
+                      </FormControl>
+                    )}
+                  </Field>
+
+                  <Field name="description" validate={validateInput}>
+                    {({ field, form }: FieldProps) => (
+                      <FormControl
+                        isInvalid={form.errors?.name && form.touched.name}
+                      >
+                        <FormLabel>Description</FormLabel>
+                        <Input {...field} placeholder="Description" />
+                        <FormErrorMessage>{form.errors.name}</FormErrorMessage>
+                      </FormControl>
+                    )}
+                  </Field>
+
+                  <Field name="Image" validate={validateInput}>
+                    {({ field, form }: FieldProps) => (
+                      <FormControl
+                        isInvalid={form.errors?.name && form.touched.name}
+                      >
+                        <FormLabel>Image</FormLabel>
+                        <Input {...field} placeholder="Image" type="file" />
+                        <FormErrorMessage>{form.errors.name}</FormErrorMessage>
+                      </FormControl>
+                    )}
+                  </Field>
+
+                  <Button
+                    mt={4}
+                    colorScheme="teal"
+                    isLoading={props.isSubmitting}
+                    type="submit"
+                  >
+                    Submit
+                  </Button>
+                </Form>
+              )}
+            </Formik>
+          </Stack>
+        </Box>
+      </Stack>
+    </Container>
+  );
+};
 
 export default AddSingleProductForm;

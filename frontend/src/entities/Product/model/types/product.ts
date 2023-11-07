@@ -5,8 +5,6 @@ export interface Product {
     ) => import("react/jsx-runtime").JSX.Element
   ): import("react/jsx-runtime").JSX.Element;
   _id: string;
-  createdAt: string;
-  updatedAt: string;
   name: string;
   brand: string;
   description: string;

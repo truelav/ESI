@@ -1,11 +1,11 @@
 import { Button, Container, Text } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 import { DashProductsList } from "../../../components/products/DashProductsList/DashProductsList";
-import ImportProductsModal from "../../../shared/ui/Modals/ImportProducts/ImportProductsModal"
+import ImportProductsModal from "../../../shared/ui/Modals/ImportProducts/ImportProductsModal";
 
 import "./styles.css";
 
 function DashProductsPage() {
-
   return (
     <>
       <div className="dash_products_page_wrapper">
@@ -15,14 +15,16 @@ function DashProductsPage() {
             <ImportProductsModal />
           </Container>
 
-           {/* ADD Product Modal */}
-           <Container>
-            <Button className="dash_products_nav_button">
-              <Text>Add Product</Text>
-            </Button>
-           </Container>
+          {/* ADD Product Modal */}
+          <Container>
+            <Link to="addSingleProduct">
+              <Button className="dash_products_nav_button">
+                <Text>Add Product</Text>
+              </Button>
+            </Link>
+          </Container>
 
-           <Container>
+          <Container>
             <Button className="dash_products_nav_button">
               <Text>Delete Products</Text>
             </Button>
