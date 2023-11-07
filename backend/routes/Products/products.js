@@ -6,7 +6,11 @@ const router = express.Router();
 
 router.get("/", ProductControllers.getAllProducts);
 router.get("/:id", ProductControllers.getSingleProduct);
-router.post("/", ProductControllers.addSingleProduct);
+router.post(
+  "/", 
+  upload.single("image"), 
+  ProductControllers.addSingleProduct
+);
 router.put("/", ProductControllers.editMultipleProducts);
 router.put("/:id", ProductControllers.editProduct);
 router.delete("/:id", ProductControllers.deleteSingleProduct);

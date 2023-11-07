@@ -9,7 +9,8 @@ export const addSingleProduct = async (req, res) => {
       category,
       subcategory,
       quantity,
-      images,
+      model,
+      upc,
       location,
     } = req.body;
   
@@ -21,11 +22,14 @@ export const addSingleProduct = async (req, res) => {
         category,
         subcategory,
         quantity,
-        images,
+        model,
+        upc,
+        images : 'http://localhost:8888/static/images/' + req.file.filename,
         location,
       });
   
       await newProduct.save();
+
       res
         .status(200)
         .json({ message: `The new product ${newProduct.name} with added `, newProduct });

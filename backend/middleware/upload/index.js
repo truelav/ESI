@@ -4,9 +4,11 @@ import fs from "fs";
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "static/images");
+    console.log(req.body)
+    cb(null, path.join('static/images'));
   },
   filename: (req, file, cb) => {
+    console.log(req.file, req.body)
     // cb(null, file.originalname);
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
     cb(null, req.body.brand + '-' + req.body.model + '-' + uniqueSuffix + path.extname(file.originalname));
