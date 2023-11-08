@@ -16,18 +16,16 @@ export const deleteSingleProduct = async (req, res) => {
 
     // delete image
     const {images} = product
-    const imagePath = images.slice(22)
-    fs.unlink(imagePath, (err) => {
-      if(err) console.log(err)
-      return
-    })
-    // fs.unlink(product.images, (err) => {
-    //   if (err) {
-    //     return err;
-    //   }
-  
-    //   return true
-    // });
+    if (images){
+      const imagePath = images.slice(22)
+
+      // await unlinkAsync(imagePath)
+
+      fs.unlink(imagePath, (err) => {
+        if(err) console.log(err)
+        return
+      })
+    }
 
     const deletedProduct = await Product.findByIdAndDelete(id);
     
