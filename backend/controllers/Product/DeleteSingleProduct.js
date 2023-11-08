@@ -16,6 +16,7 @@ export const deleteSingleProduct = async (req, res) => {
 
     // delete image
     const {images} = product
+    
     if (images){
       const imagePath = images.slice(22)
 

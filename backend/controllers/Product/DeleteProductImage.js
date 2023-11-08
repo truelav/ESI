@@ -12,11 +12,8 @@ export const deleteProductImage = async (req, res) => {
         if(!product){
             return res.status(404).json({message: 'product not found'})
         } 
-        console.log(product.images)
         const {images} = product
         const imagePath = images.slice(21)
-        console.log("path: " + path)
-        console.log(path.join(imagePath))
         // delete image
         fs.unlink('static/images/product.png', (err) => {
             if(err) console.log(err)

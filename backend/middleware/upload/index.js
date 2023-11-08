@@ -12,7 +12,6 @@ const storage = multer.diskStorage({
     const uniqueSuffix = ("" +  Date.now()).trim();
     const brandName =req.body.brand.split(" ").join("")
     const modelName = req.body.model.split(" ").join("")
-    console.log(typeof(req.body.model))
     const extName = path.extname(file.originalname)
     const fileName = brandName + '-' + modelName + '-' + uniqueSuffix
     cb(null, fileName + extName);
