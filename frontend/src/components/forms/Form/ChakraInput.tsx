@@ -1,25 +1,32 @@
-import { Field } from "formik";
 import {
     Input,
     FormControl,
     FormLabel,
-    FormErrorMessage,
 } from "@chakra-ui/react";
 
-function ChakraInput(props) {
-    const { label, name, ...rest } = props;
+import { FormDataProps } from "../AddSingleProductForm/AddProduct"
+
+
+interface ChakraInputProps {
+    label: string, 
+    type: string;
+    name: string;
+    formData:FormDataProps , 
+    handleAction: () => void, 
+}
+
+function ChakraInput(props: ChakraInputProps) {
+    const { label, formData, handleAction, type, name } = props;
     return (
-        <Field name={name}>
-            {({ field, form }) => (
-                <FormControl
-                    isInvalid={form.errors[name] && form.touched[name]}
-                >
-                    <FormLabel htmlFor={name}>{label}</FormLabel>
-                    <Input id={name} {...rest} {...field} />
-                    <FormErrorMessage>{form.errors[name]}</FormErrorMessage>
-                </FormControl>
-            )}
-        </Field>
+        <FormControl>
+            <FormLabel>{label}</FormLabel>
+            <Input
+                type={type}
+                name={name}
+                value={formData.brand}
+                onChange={handleAction}
+            />
+         </FormControl>
     );
 }
 

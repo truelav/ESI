@@ -1,323 +1,208 @@
-// import { SyntheticEvent, useState } from 'react';
+import { useState, ChangeEvent, FormEvent } from "react";
 import {
     Box,
-    Container,
-    Button,
     FormControl,
     FormLabel,
-    Heading,
     Input,
-    Stack,
-    Text,
-    FormErrorMessage,
+    Button,
+    VStack,
+    Container
 } from "@chakra-ui/react";
-import {
-    Formik,
-    Form,
-    Field,
-    ErrorMessage,
-    FormikErrors,
-    withFormik,
-    FormikProps,
-    FieldInputProps,
-    formik,
-} from "formik";
-import * as Yup from "yup";
-import { Link } from "react-router-dom";
 import { useAddSingleProductMutation } from "../../../app/api/apiSlice";
-import axios from "axios";
 
-interface ProductForm {
-    name: string;
+export interface FormDataProps {
     brand: string;
     model: string;
     description: string;
     category: string;
-    subcategory: string;
-    price: number;
-    quantity: number;
-    image: string;
+    price: string;
+    quantity: string;
+    image: File | null;
     upc: string;
-}
+  }
 
-interface FieldProps {
-    field: FieldInputProps<string>;
-    form: FormikProps<{ name: string; surname: string }>;
-}
+const ProductForm= () => {
+    const [addSingleProduct, { isLoading, error, isSuccess }] = useAddSingleProductMutation();
+    const [formData, setFormData] = useState({
+        brand: "",
+        model: "",
+        description: "",
+        category: "",
+        price: "",
+        quantity: "",
+        image: null,
+        upc: ""
+    });
 
-const initialValues = {
-    brand: "",
-    model: "",
-    category: "",
-    description: "",
-    price: 0,
-    quantity: 0,
-    upc: "",
-    image: "",
-};
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
+    };
 
-const validationSchema = Yup.object({
-    brand: Yup.string().required("Required"),
-    model: Yup.string().required("Required"),
-    category: Yup.string().required("Required"),
-    description: Yup.string().required("Required"),
-    price: Yup.number(),
-    quantity: Yup.number(),
-    upc: Yup.string().required("Required"),
-    image: Yup.string().required("Required"),
-});
+    const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files ? e.target.files[0] : null;
+         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+         // @ts-ignore
+        setFormData({ ...formData, image: file });
+    };
 
-function validateInput() {
-    let error;
-    // if (!value) {
-    //   error = 'Name is required'
-    // } else if (value.toLowerCase() !== 'naruto') {
-    //   error = "Jeez! You're not a fan 😱"
-    // }
-    return error;
-}
-const AddSingleProductForm = () => {
-    //   const { touched, errors, isSubmitting, message } = props;
-    //   const initialValues: ProductForm = {};
-    const [addSingleProduct, { isLoading, isError }] =
-        useAddSingleProductMutation();
+    // const [formInputs, setFormInputs] = useState([
+    //     {
+    //         label: "brand", 
+    //         type: "text",
+    //         name: "brand",
+    //         formData: formData.brand, 
+    //         handleAction: handleChange, 
+    //     },
+    //     {
+    //         label: "model", 
+    //         type: "text",
+    //         name: "model",
+    //         formData: formData.model, 
+    //         handleAction: handleChange, 
+    //     },
+    //     {
+    //         label: "description", 
+    //         type: "text",
+    //         name: "description",
+    //         formData: formData.description, 
+    //         handleAction: handleChange, 
+    //     },
+    //     {
+    //         label: "price", 
+    //         type: "number",
+    //         name: "price",
+    //         formData: formData.price, 
+    //         handleAction: handleChange, 
+    //     },
+    //     {
+    //         label: "quantity", 
+    //         type: "number",
+    //         name: "quantity",
+    //         formData: formData.quantity, 
+    //         handleAction: handleChange, 
+    //     },
+    //     {
+    //         label: "upc", 
+    //         type: "string",
+    //         name: "upc",
+    //         formData: formData.upc, 
+    //         handleAction: handleChange, 
+    //     },
+    //     {
+    //         label: "image", 
+    //         type: "file",
+    //         name: "image",
+    //         formData: formData.image, 
+    //         handleAction: handleFileChange, 
+    //     },
 
-    // const handleSubmitAddSingleProduct = (values, actions) => {
-    //     const result = addSingleProduct(values).unwrap();
-    //     if (!result) {
-    //         console.log(addSingleProductError);
-    //     } else {
-    //         console.log(result);
-    //     }
-    // };
+    // ])
+
+    const handleSubmit = async (e: FormEvent) => {
+        e.preventDefault();
+
+        const formDataToSend = new FormData();
+        formDataToSend.append("brand", formData.brand);
+        formDataToSend.append("model", formData.model);
+        formDataToSend.append("price", formData.price);
+        formDataToSend.append("quantity", formData.quantity);
+        if(formData.image){
+            formDataToSend.append("image", formData.image);
+        }
+
+        try {
+            const result = await addSingleProduct(formDataToSend);
+            console.log(result);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+
+    if(isSuccess){
+        return (
+            <div>Product Saved Success</div>
+        )
+    }
+
+    if(error){
+        return (
+            <div>...Error Adding Product</div>
+        )
+    }
+
+    if(isLoading){
+        return (
+            <div>...Is Loading</div>
+        )
+    }
 
     return (
         <Container
-            maxW="lg"
-            py={{ base: "12", md: "24" }}
-            px={{ base: "0", sm: "8" }}
+        maxW="lg"
+        py={{ base: "12", md: "24" }}
+        px={{ base: "0", sm: "8" }}
         >
-            <Stack spacing="8">
-                <Stack spacing="6">
-                    {/* <Image src={logo} sizes="sm" className="" alt="ESI Logo" /> */}
-                    <Stack spacing={{ base: "2", md: "3" }} textAlign="center">
-                        <Heading size={{ base: "xs", md: "sm" }}>
-                            Add New Product
-                        </Heading>
-                        <Link to="/contact">
-                            <Text color="fg.muted">
-                                Don't have an account? Contact Us
-                            </Text>
-                        </Link>
-                    </Stack>
-                </Stack>
-                <Box
-                    py={{ base: "0", sm: "8" }}
-                    px={{ base: "4", sm: "10" }}
-                    bg={{ base: "transparent", sm: "bg.surface" }}
-                    boxShadow={{ base: "none", sm: "md" }}
-                    borderRadius={{ base: "none", sm: "xl" }}
-                >
-                    <Stack spacing="6">
-                        <Formik
-                            initialValues={initialValues}
-                            // validationSchema={validationSchema}
-                            onSubmit={async (values, actions) => {
-                                try {
-                                    const response = await addSingleProduct(
-                                        values
-                                    );
-                                    actions.setSubmitting(true);
-                                    console.log(response);
-                                    actions.resetForm();
-                                } catch (error) {
-                                    actions.setSubmitting(false);
-                                    console.log(error);
-                                }
-                            }}
-                            encType="multipart/form-data"
-                        >
-                            {(props) => (
-                                <Form encType="multipart/form-data">
-                                    <Field name="upc" validate={validateInput}>
-                                        {({ field, form }: FieldProps) => (
-                                            <FormControl
-                                            // isInvalid={
-                                            //     form.errors?.name &&
-                                            //     form.touched.name
-                                            // }
-                                            >
-                                                <FormLabel>UPC</FormLabel>
-                                                <Input
-                                                    {...field}
-                                                    placeholder="UPC"
-                                                />
-                                                <FormErrorMessage>
-                                                    {form.errors.name}
-                                                </FormErrorMessage>
-                                            </FormControl>
-                                        )}
-                                    </Field>
+            <Box p={4}>
+                <form onSubmit={handleSubmit} encType="multipart/form-data">
+                    <VStack spacing={4}>
+                        <FormControl>
+                            <FormLabel>Brand</FormLabel>
+                            <Input
+                                type="text"
+                                name="brand"
+                                value={formData.brand}
+                                onChange={handleChange}
+                            />
+                        </FormControl>
 
-                                    <Field
-                                        name="brand"
-                                        validate={validateInput}
-                                    >
-                                        {({ field, form }: FieldProps) => (
-                                            <FormControl
-                                                isInvalid={
-                                                    form.errors.name &&
-                                                    form.touched.name
-                                                }
-                                            >
-                                                <FormLabel>Brand</FormLabel>
-                                                <Input
-                                                    {...field}
-                                                    placeholder="Brand"
-                                                />
-                                                <FormErrorMessage>
-                                                    {form.errors.name}
-                                                </FormErrorMessage>
-                                            </FormControl>
-                                        )}
-                                    </Field>
+                        <FormControl>
+                            <FormLabel>Model</FormLabel>
+                            <Input
+                                type="text"
+                                name="model"
+                                value={formData.model}
+                                onChange={handleChange}
+                            />
+                        </FormControl>
 
-                                    <Field
-                                        name="model"
-                                        validate={validateInput}
-                                    >
-                                        {({ field, form }: FieldProps) => (
-                                            <FormControl
-                                            // isInvalid={
-                                            //     form.errors?.name &&
-                                            //     form.touched.name
-                                            // }
-                                            >
-                                                <FormLabel>Model</FormLabel>
-                                                <Input
-                                                    {...field}
-                                                    placeholder="Model"
-                                                />
-                                                <FormErrorMessage>
-                                                    {form.errors.name}
-                                                </FormErrorMessage>
-                                            </FormControl>
-                                        )}
-                                    </Field>
+                        <FormControl>
+                            <FormLabel>Price</FormLabel>
+                            <Input
+                                type="number"
+                                name="price"
+                                value={formData.price}
+                                onChange={handleChange}
+                            />
+                        </FormControl>
 
-                                    <Field
-                                        name="description"
-                                        validate={validateInput}
-                                    >
-                                        {({ field, form }: FieldProps) => (
-                                            <FormControl
-                                            // isInvalid={
-                                            //     form.errors?.name &&
-                                            //     form.touched.name
-                                            // }
-                                            >
-                                                <FormLabel>
-                                                    Description
-                                                </FormLabel>
-                                                <Input
-                                                    {...field}
-                                                    placeholder="Description"
-                                                />
-                                                <FormErrorMessage>
-                                                    {form.errors.name}
-                                                </FormErrorMessage>
-                                            </FormControl>
-                                        )}
-                                    </Field>
+                        <FormControl>
+                            <FormLabel>Quantity</FormLabel>
+                            <Input
+                                type="number"
+                                name="quantity"
+                                value={formData.quantity}
+                                onChange={handleChange}
+                            />
+                        </FormControl>
 
-                                    <Field
-                                        name="price"
-                                        validate={validateInput}
-                                    >
-                                        {({ field, form }: FieldProps) => (
-                                            <FormControl
-                                            // isInvalid={
-                                            //     form.errors?.name &&
-                                            //     form.touched.name
-                                            // }
-                                            >
-                                                <FormLabel>Price</FormLabel>
-                                                <Input
-                                                    {...field}
-                                                    placeholder="Price"
-                                                />
-                                                <FormErrorMessage>
-                                                    {form.errors.name}
-                                                </FormErrorMessage>
-                                            </FormControl>
-                                        )}
-                                    </Field>
+                        <FormControl>
+                            <FormLabel>Image</FormLabel>
+                            <Input
+                                type="file"
+                                name="image"
+                                accept=".jpg, .png"
+                                onChange={handleFileChange}
+                            />
+                        </FormControl>
 
-                                    <Field
-                                        name="quantity"
-                                        validate={validateInput}
-                                    >
-                                        {({ field, form }: FieldProps) => (
-                                            <FormControl
-                                            // isInvalid={
-                                            //     form.errors?.name &&
-                                            //     form.touched.name
-                                            // }
-                                            >
-                                                <FormLabel>Quantity</FormLabel>
-                                                <Input
-                                                    {...field}
-                                                    placeholder="Quantity"
-                                                />
-                                                <FormErrorMessage>
-                                                    {form.errors.name}
-                                                </FormErrorMessage>
-                                            </FormControl>
-                                        )}
-                                    </Field>
-
-                                    <Field
-                                        name="image"
-                                        validate={validateInput}
-                                    >
-                                        {({ field, form }: FieldProps) => (
-                                            <FormControl
-                                            // isInvalid={
-                                            //     form.errors?.name &&
-                                            //     form.touched.name
-                                            // }
-                                            >
-                                                <FormLabel>
-                                                    Import Image
-                                                </FormLabel>
-                                                <Input
-                                                    {...field}
-                                                    placeholder="Import Image"
-                                                    type="file"
-                                                />
-                                                <FormErrorMessage>
-                                                    {form.errors.name}
-                                                </FormErrorMessage>
-                                            </FormControl>
-                                        )}
-                                    </Field>
-
-                                    <Button
-                                        mt={4}
-                                        colorScheme="teal"
-                                        isLoading={props.isSubmitting}
-                                        type="submit"
-                                    >
-                                        Submit
-                                    </Button>
-                                </Form>
-                            )}
-                        </Formik>
-                    </Stack>
-                </Box>
-            </Stack>
-        </Container>
-    );
+                        <Button type="submit">Save Product</Button>
+                    </VStack>
+                </form>
+            </Box>
+        </Container>    
+    )
 };
 
-export default AddSingleProductForm;
+export default ProductForm;
