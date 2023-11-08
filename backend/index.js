@@ -2,6 +2,7 @@ import express from "express";
 import morgan from "morgan";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import bodyParser from "body-parser";
 import allRoutes from "./routes/index.js";
 import connectDB from "./config/db.config.js";
 import { corsOptions } from "./config/cors/corsOptions.js";
@@ -14,6 +15,8 @@ const app = express();
 app.use(morgan("tiny"));
 app.use(express.json());
 app.use(cors(corsOptions));
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 

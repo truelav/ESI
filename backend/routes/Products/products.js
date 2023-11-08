@@ -4,6 +4,8 @@ import { upload } from "../../middleware/upload/index.js";
 
 const router = express.Router();
 
+router.delete("/image/:id", ProductControllers.deleteProductImage);
+
 router.get("/", ProductControllers.getAllProducts);
 router.get("/:id", ProductControllers.getSingleProduct);
 router.post("/", upload.single("image"), ProductControllers.addSingleProduct);
@@ -22,5 +24,7 @@ router.post(
     upload.single("image"),
     ProductControllers.uploadProductImage
 );
+
+
 
 export default router;

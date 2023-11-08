@@ -8,10 +8,14 @@ const storage = multer.diskStorage({
     cb(null, path.join('static/images'));
   },
   filename: (req, file, cb) => {
-    console.log(req.file, req.body)
     // cb(null, file.originalname);
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-    cb(null, req.body.brand + '-' + req.body.model + '-' + uniqueSuffix + path.extname(file.originalname));
+    const uniqueSuffix = ("" +  Date.now()).trim();
+    const brandName =req.body.brand.split(" ").join("")
+    const modelName = req.body.model.split(" ").join("")
+    console.log(typeof(req.body.model))
+    const extName = path.extname(file.originalname)
+    const fileName = brandName + '-' + modelName + '-' + uniqueSuffix
+    cb(null, fileName + extName);
   },
   limits: {
     fileSize: 500000,
