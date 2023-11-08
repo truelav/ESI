@@ -1,4 +1,5 @@
 export interface Product {
+  updatedAt: string;
   map(
     arg0: (
       product: import("./product").Product
