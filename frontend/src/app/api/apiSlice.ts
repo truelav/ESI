@@ -30,13 +30,14 @@ export const apiSlice = createApi({
             providesTags: [{ type: "Product", id: "List" }],
         }),
 
-        addSingleProduct: builder.mutation<Product, Product>({
+        addSingleProduct: builder.mutation({
             query: (product) => ({
                 url: `/products`,
                 method: "POST",
-                body: { ...product },
+                body: product,
+                formData: true,
             }),
-            invalidatesTags: [{ type: "Products", id: "List" }],
+            // invalidatesTags: [{ type: "Products", id: "List" }],
         }),
 
         editSingleProduct: builder.mutation<Product, Product>({

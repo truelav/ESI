@@ -14,6 +14,7 @@ export const addSingleProduct = async (req, res) => {
     } = req.body;
 
     try {
+        console.log("request file: " + req.file);
         const newProduct = new Product({
             name,
             brand,

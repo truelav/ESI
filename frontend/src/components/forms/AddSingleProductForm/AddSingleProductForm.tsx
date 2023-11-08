@@ -20,10 +20,12 @@ import {
     withFormik,
     FormikProps,
     FieldInputProps,
+    formik,
 } from "formik";
 import * as Yup from "yup";
 import { Link } from "react-router-dom";
 import { useAddSingleProductMutation } from "../../../app/api/apiSlice";
+import axios from "axios";
 
 interface ProductForm {
     name: string;
@@ -34,7 +36,7 @@ interface ProductForm {
     subcategory: string;
     price: number;
     quantity: number;
-    images: string;
+    image: string;
     upc: string;
 }
 
@@ -51,7 +53,7 @@ const initialValues = {
     price: 0,
     quantity: 0,
     upc: "",
-    images: "",
+    image: "",
 };
 
 const validationSchema = Yup.object({
@@ -62,7 +64,7 @@ const validationSchema = Yup.object({
     price: Yup.number(),
     quantity: Yup.number(),
     upc: Yup.string().required("Required"),
-    images: Yup.string().required("Required"),
+    image: Yup.string().required("Required"),
 });
 
 function validateInput() {
@@ -77,7 +79,8 @@ function validateInput() {
 const AddSingleProductForm = () => {
     //   const { touched, errors, isSubmitting, message } = props;
     //   const initialValues: ProductForm = {};
-    const [addSingleProduct] = useAddSingleProductMutation();
+    const [addSingleProduct, { isLoading, isError }] =
+        useAddSingleProductMutation();
 
     // const handleSubmitAddSingleProduct = (values, actions) => {
     //     const result = addSingleProduct(values).unwrap();
@@ -120,24 +123,22 @@ const AddSingleProductForm = () => {
                             initialValues={initialValues}
                             // validationSchema={validationSchema}
                             onSubmit={async (values, actions) => {
-                                console.log(values);
-                                const result = await addSingleProduct(
-                                    values
-                                ).unwrap();
-                                if (!result) {
-                                    console.log("some sort of error happened");
-                                } else {
-                                    console.log(result);
-                                    actions.resetForm({
-                                        values: {
-                                            ...initialValues,
-                                        },
-                                    });
+                                try {
+                                    const response = await addSingleProduct(
+                                        values
+                                    );
+                                    actions.setSubmitting(true);
+                                    console.log(response);
+                                    actions.resetForm();
+                                } catch (error) {
+                                    actions.setSubmitting(false);
+                                    console.log(error);
                                 }
                             }}
+                            encType="multipart/form-data"
                         >
                             {(props) => (
-                                <Form>
+                                <Form encType="multipart/form-data">
                                     <Field name="upc" validate={validateInput}>
                                         {({ field, form }: FieldProps) => (
                                             <FormControl
@@ -276,7 +277,7 @@ const AddSingleProductForm = () => {
                                     </Field>
 
                                     <Field
-                                        name="images"
+                                        name="image"
                                         validate={validateInput}
                                     >
                                         {({ field, form }: FieldProps) => (
