@@ -1,6 +1,9 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { Product } from "../../entities/Product/model/types/product";
 import { User } from "./types/User/User";
+
+// @ts-nocheck
 
 const baseQuery = fetchBaseQuery({
     baseUrl: "http://localhost:8888/api",
@@ -23,6 +26,35 @@ export const apiSlice = createApi({
         getAllProducts: builder.query<Product, void>({
             query: () => `/products`,
             providesTags: [{ type: "Products", id: "List" }],
+        }),
+
+        getGroupedProducts: builder.query<Product[], void>({
+            query: () => `/products`,
+            transformResponse: (response: any) => {
+                // Modify the response data as needed
+                console.log(response)
+                const groupedProducts = {};
+
+                response.forEach((product: Product) => {
+                  const { brand, ...restOfProduct } = product;
+                  if (!groupedProducts[brand]) {
+                    groupedProducts[brand] = [];
+                  }
+        
+                  groupedProducts[brand].push(restOfProduct);
+                });
+      
+                // // Convert the grouped products into an array of objects
+                const transformedData = Object.entries(groupedProducts).map(
+                  ([brand, products]) => ({
+                    brand,
+                    products,
+                  })
+                );
+        
+                return transformedData;
+            },
+            // providesTags: [{ type: "Products", id: "List" }],
         }),
 
         getSingleProduct: builder.query<Product, void>({
@@ -127,6 +159,8 @@ export const {
     useEditSingleProductMutation,
     useDeleteSingleProductMutation,
     useDeleteMultipleProductsMutation,
+
+    useGetGroupedProductsQuery,
 
     useGetAllUsersQuery,
     useAddUserMutation,

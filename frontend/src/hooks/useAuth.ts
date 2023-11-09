@@ -4,7 +4,7 @@ import { useCookies } from "react-cookie";
 const useAuth = () => {
   const [cookies] = useCookies();
   const accessToken = cookies?.authToken;
-  console.log(cookies);
+  // console.log(cookies);
   let isAdmin = null;
   let isUser = null;
 

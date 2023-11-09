@@ -1,7 +1,6 @@
 import { useState } from "react"; 
 import { Divider } from "@chakra-ui/react";
 
-
 import { useGetAllProductsQuery } from "../../../app/api/apiSlice";
 import { DashProductListHead } from "./DashProductListHead";
 import { ProductItemHorizontal } from "../../../shared/ui/Product/ProductItemHorizontal/ProductItemHorizontal";

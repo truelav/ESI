@@ -17,7 +17,7 @@ function DashProductsPage() {
 
           {/* ADD Product Modal */}
           <Container>
-            <Link to="addSingleProduct">
+            <Link to="addSingleProduct">                              
               <Button className="dash_products_nav_button">
                 <Text>Add Product</Text>
               </Button>
