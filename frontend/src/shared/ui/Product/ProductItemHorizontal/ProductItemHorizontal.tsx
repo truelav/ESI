@@ -69,6 +69,13 @@ export const ProductItemHorizontal = memo((props: ProductListPropsItem) => {
 
                                 <GridItem colSpan={1}>
                                     <CardTextComponent>
+                                        {product?.model}
+                                    </CardTextComponent>
+                                </GridItem>
+
+
+                                <GridItem colSpan={1}>
+                                    <CardTextComponent>
                                         Active
                                     </CardTextComponent>
                                 </GridItem>
@@ -79,11 +86,6 @@ export const ProductItemHorizontal = memo((props: ProductListPropsItem) => {
                                     </CardTextComponent>
                                 </GridItem>
 
-                                <GridItem colSpan={1}>
-                                    <CardTextComponent>
-                                        {product?.category}
-                                    </CardTextComponent>
-                                </GridItem>
 
                                 <GridItem colSpan={1}>
                                     <CardTextComponent>

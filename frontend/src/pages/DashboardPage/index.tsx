@@ -12,7 +12,7 @@ export default function Dashboard() {
       <Container>
         <Text>More Info will come soon</Text>
       </Container>
-      <Container>
+      {/* <Container>
         <form
           action="http://localhost:8888/api/products/upload"
           method="POST"
@@ -21,7 +21,7 @@ export default function Dashboard() {
           <input type="file" name="image" />
           <button type="submit">Upload</button>
         </form>
-      </Container>
+      </Container> */}
     </>
   );
 }
