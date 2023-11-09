@@ -70,15 +70,20 @@ const router = createBrowserRouter(
           <Route index element={<ProductDetailsPage />} />
         </Route>
       </Route>
+
       <Route path="login" element={<LoginPage />} />
+
       <Route path="contact" element={<ContactPage />} />
+      
       <Route path="*" element={<NotFound />} />
     </Route>
   )
 );
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+      <RouterProvider router={router} />
+  )
 }
 
 export default App;
