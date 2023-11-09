@@ -21,9 +21,12 @@ import {
   ChevronRightIcon,
 } from "@chakra-ui/icons";
 
-import logo from "/logo.png";
+import { LogoutProps } from ".";
 
-export default function AdminNav({ logOut }) {
+import logo from "/logo.png";
+import { Link } from "react-router-dom";
+
+export default function AdminNav({ logOut }: LogoutProps) {
   const { isOpen, onToggle } = useDisclosure();
 
   return (
@@ -102,20 +105,20 @@ const DesktopNav = () => {
         <Box key={navItem.label}>
           <Popover trigger={"hover"} placement={"bottom-start"}>
             <PopoverTrigger>
-              <Box
-                as="a"
-                p={2}
-                href={navItem.href ?? "#"}
-                fontSize={"sm"}
-                fontWeight={500}
-                color={linkColor}
-                _hover={{
-                  textDecoration: "none",
-                  color: linkHoverColor,
-                }}
-              >
-                {navItem.label}
-              </Box>
+              <Link to={navItem.href ?? "#"}>
+                <Box
+                  p={2}
+                  fontSize={"sm"}
+                  fontWeight={500}
+                  color={linkColor}
+                  _hover={{
+                    textDecoration: "none",
+                    color: linkHoverColor,
+                  }}
+                >
+                  {navItem.label}
+                </Box>
+              </Link>
             </PopoverTrigger>
 
             {navItem.children && (
@@ -143,39 +146,41 @@ const DesktopNav = () => {
 
 const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
   return (
-    <Box
-      as="a"
-      href={href}
-      role={"group"}
-      display={"block"}
-      p={2}
-      rounded={"md"}
-      _hover={{ bg: useColorModeValue("pink.50", "gray.900") }}
-    >
-      <Stack direction={"row"} align={"center"}>
-        <Box>
-          <Text
+    <Link to={`${href}`}>
+      <Box
+        // as="a"
+        // href={href}
+        role={"group"}
+        display={"block"}
+        p={2}
+        rounded={"md"}
+        _hover={{ bg: useColorModeValue("pink.50", "gray.900") }}
+      >
+        <Stack direction={"row"} align={"center"}>
+          <Box>
+            <Text
+              transition={"all .3s ease"}
+              _groupHover={{ color: "pink.400" }}
+              fontWeight={500}
+            >
+              {label}
+            </Text>
+            <Text fontSize={"sm"}>{subLabel}</Text>
+          </Box>
+          <Flex
             transition={"all .3s ease"}
-            _groupHover={{ color: "pink.400" }}
-            fontWeight={500}
+            transform={"translateX(-10px)"}
+            opacity={0}
+            _groupHover={{ opacity: "100%", transform: "translateX(0)" }}
+            justify={"flex-end"}
+            align={"center"}
+            flex={1}
           >
-            {label}
-          </Text>
-          <Text fontSize={"sm"}>{subLabel}</Text>
-        </Box>
-        <Flex
-          transition={"all .3s ease"}
-          transform={"translateX(-10px)"}
-          opacity={0}
-          _groupHover={{ opacity: "100%", transform: "translateX(0)" }}
-          justify={"flex-end"}
-          align={"center"}
-          flex={1}
-        >
-          <Icon color={"pink.400"} w={5} h={5} as={ChevronRightIcon} />
-        </Flex>
-      </Stack>
-    </Box>
+            <Icon color={"pink.400"} w={5} h={5} as={ChevronRightIcon} />
+          </Flex>
+        </Stack>
+      </Box>
+    </Link>
   );
 };
 
@@ -198,32 +203,34 @@ const MobileNavItem = ({ label, children, href }: NavItem) => {
 
   return (
     <Stack spacing={4} onClick={children && onToggle}>
-      <Box
-        py={2}
-        as="a"
-        href={href ?? "#"}
-        justifyContent="space-between"
-        alignItems="center"
-        _hover={{
-          textDecoration: "none",
-        }}
-      >
-        <Text
-          fontWeight={600}
-          color={useColorModeValue("gray.600", "gray.200")}
+      <Link to={href ?? "#"}>
+        <Box
+          py={2}
+          // as="a"
+          // href={href ?? "#"}
+          justifyContent="space-between"
+          alignItems="center"
+          _hover={{
+            textDecoration: "none",
+          }}
         >
-          {label}
-        </Text>
-        {children && (
-          <Icon
-            as={ChevronDownIcon}
-            transition={"all .25s ease-in-out"}
-            transform={isOpen ? "rotate(180deg)" : ""}
-            w={6}
-            h={6}
-          />
-        )}
-      </Box>
+          <Text
+            fontWeight={600}
+            color={useColorModeValue("gray.600", "gray.200")}
+          >
+            {label}
+          </Text>
+          {children && (
+            <Icon
+              as={ChevronDownIcon}
+              transition={"all .25s ease-in-out"}
+              transform={isOpen ? "rotate(180deg)" : ""}
+              w={6}
+              h={6}
+            />
+          )}
+        </Box>
+      </Link>
 
       <Collapse in={isOpen} animateOpacity style={{ marginTop: "0!important" }}>
         <Stack

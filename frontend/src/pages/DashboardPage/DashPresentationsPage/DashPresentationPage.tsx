@@ -5,12 +5,13 @@ import { Container, Text,   Accordion,
   AccordionIcon, 
   Box
 } from "@chakra-ui/react";
+import { memo } from "react";
 
 import { useGetGroupedProductsQuery } from "../../../app/api/apiSlice";
 import { GroupedProducts } from "../../../app/api/types/Product";
 import { Product } from "../../../entities/Product/model/types/product";
 
-function DashPresentationPage() {
+const DashPresentationPage = memo(() => {
 
   const {
     data,
@@ -70,6 +71,6 @@ function DashPresentationPage() {
       {content}
     </>
   );
-}
+})
 
 export default DashPresentationPage;

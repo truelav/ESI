@@ -30,14 +30,14 @@ function ImportProductsModal() {
             <ModalCloseButton />
 
             <ModalBody>
-                <form
+                {/* <form
                     action="http://localhost:8888/api/products/addMultiple"
                     method="post"
                     encType="multipart/form-data"
                 >
                     <input type="file" name="csv" />
                     <Button type="submit">Import Products</Button>
-                </form>
+                </form> */}
             </ModalBody>
   
             <ModalFooter>

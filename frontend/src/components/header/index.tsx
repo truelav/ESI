@@ -5,10 +5,15 @@ import UserNav from "./UserNav";
 import GuestNav from "./GuestNav";
 import { useNavigate } from "react-router-dom";
 
+
+export interface LogoutProps {
+  logOut: () => void
+}
+
 export default function Header() {
   // const { isOpen, onToggle } = useDisclosure();
   const navigate = useNavigate();
-  const [cookies, setCookies, removeCookie] = useCookies(["authToken"]);
+  const [cookies, _, removeCookie] = useCookies(["authToken"]);
   const { isAdmin, isUser } = useAuth();
 
   const logOut = () => {

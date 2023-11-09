@@ -1,4 +1,4 @@
-import { useState } from "react"; 
+import { memo, useState } from "react"; 
 import { Divider } from "@chakra-ui/react";
 
 import { useGetAllProductsQuery } from "../../../app/api/apiSlice";
@@ -6,7 +6,7 @@ import { DashProductListHead } from "./DashProductListHead";
 import { ProductItemHorizontal } from "../../../shared/ui/Product/ProductItemHorizontal/ProductItemHorizontal";
 import { Product } from "../../../entities/Product/model/types/product";
 
-export const DashProductsList = () => {
+export const DashProductsList = memo(() => {
   const {
     data: products,
     isLoading,
@@ -65,4 +65,4 @@ export const DashProductsList = () => {
       <div>{content}</div>
     </>
   );
-};
+});
