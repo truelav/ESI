@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { Product } from "../../entities/Product/model/types/product";
+import { GroupedProducts } from "./types/Product";
 import { User } from "./types/User/User";
 
 // @ts-nocheck
@@ -28,12 +29,14 @@ export const apiSlice = createApi({
             providesTags: [{ type: "Products", id: "List" }],
         }),
 
-        getGroupedProducts: builder.query<Product[], void>({
+        getGroupedProducts: builder.query<GroupedProducts[], void>({
             query: () => `/products`,
-            transformResponse: (response: any) => {
+            transformResponse: (response: Product[]) => {
                 // Modify the response data as needed
-                console.log(response)
-                const groupedProducts = {};
+                const groupedProducts: GroupedProducts = {
+                    brand: "",
+                    products: []
+                };
 
                 response.forEach((product: Product) => {
                   const { brand, ...restOfProduct } = product;

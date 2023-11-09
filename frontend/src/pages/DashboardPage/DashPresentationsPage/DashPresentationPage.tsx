@@ -78,8 +78,6 @@ function DashPresentationPage() {
           <br/>
         </Box>
 
-      {console.log(data)}
-
         <Accordion defaultIndex={[0]} allowMultiple>
             <AccordionItem>
               <h2>
