@@ -33,10 +33,7 @@ export const apiSlice = createApi({
             query: () => `/products`,
             transformResponse: (response: Product[]) => {
                 // Modify the response data as needed
-                const groupedProducts: GroupedProducts = {
-                    brand: "",
-                    products: []
-                };
+                const groupedProducts: GroupedProducts = {};
 
                 response.forEach((product: Product) => {
                   const { brand, ...restOfProduct } = product;

@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Container, Text,   Accordion,
   AccordionItem,
   AccordionButton,
@@ -8,6 +7,7 @@ import { Container, Text,   Accordion,
 } from "@chakra-ui/react";
 
 import { useGetGroupedProductsQuery } from "../../../app/api/apiSlice";
+import { GroupedProducts } from "../../../app/api/types/Product";
 import { Product } from "../../../entities/Product/model/types/product";
 
 function DashPresentationPage() {
@@ -32,22 +32,33 @@ function DashPresentationPage() {
     content = <>No Products Found : {JSON.stringify(error)}</>;
   }
 
-  // if (isSuccess) {
-  //   content = (
-  //     <>
-  //       {data.map(([category, products]) => (
-  //         <div key={category}>
-  //           <h2>{category}</h2>
-  //           <ul>
-  //             {products.map((product: Product) => (
-  //               <li key={product.model}>{product.brand}</li>
-  //             ))}
-  //           </ul>
-  //         </div>
-  //       ))}
-  //     </>
-  //   );
-  // }
+  if (isSuccess) {
+    content = (
+      <>
+        <Accordion>
+          {data.map((brandGroup : GroupedProducts) => (
+              <AccordionItem key={brandGroup.brand}>
+                  <h2>
+                    <AccordionButton>
+                      <Box as="span" flex='1' textAlign='left'>
+                        {brandGroup.brand}
+                      </Box>
+                      <AccordionIcon />
+                    </AccordionButton>
+                  </h2>
+                  <AccordionPanel pb={4}>
+                      {brandGroup.products.map((product: Product) => (
+                        <div key={product._id}>
+                          {product.model}
+                        </div>
+                      ))}
+                  </AccordionPanel>
+              </AccordionItem>
+          ))}
+        </Accordion>
+      </>
+    );
+  }
 
 
   return (
@@ -56,63 +67,7 @@ function DashPresentationPage() {
             <Text>Welcome to Presentation Page</Text>
         </Container>
 
-        <Box>
-          <br/>
-          <ul>
-            <li>
-              I need to make  the list of AccordionItems for each category, <br/>
-            </li>
-            <li>
-              The Accordion Item will hold each product for that category <br/>
-            </li>
-            <li>
-              Select All Button, that will select all products <br/>
-            </li>
-            <li>
-              Select All Category Item <br/>
-            </li>
-            <li>
-              Select Each Individual Item <br/>
-            </li>
-          </ul>
-          <br/>
-        </Box>
-
-        <Accordion defaultIndex={[0]} allowMultiple>
-            <AccordionItem>
-              <h2>
-                <AccordionButton>
-                  <Box as="span" flex='1' textAlign='left'>
-                    Section 1 title
-                  </Box>
-                  <AccordionIcon />
-                </AccordionButton>
-              </h2>
-              <AccordionPanel pb={4}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-                veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                commodo consequat.
-              </AccordionPanel>
-            </AccordionItem>
-
-            <AccordionItem>
-              <h2>
-                <AccordionButton>
-                  <Box as="span" flex='1' textAlign='left'>
-                    Section 2 title
-                  </Box>
-                  <AccordionIcon />
-                </AccordionButton>
-              </h2>
-              <AccordionPanel pb={4}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-                veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                commodo consequat.
-              </AccordionPanel>
-            </AccordionItem>
-        </Accordion>
+      {content}
     </>
   );
 }
