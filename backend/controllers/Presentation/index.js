@@ -25,7 +25,7 @@ export const createPDFPresentation = async (req, res) => {
             return;
         }
 
-        // console.log(productDetails);
+        console.log(productDetails);
 
         // const presentationResult = generateProductPresentation(
         //   productDetails,
@@ -46,6 +46,13 @@ export const createPDFPresentation = async (req, res) => {
         productDetails.forEach((product) => {
             // first we need to add all categories in an array and make a list at the begining of the presentation
             // then we need to create a page for each category
+            const imageString = product.images;
+            let imageSrc = "";
+            if (imageString) {
+                imageSrc = imageString.slice(22);
+            } else {
+                imageSrc = "static/images/fallback_image.jpeg";
+            }
 
             // the A4 - landscape page is (Width: 841.89 x Height: 595.28)
             pdfPresentation.addPage({
@@ -77,7 +84,7 @@ export const createPDFPresentation = async (req, res) => {
             pdfPresentation.text(product.description, 400, 25);
 
             // Add an image, constrain it to a given size, and center it vertically and horizontally
-            pdfPresentation.image("static/images/product.png", {
+            pdfPresentation.image(imageSrc, {
                 fit: [400, 300],
                 align: "center",
                 valign: "center",
@@ -104,7 +111,10 @@ export const createPDFPresentation = async (req, res) => {
 
         pdfPresentation.end();
 
-        res.status(300).json({ message: "Presentation Created Success" });
+        res.status(200).json({
+            message: "Presentation Created Success",
+            presentationLink: `http://localhost:8888/static/presentation.pdf`,
+        });
     } catch (error) {
         console.log(error);
     }

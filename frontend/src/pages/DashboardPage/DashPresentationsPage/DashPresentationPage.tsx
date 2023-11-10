@@ -20,6 +20,7 @@ import {
 import { GroupedProducts } from "../../../app/api/types/Product";
 import { Product } from "../../../entities/Product/model/types/product";
 import { ProductItemHorizontal } from "../../../shared/ui/Product/ProductItemHorizontal/ProductItemHorizontal";
+import { Link } from "react-router-dom";
 
 const DashPresentationPage = memo(() => {
     const { data, isLoading, isSuccess, isError, error } =
@@ -31,11 +32,14 @@ const DashPresentationPage = memo(() => {
             isSuccess: isSuccessPresentation,
             isError: isErrorPresentation,
             error: errorPresentation,
+            data: dataPresentation,
         },
     ] = useCreatePresentationMutation();
 
     const [selectedProducts, setSelectedProducts] = useState(new Set());
     const [selectedBrands, setSelectedBrands] = useState(new Set());
+    const [downloadPresentationLink, setDownloadPresentationLink] =
+        useState(null);
     // const [products, setProducts] = useState([]);
 
     // useEffect(() => {
@@ -103,12 +107,23 @@ const DashPresentationPage = memo(() => {
         try {
             console.log(prodIDs);
             const result = await createPresentation(prodIDs);
+            if (isLoadingPresentation) {
+                console.log("creating presentation loading...");
+            }
+            if (dataPresentation) {
+                console.log(dataPresentation);
+            }
+            if (result && result.data) {
+                setDownloadPresentationLink(result.data.presentationLink);
+            }
+
+            console.log(result);
         } catch (error) {
             console.log(error);
         }
     };
 
-    console.log(selectedProducts, selectedBrands);
+    // console.log(selectedProducts, selectedBrands);
 
     let content = <div></div>;
 
@@ -167,14 +182,21 @@ const DashPresentationPage = memo(() => {
     return (
         <>
             <Container>
-                <Box>
+                <div>
                     <Text>Welcome to Presentation Page</Text>
-                </Box>
-                <Box>
+                </div>
+                <div>
                     <Button onClick={handleCreatePresentation}>
                         Create Presentation
                     </Button>
-                </Box>
+                </div>
+                <div>
+                    {downloadPresentationLink && (
+                        <Link to={downloadPresentationLink}>
+                            <Button>Download Presentation</Button>
+                        </Link>
+                    )}
+                </div>
             </Container>
 
             {content}
