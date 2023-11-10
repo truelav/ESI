@@ -31,27 +31,29 @@ export const apiSlice = createApi({
 
         getGroupedProducts: builder.query<GroupedProducts[], void>({
             query: () => `/products`,
+            /* eslint-disable-next-line padded-blocks */
+            // @ts-nocheck
             transformResponse: (response: Product[]) => {
                 // Modify the response data as needed
-                const groupedProducts: GroupedProducts = {};
+                const groupedProducts: { [brand: string]: Product[] } = {};
 
                 response.forEach((product: Product) => {
-                  const { brand, ...restOfProduct } = product;
-                  if (!groupedProducts[brand]) {
+                    const { brand } = product;
+                    // if (!groupedProducts[brand]) {
+                    // }
+
                     groupedProducts[brand] = [];
-                  }
-        
-                  groupedProducts[brand].push(restOfProduct);
+                    groupedProducts[brand].push(product);
                 });
-      
+
                 // // Convert the grouped products into an array of objects
                 const transformedData = Object.entries(groupedProducts).map(
-                  ([brand, products]) => ({
-                    brand,
-                    products,
-                  })
+                    ([brand, products]) => ({
+                        brand,
+                        products,
+                    })
                 );
-        
+
                 return transformedData;
             },
             // providesTags: [{ type: "Products", id: "List" }],
@@ -155,9 +157,9 @@ export const apiSlice = createApi({
             query: (products) => ({
                 url: `/presentation`,
                 method: "POST",
-                body: products,
+                body: { prodIDs: products },
             }),
-        })
+        }),
     }),
 });
 
