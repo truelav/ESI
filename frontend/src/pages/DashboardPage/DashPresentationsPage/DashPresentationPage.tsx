@@ -3,7 +3,9 @@ import { Container, Text,   Accordion,
   AccordionButton,
   AccordionPanel,
   AccordionIcon, 
-  Checkbox
+  Checkbox,
+  Box,
+  Button
 } from "@chakra-ui/react";
 import { memo, useState } from "react";
 
@@ -23,8 +25,8 @@ const DashPresentationPage = memo(() => {
     error,
   } = useGetGroupedProductsQuery();
 
-  const [selectedProducts, setSelectedProducts] = useState(new Set());
-  const [selectedBrands, setSelectedBrands] = useState(new Set())
+  const [selectedProducts, setSelectedProducts] = useState(new Set<string>());
+  const [selectedBrands, setSelectedBrands] = useState(new Set<string>())
 
   const selectItem = (id, set, selector) => {
     const newSet = new Set(set)
@@ -56,18 +58,19 @@ const DashPresentationPage = memo(() => {
     if(filteredBrands && filteredBrands.length){
       const { products } = filteredBrands[0]
 
-      products?.forEach((brandItem) => {
+      products.forEach((brandItem) => {
         const id = brandItem._id
 
-        if(selectedBrands.has(brandItem.brand)){
-          const newSelectedProducts = new Set(selectedProducts)
-          newSelectedProducts.add(id)
-          setSelectedProducts(newSelectedProducts)
-        } else {
-          const newSelectedProducts = new Set(selectedProducts)
-          newSelectedProducts.delete(id)
-          setSelectedProducts(newSelectedProducts)
-        }
+        // if(selectedBrands.has(brandItem.brand)){
+          // const newSelectedProducts = new Set(selectedProducts)
+          // newSelectedProducts.delete(id)
+          // setSelectedProducts(newSelectedProducts)
+        // } else {
+          selectItem(id, selectedProducts, setSelectedProducts)
+          // const newSelectedProducts = new Set(selectedProducts)
+          // newSelectedProducts.add(id)
+          // setSelectedProducts(newSelectedProducts)
+        // }
       })
     }
 
@@ -81,9 +84,10 @@ const DashPresentationPage = memo(() => {
     }
   };
 
-  console.log(selectedProducts)
-
-  // const groupedProducts = groupProductsByCategory(data)
+  const handleCreatePresentation = () => {
+    console.log(selectedProducts)
+  }
+  console.log(selectedProducts, selectedBrands)
 
   let content = <div></div>;
 
@@ -114,6 +118,7 @@ const DashPresentationPage = memo(() => {
                         <ProductItemHorizontal               
                           key={product._id}
                           product={product}
+                          isCheckedd={selectedProducts.has(product._id)}
                           handleToggleSelectProducts={handleToggleSelectProducts}
                         />
                       ))}
@@ -129,7 +134,12 @@ const DashPresentationPage = memo(() => {
   return (
     <>
         <Container>
+          <Box>
             <Text>Welcome to Presentation Page</Text>
+          </Box>
+          <Box>
+            <Button onClick={handleCreatePresentation}>Create Presentation</Button>
+          </Box>
         </Container>
 
       {content}

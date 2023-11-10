@@ -69,7 +69,7 @@ export const apiSlice = createApi({
                 body: product,
                 formData: true,
             }),
-            // invalidatesTags: [{ type: "Products", id: "List" }],
+            invalidatesTags: [{ type: "Products", id: "List" }],
         }),
 
         editSingleProduct: builder.mutation<Product, Product>({
@@ -149,6 +149,15 @@ export const apiSlice = createApi({
                 body: user,
             }),
         }),
+        // Presentation API Routese
+
+        createPresentation: builder.mutation<unknown, void>({
+            query: (products) => ({
+                url: `/presentation`,
+                method: "POST",
+                body: products,
+            }),
+        })
     }),
 });
 

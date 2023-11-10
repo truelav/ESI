@@ -1,6 +1,6 @@
 import { memo } from "react";
 import { Link } from "react-router-dom";
-import { Grid, GridItem, Image, Button } from "@chakra-ui/react";
+import { Grid, GridItem, Image, Button, Checkbox, Box } from "@chakra-ui/react";
 import { FaTrash } from "react-icons/fa";
 
 import { useDeleteSingleProductMutation } from "../../../../app/api/apiSlice";
@@ -15,11 +15,12 @@ interface ProductListPropsItem {
   className?: string;
   product: Product;
   view?: ProductView;
+  isCheckedd?: boolean;
   handleToggleSelectProducts: (arg: string) => void;
 }
 
 export const ProductItemHorizontal = memo((props: ProductListPropsItem) => { 
-    const { product, handleToggleSelectProducts } = props;
+    const { product, isCheckedd, handleToggleSelectProducts } = props;
     const [deleteSingleProduct, {isLoading, isError, isSuccess}] = useDeleteSingleProductMutation()
 
     if(isError){
@@ -39,13 +40,14 @@ export const ProductItemHorizontal = memo((props: ProductListPropsItem) => {
         <CardComponent cardVariant={CardVariants.outline} additionalClassNames="Dash_ProductListItem">
             <Grid templateColumns='repeat(12, 1fr)' gap={4}>
                 <GridItem colSpan={1}>
-                    <div>
-                        <input
-                            type="checkbox"
-                            className="input_checkbox"
+                    <Box>
+                        <Checkbox
+                            size="lg"
+                            isChecked={isCheckedd}
                             onChange={() => handleToggleSelectProducts(product?._id)}
-                        />
-                    </div>
+                        >Check
+                        </Checkbox>
+                    </Box>
                 </GridItem>
 
                 <GridItem colSpan={10}>
