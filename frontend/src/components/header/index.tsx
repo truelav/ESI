@@ -13,6 +13,7 @@ export interface LogoutProps {
 export default function Header() {
   // const { isOpen, onToggle } = useDisclosure();
   const navigate = useNavigate();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [cookies, _, removeCookie] = useCookies(["authToken"]);
   const { isAdmin, isUser } = useAuth();
 
