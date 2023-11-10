@@ -157,7 +157,7 @@ export const apiSlice = createApi({
             query: (products) => ({
                 url: `/presentation`,
                 method: "POST",
-                body: { prodIDs: products },
+                body: products,
             }),
         }),
     }),
@@ -179,4 +179,6 @@ export const {
     useDeleteUserMutation,
 
     useLoginMutation,
+
+    useCreatePresentationMutation,
 } = apiSlice;

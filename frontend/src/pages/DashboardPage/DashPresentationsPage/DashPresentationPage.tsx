@@ -10,9 +10,13 @@ import {
     Box,
     Button,
 } from "@chakra-ui/react";
-import { memo, useEffect, useState } from "react";
+import { memo, useState } from "react";
 
-import { useGetGroupedProductsQuery } from "../../../app/api/apiSlice";
+import {
+    useGetGroupedProductsQuery,
+    useCreatePresentationMutation,
+} from "../../../app/api/apiSlice";
+
 import { GroupedProducts } from "../../../app/api/types/Product";
 import { Product } from "../../../entities/Product/model/types/product";
 import { ProductItemHorizontal } from "../../../shared/ui/Product/ProductItemHorizontal/ProductItemHorizontal";
@@ -20,6 +24,15 @@ import { ProductItemHorizontal } from "../../../shared/ui/Product/ProductItemHor
 const DashPresentationPage = memo(() => {
     const { data, isLoading, isSuccess, isError, error } =
         useGetGroupedProductsQuery();
+    const [
+        createPresentation,
+        {
+            isLoading: isLoadingPresentation,
+            isSuccess: isSuccessPresentation,
+            isError: isErrorPresentation,
+            error: errorPresentation,
+        },
+    ] = useCreatePresentationMutation();
 
     const [selectedProducts, setSelectedProducts] = useState(new Set());
     const [selectedBrands, setSelectedBrands] = useState(new Set());
@@ -85,8 +98,14 @@ const DashPresentationPage = memo(() => {
         }
     };
 
-    const handleCreatePresentation = () => {
-        console.log(selectedProducts);
+    const handleCreatePresentation = async () => {
+        const prodIDs: string[] = Array.from(selectedProducts);
+        try {
+            console.log(prodIDs);
+            const result = await createPresentation(prodIDs);
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     console.log(selectedProducts, selectedBrands);
@@ -132,10 +151,6 @@ const DashPresentationPage = memo(() => {
                                         isSelected={selectedProducts.has(
                                             product._id
                                         )}
-                                        selectedProducts={selectedProducts}
-                                        setSelectedProducts={
-                                            setSelectedProducts
-                                        }
                                         handleToggleSelectProducts={
                                             handleToggleSelectProducts
                                         }
