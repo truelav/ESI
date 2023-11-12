@@ -12,7 +12,7 @@ import UserProductsLayout from "./components/layouts/userProducts";
 
 // PAGES
 import Home from "./pages/HomePage";
-import ProductsPage from "./pages/ProductsPage/ProductsPage";
+import { ProductsPage } from "./pages/ProductsPage/ProductsPage";
 import LoginPage from "./pages/LoginPage";
 import NotFound from "./pages/NotFoundPage";
 import Dashboard from "./pages/DashboardPage";
