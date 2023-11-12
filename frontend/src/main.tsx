@@ -9,15 +9,18 @@ import { CookiesProvider } from "react-cookie";
 
 import App from "./App";
 import "./index.css";
+import ErrorBoundary from "./app/api/providers/ErrorBoundary/ui/ErrorBoundary";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  // <React.StrictMode>
+    // <React.StrictMode>
     <Provider store={store}>
-      <CookiesProvider>
-        <ChakraProvider>
-          <App />
-        </ChakraProvider>
-      </CookiesProvider>
+        <CookiesProvider>
+            <ErrorBoundary>
+                <ChakraProvider>
+                    <App />
+                </ChakraProvider>
+            </ErrorBoundary>
+        </CookiesProvider>
     </Provider>
-  // {/* </React.StrictMode> */}
+    // {/* </React.StrictMode> */}
 );

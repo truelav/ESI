@@ -5,7 +5,6 @@ import { GroupedProducts } from "./types/Product";
 import { User } from "./types/User/User";
 
 // @ts-nocheck
-
 const baseQuery = fetchBaseQuery({
     baseUrl: "http://localhost:8888/api",
     credentials: "include",

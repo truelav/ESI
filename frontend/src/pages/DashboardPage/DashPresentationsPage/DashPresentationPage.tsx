@@ -7,10 +7,11 @@ import {
     AccordionPanel,
     AccordionIcon,
     Checkbox,
-    Box,
     Button,
 } from "@chakra-ui/react";
+
 import { memo, useState } from "react";
+import { Link } from "react-router-dom";
 
 import {
     useGetGroupedProductsQuery,
@@ -20,19 +21,23 @@ import {
 import { GroupedProducts } from "../../../app/api/types/Product";
 import { Product } from "../../../entities/Product/model/types/product";
 import { ProductItemHorizontal } from "../../../shared/ui/Product/ProductItemHorizontal/ProductItemHorizontal";
-import { Link } from "react-router-dom";
 
 const DashPresentationPage = memo(() => {
-    const { data, isLoading, isSuccess, isError, error } =
-        useGetGroupedProductsQuery();
+    const {
+        data: dataProducts,
+        isLoading: isLoadingDataProducts,
+        isSuccess: isSuccessDataProducts,
+        isError: isErrorDataProducts,
+        error: errorDataProducts,
+    } = useGetGroupedProductsQuery();
     const [
         createPresentation,
         {
+            data: dataPresentation,
             isLoading: isLoadingPresentation,
             isSuccess: isSuccessPresentation,
             isError: isErrorPresentation,
             error: errorPresentation,
-            data: dataPresentation,
         },
     ] = useCreatePresentationMutation();
 
@@ -40,11 +45,6 @@ const DashPresentationPage = memo(() => {
     const [selectedBrands, setSelectedBrands] = useState(new Set());
     const [downloadPresentationLink, setDownloadPresentationLink] =
         useState(null);
-    // const [products, setProducts] = useState([]);
-
-    // useEffect(() => {
-    //     setProducts(data);
-    // }, []);
 
     const selectItem = (id, set, selector) => {
         const newSet = new Set(set);
@@ -70,7 +70,7 @@ const DashPresentationPage = memo(() => {
             setSelectedBrands(newSelectedBrands);
         }
 
-        const filteredBrands = data?.filter(
+        const filteredBrands = dataProducts?.filter(
             (brandGr) => brandGr.brand === brandName
         );
 
@@ -79,17 +79,7 @@ const DashPresentationPage = memo(() => {
 
             products.forEach((brandItem) => {
                 const id = brandItem._id;
-
-                // if(selectedBrands.has(brandItem.brand)){
-                // const newSelectedProducts = new Set(selectedProducts)
-                // newSelectedProducts.delete(id)
-                // setSelectedProducts(newSelectedProducts)
-                // } else {
                 selectItem(id, selectedProducts, setSelectedProducts);
-                // const newSelectedProducts = new Set(selectedProducts)
-                // newSelectedProducts.add(id)
-                // setSelectedProducts(newSelectedProducts)
-                // }
             });
         }
     };
@@ -104,6 +94,7 @@ const DashPresentationPage = memo(() => {
 
     const handleCreatePresentation = async () => {
         const prodIDs: string[] = Array.from(selectedProducts);
+
         try {
             console.log(prodIDs);
             const result = await createPresentation(prodIDs);
@@ -123,23 +114,27 @@ const DashPresentationPage = memo(() => {
         }
     };
 
-    // console.log(selectedProducts, selectedBrands);
-
     let content = <div></div>;
 
-    if (isLoading) {
+    if (isLoadingDataProducts || isLoadingPresentation) {
         content = <>Loading...</>;
     }
 
-    if (isError) {
-        content = <>No Products Found : {JSON.stringify(error)}</>;
+    if (isErrorDataProducts || isLoadingPresentation) {
+        content = (
+            <>
+                No Products Found :{" "}
+                {JSON.stringify(errorDataProducts) ||
+                    JSON.stringify(errorPresentation)}
+            </>
+        );
     }
 
-    if (isSuccess) {
+    if (isSuccessDataProducts) {
         content = (
             <>
                 <Accordion defaultIndex={[0]} allowMultiple>
-                    {data.map((brandGroup: GroupedProducts) => (
+                    {dataProducts?.map((brandGroup: GroupedProducts) => (
                         <AccordionItem key={brandGroup.brand}>
                             <h2>
                                 <AccordionButton>
