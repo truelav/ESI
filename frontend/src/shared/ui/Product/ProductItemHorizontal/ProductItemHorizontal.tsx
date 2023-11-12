@@ -25,17 +25,9 @@ interface ProductListPropsItem {
 }
 
 export const ProductItemHorizontal = memo((props: ProductListPropsItem) => {
-    const {
-        product,
-        isSelected,
-        selectedProducts,
-        setSelectedProducts,
-        handleToggleSelectProducts,
-    } = props;
+    const { product, isSelected, handleToggleSelectProducts } = props;
     const [deleteSingleProduct, { isLoading, isError, isSuccess }] =
         useDeleteSingleProductMutation();
-
-    const { brand } = product;
 
     if (isError) {
         return <div>...Some Error Has Occured with this Product</div>;
