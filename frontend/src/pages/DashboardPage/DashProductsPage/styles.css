@@ -1,5 +1,5 @@
 .dash_products_page_wrapper {
-    border: 1px solid gray;
+    border: 1px solid rgb(212, 212, 212);
     padding: 20px;
     border-radius: 25px;
 }
@@ -7,7 +7,6 @@
 .dash_products_nav_container {
     display: flex;
     justify-content: flex-end;
-    border-bottom: 1px solid gray;;
 }
 
 .dash_products_nav_button {
@@ -18,5 +17,5 @@
 .dash_products_filter_container {
     display: flex;
     justify-content: space-between;
-    border-bottom: 1px solid gray;
+    /* border-bottom: 1px solid gray; */
 }

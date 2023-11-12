@@ -3,6 +3,7 @@ import { Input, Button, Text } from "@chakra-ui/react";
 import { useGetAllProductsQuery } from "../../app/api/apiSlice";
 import { ProductList } from "../../entities/Product/ui/ProductList/ProductList";
 import { memo, useState, useMemo } from "react";
+import { Product } from "../../entities/Product/model/types/product";
 
 export const ProductsPage = () => {
     const {
@@ -21,7 +22,7 @@ export const ProductsPage = () => {
 
         // Apply filtering
         if (filterBy) {
-            filteredProducts = filteredProducts.filter((product) =>
+            filteredProducts = filteredProducts.filter((product: Product) =>
                 product.name.toLowerCase().includes(filter.toLowerCase())
             );
         }
@@ -29,7 +30,6 @@ export const ProductsPage = () => {
         // Apply sorting
         if (sortBy) {
             filteredProducts.sort((a, b) => {
-                // Customize sorting logic based on your requirements
                 return a[sortBy] > b[sortBy] ? 1 : -1;
             });
         }

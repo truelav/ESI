@@ -30,8 +30,7 @@ const ProductSchema = new Schema(
         },
         images: {
             type: String,
-            default:
-                "https://us.vaio.com/cdn/shop/files/VAIO-16-F-Series-Notebook-FHD-Intel-Core-i7-1355U-10-Core-16GB-RAM-1TB-SSD-Fingerprint-Scanner-THX-Spatial-Audio-HD-Camera-HDMI-Windows-11-Home-Silve_3cc1cf37-1f2d-4501-9585-6ef60466a.webp?v=1696054599",
+            default: "http://localhost:8888/static/images/fallback_image.jpeg",
         },
         upc: {
             type: String,
