@@ -3,27 +3,27 @@ import useAuth from "../../hooks/useAuth";
 import { ProductList } from "../../entities/Product/ui/ProductList/ProductList";
 
 function ProductsPage() {
-  const { username, role, isAdmin, isUser } = useAuth();
+    const { isAdmin, isUser } = useAuth();
 
-  if (isAdmin || isUser) {
+    if (isAdmin || isUser) {
+        return (
+            <>
+                <h1>ESI Enterprises</h1>
+                <div className="card">
+                    <ProductList />
+                    <p>
+                        Edit <code>src/App.tsx</code> and save to test HMR
+                    </p>
+                </div>
+            </>
+        );
+    }
+
     return (
-      <>
-        <h1>ESI Enterprises</h1>
-        <div className="card">
-          <ProductList />
-          <p>
-            Edit <code>src/App.tsx</code> and save to test HMR
-          </p>
-        </div>
-      </>
+        <>
+            <h2>Unauthorized</h2>
+        </>
     );
-  }
-
-  return (
-    <>
-      <h2>Unauthorized</h2>
-    </>
-  );
 }
 
 export default ProductsPage;
