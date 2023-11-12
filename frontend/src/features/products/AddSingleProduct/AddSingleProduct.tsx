@@ -19,6 +19,7 @@ const AddSingleProduct = () => {
             console.log(result);
         } catch (error) {
             console.log(error);
+            throw error;
         }
     };
 

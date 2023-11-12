@@ -4,10 +4,10 @@ import { Grid, GridItem } from "@chakra-ui/react";
 import useAuth from "../../../hooks/useAuth";
 import Sidebar from "../../sidebar";
 
-export default function DashboardLayout() {
-    const { isAdmin } = useAuth();
+export default function UserProducts() {
+    const { isAdmin, isUser } = useAuth();
 
-    if (isAdmin) {
+    if (isAdmin || isUser) {
         return (
             <div className="dashboard-wrapper">
                 <Grid templateColumns="repeat(12, 1fr)" gap={4}>

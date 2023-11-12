@@ -8,7 +8,7 @@ import {
     Input,
     Button,
     VStack,
-    Container
+    Container,
 } from "@chakra-ui/react";
 import { useAddSingleProductMutation } from "../../../app/api/apiSlice";
 
@@ -21,10 +21,11 @@ export interface FormDataProps {
     quantity: string;
     image: File | null;
     upc: string;
-  }
+}
 
-const ProductForm= () => {
-    const [addSingleProduct, { isLoading, error, isSuccess }] = useAddSingleProductMutation();
+const ProductForm = () => {
+    const [addSingleProduct, { isLoading, error, isSuccess }] =
+        useAddSingleProductMutation();
     const [formData, setFormData] = useState({
         brand: "",
         model: "",
@@ -33,7 +34,7 @@ const ProductForm= () => {
         price: "",
         quantity: "",
         image: null,
-        upc: ""
+        upc: "",
     });
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -43,8 +44,8 @@ const ProductForm= () => {
 
     const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files ? e.target.files[0] : null;
-         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-         // @ts-ignore
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         setFormData({ ...formData, image: file });
     };
 
@@ -58,7 +59,7 @@ const ProductForm= () => {
         formDataToSend.append("upc", formData.upc);
         formDataToSend.append("price", formData.price);
         formDataToSend.append("quantity", formData.quantity);
-        if(formData.image){
+        if (formData.image) {
             formDataToSend.append("image", formData.image);
         }
 
@@ -70,30 +71,23 @@ const ProductForm= () => {
         }
     };
 
-
-    if(isSuccess){
-        return (
-            <div>Product Saved Success</div>
-        )
+    if (isSuccess) {
+        return <div>Product Saved Success</div>;
     }
 
-    if(error){
-        return (
-            <div>...Error Adding Product</div>
-        )
+    if (error) {
+        return <div>...Error Adding Product</div>;
     }
 
-    if(isLoading){
-        return (
-            <div>...Is Loading</div>
-        )
+    if (isLoading) {
+        return <div>...Is Loading</div>;
     }
 
     return (
         <Container
-        maxW="lg"
-        py={{ base: "12", md: "24" }}
-        px={{ base: "0", sm: "8" }}
+            maxW="lg"
+            py={{ base: "12", md: "24" }}
+            px={{ base: "0", sm: "8" }}
         >
             <Box p={4}>
                 <form onSubmit={handleSubmit} encType="multipart/form-data">
@@ -182,8 +176,8 @@ const ProductForm= () => {
                     </VStack>
                 </form>
             </Box>
-        </Container>    
-    )
+        </Container>
+    );
 };
 
 export default ProductForm;
