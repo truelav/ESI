@@ -10,7 +10,9 @@ import {
     VStack,
     Container,
 } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 import { useAddSingleProductMutation } from "../../../app/api/apiSlice";
+import { FormResult } from "../FormResult/FormResult";
 
 export interface FormDataProps {
     brand: string;
@@ -72,7 +74,16 @@ const ProductForm = () => {
     };
 
     if (isSuccess) {
-        return <div>Product Saved Success</div>;
+        return (
+            <FormResult
+                headlineText={`Product Saved ${formData.model} Succress`}
+                bodyText={formData.description}
+            >
+                <Link to={`/products`}>
+                    <Button>Check Added Product</Button>
+                </Link>
+            </FormResult>
+        );
     }
 
     if (error) {
