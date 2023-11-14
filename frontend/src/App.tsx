@@ -17,7 +17,7 @@ import LoginPage from "./pages/LoginPage";
 import NotFound from "./pages/NotFoundPage";
 import Dashboard from "./pages/DashboardPage";
 import ContactPage from "./pages/ContactPages";
-import ProductDetailsPage from "./pages/ProductDetailsPage";
+import ProductDetailsPage from "./pages/ProductDetailsPage/ProductDetailsPage";
 import DashUsersPage from "./pages/DashboardPage/DashUsersPage/DashUsersPage";
 import DashProductsPage from "./pages/DashboardPage/DashProductsPage/DashProductsPage";
 import DashProductDetailsPage from "./pages/DashboardPage/DashProductDetailsPage/DashProductDetailsPage";

@@ -21,7 +21,7 @@ interface ProductListPropsItem {
 
 export const ProductListItem = memo((props: ProductListPropsItem) => {
     const { product } = props;
-    console.log(typeof product.price);
+
     return (
         <CardComponent
             cardVariant={CardVariants.outline}
@@ -57,7 +57,7 @@ export const ProductListItem = memo((props: ProductListPropsItem) => {
                 </GridItem>
 
                 <GridItem colSpan={2}>
-                    <Link to={`/dashboard/products/${product?._id}`}>
+                    <Link to={`/products/${product?._id}`}>
                         <Button>Learn More</Button>
                     </Link>
                 </GridItem>

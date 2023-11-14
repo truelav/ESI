@@ -1,13 +1,13 @@
 // Product Item Page
 
-import { ProductDetailsItem } from "../../entities/Product/ui/ProductDetails";
+import { ProductDetails } from "../../entities/Product/ui/ProductDetails/ProductDetails";
 
 function ProductDetailsPage() {
   return (
     <>
       <h2>Product Details Page</h2>
       <div className="card">
-        <ProductDetailsItem />
+        <ProductDetails />
       </div>
     </>
   );
