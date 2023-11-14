@@ -1,8 +1,8 @@
 import { memo } from "react";
-import { Button, Grid, GridItem, Container } from "@chakra-ui/react";
+import { Grid, GridItem, Container } from "@chakra-ui/react";
 import { useGetSingleProductQuery } from "../../../../app/api/apiSlice";
 
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { ProductDetailsImage } from "./ProductsDetailsImage";
 import { ProductDetailsInfo } from "../ProductDetailsInfo/ProductDetailsInfo";
 
@@ -35,16 +35,14 @@ export const ProductDetails = memo(() => {
 
   if (isSuccess) {
     content = (
-      <Container>
-        <Grid>
-          <GridItem>
-              <ProductDetailsImage />
+        <Grid templateColumns="repeat(12, 1fr)" gap={4}>
+          <GridItem colSpan={6}>
+              <ProductDetailsImage imageSource={product.images}/>
           </GridItem>
-          <GridItem>
-              <ProductDetailsInfo />
+          <GridItem colSpan={6}>
+              <ProductDetailsInfo product={product}/>
             </GridItem>
         </Grid>
-      </Container>
     );
   }
 
