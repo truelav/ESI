@@ -1,9 +1,8 @@
-// Products Page
-import { Input, Button, Text } from "@chakra-ui/react";
+import { useState, useMemo } from "react";
 import { useGetAllProductsQuery } from "../../app/api/apiSlice";
 import { ProductList } from "../../entities/Product/ui/ProductList/ProductList";
-import { memo, useState, useMemo } from "react";
 import { Product } from "../../entities/Product/model/types/product";
+import { ProductSearchBar } from "../../entities/Product/ui/ProductSearchBar/ProductSearchBar";
 
 export const ProductsPage = () => {
     const {
@@ -14,28 +13,42 @@ export const ProductsPage = () => {
         error,
     } = useGetAllProductsQuery();
 
+    const [searchTerm, setSearchTerm] = useState("");
     const [filterBy, setFilterBy] = useState("");
     const [sortBy, setSortBy] = useState("");
 
     const filteredAndSortedProducts = useMemo(() => {
         let filteredProducts = products || [];
 
+        // Apply search
+        if (searchTerm) {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            filteredProducts = filteredProducts.filter((product) =>
+                product.name.toLowerCase().includes(searchTerm.toLowerCase())
+            );
+        }
+
         // Apply filtering
         if (filterBy) {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
             filteredProducts = filteredProducts.filter((product: Product) =>
-                product.name.toLowerCase().includes(filter.toLowerCase())
+                product.name.toLowerCase().includes(filterBy.toLowerCase())
             );
         }
 
         // Apply sorting
         if (sortBy) {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
             filteredProducts.sort((a, b) => {
                 return a[sortBy] > b[sortBy] ? 1 : -1;
             });
         }
 
         return filteredProducts;
-    }, [products, filterBy, sortBy]);
+    }, [searchTerm, products, filterBy, sortBy]);
 
     let content = <div></div>;
 
@@ -51,11 +64,9 @@ export const ProductsPage = () => {
         content = (
             <div className="dash_products_page_wrapper">
                 <div className="dash_products_nav_container">
-                    <Input />
-                    <Button color="blue">
-                        <Text>Search Products</Text>
-                    </Button>
+                    <ProductSearchBar />
                 </div>
+                <div></div>
                 <div>
                     <ProductList products={filteredAndSortedProducts} />
                 </div>
@@ -63,21 +74,5 @@ export const ProductsPage = () => {
         );
     }
 
-    return (
-        // <>
-        //     <div className="dash_products_page_wrapper">
-        //         <div className="dash_products_nav_container">
-        //             <Input />
-        //             <Button color="blue">
-        //                 <Text>Search Products</Text>
-        //             </Button>
-        //         </div>
-        //         <div>
-        //             <ProductList />
-        //         </div>
-        //     </div>
-        // </>
-
-        <>{content}</>
-    );
+    return <>{content}</>;
 };
