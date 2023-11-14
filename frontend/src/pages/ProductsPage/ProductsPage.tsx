@@ -39,7 +39,7 @@ export const ProductsPage = () => {
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
             filteredProducts = filteredProducts.filter((product: Product) =>
-                product.name.toLowerCase().includes(filterBy.toLowerCase())
+                product.brand.toLowerCase().includes(filterBy.toLowerCase())
             );
         }
 
@@ -47,9 +47,15 @@ export const ProductsPage = () => {
         if (sortBy) {
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
-            filteredProducts.sort((a, b) => {
+            const newFilteredProducts = [...filteredProducts];
+            newFilteredProducts.sort((a: Product, b: Product) => {
                 return a[sortBy] > b[sortBy] ? 1 : -1;
             });
+            filteredProducts = [...newFilteredProducts];
+            // filteredProducts.forEach((a) => {
+            //     console.log(a[sortBy]);
+            // });
+            // console.log()
         }
         console.log(filteredProducts);
         return filteredProducts;
@@ -70,14 +76,17 @@ export const ProductsPage = () => {
             <div className="dash_products_page_wrapper">
                 <Grid templateColumns="repeat(12, 1fr)" gap={4}>
                     <GridItem colSpan={2}>
-                        <ProductFilterBar />
+                        <ProductFilterBar
+                            filterBy={filterBy}
+                            setFilterBy={setFilterBy}
+                        />
                     </GridItem>
                     <GridItem colSpan={10}>
                         <ProductSearchBar
                             searchTerm={searchTerm}
                             setSearchTerm={setSearchTerm}
                         />
-                        <ProductSortBar />
+                        <ProductSortBar sortBy={sortBy} setSortBy={setSortBy} />
                         <ProductList products={filteredAndSortedProducts} />
                     </GridItem>
                 </Grid>

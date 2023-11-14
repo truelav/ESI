@@ -5,15 +5,11 @@ import CardComponent, {
 } from "../../../../shared/ui/Product/Card/CardComponent";
 import { CardTextComponent } from "../../../../shared/ui/Product/Card/CardText";
 
-export const ProductSortBar = () => {
-    // const sortList = [
-    //       {
-    //             name: "Sort By",
-    //             columns: 3,
-
-    //       }
-    // ]
-
+export const ProductSortBar = (props: {
+    sortBy: string | number;
+    setSortBy: (arg0: string | number) => void;
+}) => {
+    const { sortBy, setSortBy } = props;
     return (
         <CardComponent
             cardVariant={CardVariants.outline}
@@ -24,7 +20,7 @@ export const ProductSortBar = () => {
                     <CardTextComponent>Sort By: </CardTextComponent>
                 </GridItem>
 
-                <GridItem colSpan={2}>
+                <GridItem colSpan={2} onClick={() => setSortBy("brand")}>
                     <CardTextComponent>Brand</CardTextComponent>
                 </GridItem>
 
