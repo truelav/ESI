@@ -21,7 +21,7 @@ function CreateUserModal() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
-      <Button className="" onClick={onOpen}>
+      <Button className="" onClick={onOpen}  colorScheme='blue'>
         <p>Create User</p>
       </Button>
       <Modal isOpen={isOpen} onClose={onClose}>

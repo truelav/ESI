@@ -1,10 +1,10 @@
 import { memo } from "react";
-import { Grid, GridItem, Container } from "@chakra-ui/react";
+import { Grid, GridItem } from "@chakra-ui/react";
 import { useGetSingleProductQuery } from "../../../../app/api/apiSlice";
 
 import { useParams } from "react-router-dom";
 import { ProductDetailsImage } from "./ProductsDetailsImage";
-import { ProductDetailsInfo } from "../ProductDetailsInfo/ProductDetailsInfo";
+import { ProductDetailsInfo } from "./ProductDetailsInfo";
 
 // interface ProductDetailsItemProps {
 //   className?: string;

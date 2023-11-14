@@ -1,4 +1,4 @@
-import { Button, Text, Box } from "@chakra-ui/react";
+import { Button, Text, Box, ButtonGroup } from "@chakra-ui/react";
 import { UsersList } from "../../../features/users/ui/usersList/usersList";
 import CreateUserModal from "../../../shared/ui/Modals/CreateUser/CreateUserModal";
 
@@ -9,19 +9,15 @@ function DashUsersPage() {
       <div className="">
         <div className="">
           <Box>
-              <Text>Welcome to Users Page</Text>
-          </Box>
-
-          <Box>
             <Box>
-              <Box>
-                  <CreateUserModal />
-              </Box>
-              <Box>
-                  <Button className="dash_products_nav_button">
+              <ButtonGroup>
+                  <CreateUserModal/>
+
+                  <Button className="dash_products_nav_button"  colorScheme='red'>
                     <Text>Delete Users</Text>
                   </Button>
-              </Box>
+              </ButtonGroup>
+
             </Box>
               <UsersList />
           </Box>

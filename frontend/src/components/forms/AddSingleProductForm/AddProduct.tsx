@@ -183,7 +183,7 @@ const ProductForm = () => {
                             />
                         </FormControl>
 
-                        <Button type="submit">Save Product</Button>
+                        <Button type="submit" colorScheme='blue'>Save Product</Button>
                     </VStack>
                 </form>
             </Box>

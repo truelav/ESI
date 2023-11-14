@@ -1,6 +1,6 @@
 import { Container, Text } from "@chakra-ui/react";
 
-import { AddSingleProduct } from "../../../features/products";
+// import { AddSingleProduct } from "../../../features/products";
 
 function DashInventory() {
     return (
@@ -11,7 +11,7 @@ function DashInventory() {
             <Container>
                 <Text> Coming Soon</Text>
             </Container>
-            <AddSingleProduct />
+            {/* <AddSingleProduct /> */}
         </>
     );
 }
