@@ -64,7 +64,7 @@ const router = createBrowserRouter(
             </Route>
             {/* END DASHBOARD */}
 
-            <Route path="products" element={<UserProductsLayout />}>
+            <Route path="products">
                 <Route index element={<ProductsPage />} />
                 <Route path=":id">
                     <Route index element={<ProductDetailsPage />} />

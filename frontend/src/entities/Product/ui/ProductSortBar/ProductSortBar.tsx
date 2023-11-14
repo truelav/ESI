@@ -6,16 +6,14 @@ import CardComponent, {
 import { CardTextComponent } from "../../../../shared/ui/Product/Card/CardText";
 
 export const ProductSortBar = () => {
-    const product = {
-        _id: "00000000",
-        description: "description",
-        images: "image",
-        brand: "brand",
-        model: "model",
-        price: "price",
-        quantity: "",
-        upc: "upc",
-    };
+    // const sortList = [
+    //       {
+    //             name: "Sort By",
+    //             columns: 3,
+
+    //       }
+    // ]
+
     return (
         <CardComponent
             cardVariant={CardVariants.outline}
@@ -23,23 +21,23 @@ export const ProductSortBar = () => {
         >
             <Grid templateColumns="repeat(12, 1fr)" gap={4}>
                 <GridItem colSpan={3}>
-                    <CardTextComponent>{product?.images}</CardTextComponent>
+                    <CardTextComponent>Sort By: </CardTextComponent>
                 </GridItem>
 
                 <GridItem colSpan={2}>
-                    <CardTextComponent>{product?.brand}</CardTextComponent>
+                    <CardTextComponent>Brand</CardTextComponent>
                 </GridItem>
 
                 <GridItem colSpan={2}>
-                    <CardTextComponent>{product?.model}</CardTextComponent>
+                    <CardTextComponent>Model</CardTextComponent>
                 </GridItem>
 
                 <GridItem colSpan={1}>
-                    <CardTextComponent>{product?.price}</CardTextComponent>
+                    <CardTextComponent>Price</CardTextComponent>
                 </GridItem>
 
                 <GridItem colSpan={2}>
-                    <CardTextComponent>{product?.upc}</CardTextComponent>
+                    <CardTextComponent>UPC</CardTextComponent>
                 </GridItem>
 
                 <GridItem colSpan={2}>

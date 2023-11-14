@@ -3,6 +3,9 @@ import { useGetAllProductsQuery } from "../../app/api/apiSlice";
 import { ProductList } from "../../entities/Product/ui/ProductList/ProductList";
 import { Product } from "../../entities/Product/model/types/product";
 import { ProductSearchBar } from "../../entities/Product/ui/ProductSearchBar/ProductSearchBar";
+import { Grid, GridItem } from "@chakra-ui/react";
+import { ProductFilterBar } from "../../entities/Product/ui/ProductFilterBar/ProductFilterBar";
+import { ProductSortBar } from "../../entities/Product/ui/ProductSortBar/ProductSortBar";
 
 export const ProductsPage = () => {
     const {
@@ -25,7 +28,9 @@ export const ProductsPage = () => {
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
             filteredProducts = filteredProducts.filter((product) =>
-                product.name.toLowerCase().includes(searchTerm.toLowerCase())
+                product.description
+                    .toLowerCase()
+                    .includes(searchTerm.toLowerCase())
             );
         }
 
@@ -46,7 +51,7 @@ export const ProductsPage = () => {
                 return a[sortBy] > b[sortBy] ? 1 : -1;
             });
         }
-
+        console.log(filteredProducts);
         return filteredProducts;
     }, [searchTerm, products, filterBy, sortBy]);
 
@@ -63,13 +68,19 @@ export const ProductsPage = () => {
     if (isSuccess) {
         content = (
             <div className="dash_products_page_wrapper">
-                <div className="dash_products_nav_container">
-                    <ProductSearchBar />
-                </div>
-                <div></div>
-                <div>
-                    <ProductList products={filteredAndSortedProducts} />
-                </div>
+                <Grid templateColumns="repeat(12, 1fr)" gap={4}>
+                    <GridItem colSpan={2}>
+                        <ProductFilterBar />
+                    </GridItem>
+                    <GridItem colSpan={10}>
+                        <ProductSearchBar
+                            searchTerm={searchTerm}
+                            setSearchTerm={setSearchTerm}
+                        />
+                        <ProductSortBar />
+                        <ProductList products={filteredAndSortedProducts} />
+                    </GridItem>
+                </Grid>
             </div>
         );
     }
