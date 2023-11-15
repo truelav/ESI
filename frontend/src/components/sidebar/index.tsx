@@ -117,7 +117,8 @@ const NavItem = ({ icon, link, children, ...rest }: NavItemProps) => {
             <Box
                 style={{ textDecoration: "none" }}
                 _focus={{ boxShadow: "none" }}
-                fontSize="2xl"
+                fontSize="lg"
+                textTransform="capitalize"
             >
                 <Flex
                     align="center"
