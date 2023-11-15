@@ -39,6 +39,7 @@ const LinkItems: Array<LinkItemProps> = [
 ];
 
 export default function SimpleSidebar() {
+    // const {username} = useAuth()
     const { isOpen, onOpen, onClose } = useDisclosure();
     return (
         <Box minH="">
@@ -89,7 +90,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
                 justifyContent="space-between"
             >
                 <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
-                    Admin Name
+                    Welcome Admin
                 </Text>
                 <CloseButton
                     display={{ base: "flex", md: "none" }}
@@ -116,6 +117,7 @@ const NavItem = ({ icon, link, children, ...rest }: NavItemProps) => {
             <Box
                 style={{ textDecoration: "none" }}
                 _focus={{ boxShadow: "none" }}
+                fontSize="2xl"
             >
                 <Flex
                     align="center"
