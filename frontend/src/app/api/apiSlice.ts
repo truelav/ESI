@@ -73,7 +73,17 @@ export const apiSlice = createApi({
             invalidatesTags: [{ type: "Products", id: "List" }],
         }),
 
-        editSingleProduct: builder.mutation<Product, Product>({
+        addMultipleProducts: builder.mutation<unknown, void>({
+            query: (products) => ({
+                url: `products/addMultiple`,
+                method: "POST",
+                body: products,
+                formData: true,
+            }),
+            invalidatesTags: [{ type: "Products", id: "List" }],
+        }),
+
+        editSingleProduct: builder.mutation<Product, void>({
             query: (product) => ({
                 url: `/products`,
                 method: "PUT",
@@ -170,6 +180,7 @@ export const {
     useDeleteSingleProductMutation,
     useDeleteMultipleProductsMutation,
 
+    useAddMultipleProductsMutation,
     useGetGroupedProductsQuery,
 
     useGetAllUsersQuery,

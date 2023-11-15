@@ -28,14 +28,14 @@ export const editProduct = async (req, res) => {
                 images,
                 location
             },
-            (error, data) => {
-                if (error) {
-                  console.log(error);
-                  res.status(300).json({message: error.message})
-                } else {
-                  console.log(data);
-                }
-              }
+            // (error, data) => {
+            //     if (error) {
+            //       console.log(error);
+            //       res.status(300).json({message: error.message})
+            //     } else {
+            //       console.log(data);
+            //     }
+            //   }
         )
 
         res.status(200).json({ message: `Product ${name, brand} modified successfully` });
