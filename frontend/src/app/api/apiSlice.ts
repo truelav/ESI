@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { Product } from "../../entities/Product/model/types/product";
+import { FormDataProps } from "../../shared/ui/Modals/ImportProducts/ImportProductsModal";
 import { GroupedProducts } from "./types/Product";
 import { User } from "./types/User/User";
 
@@ -73,7 +74,7 @@ export const apiSlice = createApi({
             invalidatesTags: [{ type: "Products", id: "List" }],
         }),
 
-        addMultipleProducts: builder.mutation<unknown, void>({
+        addMultipleProducts: builder.mutation<unknown, FormDataProps>({
             query: (products) => ({
                 url: `products/addMultiple`,
                 method: "POST",
@@ -103,7 +104,7 @@ export const apiSlice = createApi({
         }),
 
         deleteMultipleProducts: builder.mutation<
-            { success: boolean; id: number },
+            { success: boolean; productsIds: [] },
             number
         >({
             query: (productsIds) => ({

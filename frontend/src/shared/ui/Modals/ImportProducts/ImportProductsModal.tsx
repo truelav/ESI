@@ -25,10 +25,13 @@ import {
   //   isOpen: boolean,
   //   onClose: () => void
   // }
+  export interface FormDataProps {
+    csv?: File | null;
+  }
 
 function ImportProductsModal() {
     const [addMultipleProducts, { isLoading, error, isSuccess, data }] = useAddMultipleProductsMutation()
-    const [formData, setFormData] = useState({ csv: null})
+    const [formData, setFormData] = useState({ csv: ''})
     const { isOpen, onOpen, onClose } = useDisclosure()
 
 
@@ -49,7 +52,7 @@ function ImportProductsModal() {
       }
 
       try {
-          const result = await addMultipleProducts(formDataToSend);
+          const result = await addMultipleProducts(formDataToSend)
           console.log(result);
       } catch (error) {
           console.log(error);
