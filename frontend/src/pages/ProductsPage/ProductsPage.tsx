@@ -52,12 +52,8 @@ export const ProductsPage = () => {
                 return a[sortBy] > b[sortBy] ? 1 : -1;
             });
             filteredProducts = [...newFilteredProducts];
-            // filteredProducts.forEach((a) => {
-            //     console.log(a[sortBy]);
-            // });
-            // console.log()
         }
-        console.log(filteredProducts);
+
         return filteredProducts;
     }, [searchTerm, products, filterBy, sortBy]);
 
