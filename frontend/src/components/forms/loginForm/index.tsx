@@ -2,10 +2,6 @@ import {
   Box,
   Button,
   Container,
-  // Checkbox,
-  // Divider,
-  // HStack,
-  Image,
   FormControl,
   FormLabel,
   Heading,
@@ -18,6 +14,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
 import { useCookies } from "react-cookie";
 import { useLoginMutation } from "../../../app/api/apiSlice";
+import { FormResult } from "../FormResult/FormResult";
 // import logo from "/logo.png";
 // import { OAuthButtonGroup } from "./OAuthButtonGroup";
 // import { PasswordField } from "./PasswordField";
@@ -40,16 +37,50 @@ function validateInput() {
 }
 
 export function LoginForm() {
-  const [login] = useLoginMutation();
+  const [login, 
+    { 
+      isLoading: isLoadingLogin, 
+      error: errorLogin, 
+      isSuccess: isSuccessLogin 
+    }
+  ] = useLoginMutation();
   const [cookies, setCookie] = useCookies(["authToken"]);
   const navigate = useNavigate();
-  // console.log(cookies)
+
+  let content = <></>
+
+  if(isLoadingLogin){
+    content = (<>loading ...</>)
+  }
+
+  if(errorLogin){
+    content = (
+      <>
+        An error has occured {errorLogin?.status}! : {errorLogin?.data}
+      </>
+    )
+  }
+
+  if(isSuccessLogin){
+    content = (
+      <FormResult headlineText="Login Success" bodyText="Welcome to ESI">
+        <Link to="products">
+          <Button>
+            Go To Products
+          </Button>
+        </Link>  
+      </FormResult>
+    )
+  }
+
   return (
     <Container
       maxW="lg"
       py={{ base: "12", md: "24" }}
       px={{ base: "0", sm: "8" }}
     >
+
+      {content}
       <Stack spacing="8">
         <Stack spacing="6">
           {/* <Image src={logo} sizes="sm" className="" alt="ESI Logo" /> */}
@@ -58,7 +89,9 @@ export function LoginForm() {
               Log in to your account
             </Heading>
             <Link to="/contact">
-              <Text color="fg.muted">Don't have an account? Contact Us</Text>
+              <Button>
+                <Text color="fg.muted">Don't have an account? Contact Us</Text>
+              </Button>
             </Link>
           </Stack>
         </Stack>
@@ -77,16 +110,17 @@ export function LoginForm() {
               }}
               onSubmit={async (values, actions) => {
                 const response = await login(values).unwrap();
-                if (response) {
+                try {
                   const { accessToken } = response;
                   setCookie("authToken", accessToken, { path: "/" });
                   console.log(response);
                   actions.resetForm();
                   navigate("/products");
-                } else {
+                } catch(err){
+                  console.log(err)
+                  console.log(response)
                   throw Error("Log In Error occured");
                 }
-                // onClose();
               }}
             >
               {(props) => (

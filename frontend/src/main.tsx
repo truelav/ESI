@@ -8,8 +8,8 @@ import { CookiesProvider } from "react-cookie";
 // `@chakra-ui/theme` is a part of the base install with `@chakra-ui/react`
 
 import App from "./App";
-import "./index.css";
 import ErrorBoundary from "./app/api/providers/ErrorBoundary/ui/ErrorBoundary";
+import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
     // <React.StrictMode>

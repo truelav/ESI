@@ -87,7 +87,7 @@ const ProductForm = () => {
     }
 
     if (error) {
-        return <div>...Error Adding Product</div>;
+        return <div>...Error Adding Product: {JSON.stringify(error)}</div>;
     }
 
     if (isLoading) {
