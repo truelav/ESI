@@ -1,6 +1,7 @@
 import express from "express";
 import * as ProductControllers from "../../controllers/Product/index.js";
 import { upload } from "../../middleware/upload/index.js";
+import { uploadProductsFile } from "../../middleware/upload/uploadProductsFile.js";
 
 const router = express.Router();
 
@@ -16,7 +17,7 @@ router.delete("/", ProductControllers.deleteMultipleProducts);
 
 router.post(
     "/addMultiple",
-    upload.single("csv"),
+    uploadProductsFile.single("csv"),
     ProductControllers.addMultipleProducts
 );
 router.post(

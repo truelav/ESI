@@ -1,16 +1,17 @@
 import multer from "multer";
 import path from "path";
-import fs from "fs";
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     console.log(req.body)
     cb(null, path.join('static/images'));
   },
+
   filename: (req, file, cb) => {
     // cb(null, file.originalname);
+    
     const uniqueSuffix = ("" +  Date.now()).trim();
-    const brandName =req.body.brand.split(" ").join("")
+    const brandName = req.body.brand.split(" ").join("")
     const modelName = req.body.model.split(" ").join("")
     const extName = path.extname(file.originalname)
     const fileName = brandName + '-' + modelName + '-' + uniqueSuffix

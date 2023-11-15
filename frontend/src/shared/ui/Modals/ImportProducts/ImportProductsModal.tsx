@@ -36,15 +36,14 @@ function ImportProductsModal() {
                     encType="multipart/form-data"
                 >
                     <input type="file" name="csv" />
-                    <Button type="submit">Import Products</Button>
+                    <Button type="submit" colorScheme='blue'>Import Products</Button>
                 </form>
             </ModalBody>
   
             <ModalFooter>
-              <Button colorScheme='blue' mr={3} onClick={onClose}>
+              <Button  mr={3} onClick={onClose}>
                 Close
               </Button>
-              <Button variant='ghost'>Secondary Action</Button>
             </ModalFooter>
 
           </ModalContent>

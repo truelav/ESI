@@ -5,4 +5,4 @@ const storage = multer.memoryStorage({
     dest: 'uploads/'
 });
 
-export const upload = multer({ storage })
+export const uploadProductsFile = multer({ storage })
