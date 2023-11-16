@@ -8,7 +8,6 @@ import {
 // LAYOUTS
 import MainLayout from "./components/layouts/main";
 import DashboardLayout from "./components/layouts/dashboard";
-import UserProductsLayout from "./components/layouts/userProducts";
 
 // PAGES
 import Home from "./pages/HomePage";

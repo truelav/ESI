@@ -30,7 +30,6 @@ export const deleteSingleProduct = async (req, res) => {
 
     const deletedProduct = await Product.findByIdAndDelete(id);
 
-
     res.status(200).json({message: "product delete success", deletedProduct: deletedProduct});
     
   } catch (error) {

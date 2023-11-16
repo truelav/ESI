@@ -10,7 +10,7 @@ export const deleteMultipleProducts = async (req, res) => {
       return
     }
 
-    Product.deleteMany({ _id: {$in: idsToDelete}}, (error) => {
+    const deletedProducts = await Product.deleteMany({ _id: {$in: idsToDelete}}, (error) => {
       if (error) {
         res.status(500).json({message: "Server Error", error})
       } else {
@@ -18,7 +18,7 @@ export const deleteMultipleProducts = async (req, res) => {
       }
     })
 
-    res.status(200).json('success');
+    res.status(200).json({message: "product delete success", deletedProducts: deletedProducts});
     
   } catch (error) {
     res.status(500).json({ message: error });
