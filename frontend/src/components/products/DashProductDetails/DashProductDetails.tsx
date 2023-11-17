@@ -25,6 +25,9 @@ export const DashProductDetails = memo(( props : EditProductFormProps) => {
 
     useEffect(() => {
         setFormData({...product})
+        if(formData.price === undefined){
+            formData.price = 0
+        }
         console.log(product)
     }, [product])
     

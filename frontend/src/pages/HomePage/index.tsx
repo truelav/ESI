@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Button, Container, Grid, GridItem, Heading, Text } from "@chakra-ui/react";
+import { Container, Grid, GridItem, Heading, Highlight, Text } from "@chakra-ui/react";
 
 export default function Home() {
   return (
@@ -25,28 +25,27 @@ export default function Home() {
           <div className="home-container" >
             <Heading >
               Please 
-              <Button                   
-                  color={"white"}
-                  bg={"blue.500"}>
-                Log In
-              </Button>
-               using provided credentials 
-               or
+
+              <Link to="/login">
+                <Highlight
+                    query={['Log In']}
+                    styles={{ px: '1', py: '1', rounded: 'full', bg: 'blue.100' }}
+                >
+                  Log In
+                </Highlight>               
+              </Link>
+
+               using provided credentials or
                <br/>
-               <Link to="contact">
-              <Button
-                  display={{ base: "none", md: "inline-flex" }}
-                  fontSize={"sm"}
-                  fontWeight={600}
-                  color={"white"}
-                  bg={"blue.500"}
-                  _hover={{
-                  bg: "blue.700",
-                  }}
-              >
-                  Contact Us
-              </Button>
-            </Link> 
+
+              <Link to="contact">
+               <Highlight
+                  query={['Contact Us']}
+                  styles={{ px: '1', py: '1', rounded: 'full', bg: 'blue.100' }}
+               >
+                Contact Us
+               </Highlight>
+              </Link> 
               in order to sign up for an
               account
 
