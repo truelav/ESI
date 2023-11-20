@@ -27,13 +27,15 @@ const ProductSchema = new Schema(
         },
         price: {
             type: Number,
+            default: 1,
         },
         images: {
             type: String,
-            default: "http://localhost:8888/static/images/fallback_image.jpeg",
+            default: "/fallback_image.jpeg",
         },
         upc: {
             type: String,
+            default: "000000000000"
         },
         isActive: {
             type: Boolean,
