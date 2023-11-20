@@ -11,7 +11,7 @@ import DashboardLayout from "./components/layouts/dashboard";
 
 // PAGES
 import Home from "./pages/HomePage";
-import { ProductsPage } from "./pages/ProductsPage/ProductsPage";
+import ProductsPage  from "./pages/ProductsPage/ProductsPage";
 import LoginPage from "./pages/LoginPage";
 import NotFound from "./pages/NotFoundPage";
 import Dashboard from "./pages/DashboardPage";

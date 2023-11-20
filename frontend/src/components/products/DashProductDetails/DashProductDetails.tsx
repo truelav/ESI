@@ -17,18 +17,19 @@ export const DashProductDetails = memo(( props : EditProductFormProps) => {
         model: "",
         description: "",
         subcategory: "",
-        price: 0,
+        price: "",
         quantity: 0,
         images: "",
         upc: "",
     });
 
     useEffect(() => {
-        setFormData({...product})
-        if(formData.price === undefined){
-            formData.price = 0
-        }
         console.log(product)
+        setFormData({...product})
+        // if(formData.price === undefined){
+        //     formData.price = "$0"
+        // }
+        // console.log(product)
     }, [product])
     
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -112,7 +113,7 @@ export const DashProductDetails = memo(( props : EditProductFormProps) => {
                             <FormControl>
                                 <FormLabel>Price</FormLabel>
                                 <Input
-                                    type="number"
+                                    type="string"
                                     name="price"
                                     value={formData.price}
                                     onChange={handleChange}

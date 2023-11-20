@@ -7,7 +7,7 @@ import { Grid, GridItem } from "@chakra-ui/react";
 import { ProductFilterBar } from "../../entities/Product/ui/ProductFilterBar/ProductFilterBar";
 import { ProductSortBar } from "../../entities/Product/ui/ProductSortBar/ProductSortBar";
 
-export const ProductsPage = () => {
+const ProductsPage = () => {
     const {
         data: products,
         isLoading,
@@ -92,3 +92,5 @@ export const ProductsPage = () => {
 
     return <>{content}</>;
 };
+
+export default ProductsPage
