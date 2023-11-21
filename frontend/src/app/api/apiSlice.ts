@@ -29,7 +29,7 @@ export const apiSlice = createApi({
             providesTags: [{ type: "Products", id: "List" }],
         }),
 
-        getGroupedProducts: builder.query<GroupedProducts[], void>({
+        getGroupedProducts: builder.query<GroupedProducts[],  void>({
             query: () => `/products`,
             /* eslint-disable-next-line padded-blocks */
             // @ts-nocheck
@@ -84,12 +84,14 @@ export const apiSlice = createApi({
             invalidatesTags: [{ type: "Products", id: "List" }],
         }),
 
-        editSingleProduct: builder.mutation<Product, void>({
+        editSingleProduct: builder.mutation<Product, Product>({
             query: (product) => ({
-                url: `/products`,
+                url: `/products/${product._id}`,
                 method: "PUT",
                 body: product,
+                formData: true,
             }),
+            invalidatesTags: [{ type: "Products", id: "List" }],
         }),
 
         deleteSingleProduct: builder.mutation<

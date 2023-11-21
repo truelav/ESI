@@ -11,12 +11,13 @@ export const editSingleProduct = async (req, res) => {
         category,
         subcategory,
         quantity,
-        images,
         upc,
+        images
     } = req.body;
 
     try {
         console.log("request file: " + req.file);
+
         await Product.findOneAndUpdate(
             {_id},
             {
@@ -28,7 +29,7 @@ export const editSingleProduct = async (req, res) => {
                 category,
                 subcategory,
                 quantity,
-                images: "http://localhost:8888/static/images/" + req.file.filename,
+                images: "http://localhost:8888/static/images/" + req.file?.filename,
                 upc,
             },
         )

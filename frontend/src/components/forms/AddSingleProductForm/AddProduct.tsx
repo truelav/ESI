@@ -61,6 +61,7 @@ const ProductForm = () => {
         formDataToSend.append("upc", formData.upc);
         formDataToSend.append("price", formData.price);
         formDataToSend.append("quantity", formData.quantity);
+        
         if (formData.image) {
             formDataToSend.append("image", formData.image);
         }

@@ -1,6 +1,9 @@
-import { ChangeEvent, memo, useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, memo, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { Button, Container, Box, VStack, FormControl, FormLabel, Input, Image } from "@chakra-ui/react";
 import { Product } from "../../../entities/Product/model/types/product";
+import { useEditSingleProductMutation } from "../../../app/api/apiSlice";
+import { FormResult } from "../../forms/FormResult/FormResult";
 
 import fallback_image from "/fallback_image.jpeg";
 
@@ -12,15 +15,18 @@ export interface EditProductFormProps {
 
 export const DashProductDetails = memo(( props : EditProductFormProps) => {
     const { product } = props
+    const [editSingleProduct, { isLoading, error, isSuccess }] = useEditSingleProductMutation()
     const [formData, setFormData] = useState({
+        _id: "",
         brand: "",
         model: "",
         description: "",
         subcategory: "",
         price: "",
         quantity: 0,
-        images: "",
+        images: null,
         upc: "",
+        category: ""
     });
 
     useEffect(() => {
@@ -45,8 +51,45 @@ export const DashProductDetails = memo(( props : EditProductFormProps) => {
     };
 
 
-    const handleSubmit = async () => {
+    const handleSubmit = async (e: FormEvent) => {
+        e.preventDefault();
 
+        const formDataToSend = new FormData();
+        formDataToSend.append("brand", formData.brand);
+        formDataToSend.append("model", formData.model);
+        formDataToSend.append("description", formData.description);
+        formDataToSend.append("upc", formData.upc);
+        formDataToSend.append("price", formData.price);
+        formDataToSend.append("quantity", formData.quantity);
+        formDataToSend.append("image", formData.images);
+        formDataToSend.append("_id", formData._id);
+        try {
+            const result = await editSingleProduct(formDataToSend)
+            console.log(result)
+        } catch (err){
+            console.log(err)
+        }
+    }
+
+    if (isSuccess) {
+        return (
+            <FormResult
+                headlineText={`Product Saved ${formData.model} Succress`}
+                bodyText={formData.description}
+            >
+                <Link to={`/products`}>
+                    <Button>Check Added Product</Button>
+                </Link>
+            </FormResult>
+        );
+    }
+
+    if (error) {
+        return <div>...Error Adding Product: {JSON.stringify(error)}</div>;
+    }
+
+    if (isLoading) {
+        return <div>...Is Loading</div>;
     }
 
 
