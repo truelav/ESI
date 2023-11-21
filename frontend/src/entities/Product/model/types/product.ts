@@ -1,3 +1,4 @@
+
 export interface Product {
     map(
         arg0: (
@@ -11,9 +12,9 @@ export interface Product {
     description: string;
     category: string;
     subcategory: string;
-    price: string;
-    quantity: number;
-    images: string;
+    price?: string;
+    quantity?: number;
+    images?: File | null | Blob | string;
     model: string;
     upc: string;
 }

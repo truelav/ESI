@@ -7,8 +7,9 @@ import { FormResult } from "../../forms/FormResult/FormResult";
 
 import fallback_image from "/fallback_image.jpeg";
 
+
 export interface EditProductFormProps {
-    product: Product;
+    product: Partial<Product>;
     // handleOnUpdateForm: () => void;
     // handleOnSubmitForm: () => void
 }
@@ -16,6 +17,7 @@ export interface EditProductFormProps {
 export const DashProductDetails = memo(( props : EditProductFormProps) => {
     const { product } = props
     const [editSingleProduct, { isLoading, error, isSuccess }] = useEditSingleProductMutation()
+    const [imagePreview, setImagePreview] = useState("")
     const [formData, setFormData] = useState({
         _id: "",
         brand: "",
@@ -26,18 +28,19 @@ export const DashProductDetails = memo(( props : EditProductFormProps) => {
         quantity: 0,
         images: null,
         upc: "",
-        category: ""
+        category: "",
     });
 
     useEffect(() => {
-        console.log(product)
         setFormData({...product})
+        setImagePreview(product.images)
         // if(formData.price === undefined){
-        //     formData.price = "$0"
-        // }
-        // console.log(product)
+            //     formData.price = "$0"
+            // }
+            // console.log(product)
     }, [product])
-    
+    console.log(formData.images)
+        
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
@@ -47,7 +50,17 @@ export const DashProductDetails = memo(( props : EditProductFormProps) => {
         const file = e.target.files ? e.target.files[0] : null;
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-        setFormData({ ...formData, images: file });
+        setFormData({ ...formData, images: file});
+
+        if (file) {
+            const reader = new FileReader();
+      
+            reader.onloadend = () => {
+              setImagePreview(reader.result);
+            };
+      
+            reader.readAsDataURL(file);
+        }
     };
 
 
@@ -184,7 +197,7 @@ export const DashProductDetails = memo(( props : EditProductFormProps) => {
                             </FormControl>
 
                             <Image 
-                                    src={formData.images} 
+                                    src={imagePreview} 
                                     alt={formData.description}                                     
                                     fallbackSrc={fallback_image}
                                     boxSize="100px"
