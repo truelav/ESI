@@ -1,41 +1,36 @@
 import Product from "../../models/Product/Product.js";
 
-export const editProduct = async (req, res) => {
+export const editSingleProduct = async (req, res) => {
 
     const {
         _id,
         name,
         brand,
+        price,
         description,
         category,
         subcategory,
         quantity,
         images,
-        location,
+        upc,
     } = req.body;
 
     try {
-
-        Product.findOneAndUpdate(
+        console.log("request file: " + req.file);
+        await Product.findOneAndUpdate(
             {_id},
             {
+                _id,
                 name,
                 brand,
+                price,
                 description,
                 category,
                 subcategory,
                 quantity,
-                images,
-                location
+                images: "http://localhost:8888/static/images/" + req.file.filename,
+                upc,
             },
-            // (error, data) => {
-            //     if (error) {
-            //       console.log(error);
-            //       res.status(300).json({message: error.message})
-            //     } else {
-            //       console.log(data);
-            //     }
-            //   }
         )
 
         res.status(200).json({ message: `Product ${name, brand} modified successfully` });

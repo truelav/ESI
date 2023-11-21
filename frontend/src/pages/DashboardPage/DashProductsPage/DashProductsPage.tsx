@@ -12,23 +12,19 @@ function DashProductsPage() {
                 <Grid templateColumns='repeat(12, 1fr)' gap={4}>
                     <GridItem colSpan={8}>
                         <ButtonGroup>
-
                             <Button>
                                 <Text>Select All</Text>
                             </Button>
-
                         </ButtonGroup>
                     </GridItem>
                     <GridItem colSpan={4}>
                         <ButtonGroup>
                             <ImportProductsModal />
-
                             <Link to="addSingleProduct">
                                 <Button className="dash_products_nav_button"  colorScheme='blue'>
                                     <Text>Add Product</Text>
                                 </Button>
                             </Link>
-
                             <Button className="dash_products_nav_button"  colorScheme='red'>
                                 <Text>Delete Products</Text>
                             </Button>

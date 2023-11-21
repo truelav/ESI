@@ -10,8 +10,8 @@ router.delete("/image/:id", ProductControllers.deleteProductImage);
 router.get("/", ProductControllers.getAllProducts);
 router.get("/:id", ProductControllers.getSingleProduct);
 router.post("/", upload.single("image"), ProductControllers.addSingleProduct);
+router.put("/:id", upload.single("image"), ProductControllers.editSingleProduct);
 router.put("/", ProductControllers.editMultipleProducts);
-router.put("/:id", ProductControllers.editProduct);
 router.delete("/:id", ProductControllers.deleteSingleProduct);
 router.delete("/", ProductControllers.deleteMultipleProducts);
 

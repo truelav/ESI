@@ -11,7 +11,6 @@ export const addSingleProduct = async (req, res) => {
         price,
         model,
         upc,
-        location,
     } = req.body;
 
     try {
@@ -27,7 +26,6 @@ export const addSingleProduct = async (req, res) => {
             model,
             upc,
             images: "http://localhost:8888/static/images/" + req.file.filename,
-            location,
         });
 
         await newProduct.save();
