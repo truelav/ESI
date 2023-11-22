@@ -9,7 +9,6 @@ import { CookiesProvider } from "react-cookie";
 
 import App from "./App";
 import ErrorBoundary from "./app/api/providers/ErrorBoundary/ui/ErrorBoundary";
-import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
     // <React.StrictMode>
