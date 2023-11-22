@@ -1,9 +1,13 @@
 import { useState, useMemo } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Grid, GridItem } from "@chakra-ui/react";
+
 import { useGetAllProductsQuery } from "../../app/api/apiSlice";
+import { setTotalProducts } from "../../entities/Product/model/slice/productSlice";
+
 import { ProductList } from "../../entities/Product/ui/ProductList/ProductList";
 import { Product } from "../../entities/Product/model/types/product";
 import { ProductSearchBar } from "../../entities/Product/ui/ProductSearchBar/ProductSearchBar";
-import { Grid, GridItem } from "@chakra-ui/react";
 import { ProductFilterBar } from "../../entities/Product/ui/ProductFilterBar/ProductFilterBar";
 import { ProductSortBar } from "../../entities/Product/ui/ProductSortBar/ProductSortBar";
 
@@ -16,9 +20,16 @@ const ProductsPage = () => {
         error,
     } = useGetAllProductsQuery();
 
+    const dispatch = useDispatch();
+
     const [searchTerm, setSearchTerm] = useState("");
     const [filterBy, setFilterBy] = useState("");
     const [sortBy, setSortBy] = useState("");
+
+    const setProductsData = () => {
+        dispatch(setTotalProducts(products.length));
+        // dispatch(setProducts(products))
+    };
 
     const filteredAndSortedProducts = useMemo(() => {
         let filteredProducts = products || [];
@@ -68,6 +79,8 @@ const ProductsPage = () => {
     }
 
     if (isSuccess) {
+        setProductsData();
+
         content = (
             <div className="dash_products_page_wrapper">
                 <Grid templateColumns="repeat(12, 1fr)" gap={4}>
@@ -93,4 +106,4 @@ const ProductsPage = () => {
     return <>{content}</>;
 };
 
-export default ProductsPage
+export default ProductsPage;

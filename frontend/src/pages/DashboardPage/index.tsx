@@ -1,4 +1,5 @@
 import { Container, Text } from "@chakra-ui/react";
+
 import { StatGroup } from "../../components/stats/StatGroup/StatGroup";
 
 export default function Dashboard() {
