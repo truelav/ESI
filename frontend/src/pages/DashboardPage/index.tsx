@@ -75,7 +75,6 @@ export default function Dashboard() {
                     <Text>Welcome to Dashboard</Text>
                 </Container>
                 <StatGroup />
-                <StatGroup />
             </>
         )
     }

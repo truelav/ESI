@@ -6,6 +6,7 @@ import ImportProductsModal from "../../../shared/ui/Modals/ImportProducts/Import
 import "./styles.css";
 
 function DashProductsPage() {
+    
     return (
         <>
             <div className="dash_products_page_wrapper">

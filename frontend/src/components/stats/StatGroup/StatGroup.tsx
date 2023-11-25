@@ -30,12 +30,12 @@ export function StatGroup() {
                     icon={<BsPerson size={"3em"} />}
                 />
                 <StatsCard
-                    title={"Servers"}
+                    title={"Total Brands"}
                     stat={metaProducts.totalBrands}
                     icon={<FiServer size={"3em"} />}
                 />
                 <StatsCard
-                    title={"Datacenters"}
+                    title={"Total Categories"}
                     stat={metaProducts.totalCategories}
                     icon={<GoLocation size={"3em"} />}
                 />
