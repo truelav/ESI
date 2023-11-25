@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 import { StatsCard } from "../Stat/StatCard";
 
 export function StatGroup() {
-    const totalProducts = useSelector((state) => state.product.totalProducts);
+    const metaProducts = useSelector((state) => state.product.metadataProducts);
 
     return (
         <Box maxW="7xl" mx={"auto"} pt={5} px={{ base: 2, sm: 12, md: 17 }}>
@@ -26,17 +26,17 @@ export function StatGroup() {
             >
                 <StatsCard
                     title={"Total Products"}
-                    stat={totalProducts}
+                    stat={metaProducts.totalProducts}
                     icon={<BsPerson size={"3em"} />}
                 />
                 <StatsCard
                     title={"Servers"}
-                    stat={"1,000"}
+                    stat={metaProducts.totalBrands}
                     icon={<FiServer size={"3em"} />}
                 />
                 <StatsCard
                     title={"Datacenters"}
-                    stat={"7"}
+                    stat={metaProducts.totalCategories}
                     icon={<GoLocation size={"3em"} />}
                 />
             </SimpleGrid>

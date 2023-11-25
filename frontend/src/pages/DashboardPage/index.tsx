@@ -32,7 +32,7 @@ export default function Dashboard() {
         const metadaProducts = {
             totalProducts: products.length,
             totalBrands: Object.keys(groupedProducts).length,
-            totalCategories: 0
+            totalCategories: 11
         }
 
         // Convert the grouped products into an array of objects
