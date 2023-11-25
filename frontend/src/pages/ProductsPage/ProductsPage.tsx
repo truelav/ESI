@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Grid, GridItem } from "@chakra-ui/react";
 
 import { useGetAllProductsQuery } from "../../app/api/apiSlice";

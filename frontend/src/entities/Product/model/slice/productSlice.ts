@@ -3,20 +3,26 @@ import { createSlice } from "@reduxjs/toolkit";
 const productSlice = createSlice({
     name: "product",
     initialState: {
-        totalProducts: 0,
-        totalBrands: 0,
-        totalCategories: 0,
         products: [],
+        categoryProducts: {},
+        metadataProducts: {
+            totalProducts: 0,
+            totalBrands: 0,
+            totalCategories: 0
+        }
     },
     reducers: {
         setTotalProducts: (state, action) => {
-            state.totalProducts = action.payload;
+            state.metadataProducts = action.payload;
         },
         setProducts: (state, action) => {
             state.products = action.payload;
         },
+        setCategoryProducts: (state, action) => {
+            state.categoryProducts = action.payload
+        }
     },
 });
 
-export const { setTotalProducts } = productSlice.actions;
+export const { setTotalProducts, setProducts, setCategoryProducts } = productSlice.actions;
 export default productSlice.reducer;
