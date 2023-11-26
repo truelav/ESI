@@ -31,8 +31,8 @@ export const apiSlice = createApi({
 
         getGroupedProducts: builder.query<GroupedProducts[],  void>({
             query: () => `/products`,
-            /* eslint-disable-next-line padded-blocks */
             // @ts-nocheck
+            /* eslint-disable-next-line */
             transformResponse: (response: Product[]) => {
                 // Modify the response data as needed
                 const groupedProducts: { [brand: string]: Product[] } = {};

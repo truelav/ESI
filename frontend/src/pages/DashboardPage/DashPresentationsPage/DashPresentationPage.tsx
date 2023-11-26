@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
     Container,
     Text,
@@ -8,6 +9,9 @@ import {
     AccordionIcon,
     Checkbox,
     Button,
+    Grid,
+    GridItem,
+    Heading,
 } from "@chakra-ui/react";
 
 import { memo, useState } from "react";
@@ -19,7 +23,8 @@ import {
 } from "../../../app/api/apiSlice";
 
 import { GroupedProducts } from "../../../app/api/types/Product";
-import { Product } from "../../../entities/Product/model/types/product";
+import { StatGroup } from "../../../components/stats/StatGroup/StatGroup";
+// import { Product } from "../../../entities/Product/model/types/product";
 import { ProductItemHorizontal } from "../../../shared/ui/Product/ProductItemHorizontal/ProductItemHorizontal";
 
 const DashPresentationPage = memo(() => {
@@ -30,6 +35,7 @@ const DashPresentationPage = memo(() => {
         isError: isErrorDataProducts,
         error: errorDataProducts,
     } = useGetGroupedProductsQuery();
+
     const [
         createPresentation,
         {
@@ -114,6 +120,8 @@ const DashPresentationPage = memo(() => {
         }
     };
 
+    console.log(dataProducts)
+
     let content = <div></div>;
 
     if (isLoadingDataProducts || isLoadingPresentation) {
@@ -154,7 +162,7 @@ const DashPresentationPage = memo(() => {
                                 </AccordionButton>
                             </h2>
                             <AccordionPanel pb={4}>
-                                {brandGroup.products.map((product: Product) => (
+                                {brandGroup.products.map((product: any) => (
                                     <ProductItemHorizontal
                                         key={product._id}
                                         product={product}
@@ -176,23 +184,26 @@ const DashPresentationPage = memo(() => {
 
     return (
         <>
-            <Container>
-                <div>
-                    <Text>Welcome to Presentation Page</Text>
-                </div>
-                <div>
-                    <Button onClick={handleCreatePresentation}>
+            <Grid templateColumns='repeat(12, 1fr)' gap={6}>
+                <GridItem colSpan={12}>
+                    <Heading as='h1' size='xl' noOfLines={1}>Welcome to Presentation Page</Heading>
+                </GridItem>
+                <GridItem colSpan={8}>
+                    <StatGroup />
+                </GridItem>
+                <GridItem colSpan={2}>
+                    <Button onClick={handleCreatePresentation} colorScheme='blue'>
                         Create Presentation
                     </Button>
-                </div>
-                <div>
+                </GridItem>
+                <GridItem colSpan={12}>
                     {downloadPresentationLink && (
                         <Link to={downloadPresentationLink}>
-                            <Button>Download Presentation</Button>
+                            <Button colorScheme='red'>Download Presentation</Button>
                         </Link>
                     )}
-                </div>
-            </Container>
+                </GridItem>
+            </Grid>
 
             {content}
         </>

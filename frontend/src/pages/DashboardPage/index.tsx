@@ -1,11 +1,9 @@
 import { Container, Grid, GridItem, Heading, Text, Highlight } from "@chakra-ui/react";
-import { useDispatch } from "react-redux";
-
-import { useGetAllProductsQuery } from "../../app/api/apiSlice";
-import { setProducts, setCategoryProducts, setTotalProducts } from "../../entities/Product/model/slice/productSlice";
-
-import { StatGroup } from "../../components/stats/StatGroup/StatGroup";
-import { Product } from "../../entities/Product/model/types/product";
+// import { useDispatch } from "react-redux";
+// import { useGetAllProductsQuery } from "../../app/api/apiSlice";
+// import { setProducts, setCategoryProducts, setTotalProducts } from "../../entities/Product/model/slice/productSlice";
+// import { StatGroup } from "../../components/stats/StatGroup/StatGroup";
+// import { Product } from "../../entities/Product/model/types/product";
 import { Link } from "react-router-dom";
 
 export default function Dashboard() {
@@ -64,74 +62,74 @@ export default function Dashboard() {
     )
 }
 
-export const AnalyicsPage = () => {
-    const {
-        data: products,
-        isLoading,
-        isSuccess,
-        isError,
-        error,
-    } = useGetAllProductsQuery();
+// export const AnalyicsPage = () => {
+//     const {
+//         data: products,
+//         isLoading,
+//         isSuccess,
+//         isError,
+//         error,
+//     } = useGetAllProductsQuery();
 
-    const dispatch = useDispatch();
+//     const dispatch = useDispatch();
 
-    const transformProductsData = (products: Product[]) => {
-        const groupedProducts: { [brand: string]: Product[] } = {};
-
-
-        products.forEach((product: Product) => {
-            const { brand } = product;
-
-            groupedProducts[brand] = [];
-            groupedProducts[brand].push(product);
-        });
-
-        const metadaProducts = {
-            totalProducts: products.length,
-            totalBrands: Object.keys(groupedProducts).length,
-            totalCategories: 11
-        }
-
-        const categoryProducts = Object.entries(groupedProducts).map(
-            ([brand, products]) => ({
-                brand,
-                products,
-            })
-        );
+//     const transformProductsData = (products: Product[]) => {
+//         const groupedProducts: { [brand: string]: Product[] } = {};
 
 
-        return {categoryProducts, metadaProducts};
-    }
+//         products.forEach((product: Product) => {
+//             const { brand } = product;
 
-    const setProductsData = () => {
-        const {categoryProducts, metadaProducts} = transformProductsData(products)
+//             groupedProducts[brand] = [];
+//             groupedProducts[brand].push(product);
+//         });
 
-        dispatch(setProducts(products))
-        dispatch(setTotalProducts(metadaProducts))
-        dispatch(setCategoryProducts(categoryProducts))
+//         const metadaProducts = {
+//             totalProducts: products.length,
+//             totalBrands: Object.keys(groupedProducts).length,
+//             totalCategories: 11
+//         }
 
-    };
+//         const categoryProducts = Object.entries(groupedProducts).map(
+//             ([brand, products]) => ({
+//                 brand,
+//                 products,
+//             })
+//         );
 
-    let content = <div></div>;
 
-    if (isLoading) {
-        content = <>Loading...</>;
-    }
+//         return {categoryProducts, metadaProducts};
+//     }
 
-    if (isError) {
-        content = <>No Products Found : {JSON.stringify(error)}</>;
-    }
+//     const setProductsData = () => {
+//         const {categoryProducts, metadaProducts} = transformProductsData(products)
 
-    if (isSuccess) {
-        setProductsData();
+//         dispatch(setProducts(products))
+//         dispatch(setTotalProducts(metadaProducts))
+//         dispatch(setCategoryProducts(categoryProducts))
 
-        content = (
-            <>
-                <StatGroup />
-            </>
-        )
-    }
-    return  <>{content}</>
-}
+//     };
+
+//     let content = <div></div>;
+
+//     if (isLoading) {
+//         content = <>Loading...</>;
+//     }
+
+//     if (isError) {
+//         content = <>No Products Found : {JSON.stringify(error)}</>;
+//     }
+
+//     if (isSuccess) {
+//         setProductsData();
+
+//         content = (
+//             <>
+//                 <StatGroup />
+//             </>
+//         )
+//     }
+//     return  <>{content}</>
+// }
 
 
