@@ -3,7 +3,6 @@ import path from "path";
 import { promisify } from "util"
 import Product from "../../models/Product/Product.js";
 
-
 export const deleteProductImage = async (req, res) => {
     try {
         const id = req.params.id

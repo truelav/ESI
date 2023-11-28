@@ -1,7 +1,6 @@
 import fs from "fs";
 import { promisify } from "util"
 import Product from "../../models/Product/Product.js";
-// import { deleteProductImage } from "../../services/products_service.js";
 
 // const unlinkAsync = promisify(fs.unlink)
 
@@ -33,6 +32,6 @@ export const deleteSingleProduct = async (req, res) => {
     res.status(200).json({message: "product delete success", deletedProduct: deletedProduct});
     
   } catch (error) {
-    res.status(500).json({ message: error });
+    return res.status(500).json({ message: error });
   }
-};
+}; 
