@@ -47,13 +47,18 @@ export const createPDFPresentation = async (req, res) => {
             // first we need to add all categories in an array and make a list at the begining of the presentation
             // then we need to create a page for each category
             const imageString = product.images;
+            
+            console.log("image : " + imageString)
             let imageSrc = "";
-            if (imageString) {
+
+            if (imageString && imageString != "/fallback_image.jpeg") {
                 imageSrc = imageString.slice(22);
+
             } else {
                 imageSrc = "static/images/fallback_image.jpeg";
             }
 
+            console.log(imageSrc)
             // the A4 - landscape page is (Width: 841.89 x Height: 595.28)
             pdfPresentation.addPage({
                 size: "A4",

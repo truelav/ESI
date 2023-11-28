@@ -1,9 +1,9 @@
 import fs from "fs";
 import { promisify } from "util"
 import Product from "../../models/Product/Product.js";
-import { deleteProductImage } from "../../services/products_service.js";
+// import { deleteProductImage } from "../../services/products_service.js";
 
-const unlinkAsync = promisify(fs.unlink)
+// const unlinkAsync = promisify(fs.unlink)
 
 export const deleteSingleProduct = async (req, res) => {
   try {
@@ -16,8 +16,10 @@ export const deleteSingleProduct = async (req, res) => {
 
     // delete image
     const { images } = product
+    // fallback image
+    const fallback_image = "http://localhost:8888/static/images/fallback_image.jpeg"
     
-    if (images){
+    if (images && images !== fallback_image){
       const imagePath = images.slice(22)
       // await unlinkAsync(imagePath)
       fs.unlink(imagePath, (err) => {
