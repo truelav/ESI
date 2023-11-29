@@ -34,13 +34,14 @@ export const deleteMultipleProducts = async (req, res) => {
       }
   
       const deletedProduct = await Product.findByIdAndDelete(id);
+      deletedProducts.push(deletedProduct)
     }
 
     idsToDelete.forEach((id) => {
       findAndDeleteProducts(id)
     })
 
-    res.status(200).json({message: "product delete success", deletedProducts: deletedProducts});
+    res.status(200).json({message: "product delete success", deletedProducts});
     
   } catch (error) {
     console.log(error)
