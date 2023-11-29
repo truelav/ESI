@@ -18,6 +18,7 @@ export const deleteSingleProduct = async (req, res) => {
     // fallback image
     const backend_fallback_image = "http://localhost:8888/static/images/fallback_image.jpeg"
     const frontend_fallback_image = "/fallback_image.jpeg"
+    
     if (images && images !== backend_fallback_image && images !== frontend_fallback_image){
       const imagePath = images.slice(22)
       // await unlinkAsync(imagePath)

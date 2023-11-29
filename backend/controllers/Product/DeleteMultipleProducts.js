@@ -1,10 +1,12 @@
-import { HTTPStatusCodes } from '../../utils/constants.js';
+import fs from 'fs';
 import createError from 'http-errors';
+import { HTTPStatusCodes } from '../../utils/constants.js';
 import Product from "../../models/Product/Product.js";
 
-export const deleteMultipleProducts = async (req, res) => {
+export const deleteMultipleProducts = async (req, res, next) => {
+  console.log(req.body)
   try {
-    const idsToDelete = req.body.products || []
+    const idsToDelete = req.body || []
 
     if(idsToDelete.length === 0) {
       return next(createError(HTTPStatusCodes.InternalServerError, "there are no products selected to delete"));
@@ -15,14 +17,15 @@ export const deleteMultipleProducts = async (req, res) => {
       let product = await Product.findById(id);
 
       if(!product){
-        return next(createError(HTTPStatusCodes.InternalServerError, "Product selected to delete not found"));
+        next(createError(HTTPStatusCodes.InternalServerError, "Product selected to delete not found"));
       } 
       // delete image
       const { images } = product
       // fallback image
-      const fallback_image = "http://localhost:8888/static/images/fallback_image.jpeg"
+      const backend_fallback_image = "http://localhost:8888/static/images/fallback_image.jpeg"
+      const frontend_fallback_image = "/fallback_image.jpeg"
       
-      if (images && images !== fallback_image){
+      if (images && images !== backend_fallback_image && images !== frontend_fallback_image){
         const imagePath = images.slice(22)
         // await unlinkAsync(imagePath)
         fs.unlink(imagePath, (err) => {
