@@ -1,44 +1,58 @@
 import bcrypt from "bcryptjs";
+import createError from 'http-errors';
 import User from "../../models/User/User.js";
-import { generateAccessToken } from "../../middleware/auth/generateAccessToken.js";
-import { generateRefreshToken } from "../../middleware/auth/generateRefreshToken.js";
+import JWToken from "../../models/JWToken/JWToken.js";
+import {
+  generateAccessToken,
+  generateRefreshToken,
+} from "../../services/token_service.js";
+import { sendCreateUserEmail } from "../../services/email_service.js";
+import { HTTPStatusCodes } from "../../utils/constants.js";
 
-export const register = async (req, res) => {
-  console.log("request: " + req.body);
+
+export const register = async (req, res, next) => {
+  const { name, email, password, role } = req.body;
   try {
-    const { name, email, password, role } = req.body;
-
     const user = await User.findOne({ email });
 
     if (user) {
-      return res
-        .status(404)
-        .json({ message: `User with the ${email} already exists` });
+      return next(createError(HTTPStatusCodes.ExistsAlready, `user with ${email} already exists`))
     }
 
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
-
     const newUser = new User({
       name,
       email,
-      password: hashedPassword,
       role,
+      password: hashedPassword,
     });
 
-    const userData = {name: newUser.name, email: newUser.email, role: newUser.role, refreshToken}
+    // const userDto = new UserDto(newUser);
+    const accessToken = generateAccessToken({ ...newUser });
+    const refreshToken = generateRefreshToken({ ...newUser });
+    const newToken = new JWToken({
+      user: newUser.id,
+      refreshToken,
+    });
+
 
     await newUser.save();
+    await newToken.save();
 
+    const emailResult = await sendCreateUserEmail(email, password)
 
-    const accessToken = generateAccessToken(user)
-    const refreshToken = generateRefreshToken(user)
+    // if(!emailResult){
+    //   return next(createError(HTTPStatusCodes.BadRequest, `Some email error occured`))
+    // }
 
-    res.cookie('refreshToken', )
-    res.status(201).json({message: `${req.body.name} was created with success`, user: userData});
-  } catch (error) {
-    res.status(500).json({
-      message: "Could not register user",
+    res.status(201).json({
+      message: `${req.body.name} was created with success`,
+      newUser,
+      accessToken,
+      refreshToken,
     });
+  } catch (error) {
+    next(createError(HTTPStatusCodes.InternalServerError, error.message));
   }
 };

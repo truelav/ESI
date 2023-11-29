@@ -1,5 +1,6 @@
 import fs from "fs";
-import { promisify } from "util"
+import createError from 'http-errors';
+import { HTTPStatusCodes } from '../../utils/constants.js';
 import Product from "../../models/Product/Product.js";
 
 // const unlinkAsync = promisify(fs.unlink)
@@ -10,15 +11,14 @@ export const deleteSingleProduct = async (req, res) => {
     const product = await Product.findById(id);
 
     if(!product){
-      return res.status(404).json({message: 'product not found'})
+      return next(createError(HTTPStatusCodes.InternalServerError, "Product selected to delete not found"));
     } 
-
     // delete image
     const { images } = product
     // fallback image
-    const fallback_image = "http://localhost:8888/static/images/fallback_image.jpeg"
-    
-    if (images && images !== fallback_image){
+    const backend_fallback_image = "http://localhost:8888/static/images/fallback_image.jpeg"
+    const frontend_fallback_image = "/fallback_image.jpeg"
+    if (images && images !== backend_fallback_image && images !== frontend_fallback_image){
       const imagePath = images.slice(22)
       // await unlinkAsync(imagePath)
       fs.unlink(imagePath, (err) => {
@@ -32,6 +32,7 @@ export const deleteSingleProduct = async (req, res) => {
     res.status(200).json({message: "product delete success", deletedProduct: deletedProduct});
     
   } catch (error) {
-    return res.status(500).json({ message: error });
+    console.log(error)
+    next(createError(HTTPStatusCodes.InternalServerError, error.message));
   }
 }; 

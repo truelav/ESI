@@ -1,6 +1,7 @@
+import createError from 'http-errors'; 
 import fs from "fs";
-import path from "path";
 import { promisify } from "util"
+import { HTTPStatusCodes } from '../../utils/constants.js';
 import Product from "../../models/Product/Product.js";
 
 export const deleteProductImage = async (req, res) => {
@@ -20,8 +21,8 @@ export const deleteProductImage = async (req, res) => {
         })
 
         res.status(200).json({message: "image delete success"});
-    
     } catch (error) {
-        res.status(500).json({ message: error  });
+        console.log(error)
+        next(createError(HTTPStatusCodes.InternalServerError, error.message));
     }
 };

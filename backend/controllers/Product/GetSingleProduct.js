@@ -1,15 +1,21 @@
+import createError from 'http-errors';
+import { HTTPStatusCodes } from '../../utils/constants.js';
 import Product from "../../models/Product/Product.js";
 
 export const getSingleProduct = async (req, res) => {
   
   try {
     const id = req.params.id
-    console.log(id)
     const product = await Product.findById(id);
+
+    if(!product){
+      return next(createError(HTTPStatusCodes.NotFound, `Product with ${id} not found`))
+    }
 
     res.status(200).json(product);
     
   } catch (error) {
-    res.status(500).json({ message: error });
+    console.log(error)
+    next(createError(HTTPStatusCodes.InternalServerError, error.message));
   }
 };

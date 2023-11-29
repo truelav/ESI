@@ -10,12 +10,9 @@ export const registerService = async(req, req, next) => {
 
         if (user) {
             return next(new UserError(HTTPStatusCodes.ExistsAlready, `User with ${username} already exists, please pick a different one`))
-            //   .status(400)
-            //   .json({ message: `user with ${email} already exists` });
         }
 
     } catch(err){
         return next(err)
     }
-
 }

@@ -9,22 +9,12 @@ router.delete("/image/:id", ProductControllers.deleteProductImage);
 
 router.get("/", ProductControllers.getAllProducts);
 router.get("/:id", ProductControllers.getSingleProduct);
-router.post("/", upload.single("image"), ProductControllers.addSingleProduct);
-router.put("/:id", upload.single("image"), ProductControllers.editSingleProduct);
 router.put("/", ProductControllers.editMultipleProducts);
 router.delete("/:id", ProductControllers.deleteSingleProduct);
 router.delete("/", ProductControllers.deleteMultipleProducts);
-
-router.post(
-    "/addMultiple",
-    uploadProductsFile.single("csv"),
-    ProductControllers.addMultipleProducts
-);
-router.post(
-    "/upload",
-    upload.single("image"),
-    ProductControllers.uploadProductImage
-);
+router.post("/", upload.single("image"), ProductControllers.addSingleProduct);
+router.put("/:id", upload.single("image"), ProductControllers.editSingleProduct);
+router.post("/addMultiple", uploadProductsFile.single("csv"), ProductControllers.addMultipleProducts);
 
 
 

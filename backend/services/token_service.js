@@ -1,8 +1,5 @@
 import jwt from "jsonwebtoken";
 import JWToken from "../models/JWToken/JWToken.js";
-import env from "dotenv";
-
-// dotenv.config();
 
 export const generateTokens = (payload) => {
   const accessToken = jwt.sign(payload, process.env.JWT_ACCESS_TOKEN_SECRET, {
@@ -15,7 +12,6 @@ export const generateTokens = (payload) => {
 };
 
 export const generateAccessToken = (payload) => {
-  //   console.log(process.env.JWT_ACCESS_TOKEN_SECRET);
   const accessToken = jwt.sign(payload, process.env.JWT_ACCESS_TOKEN_SECRET, {
     expiresIn: "5m",
   });

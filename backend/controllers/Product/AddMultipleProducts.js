@@ -1,5 +1,7 @@
 import streamifier from "streamifier";
 import parse from "csv-parser";
+import createError from 'http-errors';
+import { HTTPStatusCodes } from '../../utils/constants.js';
 import Product from "../../models/Product/Product.js";
 
 export const addMultipleProducts = async (req, res) => {
@@ -21,7 +23,7 @@ export const addMultipleProducts = async (req, res) => {
           subcategory: row.subcategory,
           quantity: row["Qty's"],
           images: row.images,
-          upc: row.UPC,
+          upc: row.UPC || 'No UPC Provided',
         });
         //  console.log(product)
         newProducts.push(product);
@@ -47,10 +49,9 @@ export const addMultipleProducts = async (req, res) => {
             upsert: true, // Creates a new document if no match is found
           },
         }));
-        // console.log(newProducts);
+
         await Product.bulkWrite(bulkOps)
           .then((result) => {
-            // console.log(result);
             res
               .status(200)
               .json(`success, all ${newProducts.length} were added, ${result}`);
@@ -62,6 +63,6 @@ export const addMultipleProducts = async (req, res) => {
       });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: error });
+    next(createError(HTTPStatusCodes.InternalServerError, error.message));
   }
 };

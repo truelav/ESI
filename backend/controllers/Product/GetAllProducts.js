@@ -1,3 +1,5 @@
+import createError from 'http-errors';
+import { HTTPStatusCodes } from '../../utils/constants.js';
 import Product from "../../models/Product/Product.js";
 
 export const getAllProducts = async (req, res) => {
@@ -11,6 +13,7 @@ export const getAllProducts = async (req, res) => {
     res.status(200).json(allProducts);
     
   } catch (error) {
-    res.status(500).json({ message: error });
+    console.log(error)
+    next(createError(HTTPStatusCodes.InternalServerError, error.message));
   }
 };
