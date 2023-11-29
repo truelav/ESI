@@ -1,7 +1,6 @@
 import bcrypt from "bcryptjs";
 import { ROLES_LIST } from "../../config/roles.config.js";
 import User from "../../models/User/User.js";
-import Role from "../../models/Role/Role.js";
 import UserDto from "../../utils/user_dto.js";
 import JWToken from "../../models/JWToken/JWToken.js";
 import {
@@ -105,7 +104,7 @@ export const login = async (req, res) => {
   }
 };
 
-export const logout = async (req, res) => {
+export const logout = async (req, res, next) => {
   try {
     const { refreshToken } = req.cookies;
     const userData = validateRefreshToken(refreshToken);
