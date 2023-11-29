@@ -1,7 +1,8 @@
-import { Button, ButtonGroup, Grid, GridItem, Text } from "@chakra-ui/react";
+import { Button, ButtonGroup, Grid, GridItem, slideFadeConfig, Text } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useDeleteMultipleProductsMutation } from "../../../app/api/apiSlice";
+import { clearSelectedProducts } from "../../../entities/Product/model/slice/productSlice";
 import { DashProductsList } from "../../../components/products/DashProductsList/DashProductsList";
 import ImportProductsModal from "../../../shared/ui/Modals/ImportProducts/ImportProductsModal";
 
@@ -16,6 +17,11 @@ function DashProductsPage() {
             isError, 
             isSuccess 
         }] = useDeleteMultipleProductsMutation();
+
+    const handleDeleteProducts = () => {
+        deleteMultipleProducts(selectedProductIds)
+        dispatch(clearSelectedProducts())
+    }
 
     console.log(selectedProductIds)
 
@@ -55,7 +61,7 @@ function DashProductsPage() {
                             <Button 
                                 className="dash_products_nav_button"  
                                 colorScheme='red'
-                                onClick={() => deleteMultipleProducts(selectedProductIds)}
+                                onClick={() => handleDeleteProducts()}
                             >
                                 <Text>Delete Products</Text>
                             </Button>

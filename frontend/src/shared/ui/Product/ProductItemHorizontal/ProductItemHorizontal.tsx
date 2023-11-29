@@ -27,7 +27,7 @@ interface ProductListPropsItem {
 
 export const ProductItemHorizontal = memo((props: ProductListPropsItem) => {
     const dispatch = useDispatch()
-    const { product, isSelected, handleToggleSelectProducts } = props;
+    const { product, isSelected } = props;
     const [deleteSingleProduct, { isLoading, isError, isSuccess }] =
         useDeleteSingleProductMutation();
 

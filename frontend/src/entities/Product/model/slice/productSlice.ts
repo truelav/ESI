@@ -23,6 +23,8 @@ const productSlice = createSlice({
             state.categoryProducts = action.payload
         },
         addSelectedProduct: (state, action) => {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
             state.selectedProductIds.push(action.payload);
           },
         removeSelectedProduct: (state, action) => {
