@@ -8,28 +8,27 @@ export const errorHandlerMiddleware = (err, req, res, next) => {
 
     err.statusCode = err.statusCode || 500
     err.status = err.status || 'error'
+    err.message = err.message || 'Oops, Something Unexpected Happened !!!'
 
     // Here I need to check for each type of error that can occur
     // Http Error
     // API Error
     // Etc Error
 
-    res.status(err.statusCode).json({
-        status: err.statusCode,
-        message: err.message || "Internal Server Error"
-    })
+    // res.status(err.statusCode).json({
+    //     status: err.statusCode,
+    //     message: err.message || "Internal Server Error"
+    // })
 
-    if(err instanceof UserError){
-        return res.status(err.status).json({message: err.message, error: err})
-    }
+    // if(err instanceof UserError){
+    //     return res.status(err.status).json({message: err.message, error: err})
+    // }
 
-    if (err instanceof ApiError) {
-        return res.status(err.status).json({message: err.message, error: err})
-    }
+    // if (err instanceof ApiError) {
+    //     return res.status(err.status).json({message: err.message, error: err})
+    // }
 
-    if(err instanceof AppError){
-        return res.status(err.status).json({message: err.message, error: err})
-    }
 
-    return res.status(500).json({message: 'Oops, Something Unexpected Happened !!!', err})
+    res.status(err.status).json({message: err.message, error: true})
+
 };

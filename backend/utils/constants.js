@@ -17,6 +17,7 @@ const HTTPStatusCodes = {
     Unauthorized: 401,
     Forbidden: 403,
     NotFound: 404,
+    ExistsAlready: 409,
     UnprocessableEntity: 422,
 
     // 5xx Server Errors
@@ -25,4 +26,30 @@ const HTTPStatusCodes = {
     ServiceUnavailable: 503,
 }
 
-export default HTTPStatusCodes
+const authorizationRoles = {
+    ADMIN: true,
+    SALES: true,
+    USER: true,
+};
+
+const ProductCategories = {
+    accessories: 'accessories',
+    appliances: 'appliances',
+    audio: 'naudioextjs',
+    camera: 'camera',
+    cellphone: 'cellphone',
+    computer: 'computer',
+    electronics: "electronics",
+    gaming: 'gaming',
+    healthcare: 'healthcare',
+    kitchen: 'kitchen',
+    home_security: 'home security',
+    personal_care: 'personal care',
+    pet_supplies: 'pet supplies',
+    toy: 'toy',
+    tv: 'tv',
+    watches: "watches"
+};
+  
+
+export {HTTPStatusCodes, authorizationRoles, ProductCategories}

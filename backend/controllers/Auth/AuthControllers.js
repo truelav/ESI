@@ -1,4 +1,5 @@
 import bcrypt from "bcryptjs";
+import createError from 'http-errors';
 import { ROLES_LIST } from "../../config/roles.config.js";
 import User from "../../models/User/User.js";
 import UserDto from "../../utils/user_dto.js";
@@ -12,24 +13,19 @@ import {
   generateTokens,
   deleteToken,
 } from "../../services/token_service.js";
+import { HTTPStatusCodes } from "../../utils/constants.js";
+import UserError from "../../middleware/error/userError.js";
 
 export const register = async (req, res, next) => {
-  console.log(req.body);
+
   try {
     const { name, email, password, role } = req.body;
 
     const user = await User.findOne({ email });
-    if (user) {
-      return res
-        .status(400)
-        .json({ message: `user with ${email} already exists` });
-    }
 
-    // if (!ROLES_LIST.role) {
-    //   return res.status(400).json({
-    //     message: `something went wrong with selected user role: ${role}`,
-    //   });
-    // }
+    if (user) {
+      return next(createError(HTTPStatusCodes.ExistsAlready, `user with ${email} already exists`))
+    }
 
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
@@ -58,7 +54,7 @@ export const register = async (req, res, next) => {
       refreshToken,
     });
   } catch (error) {
-    next(error);
+    next(createError(HTTPStatusCodes.InternalServerError, error.message));
   }
 };
 
@@ -68,13 +64,14 @@ export const login = async (req, res) => {
     // console.log(isPasswordCorrect, email, password);
     const user = await User.findOne({ email });
     if (!user) {
-      return res.status(404).json(`User ${req.body.email} was not found`);
+      return next(createError(HTTPStatusCodes.NotFound, `User with ${email} not found`))
     }
 
     const isPasswordCorrect = await bcrypt.compare(password, user?.password);
 
     if (!isPasswordCorrect) {
-      return res.status(403).json("Password or Email Incorrect");
+      return next(createError(HTTPStatusCodes.Forbidden, `password or email are incorrect or does not match`))
+      // return res.status(403).json("Password or Email Incorrect");
     }
 
     const role = user.role;
@@ -86,12 +83,6 @@ export const login = async (req, res) => {
 
     await saveToken(userDto.id, refreshToken);
 
-    // res.cookie("refreshToken", accessToken, refreshToken, {
-    //   httpOnly: true,
-    //   secure: true,
-    //   maxAge: 900000,
-    // });
-
     res.status(200).json({
       message: "Login Successful",
       accessToken,
@@ -99,8 +90,7 @@ export const login = async (req, res) => {
       userDto,
     });
   } catch (error) {
-    console.log(error);
-    res.status(500).json(error);
+    next(createError(HTTPStatusCodes.InternalServerError, error.message));
   }
 };
 
@@ -119,7 +109,7 @@ export const logout = async (req, res, next) => {
     res.clearCookie("refreshToken");
     res.status(200).json({ message: "Logout success", token });
   } catch (error) {
-    res.status(404).json({ message: "User not found", error });
+    next(createError(HTTPStatusCodes.InternalServerError, error.message));
   }
 };
 
@@ -155,7 +145,7 @@ export const refresh = async (req, res, next) => {
       refreshToken: tokens.refreshToken,
     });
   } catch (error) {
-    next(error);
+    next(createError(HTTPStatusCodes.InternalServerError, error.message));
   }
 };
 
@@ -167,15 +157,13 @@ export const getUsers = async (req, res, next) => {
       res.status(400).json({ message: "no users found", users: [] });
     }
 
-    // const users = usersList.map((user) => new UserDto(user))
-
     return res.json(users);
   } catch (error) {
-    next(error);
+    next(createError(HTTPStatusCodes.InternalServerError, error.message));
   }
 };
 
-export const deleteUser = async (req, res) => {
+export const deleteUser = async (req, res, next) => {
   try {
     const userId = req.params.id;
     const user = await User.findByIdAndDelete(userId);
@@ -188,14 +176,14 @@ export const deleteUser = async (req, res) => {
 
     return res.json({ message: `user ${user.email} deleted success`, userDto });
   } catch (error) {
-    next(error);
+    next(createError(HTTPStatusCodes.InternalServerError, error.message));
   }
 };
 
-export const editUser = async () => {
+export const editUser = async (req, res, next) => {
   try {
   } catch (error) {
-    next(error);
+    next(createError(HTTPStatusCodes.InternalServerError, error.message));
   }
 };
 
