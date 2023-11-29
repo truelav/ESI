@@ -4,6 +4,7 @@ const productSlice = createSlice({
     name: "product",
     initialState: {
         products: [],
+        selectedProductIds: [],
         categoryProducts: {},
         metadataProducts: {
             totalProducts: 0,
@@ -20,9 +21,20 @@ const productSlice = createSlice({
         },
         setCategoryProducts: (state, action) => {
             state.categoryProducts = action.payload
-        }
+        },
+        addSelectedProduct: (state, action) => {
+            state.selectedProductIds.push(action.payload);
+          },
+        removeSelectedProduct: (state, action) => {
+            state.selectedProductIds = state.selectedProductIds.filter(
+                (id) => id !== action.payload
+            );
+        },
+        clearSelectedProducts: (state) => {
+            state.selectedProductIds = [];
+        },
     },
 });
 
-export const { setTotalProducts, setProducts, setCategoryProducts } = productSlice.actions;
+export const { setTotalProducts, setProducts, setCategoryProducts, addSelectedProduct,  removeSelectedProduct, clearSelectedProducts} = productSlice.actions;
 export default productSlice.reducer;

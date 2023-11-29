@@ -1,11 +1,37 @@
 import { Button, ButtonGroup, Grid, GridItem, Text } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { useDeleteMultipleProductsMutation } from "../../../app/api/apiSlice";
 import { DashProductsList } from "../../../components/products/DashProductsList/DashProductsList";
 import ImportProductsModal from "../../../shared/ui/Modals/ImportProducts/ImportProductsModal";
 
 import "./styles.css";
 
 function DashProductsPage() {
+    const dispatch = useDispatch()
+    const selectedProductIds = useSelector((state) => state.product.selectedProductIds);
+    const [deleteMultipleProducts, 
+        { 
+            isLoading, 
+            isError, 
+            isSuccess 
+        }] = useDeleteMultipleProductsMutation();
+
+    console.log(selectedProductIds)
+
+    let content = (<></>)
+
+    if (isError) {
+        content =  <div>...Some Error Has Occured with this Product</div>;
+    }
+
+    if (isLoading) {
+        content = <div>...Loading</div>;
+    }
+
+    if (isSuccess) {
+        content = <div>Deleted</div>;
+    }
     
     return (
         <>
@@ -26,13 +52,17 @@ function DashProductsPage() {
                                     <Text>Add Product</Text>
                                 </Button>
                             </Link>
-                            <Button className="dash_products_nav_button"  colorScheme='red'>
+                            <Button 
+                                className="dash_products_nav_button"  
+                                colorScheme='red'
+                                onClick={() => deleteMultipleProducts(selectedProductIds)}
+                            >
                                 <Text>Delete Products</Text>
                             </Button>
                         </ButtonGroup>
                     </GridItem>
                 </Grid>
-
+                {content}
                 <DashProductsList />
             </div>
         </>

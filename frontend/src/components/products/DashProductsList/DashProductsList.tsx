@@ -1,6 +1,6 @@
 import { memo, useState } from "react";
 import { Divider } from "@chakra-ui/react";
-// import { useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 import { Product } from "../../../entities/Product/model/types/product";
 
@@ -9,7 +9,7 @@ import { DashProductListHead } from "./DashProductListHead";
 import { ProductItemHorizontal } from "../../../shared/ui/Product/ProductItemHorizontal/ProductItemHorizontal";
 
 export const DashProductsList = memo(() => {
-    // const allProducts = useSelector((state) => state.product.products);
+    const selectedProductIds = useSelector((state) => state.product.selectedProductIds);
     const {
         data: products,
         isLoading,
@@ -33,7 +33,7 @@ export const DashProductsList = memo(() => {
             });
         }
     };
-    console.log(products)
+    // console.log(products)
 
     let content = <div></div>;
 
@@ -55,6 +55,7 @@ export const DashProductsList = memo(() => {
                         <ProductItemHorizontal
                             key={product._id}
                             product={product}
+                            isSelected={selectedProductIds.includes(product._id)}
                             handleToggleSelectProducts={
                                 handleToggleSelectProducts
                             }

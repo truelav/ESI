@@ -1,14 +1,15 @@
 import { memo } from "react";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { Grid, GridItem, Image, Button, Checkbox, Box } from "@chakra-ui/react";
 import { FaTrash } from "react-icons/fa";
 
 import { useDeleteSingleProductMutation } from "../../../../app/api/apiSlice";
-
 import {
     ProductView,
     Product,
 } from "../../../../entities/Product/model/types/product";
+import { addSelectedProduct, removeSelectedProduct } from "../../../../entities/Product/model/slice/productSlice";
 import CardComponent, { CardVariants } from "../Card/CardComponent";
 import { CardTextComponent } from "../Card/CardText";
 
@@ -25,9 +26,18 @@ interface ProductListPropsItem {
 }
 
 export const ProductItemHorizontal = memo((props: ProductListPropsItem) => {
+    const dispatch = useDispatch()
     const { product, isSelected, handleToggleSelectProducts } = props;
     const [deleteSingleProduct, { isLoading, isError, isSuccess }] =
         useDeleteSingleProductMutation();
+
+    const handleAddRemoveId = (id: string) => {
+        if (isSelected){
+            dispatch(removeSelectedProduct(id))
+        } else {
+            dispatch(addSelectedProduct(id))
+        }
+    }    
 
     if (isError) {
         return <div>...Some Error Has Occured with this Product</div>;
@@ -53,7 +63,8 @@ export const ProductItemHorizontal = memo((props: ProductListPropsItem) => {
                             size="lg"
                             isChecked={isSelected}
                             onChange={() =>
-                                handleToggleSelectProducts(product?._id)
+                                // handleToggleSelectProducts(product?._id)
+                                handleAddRemoveId(product?._id)
                             }
                         >
                             Check

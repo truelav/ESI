@@ -109,12 +109,13 @@ export const apiSlice = createApi({
             { success: boolean; productsIds: [] },
             number
         >({
-            query: (productsIds) => ({
+            query: (productIds) => ({
                 url: `/products`,
                 method: "DELETE",
-                body: productsIds,
+                body: productIds,
                 providesTags: [{ type: "Products", id: "List" }],
             }),
+            invalidatesTags: [{ type: "Products", id: "List" }],
         }),
 
         // User API Routes [ 1. /auth  2. /login  3. /register]
