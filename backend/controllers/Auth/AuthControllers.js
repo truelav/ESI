@@ -1,6 +1,6 @@
 import bcrypt from "bcryptjs";
 import createError from 'http-errors';
-import { ROLES_LIST } from "../../config/roles.config.js";
+import asyncHandler from "../../utils/asyncHandler.js";
 import User from "../../models/User/User.js";
 import UserDto from "../../utils/user_dto.js";
 import JWToken from "../../models/JWToken/JWToken.js";
@@ -13,14 +13,12 @@ import {
   generateTokens,
   deleteToken,
 } from "../../services/token_service.js";
+import { ROLES_LIST } from "../../config/roles.config.js";
 import { HTTPStatusCodes } from "../../utils/constants.js";
-import UserError from "../../middleware/error/userError.js";
 
 export const register = async (req, res, next) => {
-
+  const { name, email, password, role } = req.body;
   try {
-    const { name, email, password, role } = req.body;
-
     const user = await User.findOne({ email });
 
     if (user) {
@@ -58,10 +56,10 @@ export const register = async (req, res, next) => {
   }
 };
 
+
 export const login = async (req, res) => {
+  const { email, password } = req.body;
   try {
-    const { email, password } = req.body;
-    // console.log(isPasswordCorrect, email, password);
     const user = await User.findOne({ email });
     if (!user) {
       return next(createError(HTTPStatusCodes.NotFound, `User with ${email} not found`))
@@ -71,7 +69,6 @@ export const login = async (req, res) => {
 
     if (!isPasswordCorrect) {
       return next(createError(HTTPStatusCodes.Forbidden, `password or email are incorrect or does not match`))
-      // return res.status(403).json("Password or Email Incorrect");
     }
 
     const role = user.role;
@@ -100,9 +97,7 @@ export const logout = async (req, res, next) => {
     const userData = validateRefreshToken(refreshToken);
 
     if (refreshToken || !userData) {
-      return res
-        .status(204)
-        .json({ messange: "no authorization token available" });
+      return next(createError(HTTPStatusCodes.Forbidden, `Validation error, Bad Request`))
     }
 
     const token = await deleteToken(refreshToken);
@@ -120,13 +115,13 @@ export const refresh = async (req, res, next) => {
     const refreshTokenFromDB = await findToken(refreshToken);
 
     if (!userData || !refreshTokenFromDB) {
-      return res.status(400).json({ message: "Unauthorized error" });
+      return next(createError(HTTPStatusCodes.Unauthorized, `Unauthorized request`))
     }
 
     const user = await User.findById(userData.id);
 
     if (!user) {
-      return res.status(400).json({ message: "User Not Found" });
+      return next(createError(HTTPStatusCodes.NotFound, `User with ${email} not found`))
     }
 
     const userDto = new UserDto(user);
@@ -169,7 +164,7 @@ export const deleteUser = async (req, res, next) => {
     const user = await User.findByIdAndDelete(userId);
 
     if (!user) {
-      res.status(400).json({ message: "no userss found" });
+      return next(createError(HTTPStatusCodes.NotFound, `No use found`))
     }
 
     const userDto = new UserDto(user);
@@ -187,7 +182,7 @@ export const editUser = async (req, res, next) => {
   }
 };
 
-export const activateUser = async () => {
+const activateUser = async () => {
   try {
     const userId = req.body.id;
     const user = await User.findById(userId);
@@ -212,7 +207,7 @@ export const activateUser = async () => {
   }
 };
 
-export const deactivateUser = async () => {
+const deactivateUser = async () => {
   try {
     const userId = req.body.id;
     const user = await User.findById(userId);
@@ -236,3 +231,5 @@ export const deactivateUser = async () => {
     next(error);
   }
 };
+
+
