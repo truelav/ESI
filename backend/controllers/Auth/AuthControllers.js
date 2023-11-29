@@ -12,7 +12,7 @@ import {
   generateTokens,
   deleteToken,
 } from "../../services/token_service.js";
-import { sendCreateUserEmail } from "../../services/email_service.js";
+import { sendCreateUserEmail, sendDeleteUserEmail } from "../../services/email_service.js";
 import { ROLES_LIST } from "../../config/roles.config.js";
 import { HTTPStatusCodes } from "../../utils/constants.js";
 
@@ -175,6 +175,8 @@ export const deleteUser = async (req, res, next) => {
     }
 
     const userDto = new UserDto(user);
+
+    const emailResult = await sendDeleteUserEmail(user.email)
 
     return res.json({ message: `user ${user.email} deleted success`, userDto });
   } catch (error) {
