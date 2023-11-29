@@ -17,7 +17,7 @@ import { ROLES_LIST } from "../../config/roles.config.js";
 import { HTTPStatusCodes } from "../../utils/constants.js";
 
 export const register = async (req, res, next) => {
-  const { name, email, password, role } = req.body;
+  const { name, email, password, role, status } = req.body;
   try {
     const user = await User.findOne({ email });
 
