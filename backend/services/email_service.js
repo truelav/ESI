@@ -1,14 +1,11 @@
 import nodemailer from 'nodemailer';
-
-import sendGridTransport from 'nodemailer-sendgrid-transport';
-import { environmentConfig } from '@src/configs/custom-environment-variables.config';
-import emailConfig from '../config/email.config';
+import emailConfig from '../config/email.config.js';
 
 const transporter = nodemailer.createTransport(emailConfig)
 
-export const sendCreateUserEmail = async (user) => {
+export const sendCreateUserEmail = async (email, password) => {
 
-    htmlContent = (`
+    let htmlContent = (`
         <div style="max-width: 700px; margin:auto; border: 10px solid #ddd; padding: 50px 20px; font-size: 110%;">
             <h2
             style="text-align: center; text-transform: uppercase;color: teal;"
@@ -27,13 +24,13 @@ export const sendCreateUserEmail = async (user) => {
                 <p style="color:#455056; font-size:15px;line-height:24px; margin:0;">
                     Your login email is : 
                     <span style="color: #4A35EA;">
-                        ${user.email}
+                        ${email}
                     </span>
                 </p>
                 <p style="color:#455056; font-size:15px;line-height:24px; margin:0;">
                     Your login password is : 
                     <span style="color: #4A35EA;">
-                        ${user.password}
+                        ${password}
                     </span>
                 </p>
             </div>
@@ -42,7 +39,7 @@ export const sendCreateUserEmail = async (user) => {
 
     const emailContent = {
       from: emailConfig.auth.user,
-      to: user.email,
+      to: email,
       subject: 'ESI Account Created',
       html: htmlContent,
     };
@@ -58,7 +55,7 @@ export const sendCreateUserEmail = async (user) => {
         //     console.log(`Successfully  send email to ${userEmail}...`);
         // }
         } else {
-            console.log(`Successfully  send email to ${userEmail}...`)
+            console.log(`Successfully  send email to ${email}...`)
         }
     });
 };

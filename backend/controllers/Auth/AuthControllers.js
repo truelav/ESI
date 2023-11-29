@@ -1,6 +1,5 @@
 import bcrypt from "bcryptjs";
 import createError from 'http-errors';
-import asyncHandler from "../../utils/asyncHandler.js";
 import User from "../../models/User/User.js";
 import UserDto from "../../utils/user_dto.js";
 import JWToken from "../../models/JWToken/JWToken.js";
@@ -13,12 +12,12 @@ import {
   generateTokens,
   deleteToken,
 } from "../../services/token_service.js";
-import * as emailService from "../../services/email_service.js";
+import { sendCreateUserEmail } from "../../services/email_service.js";
 import { ROLES_LIST } from "../../config/roles.config.js";
 import { HTTPStatusCodes } from "../../utils/constants.js";
 
 export const register = async (req, res, next) => {
-  const { name, email, password, role, status } = req.body;
+  const { name, email, password, role } = req.body;
   try {
     const user = await User.findOne({ email });
 
@@ -47,7 +46,11 @@ export const register = async (req, res, next) => {
     await newUser.save();
     await newToken.save();
 
-    await emailService.sendCreateUserEmail(newUser)
+    const emailResult = await sendCreateUserEmail(email, password)
+
+    // if(!emailResult){
+    //   return next(createError(HTTPStatusCodes.BadRequest, `Some email error occured`))
+    // }
 
     res.status(201).json({
       message: `${req.body.name} was created with success`,

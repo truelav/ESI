@@ -1,7 +1,5 @@
 import nodemailer from 'nodemailer';
 
-import sendGridTransport from 'nodemailer-sendgrid-transport';
-import { environmentConfig } from '@src/configs/custom-environment-variables.config';
 import emailConfig from '../config/email.config.js';
 
 // export const transporter = nodemailer.createTransport(
