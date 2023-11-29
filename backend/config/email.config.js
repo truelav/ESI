@@ -1,3 +1,4 @@
+
 const emailConfig = {
     service: 'gmail',
     auth: {
@@ -5,4 +6,5 @@ const emailConfig = {
         password: "mygmailpass123"
     }
 }
+
 export default emailConfig

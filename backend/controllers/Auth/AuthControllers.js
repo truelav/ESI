@@ -13,6 +13,7 @@ import {
   generateTokens,
   deleteToken,
 } from "../../services/token_service.js";
+import * as emailService from "../../services/email_service.js";
 import { ROLES_LIST } from "../../config/roles.config.js";
 import { HTTPStatusCodes } from "../../utils/constants.js";
 
@@ -42,8 +43,11 @@ export const register = async (req, res, next) => {
       refreshToken,
     });
 
+
     await newUser.save();
     await newToken.save();
+
+    await emailService.sendCreateUserEmail(newUser)
 
     res.status(201).json({
       message: `${req.body.name} was created with success`,

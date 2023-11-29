@@ -1,50 +1,55 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable no-unused-vars */
-
 import nodemailer from 'nodemailer';
-// @ts-ignore
+
 import sendGridTransport from 'nodemailer-sendgrid-transport';
 import { environmentConfig } from '@src/configs/custom-environment-variables.config';
+import emailConfig from '../config/email.config.js';
 
-export const transporter = nodemailer.createTransport(
-  sendGridTransport({
-    auth: {
-      api_key: environmentConfig.SEND_GRID_API_KEY,
-    },
-  })
-);
+// export const transporter = nodemailer.createTransport(
+//   sendGridTransport({
+//     auth: {
+//       api_key: environmentConfig.SEND_GRID_API_KEY,
+//     },
+//   })
+// );
+const transporter = nodemailer.createTransport(emailConfig)
 
-let htmlContent = ` <div style="max-width: 700px; margin:auto; border: 10px solid #ddd; padding: 50px 20px; font-size: 110%;">
-        <h2
-          style="text-align: center; text-transform: uppercase;color: teal;
-            "
-        >
-          Welcome to Codding With Saddam.
-        </h2>
-        <div style=" font-size: 1.3rem ">
-          <p>Congratulations! You successfully signed up to Saddam App!</p>
-          <p> click the button below to flow Saddam on Gitub </p>
+let htmlContent = (`
+  <div style="max-width: 700px; margin:auto; border: 10px solid #ddd; padding: 50px 20px; font-size: 110%;">
+      <h2
+      style="text-align: center; text-transform: uppercase;color: teal;"
+      >
+      Welcome to ESI Products.
+      </h2>
+      <div style=" font-size: 1.3rem ">
+          <p>Congratulations! Your account was successfully created!</p>
+          <p> click the button below go to ESI Products Page </p>
           <a
-            href="https://github.com/saddamarbaa"
-            style="background: crimson; text-decoration: none; color: white; padding: 10px 30px; margin: 10px 0; display: inline-block;  border-radius: 6px;"
+              href="http://localhost:5173"
+              style="background: crimson; text-decoration: none; color: white; padding: 10px 30px; margin: 10px 0; display: inline-block;  border-radius: 6px;"
           >
-            Follow Me
+              Go to website
           </a>
           <p style="color:#455056; font-size:15px;line-height:24px; margin:0;">
-                        If you have any questions, just reply to this email
-                        <span style="color: #4A35EA;">
-                          saddamarbaa@gmail.com
-                        </span>
-                        we're always happy to help out.
-                      </p>
-        </div>
-      </div>`;
+              Your login email is : 
+              <span style="color: #4A35EA;">
+                  ${user.email}
+              </span>
+          </p>
+          <p style="color:#455056; font-size:15px;line-height:24px; margin:0;">
+              Your login password is : 
+              <span style="color: #4A35EA;">
+                  ${user.password}
+              </span>
+          </p>
+      </div>
+  </div>
+`)
 
 export const sendEmail = (userEmail) => {
   const emailContent = {
     from: environmentConfig?.ADMIN_SEND_GRID_EMAIL,
     to: userEmail,
-    subject: 'Signup succeeded!',
+    subject: 'ESI Account Created',
     html: htmlContent,
   };
 
