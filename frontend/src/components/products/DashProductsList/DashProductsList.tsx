@@ -9,6 +9,8 @@ import { DashProductListHead } from "./DashProductListHead";
 import { ProductItemHorizontal } from "../../../shared/ui/Product/ProductItemHorizontal/ProductItemHorizontal";
 
 export const DashProductsList = memo(() => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     const selectedProductIds = useSelector((state) => state.product.selectedProductIds);
     const {
         data: products,
@@ -17,7 +19,7 @@ export const DashProductsList = memo(() => {
         isError,
         error,
     } = useGetAllProductsQuery();
-    
+
     const [selectedProducts, setSelectedProducts] = useState({});
     const handleToggleSelectProducts = (id: string) => {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment

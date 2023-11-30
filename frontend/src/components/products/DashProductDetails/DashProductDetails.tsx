@@ -1,6 +1,6 @@
 import { ChangeEvent, FormEvent, memo, useEffect, useState } from "react";
+import { Button, Container, Box, VStack, FormControl, FormLabel, Input, Image, Grid, GridItem } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
-import { Button, Container, Box, VStack, FormControl, FormLabel, Input, Image } from "@chakra-ui/react";
 import { Product } from "../../../entities/Product/model/types/product";
 import { useEditSingleProductMutation } from "../../../app/api/apiSlice";
 import { FormResult } from "../../forms/FormResult/FormResult";
@@ -32,6 +32,8 @@ export const DashProductDetails = memo(( props : EditProductFormProps) => {
     });
 
     useEffect(() => {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         setFormData({...product})
         setImagePreview(product.images)
         // if(formData.price === undefined){
@@ -108,107 +110,101 @@ export const DashProductDetails = memo(( props : EditProductFormProps) => {
 
     return (
         <>
-            <Container
-                maxW="lg"
-                py={{ base: "12", md: "24" }}
-                px={{ base: "0", sm: "8" }}
-            >
-                <Box p={4}>
+            <Grid templateColumns='repeat(12, 1fr)' gap={4}>
+                <GridItem colSpan={6}>
+                    <Image 
+                        src={imagePreview} 
+                        alt={formData.description}                                     
+                        fallbackSrc={fallback_image}
+                        objectFit="contain"
+                    />
+                    <FormControl>
+                        <FormLabel>Image</FormLabel>
+                        <Input
+                            type="file"
+                            name="image"
+                            accept=".jpg, .png"
+                            onChange={handleFileChange}
+                        />
+                    </FormControl>
+                </GridItem>
+                <GridItem colSpan={6}>
                     <form onSubmit={handleSubmit} encType="multipart/form-data">
                         <VStack spacing={4}>
-                            <FormControl>
-                                <FormLabel>Brand</FormLabel>
-                                <Input
-                                    type="text"
-                                    name="brand"
-                                    value={formData.brand}
-                                    onChange={handleChange}
-                                />
-                            </FormControl>
+                                <FormControl>
+                                    <FormLabel>Brand</FormLabel>
+                                    <Input
+                                        type="text"
+                                        name="brand"
+                                        value={formData.brand}
+                                        onChange={handleChange}
+                                    />
+                                </FormControl>
 
-                            <FormControl>
-                                <FormLabel>Model</FormLabel>
-                                <Input
-                                    type="text"
-                                    name="model"
-                                    value={formData.model}
-                                    onChange={handleChange}
-                                />
-                            </FormControl>
+                                <FormControl>
+                                    <FormLabel>Model</FormLabel>
+                                    <Input
+                                        type="text"
+                                        name="model"
+                                        value={formData.model}
+                                        onChange={handleChange}
+                                    />
+                                </FormControl>
 
-                            <FormControl>
-                                <FormLabel>Description</FormLabel>
-                                <Input
-                                    type="text"
-                                    name="description"
-                                    value={formData.description}
-                                    onChange={handleChange}
-                                />
-                            </FormControl>
+                                <FormControl>
+                                    <FormLabel>Description</FormLabel>
+                                    <Input
+                                        type="text"
+                                        name="description"
+                                        value={formData.description}
+                                        onChange={handleChange}
+                                    />
+                                </FormControl>
 
-                            <FormControl>
-                                <FormLabel>Category</FormLabel>
-                                <Input
-                                    type="text"
-                                    name="category"
-                                    value={formData.subcategory}
-                                    onChange={handleChange}
-                                />
-                            </FormControl>
+                                <FormControl>
+                                    <FormLabel>Category</FormLabel>
+                                    <Input
+                                        type="text"
+                                        name="category"
+                                        value={formData.subcategory}
+                                        onChange={handleChange}
+                                    />
+                                </FormControl>
 
-                            <FormControl>
-                                <FormLabel>UPC</FormLabel>
-                                <Input
-                                    type="text"
-                                    name="upc"
-                                    value={formData.upc}
-                                    onChange={handleChange}
-                                />
-                            </FormControl>
+                                <FormControl>
+                                    <FormLabel>UPC</FormLabel>
+                                    <Input
+                                        type="text"
+                                        name="upc"
+                                        value={formData.upc}
+                                        onChange={handleChange}
+                                    />
+                                </FormControl>
 
-                            <FormControl>
-                                <FormLabel>Price</FormLabel>
-                                <Input
-                                    type="string"
-                                    name="price"
-                                    value={formData.price}
-                                    onChange={handleChange}
-                                />
-                            </FormControl>
+                                <FormControl>
+                                    <FormLabel>Price</FormLabel>
+                                    <Input
+                                        type="string"
+                                        name="price"
+                                        value={formData.price}
+                                        onChange={handleChange}
+                                    />
+                                </FormControl>
 
-                            <FormControl>
-                                <FormLabel>Quantity</FormLabel>
-                                <Input
-                                    type="number"
-                                    name="quantity"
-                                    value={formData.quantity}
-                                    onChange={handleChange}
-                                />
-                            </FormControl>
-
-                            <FormControl>
-                                <FormLabel>Image</FormLabel>
-                                <Input
-                                    type="file"
-                                    name="image"
-                                    accept=".jpg, .png"
-                                    onChange={handleFileChange}
-                                />
-                            </FormControl>
-
-                            <Image 
-                                    src={imagePreview} 
-                                    alt={formData.description}                                     
-                                    fallbackSrc={fallback_image}
-                                    boxSize="100px"
-                                    objectFit="contain"
-                            />
-
+                                <FormControl>
+                                    <FormLabel>Quantity</FormLabel>
+                                    <Input
+                                        type="number"
+                                        name="quantity"
+                                        value={formData.quantity}
+                                        onChange={handleChange}
+                                    />
+                                </FormControl>
                             <Button type="submit" colorScheme='blue'>Save Product</Button>
                         </VStack>
                     </form>
-                </Box>
-            </Container>
+                </GridItem>
+            </Grid>
         </>
     );
 });

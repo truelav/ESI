@@ -77,6 +77,8 @@ export const ProductItemHorizontal = memo((props: ProductListPropsItem) => {
                         <Grid templateColumns="repeat(6, 1fr)" gap={4}>
                             <GridItem colSpan={1}>
                                 <Image
+                                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                                    // @ts-ignore
                                     src={product?.images}
                                     fallbackSrc={fallback_image}
                                     alt={product?.brand}

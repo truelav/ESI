@@ -1,4 +1,4 @@
-import { Button, ButtonGroup, Grid, GridItem, slideFadeConfig, Text } from "@chakra-ui/react";
+import { Button, ButtonGroup, Grid, GridItem, Text } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useDeleteMultipleProductsMutation } from "../../../app/api/apiSlice";
@@ -9,8 +9,10 @@ import ImportProductsModal from "../../../shared/ui/Modals/ImportProducts/Import
 import "./styles.css";
 
 function DashProductsPage() {
-    const dispatch = useDispatch()
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     const selectedProductIds = useSelector((state) => state.product.selectedProductIds);
+    const dispatch = useDispatch()
     const [deleteMultipleProducts, 
         { 
             isLoading, 
