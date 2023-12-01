@@ -1,5 +1,5 @@
 import { ChangeEvent, FormEvent, memo, useEffect, useState } from "react";
-import { Button, Container, Box, VStack, FormControl, FormLabel, Input, Image, Grid, GridItem } from "@chakra-ui/react";
+import { Button, VStack, FormControl, FormLabel, Input, Image, Grid, GridItem } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { Product } from "../../../entities/Product/model/types/product";
 import { useEditSingleProductMutation } from "../../../app/api/apiSlice";
