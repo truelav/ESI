@@ -17,7 +17,8 @@ const cartSlice = createSlice({
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
             if (cartProduct) {
-                // If the product is already in the cart, update the quantity
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
                 cartProduct.quantity = quantity;
               } else {
                 // If the product is not in the cart, add it
@@ -34,6 +35,8 @@ const cartSlice = createSlice({
             const cartItem = state.products.find((product: Product) => product._id === productId);
       
             if (cartItem) {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
               cartItem.quantity = quantity;
             }
         },

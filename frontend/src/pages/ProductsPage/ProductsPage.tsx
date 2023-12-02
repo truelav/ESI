@@ -27,6 +27,8 @@ const ProductsPage = () => {
     const [sortBy, setSortBy] = useState("");
 
     const setProductsData = () => {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         dispatch(setTotalProducts(products.length));
         // dispatch(setProducts(products))
     };
@@ -60,8 +62,12 @@ const ProductsPage = () => {
             // @ts-ignore
             const newFilteredProducts = [...filteredProducts];
             newFilteredProducts.sort((a: Product, b: Product) => {
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore
                 return a[sortBy] > b[sortBy] ? 1 : -1;
             });
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
             filteredProducts = [...newFilteredProducts];
         }
 
@@ -95,6 +101,7 @@ const ProductsPage = () => {
                             searchTerm={searchTerm}
                             setSearchTerm={setSearchTerm}
                         />
+                        
                         <ProductSortBar sortBy={sortBy} setSortBy={setSortBy} />
                         <ProductList products={filteredAndSortedProducts} />
                     </GridItem>

@@ -15,7 +15,7 @@ import ProductsPage  from "./pages/ProductsPage/ProductsPage";
 import LoginPage from "./pages/LoginPage";
 import NotFound from "./pages/NotFoundPage";
 import Dashboard from "./pages/DashboardPage";
-import ContactPage from "./pages/ContactPages";
+import ContactPage from "./pages/ContactPage";
 import ProductDetailsPage from "./pages/ProductDetailsPage/ProductDetailsPage";
 import DashUsersPage from "./pages/DashboardPage/DashUsersPage/DashUsersPage";
 import DashProductsPage from "./pages/DashboardPage/DashProductsPage/DashProductsPage";
@@ -24,6 +24,7 @@ import DashAddSingleProduct from "./pages/DashboardPage/DashAddSingleProduct/Das
 import DashOrders from "./pages/DashboardPage/DashOrders/DashOrders";
 import DashInventory from "./pages/DashboardPage/DashInventory/DashInventory";
 import DashPresentationPage from "./pages/DashboardPage/DashPresentationsPage/DashPresentationPage";
+import CartPage from "./pages/CartPage/CartPage";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -73,6 +74,8 @@ const router = createBrowserRouter(
             <Route path="login" element={<LoginPage />} />
 
             <Route path="contact" element={<ContactPage />} />
+
+            <Route path="cart" element={<CartPage />} />
 
             <Route path="*" element={<NotFound />} />
         </Route>
