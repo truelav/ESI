@@ -1,9 +1,9 @@
 import { useCookies } from "react-cookie";
+import { useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import AdminNav from "./AdminNav";
 import UserNav from "./UserNav";
 import GuestNav from "./GuestNav";
-import { useNavigate } from "react-router-dom";
 
 
 export interface LogoutProps {

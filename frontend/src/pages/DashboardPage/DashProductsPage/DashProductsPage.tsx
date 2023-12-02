@@ -25,7 +25,7 @@ function DashProductsPage() {
         dispatch(clearSelectedProducts())
     }
 
-    console.log(selectedProductIds)
+    // console.log(selectedProductIds)
 
     let content = (<></>)
 

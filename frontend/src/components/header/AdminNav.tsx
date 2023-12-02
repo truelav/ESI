@@ -18,10 +18,10 @@ import {
   HamburgerIcon,
   CloseIcon,
   ChevronDownIcon,
-  ChevronRightIcon,
+  // ChevronRightIcon,
 } from "@chakra-ui/icons";
 
-import { LogoutProps } from ".";
+import { LogoutProps } from "./index";
 
 import logo from "/logo.png";
 import { Link } from "react-router-dom";
@@ -58,7 +58,6 @@ export default function AdminNav({ logOut }: LogoutProps) {
         </Flex>
         <Flex flex={{ base: 1 }} justify={{ base: "center", md: "start" }}>
           <Image src={logo} />
-
           <Flex display={{ base: "none", md: "flex" }} ml={10}>
             <DesktopNav />
           </Flex>
@@ -71,7 +70,6 @@ export default function AdminNav({ logOut }: LogoutProps) {
           spacing={6}
         >
           <Button
-            as={"a"}
             display={{ base: "none", md: "inline-flex" }}
             fontSize={"sm"}
             fontWeight={600}
@@ -108,7 +106,8 @@ const DesktopNav = () => {
               <Link to={navItem.href ?? "#"}>
                 <Box
                   p={2}
-                  fontSize={"sm"}
+                  mt={4}
+                  fontSize={"md"}
                   fontWeight={500}
                   color={linkColor}
                   _hover={{
@@ -130,11 +129,11 @@ const DesktopNav = () => {
                 rounded={"xl"}
                 minW={"sm"}
               >
-                <Stack>
+                {/* <Stack>
                   {navItem.children.map((child) => (
                     <DesktopSubNav key={child.label} {...child} />
                   ))}
-                </Stack>
+                </Stack> */}
               </PopoverContent>
             )}
           </Popover>
@@ -144,45 +143,43 @@ const DesktopNav = () => {
   );
 };
 
-const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
-  return (
-    <Link to={`${href}`}>
-      <Box
-        // as="a"
-        // href={href}
-        role={"group"}
-        display={"block"}
-        p={2}
-        rounded={"md"}
-        _hover={{ bg: useColorModeValue("pink.50", "gray.900") }}
-      >
-        <Stack direction={"row"} align={"center"}>
-          <Box>
-            <Text
-              transition={"all .3s ease"}
-              _groupHover={{ color: "pink.400" }}
-              fontWeight={500}
-            >
-              {label}
-            </Text>
-            <Text fontSize={"sm"}>{subLabel}</Text>
-          </Box>
-          <Flex
-            transition={"all .3s ease"}
-            transform={"translateX(-10px)"}
-            opacity={0}
-            _groupHover={{ opacity: "100%", transform: "translateX(0)" }}
-            justify={"flex-end"}
-            align={"center"}
-            flex={1}
-          >
-            <Icon color={"pink.400"} w={5} h={5} as={ChevronRightIcon} />
-          </Flex>
-        </Stack>
-      </Box>
-    </Link>
-  );
-};
+// const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
+//   return (
+//     <Link to={`${href}`}>
+//       <Box
+//         role={"group"}
+//         display={"block"}
+//         p={2}
+//         rounded={"md"}
+//         _hover={{ bg: useColorModeValue("pink.50", "gray.900") }}
+//       >
+//         <Stack direction={"row"} align={"center"}>
+//           <Box>
+//             <Text
+//               transition={"all .3s ease"}
+//               _groupHover={{ color: "pink.400" }}
+//               fontWeight={500}
+//             >
+//               {label}
+//             </Text>
+//             <Text fontSize={"sm"}>{subLabel}</Text>
+//           </Box>
+//           <Flex
+//             transition={"all .3s ease"}
+//             transform={"translateX(-10px)"}
+//             opacity={0}
+//             _groupHover={{ opacity: "100%", transform: "translateX(0)" }}
+//             justify={"flex-end"}
+//             align={"center"}
+//             flex={1}
+//           >
+//             <Icon color={"pink.400"} w={5} h={5} as={ChevronRightIcon} />
+//           </Flex>
+//         </Stack>
+//       </Box>
+//     </Link>
+//   );
+// };
 
 const MobileNav = () => {
   return (

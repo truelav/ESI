@@ -9,7 +9,7 @@ interface ProductProps {
 
 export const ProductDetailsInfo: React.FC<ProductProps> = ({ product } ) => {
     const {price, description, brand, model, upc, subcategory} = product
-    console.log(product)
+    // console.log(product)
     
   return (
     <>
@@ -34,9 +34,9 @@ export const ProductDetailsInfo: React.FC<ProductProps> = ({ product } ) => {
             <Divider />
             <CardFooter>
                 <ButtonGroup spacing='2'>
-                <Button variant='solid' colorScheme='blue'>
-                    Add to cart
-                </Button>
+                    <Button variant='solid' colorScheme='blue'>
+                        Add to cart
+                    </Button>
                 </ButtonGroup>
             </CardFooter>
         </Card>

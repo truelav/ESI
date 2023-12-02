@@ -21,9 +21,11 @@ import {
   ChevronRightIcon,
 } from "@chakra-ui/icons";
 
+import { LogoutProps } from "./index";
+
 import logo from "/logo.png";
 
-export default function UserNav({ logOut }) {
+export default function UserNav({ logOut }: LogoutProps) {
   const { isOpen, onToggle } = useDisclosure();
 
   return (
@@ -68,7 +70,6 @@ export default function UserNav({ logOut }) {
           spacing={6}
         >
           <Button
-            as={"a"}
             display={{ base: "none", md: "inline-flex" }}
             fontSize={"sm"}
             fontWeight={600}
@@ -106,7 +107,7 @@ const DesktopNav = () => {
                 as="a"
                 p={2}
                 href={navItem.href ?? "#"}
-                fontSize={"sm"}
+                fontSize={"md"}
                 fontWeight={500}
                 color={linkColor}
                 _hover={{
