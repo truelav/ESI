@@ -1,5 +1,6 @@
-import { Card, CardBody, Stack, Heading, Text, Divider, CardFooter, ButtonGroup, Button } from "@chakra-ui/react";
+import { Card, CardBody, Stack, Heading, Text, Divider, CardFooter, Box } from "@chakra-ui/react";
 import React from "react";
+import AddToCart from "../../../../features/cart/addToCart/AddToCartFeature";
 import { Product } from "../../model/types/product";
 
 interface ProductProps {
@@ -33,11 +34,7 @@ export const ProductDetailsInfo: React.FC<ProductProps> = ({ product } ) => {
             </CardBody>
             <Divider />
             <CardFooter>
-                <ButtonGroup spacing='2'>
-                    <Button variant='solid' colorScheme='blue'>
-                        Add to cart
-                    </Button>
-                </ButtonGroup>
+                <AddToCart product={product}/>
             </CardFooter>
         </Card>
     </>

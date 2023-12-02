@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { Product } from "../../../Product/model/types/product";
 
-interface cartProductTypes extends Product {
+export interface cartProductType extends Product {
     quantity: number
 }
 
@@ -13,16 +13,17 @@ const cartSlice = createSlice({
     },
     reducers: {
         addProductToCart: (state, action) => {
-            const cartProduct: cartProductTypes = action.payload;
+            const cartProduct: cartProductType = action.payload.product;
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
+            console.log(cartProduct)
+            cartProduct.quantity = action.payload.quantity;
+            state.products.push(cartProduct);
             if (cartProduct) {
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
-                cartProduct.quantity = quantity;
               } else {
                 // If the product is not in the cart, add it
-                state.products.push(cartProduct);
               }
         },
         removeProductFromCart: (state, action) => {
@@ -46,5 +47,5 @@ const cartSlice = createSlice({
     },
 });
 
-export const {  addProductToCart,  removeProductFromCart, clearCart} = cartSlice.actions;
+export const {  addProductToCart,  removeProductFromCart, setProductNumber, clearCart} = cartSlice.actions;
 export default cartSlice.reducer;
