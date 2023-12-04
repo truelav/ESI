@@ -12,7 +12,7 @@ interface PriceTagProps {
 
 export type FormatPriceOptions = { locale?: string; currency?: string }
 
-export function formatPrice(value: number, opts: { locale?: string; currency?: string } = {}) {
+export function ProductPrice(value: number, opts: { locale?: string; currency?: string } = {}) {
   const { locale = 'en-US', currency = 'USD' } = opts
   const formatter = new Intl.NumberFormat(locale, {
     currency,
@@ -27,10 +27,10 @@ export const PriceTag = (props: PriceTagProps) => {
   return (
     <HStack spacing="1" {...rootProps}>
       <Price isOnSale={!!salePrice} textProps={priceProps}>
-        {formatPrice(price, { currency })}
+        {ProdutPrice(price, { currency })}
       </Price>
       {salePrice && (
-        <SalePrice {...salePriceProps}>{formatPrice(salePrice, { currency })}</SalePrice>
+        <SalePrice {...salePriceProps}>{ProdutPrice(salePrice, { currency })}</SalePrice>
       )}
     </HStack>
   )

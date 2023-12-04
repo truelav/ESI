@@ -9,7 +9,7 @@ import {
   useColorModeValue as mode,
 } from '@chakra-ui/react'
 import { FaArrowRight } from 'react-icons/fa'
-import { formatPrice } from './PriceTag'
+import {ProductPrice} from '../../../Product/ui/ProductPrice/ProductPrice'
 
 type OrderSummaryItemProps = {
   label: string
@@ -35,7 +35,7 @@ export const CartOrderSummary = () => {
       <Heading size="md">Order Summary</Heading>
 
       <Stack spacing="6">
-        <OrderSummaryItem label="Subtotal" value={formatPrice(597)} />
+        <OrderSummaryItem label="Subtotal" value={ProductPrice(597)} />
         <OrderSummaryItem label="Shipping + Tax">
           <Link href="#" textDecor="underline">
             Calculate shipping
@@ -51,7 +51,7 @@ export const CartOrderSummary = () => {
             Total
           </Text>
           <Text fontSize="xl" fontWeight="extrabold">
-            {formatPrice(597)}
+            {ProductPrice(597)}
           </Text>
         </Flex>
       </Stack>
@@ -61,4 +61,3 @@ export const CartOrderSummary = () => {
     </Stack>
   )
 }
-ß
