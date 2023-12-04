@@ -1,19 +1,22 @@
-import { ButtonGroup, Button, Box, Input, Text } from "@chakra-ui/react"
+import { ButtonGroup, Button, Box, Text } from "@chakra-ui/react"
 import { useState } from "react"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 
 import { addProductToCart, removeProductFromCart, clearCart } from "../../../entities/Cart/model/slice/cartSlice"
-import { cartProductType } from "../../../entities/Cart/model/slice/cartSlice"
+// import { cartProduct } from "../../../entities/Cart/model/slice/cartSlice"
+import { Product } from "../../../entities/Product/model/types/product"
 
  
 
-const AddToCart = ({product}: cartProductType) => {
+const AddToCart = (product: Product) => {
     const dispatch = useDispatch()
+    const cart = useSelector((state) => state.cart);
     const [productQuantity, setProductQuantity] = useState(1)
-    const cartProduct = {product, quantity: 1}
 
-    const handleAddToCart = (product) => {
-        dispatch(addProductToCart(product))
+    const handleAddToCart = (product: Product) => {
+        const cartProduct = {...product, cartQuantity: productQuantity}
+        dispatch(addProductToCart(cartProduct))
+        console.log()
     }
 
     const handleIncrementQuantity = (e) => {
@@ -21,10 +24,12 @@ const AddToCart = ({product}: cartProductType) => {
         setProductQuantity(state => state + 1)
     }
 
-    const handleDecrementQuantity = (e) => {
+    const handleDecrementQuantity = (e ) => {
         e.preventDefault()
         setProductQuantity(state => state - 1)
     }
+
+    console.log(cart)
 
     return (
         <ButtonGroup spacing='2'>
@@ -35,7 +40,7 @@ const AddToCart = ({product}: cartProductType) => {
                 <Text>{productQuantity}</Text>
                 <Button onClick={handleIncrementQuantity}> + </Button>
             </Box>
-            <Button variant='solid' colorScheme='blue' onClick={() => handleAddToCart(cartProduct)}>
+            <Button variant='solid' colorScheme='blue' onClick={() => handleAddToCart(product)}>
                 Add to cart
             </Button>
         </ButtonGroup>

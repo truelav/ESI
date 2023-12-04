@@ -1,4 +1,4 @@
-import { Card, CardBody, Stack, Heading, Text, Divider, CardFooter, Box } from "@chakra-ui/react";
+import { Card, CardBody, Stack, Heading, Text, Divider, CardFooter } from "@chakra-ui/react";
 import React from "react";
 import AddToCart from "../../../../features/cart/addToCart/AddToCartFeature";
 import { Product } from "../../model/types/product";
