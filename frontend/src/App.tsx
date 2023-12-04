@@ -11,11 +11,11 @@ import DashboardLayout from "./components/layouts/dashboard";
 
 // PAGES
 import Home from "./pages/HomePage";
-import ProductsPage  from "./pages/ProductsPage/ProductsPage";
 import LoginPage from "./pages/LoginPage";
 import NotFound from "./pages/NotFoundPage";
 import Dashboard from "./pages/DashboardPage";
 import ContactPage from "./pages/ContactPage";
+import ProductsPage  from "./pages/ProductsPage/ProductsPage";
 import ProductDetailsPage from "./pages/ProductDetailsPage/ProductDetailsPage";
 import DashUsersPage from "./pages/DashboardPage/DashUsersPage/DashUsersPage";
 import DashProductsPage from "./pages/DashboardPage/DashProductsPage/DashProductsPage";

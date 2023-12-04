@@ -2,12 +2,10 @@ import { Button, Container, Grid, GridItem, Heading } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
 import { CartProductList } from "../../entities/Cart/ui/cartProductList/CartProductList";
 
-function CartPage() {
+const CartPage = () => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     const products = useSelector((state) => state.cart.products);
-
-    console.log(products)
     return (
         <>
             <Container>

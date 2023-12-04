@@ -1,4 +1,5 @@
 import { Product } from "../../../Product/model/types/product";
+import { CartListHeader } from "../cartListHeader/cartListHeader";
 import { CartListItem } from "../cartProductListItem/CartProductListItem";
 
 export const CartProductList = (props: { products: Product[] | never[] }) => {
@@ -8,8 +9,11 @@ export const CartProductList = (props: { products: Product[] | never[] }) => {
         <>
             <h2>Cart Products: </h2>
             <div>
-                {products.map((product: Product) => (
-                    <CartListItem key={"" + product._id} product={product} />
+                <CartListHeader />
+            </div>
+            <div>
+                {products.map((product : Product) => (
+                    <CartListItem key={"" + product?.product._id} product={product} />
                 ))}
             </div>
         </>

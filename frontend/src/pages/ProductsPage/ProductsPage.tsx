@@ -20,18 +20,18 @@ const ProductsPage = () => {
         error,
     } = useGetAllProductsQuery();
 
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
 
     const [searchTerm, setSearchTerm] = useState("");
     const [filterBy, setFilterBy] = useState("");
     const [sortBy, setSortBy] = useState("");
 
-    const setProductsData = () => {
+    // const setProductsData = () => {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-        dispatch(setTotalProducts(products.length));
+        // dispatch(setTotalProducts(products.length));
         // dispatch(setProducts(products))
-    };
+    // };
 
     const filteredAndSortedProducts = useMemo(() => {
         let filteredProducts = products || [];
@@ -85,7 +85,6 @@ const ProductsPage = () => {
     }
 
     if (isSuccess) {
-        setProductsData();
 
         content = (
             <div className="dash_products_page_wrapper">

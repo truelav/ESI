@@ -24,7 +24,7 @@ const AddToCart = (product: Product) => {
         setProductQuantity(state => state + 1)
     }
 
-    const handleDecrementQuantity = (e ) => {
+    const handleDecrementQuantity = (e) => {
         e.preventDefault()
         setProductQuantity(state => state - 1)
     }

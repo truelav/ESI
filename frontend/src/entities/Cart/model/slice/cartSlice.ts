@@ -34,17 +34,19 @@ const cartSlice = createSlice({
     initialState,
     reducers: {
         addProductToCart: (state, action) => {
-            const cart: CartProduct = action.payload;
+            const cartProd: CartProduct = action.payload;
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
-            // const isProdInCart = state.products.find(({ model }) => model === cart.product.model )
-            console.log(cart)
-            // if (isProdInCart) {
-            //     isProdInCart.cartQuantity += cart.cartQuantity
-            // } else {
-                // If the product is not in the cart, add it
-            // }
-            state.products.push(cart);
+            console.log(state.products.length)
+            const index = state.products.findIndex(({ product }) => product._id === cartProd.product._id)
+            // console.log(index)
+            if (index > -1) {
+                state.totalAmount++
+                state.products[index].cartQuantity++
+            } else {
+                // state.products.push({id: cartProd.product._id});
+                state.products.push(cartProd);
+            }   
         },
 
         removeProductFromCart: (state, action) => {

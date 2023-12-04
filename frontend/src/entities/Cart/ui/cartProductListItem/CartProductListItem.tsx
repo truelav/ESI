@@ -1,4 +1,3 @@
-import { memo } from "react";
 import { Button, Grid, GridItem, Image } from "@chakra-ui/react";
 import { FaTrash } from "react-icons/fa";
 
@@ -6,6 +5,7 @@ import {
     ProductView,
     Product,
 } from "../../../../entities/Product/model/types/product";
+
 import CardComponent, {
     CardVariants,
 } from "../../../../shared/ui/Product/Card/CardComponent";
@@ -13,15 +13,21 @@ import { CardTextComponent } from "../../../../shared/ui/Product/Card/CardText";
 
 import fallback_image from "/fallback_image.jpeg";
 
-interface ProductListPropsItem {
+interface ProductListItem {
     className?: string;
     product: Product;
     view?: ProductView;
 }
 
-export const CartListItem = memo((props: ProductListPropsItem) => {
-    const { product } = props;
+interface CartProductProps {
+    product: ProductListItem;
+    cartQuantity: number;
+}
 
+export const CartListItem = (props: CartProductProps) => {
+    const { product } = props.product;
+    const { cartQuantity } = props.product
+    console.log(props)
     return (
         <CardComponent
             cardVariant={CardVariants.outline}
@@ -53,7 +59,7 @@ export const CartListItem = memo((props: ProductListPropsItem) => {
                 </GridItem>
 
                 <GridItem colSpan={2}>
-                    <CardTextComponent>{product?.quantity}</CardTextComponent>
+                    <CardTextComponent>{ cartQuantity }</CardTextComponent>
                 </GridItem>
 
                 <GridItem colSpan={2}>
@@ -64,4 +70,4 @@ export const CartListItem = memo((props: ProductListPropsItem) => {
             </Grid>
         </CardComponent>
     );
-});
+};

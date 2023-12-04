@@ -69,6 +69,15 @@ export default function AdminNav({ logOut }: LogoutProps) {
           direction={"row"}
           spacing={6}
         >
+          <Link to="/cart">Cart</Link>
+        </Stack>
+
+        <Stack
+          flex={{ base: 1, md: 0 }}
+          justify={"flex-end"}
+          direction={"row"}
+          spacing={6}
+        >
           <Button
             display={{ base: "none", md: "inline-flex" }}
             fontSize={"sm"}
