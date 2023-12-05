@@ -1,7 +1,6 @@
 import { Button, Grid, GridItem, Image } from "@chakra-ui/react";
-import { useState } from "react";
 import { FaTrash } from "react-icons/fa";
-
+import { removeProductFromCart } from "../../model/slice/cartSlice";
 import {
     ProductView,
     Product,
@@ -13,6 +12,7 @@ import CardComponent, {
 import { CardTextComponent } from "../../../../shared/ui/Product/Card/CardText";
 
 import fallback_image from "/fallback_image.jpeg";
+import { useDispatch } from "react-redux";
 
 interface ProductListItem {
     className?: string;
@@ -27,8 +27,13 @@ interface CartProductProps {
 }
 
 export const CartListItem = (props: CartProductProps) => {
+    const dispatch = useDispatch()
     const { product } = props.product;
     const { cartQuantity } = props.product
+
+    const handleRemoveProductFromCart = () => {
+        dispatch(removeProductFromCart(product._id))
+    }
 
     return (
         <CardComponent
@@ -65,7 +70,7 @@ export const CartListItem = (props: CartProductProps) => {
                 </GridItem>
 
                 <GridItem colSpan={2}>
-                    <Button onClick={() => console.log(product._id)}>
+                    <Button onClick={handleRemoveProductFromCart}>
                         <FaTrash />
                     </Button>
                 </GridItem>

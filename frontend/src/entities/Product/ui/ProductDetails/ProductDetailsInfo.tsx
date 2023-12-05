@@ -10,8 +10,7 @@ interface ProductProps {
 
 export const ProductDetailsInfo: React.FC<ProductProps> = ({ product } ) => {
     const {price, description, brand, model, upc, subcategory} = product
-    // console.log(product)
-    
+
   return (
     <>
         <Card maxW='lg'>
@@ -34,10 +33,10 @@ export const ProductDetailsInfo: React.FC<ProductProps> = ({ product } ) => {
             </CardBody>
             <Divider />
             <CardFooter>
-            {/* 
-               eslint-disable-next-line @typescript-eslint/ban-ts-comment */} 
-            {/* 
-              // @ts-ignore */}
+                {/* 
+                eslint-disable-next-line @typescript-eslint/ban-ts-comment */} 
+                {/* 
+                // @ts-ignore */}
                 <AddToCart product={product}/>
             </CardFooter>
         </Card>

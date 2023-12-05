@@ -1,8 +1,12 @@
-import { Alert, AlertIcon, AlertTitle, Box, CloseButton, AlertDescription, useDisclosure, Button } from "@chakra-ui/react"
+import { Alert, AlertIcon, AlertTitle, Box, AlertDescription, CloseButton } from "@chakra-ui/react"
 import { Link } from "react-router-dom"
 
+interface AlertProps {
+    isOpen: boolean
+    setShowSuccessAlert: (arg: boolean) => void
+}
 
-export const AlertSuccess = ({ isOpen }) => {
+export const AlertSuccess = ({ isOpen, setShowSuccessAlert }: AlertProps) => {
     let content 
 
     if(isOpen){
@@ -16,13 +20,13 @@ export const AlertSuccess = ({ isOpen }) => {
                         <Link to="cart">Go to Cart</Link>
                     </AlertDescription>
                 </Box>
-                {/* <CloseButton
+                <CloseButton
                     alignSelf='flex-start'
                     position='relative'
                     right={-1}
                     top={-1}
-                    onClick={onClose}
-                /> */}
+                    onClick={() => setShowSuccessAlert(false)}
+                />
             </Alert>
         )
     } else {

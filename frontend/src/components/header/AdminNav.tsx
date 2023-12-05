@@ -14,6 +14,9 @@ import {
   useDisclosure,
   Image,
 } from "@chakra-ui/react";
+import { useSelector } from "react-redux";
+import { MdShoppingCart } from 'react-icons/md';
+import { Link } from "react-router-dom";
 import {
   HamburgerIcon,
   CloseIcon,
@@ -24,10 +27,15 @@ import {
 import { LogoutProps } from "./index";
 
 import logo from "/logo.png";
-import { Link } from "react-router-dom";
+
+import "./styles.css"
 
 export default function AdminNav({ logOut }: LogoutProps) {
   const { isOpen, onToggle } = useDisclosure();
+
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment 
+  // @ts-ignore 
+  const products = useSelector((state) => state.cart.products);
 
   return (
     <Box>
@@ -68,8 +76,16 @@ export default function AdminNav({ logOut }: LogoutProps) {
           justify={"flex-end"}
           direction={"row"}
           spacing={6}
+          mr={4}
         >
-          <Link to="/cart">Cart</Link>
+          <Link to="/cart">
+            <div className="cart">
+              <span className="cart-icon">
+                <MdShoppingCart size={32} />
+              </span>
+              <span className={products.length ? "count" : ""}>{products.length ? products.length : ""} </span>
+            </div>
+          </Link>
         </Stack>
 
         <Stack

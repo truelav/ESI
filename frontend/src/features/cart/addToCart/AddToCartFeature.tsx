@@ -10,10 +10,8 @@ import { AlertSuccess } from "../../../shared/ui/Alerts/Success/AlertSuccess"
 
 const AddToCart = (product: Product) => {
     const dispatch = useDispatch()
-    {/* 
-        eslint-disable-next-line @typescript-eslint/ban-ts-comment */} 
-    {/* 
-        // @ts-ignore */}
+        //eslint-disable-next-line @typescript-eslint/ban-ts-comment 
+        // @ts-ignore 
     const cart = useSelector((state) => state.cart);
     const [productQuantity, setProductQuantity] = useState(1)
     const [showSuccessAlert, setShowSuccessAlert] = useState(false)
@@ -25,7 +23,7 @@ const AddToCart = (product: Product) => {
 
         setTimeout(() => {
             setShowSuccessAlert(false)
-        }, 3000)
+        }, 2000)
     }
 
     const handleIncrementQuantity = (e: MouseEvent<HTMLButtonElement>) => {
@@ -63,8 +61,8 @@ const AddToCart = (product: Product) => {
                 </GridItem>
             </Grid>
 
-            <AlertSuccess isOpen={showSuccessAlert} />
-            
+            <AlertSuccess isOpen={showSuccessAlert} setShowSuccessAlert={setShowSuccessAlert}/>
+
         </Box>
     )
 }

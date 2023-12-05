@@ -38,7 +38,6 @@ const cartSlice = createSlice({
             const cartProd: CartProduct = action.payload;
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
-            console.log(state.products.length)
             const index = state.products.findIndex(({ product }) => product._id === cartProd.product._id)
             // console.log(index)
             if (index > -1) {
@@ -51,9 +50,9 @@ const cartSlice = createSlice({
         },
 
         removeProductFromCart: (state, action) => {
-            state.products = state.products.filter(
-                (id) => id !== action.payload
-            );
+            const prodId: string = action.payload;
+            console.log(prodId)
+            state.products = state.products.filter(({ product }) => product._id !== prodId );
         },
 
         setProductNumber: (state, action) => {
@@ -71,6 +70,7 @@ const cartSlice = createSlice({
             }
         },
         clearCart: (state) => {
+            console.log(state)
             state.products = [];
             state.totalAmount = 0
         },
