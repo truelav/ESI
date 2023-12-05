@@ -1,4 +1,5 @@
 import { Button, Grid, GridItem, Image } from "@chakra-ui/react";
+import { useState } from "react";
 import { FaTrash } from "react-icons/fa";
 
 import {
@@ -17,6 +18,7 @@ interface ProductListItem {
     className?: string;
     product: Product;
     view?: ProductView;
+    cartQuantity?: number;
 }
 
 interface CartProductProps {
@@ -27,14 +29,14 @@ interface CartProductProps {
 export const CartListItem = (props: CartProductProps) => {
     const { product } = props.product;
     const { cartQuantity } = props.product
-    console.log(props)
+
     return (
         <CardComponent
             cardVariant={CardVariants.outline}
             additionalClassNames="Dash_ProductListItem"
         >
             <Grid templateColumns="repeat(12, 1fr)" gap={4}>
-                <GridItem colSpan={3}>
+                <GridItem colSpan={2}>
                     <Image
                         src={product?.images}
                         fallbackSrc={fallback_image}
@@ -48,9 +50,8 @@ export const CartListItem = (props: CartProductProps) => {
                     <CardTextComponent>{product?.brand} : {product?.model}</CardTextComponent>
                 </GridItem>
 
-                {/* <GridItem colSpan={2}>
-                    <CardTextComponent>{product?.model}</CardTextComponent>
-                </GridItem> */}
+                <GridItem colSpan={1}>
+                </GridItem>
 
                 <GridItem colSpan={2}>
                     <CardTextComponent>
@@ -58,8 +59,9 @@ export const CartListItem = (props: CartProductProps) => {
                     </CardTextComponent>
                 </GridItem>
 
+
                 <GridItem colSpan={2}>
-                    <CardTextComponent>{ cartQuantity }</CardTextComponent>
+                    <CardTextComponent>X{ cartQuantity }</CardTextComponent>
                 </GridItem>
 
                 <GridItem colSpan={2}>

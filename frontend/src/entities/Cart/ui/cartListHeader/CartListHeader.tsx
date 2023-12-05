@@ -1,10 +1,10 @@
-import { Grid, GridItem } from "@chakra-ui/react";
+import { Grid, GridItem, Button } from "@chakra-ui/react";
 
 import CardComponent, {
     CardVariants,
 } from "../../../../shared/ui/Product/Card/CardComponent";
 import { CardTextComponent } from "../../../../shared/ui/Product/Card/CardText";
-
+import { clearCart } from "../../model/slice/cartSlice";
 
 export const CartListHeader = () => {
 
@@ -14,17 +14,15 @@ export const CartListHeader = () => {
             additionalClassNames="Dash_ProductListItem"
         >
             <Grid templateColumns="repeat(12, 1fr)" gap={4}>
-                <GridItem colSpan={3}>
-
+                <GridItem colSpan={2}>
                 </GridItem>
 
                 <GridItem colSpan={3}>
                     <CardTextComponent>Brand Model</CardTextComponent>
                 </GridItem>
 
-                {/* <GridItem colSpan={2}>
-                    <CardTextComponent>{product?.model}</CardTextComponent>
-                </GridItem> */}
+                <GridItem colSpan={1}>
+                </GridItem>
 
                 <GridItem colSpan={2}>
                     <CardTextComponent> Price </CardTextComponent>
@@ -35,7 +33,10 @@ export const CartListHeader = () => {
                 </GridItem>
 
                 <GridItem colSpan={2}>
-                    <CardTextComponent> Remove </CardTextComponent>
+                    {/* <CardTextComponent> Remove </CardTextComponent> */}
+                    <Button variant='solid' colorScheme='red' onClick={() => clearCart()}>
+                        Clear Cart
+                    </Button>
                 </GridItem>
             </Grid>
         </CardComponent>

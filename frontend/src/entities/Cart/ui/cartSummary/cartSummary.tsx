@@ -36,16 +36,11 @@ export const CartOrderSummary = () => {
 
       <Stack spacing="6">
         <OrderSummaryItem label="Subtotal" value={ProductPrice(597)} />
-        <OrderSummaryItem label="Shipping + Tax">
+        {/* <OrderSummaryItem label="Shipping + Tax">
           <Link href="#" textDecor="underline">
             Calculate shipping
           </Link>
-        </OrderSummaryItem>
-        <OrderSummaryItem label="Coupon Code">
-          <Link href="#" textDecor="underline">
-            Add coupon code
-          </Link>
-        </OrderSummaryItem>
+        </OrderSummaryItem> */}
         <Flex justify="space-between">
           <Text fontSize="lg" fontWeight="semibold">
             Total
@@ -56,7 +51,7 @@ export const CartOrderSummary = () => {
         </Flex>
       </Stack>
       <Button colorScheme="blue" size="lg" fontSize="md" rightIcon={<FaArrowRight />}>
-        Checkout
+        Send Order
       </Button>
     </Stack>
   )

@@ -1,8 +1,8 @@
-import { ButtonGroup, Button, Box, Text } from "@chakra-ui/react"
-import { useState } from "react"
+import { Button, Box, Text, Grid, GridItem } from "@chakra-ui/react"
+import { useState, MouseEvent } from "react"
 import { useDispatch, useSelector } from "react-redux"
 
-import { addProductToCart, removeProductFromCart, clearCart } from "../../../entities/Cart/model/slice/cartSlice"
+import { addProductToCart } from "../../../entities/Cart/model/slice/cartSlice"
 // import { cartProduct } from "../../../entities/Cart/model/slice/cartSlice"
 import { Product } from "../../../entities/Product/model/types/product"
 
@@ -19,12 +19,12 @@ const AddToCart = (product: Product) => {
         console.log()
     }
 
-    const handleIncrementQuantity = (e) => {
+    const handleIncrementQuantity = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
         setProductQuantity(state => state + 1)
     }
 
-    const handleDecrementQuantity = (e) => {
+    const handleDecrementQuantity = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
         setProductQuantity(state => state - 1)
     }
@@ -32,18 +32,27 @@ const AddToCart = (product: Product) => {
     console.log(cart)
 
     return (
-        <ButtonGroup spacing='2'>
-            Number of Items 
-            <Box>
-                <Button onClick={handleDecrementQuantity}> - </Button>
-                {/* <Input value={productQuantity} /> */}
-                <Text>{productQuantity}</Text>
-                <Button onClick={handleIncrementQuantity}> + </Button>
-            </Box>
-            <Button variant='solid' colorScheme='blue' onClick={() => handleAddToCart(product)}>
-                Add to cart
-            </Button>
-        </ButtonGroup>
+        <Box>
+            <Grid templateColumns="repeat(12, 1fr)" gap={4}>
+                <GridItem colSpan={12}>
+                    <Text>Number of Items </Text>
+                </GridItem>
+                <GridItem colSpan={1}>
+                    <Button onClick={handleDecrementQuantity}> - </Button>
+                </GridItem>
+                <GridItem colSpan={1}>
+                    <Text>{productQuantity}</Text>
+                </GridItem>
+                <GridItem colSpan={1}>
+                    <Button onClick={handleIncrementQuantity}> + </Button>
+                </GridItem>
+                <GridItem colSpan={2}>
+                    <Button variant='solid' colorScheme='blue' onClick={() => handleAddToCart(product)}>
+                        Add to cart
+                    </Button>
+                </GridItem>
+            </Grid>
+        </Box>
     )
 }
 

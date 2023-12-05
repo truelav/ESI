@@ -15,7 +15,8 @@ interface Product {
     upc: string;
 }
 
-interface CartProduct extends Product {
+interface CartProduct {
+    product: Product
     cartQuantity: number
 }
 
@@ -57,7 +58,7 @@ const cartSlice = createSlice({
 
         setProductNumber: (state, action) => {
             const { productId, quantity } = action.payload;
-            const cartItem = state.products.find((product: Product) => product._id === productId);
+            const cartItem = state.products.find((product) => product._id === productId);
       
             if (cartItem) {
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -67,6 +68,7 @@ const cartSlice = createSlice({
         },
         clearCart: (state) => {
             state.products = [];
+            state.totalAmount = 0
         },
     },
 });

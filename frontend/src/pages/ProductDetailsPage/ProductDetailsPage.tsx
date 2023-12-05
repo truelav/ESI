@@ -1,12 +1,14 @@
 // Product Item Page
 
+import { Container } from "@chakra-ui/react";
 import { ProductDetails } from "../../entities/Product/ui/ProductDetails/ProductDetails";
 
 function ProductDetailsPage() {
   return (
     <>
-      <h2>Product Details Page</h2>
-      <ProductDetails />
+      <Container maxW="full"  minH="700px" mt="100px" centerContent overflow="hidden">
+        <ProductDetails />
+      </Container>
     </>
   );
 }
