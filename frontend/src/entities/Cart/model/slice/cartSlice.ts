@@ -58,6 +58,10 @@ const cartSlice = createSlice({
 
         setProductNumber: (state, action) => {
             const { productId, quantity } = action.payload;
+            {/* 
+               eslint-disable-next-line @typescript-eslint/ban-ts-comment */} 
+              {/* 
+              // @ts-ignore */}
             const cartItem = state.products.find((product) => product._id === productId);
       
             if (cartItem) {

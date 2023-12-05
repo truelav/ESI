@@ -34,6 +34,10 @@ export const ProductDetailsInfo: React.FC<ProductProps> = ({ product } ) => {
             </CardBody>
             <Divider />
             <CardFooter>
+            {/* 
+               eslint-disable-next-line @typescript-eslint/ban-ts-comment */} 
+            {/* 
+              // @ts-ignore */}
                 <AddToCart product={product}/>
             </CardFooter>
         </Card>

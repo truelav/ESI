@@ -5,18 +5,27 @@ import { useDispatch, useSelector } from "react-redux"
 import { addProductToCart } from "../../../entities/Cart/model/slice/cartSlice"
 // import { cartProduct } from "../../../entities/Cart/model/slice/cartSlice"
 import { Product } from "../../../entities/Product/model/types/product"
-
+import { AlertSuccess } from "../../../shared/ui/Alerts/Success/AlertSuccess"
  
 
 const AddToCart = (product: Product) => {
     const dispatch = useDispatch()
+    {/* 
+        eslint-disable-next-line @typescript-eslint/ban-ts-comment */} 
+    {/* 
+        // @ts-ignore */}
     const cart = useSelector((state) => state.cart);
     const [productQuantity, setProductQuantity] = useState(1)
+    const [showSuccessAlert, setShowSuccessAlert] = useState(false)
 
     const handleAddToCart = (product: Product) => {
         const cartProduct = {...product, cartQuantity: productQuantity}
         dispatch(addProductToCart(cartProduct))
-        console.log()
+        setShowSuccessAlert(true);
+
+        setTimeout(() => {
+            setShowSuccessAlert(false)
+        }, 3000)
     }
 
     const handleIncrementQuantity = (e: MouseEvent<HTMLButtonElement>) => {
@@ -33,6 +42,7 @@ const AddToCart = (product: Product) => {
 
     return (
         <Box>
+
             <Grid templateColumns="repeat(12, 1fr)" gap={4}>
                 <GridItem colSpan={12}>
                     <Text>Number of Items </Text>
@@ -52,6 +62,9 @@ const AddToCart = (product: Product) => {
                     </Button>
                 </GridItem>
             </Grid>
+
+            <AlertSuccess isOpen={showSuccessAlert} />
+            
         </Box>
     )
 }
