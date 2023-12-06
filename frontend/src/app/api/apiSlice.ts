@@ -29,7 +29,7 @@ export const apiSlice = createApi({
             providesTags: [{ type: "Products", id: "List" }],
         }),
 
-        getGroupedProducts: builder.query<GroupedProducts[],  void>({
+        getGroupedProducts: builder.query<GroupedProducts[], void>({
             query: () => `/products`,
             // @ts-nocheck
             /* eslint-disable-next-line */
@@ -173,6 +173,46 @@ export const apiSlice = createApi({
                 body: products,
             }),
         }),
+
+        // Cart Routes
+        placeOrder: builder.mutation<unknown, void>({
+            query: (products) => ({
+                url: `/order`,
+                method: "POST",
+                body: products,
+            }),
+        }),
+        addToCart: builder.mutation<unknown, void>({
+            query: (products) => ({
+                url: `/order`,
+                method: "POST",
+                body: products,
+            }),
+        }),
+        removeFromCart: builder.mutation({
+            query: (product) => ({
+                url: `/products`,
+                method: "POST",
+                body: product,
+                formData: true,
+            }),
+        }),
+        clearCart: builder.mutation({
+            query: (product) => ({
+                url: `/products`,
+                method: "POST",
+                body: product,
+                formData: true,
+            }),
+        }),
+        getCartInfo: builder.mutation({
+            query: (product) => ({
+                url: `/products`,
+                method: "POST",
+                body: product,
+                formData: true,
+            }),
+        }),
     }),
 });
 
@@ -195,4 +235,6 @@ export const {
     useLoginMutation,
 
     useCreatePresentationMutation,
+
+    usePlaceOrderMutation,
 } = apiSlice;
