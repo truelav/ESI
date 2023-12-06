@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import produce from "immer";
 
 interface Product {
     _id: string;
@@ -30,6 +31,28 @@ const initialState: CartState =  {
     totalAmount: 0
 }
 
+const addToLocalStorage = (product) => {
+    console.log(product)
+    const { _id } = product.product
+
+    const storageProduct = JSON.parse(localStorage.getItem(_id))
+
+    if(storageProduct){
+        storageProduct.cartQuantity = product.cartQuantity
+    }
+
+    localStorage.setItem(_id, JSON.stringify(product))
+}
+
+
+const removeFromLocalStorage = (_id) => {
+    const storageProduct = JSON.parse(localStorage.getItem(_id))
+
+    if(storageProduct){
+        localStorage.removeItem(_id)
+    }
+}
+
 const cartSlice = createSlice({
     name: "cart",
     initialState,
@@ -47,15 +70,17 @@ const cartSlice = createSlice({
                 // state.products.push({id: cartProd.product._id});
                 state.products.push(cartProd);
             }   
+            addToLocalStorage(cartProd)
         },
 
         removeProductFromCart: (state, action) => {
             const prodId: string = action.payload;
             console.log(prodId)
             state.products = state.products.filter(({ product }) => product._id !== prodId );
+            removeFromLocalStorage(prodId)
         },
 
-        setProductNumber: (state, action) => {
+        updateCart: (state, action) => {
             const { productId, quantity } = action.payload;
             {/* 
                eslint-disable-next-line @typescript-eslint/ban-ts-comment */} 
@@ -77,5 +102,5 @@ const cartSlice = createSlice({
     },
 });
 
-export const {  addProductToCart,  removeProductFromCart, setProductNumber, clearCart} = cartSlice.actions;
+export const {  addProductToCart,  removeProductFromCart, updateCart, clearCart} = cartSlice.actions;
 export default cartSlice.reducer;
