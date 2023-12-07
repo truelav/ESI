@@ -39,11 +39,11 @@ export const ProductListItem = memo((props: ProductListPropsItem) => {
                     />
                 </GridItem>
 
-                <GridItem colSpan={2}>
-                    <CardTextComponent>{product?.brand}</CardTextComponent>
+                <GridItem colSpan={1}>
+                    <CardTextComponent fontSize="xl">{product?.brand}</CardTextComponent>
                 </GridItem>
 
-                <GridItem colSpan={1}>
+                <GridItem colSpan={2}>
                     <CardTextComponent>{product?.model}</CardTextComponent>
                 </GridItem>
 
@@ -56,15 +56,14 @@ export const ProductListItem = memo((props: ProductListPropsItem) => {
                 <GridItem colSpan={2}>
                     <CardTextComponent>{product?.upc}</CardTextComponent>
                 </GridItem>
-{/* 
+
                 <GridItem colSpan={1}>
-
-                </GridItem> */}
-
-                <GridItem colSpan={3}>
-                    <Link to={`/products/${product?._id}`}>
+                <Link to={`/products/${product?._id}`}>
                         <Button>Learn More</Button>
                     </Link>
+                </GridItem>
+
+                <GridItem colSpan={2}>
                     <AddToCart product={product}/>
                 </GridItem>
             </Grid>

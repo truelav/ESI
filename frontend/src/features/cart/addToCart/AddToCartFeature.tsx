@@ -42,9 +42,9 @@ const AddToCart = (product: Product) => {
         <Box>
 
             <Grid templateColumns="repeat(12, 1fr)" gap={4}>
-                <GridItem colSpan={12}>
+                {/* <GridItem colSpan={12}>
                     <Text>Number of Items </Text>
-                </GridItem>
+                </GridItem> */}
                 <GridItem colSpan={1}>
                     <Button onClick={handleDecrementQuantity}> - </Button>
                 </GridItem>
