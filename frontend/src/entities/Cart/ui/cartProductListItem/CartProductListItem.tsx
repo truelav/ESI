@@ -1,18 +1,13 @@
 import { Button, Grid, GridItem, Image } from "@chakra-ui/react";
+import { useDispatch } from "react-redux";
 import { FaTrash } from "react-icons/fa";
 import { removeProductFromCart } from "../../model/slice/cartSlice";
-import {
-    ProductView,
-    Product,
-} from "../../../../entities/Product/model/types/product";
+import { ProductView, Product } from "../../../../entities/Product/model/types/product";
 
-import CardComponent, {
-    CardVariants,
-} from "../../../../shared/ui/Product/Card/CardComponent";
+import CardComponent, { CardVariants } from "../../../../shared/ui/Product/Card/CardComponent";
 import { CardTextComponent } from "../../../../shared/ui/Product/Card/CardText";
 
 import fallback_image from "/fallback_image.jpeg";
-import { useDispatch } from "react-redux";
 
 interface ProductListItem {
     className?: string;
