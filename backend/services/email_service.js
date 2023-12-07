@@ -121,7 +121,7 @@ export const sendPlaceOrderEmail = async (email, cart) => {
             <h2
             style="text-align: center; text-transform: uppercase;color: teal;"
             >
-            Welcome to ESI Products.
+                A new order was places.
             </h2>
             <div style=" font-size: 1.3rem ">
                 <p>Congratulations! Your account was successfully created!</p>
