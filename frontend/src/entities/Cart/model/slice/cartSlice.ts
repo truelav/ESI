@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import produce from "immer";
+import { throttle } from "lodash"
 
 interface Product {
     _id: string;
@@ -43,6 +43,8 @@ const addToLocalStorage = (product) => {
 
     localStorage.setItem(_id, JSON.stringify(product))
 }
+
+// const saveCartDataThrottled = throttle(saveCartData, 2000)
 
 
 const removeFromLocalStorage = (_id) => {

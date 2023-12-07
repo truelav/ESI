@@ -12,6 +12,7 @@ import CardComponent, {
 import { CardTextComponent } from "../../../../shared/ui/Product/Card/CardText";
 
 import fallback_image from "/fallback_image.jpeg";
+import AddToCart from "../../../../features/cart/addToCart/AddToCartFeature";
 
 interface ProductListPropsItem {
     className?: string;
@@ -28,12 +29,12 @@ export const ProductListItem = memo((props: ProductListPropsItem) => {
             additionalClassNames="Dash_ProductListItem"
         >
             <Grid templateColumns="repeat(12, 1fr)" gap={4}>
-                <GridItem colSpan={3}>
+                <GridItem colSpan={2}>
                     <Image
                         src={product?.images}
                         fallbackSrc={fallback_image}
                         alt={product?.brand}
-                        boxSize="100px"
+                        boxSize="125px"
                         objectFit="contain"
                     />
                 </GridItem>
@@ -42,7 +43,7 @@ export const ProductListItem = memo((props: ProductListPropsItem) => {
                     <CardTextComponent>{product?.brand}</CardTextComponent>
                 </GridItem>
 
-                <GridItem colSpan={2}>
+                <GridItem colSpan={1}>
                     <CardTextComponent>{product?.model}</CardTextComponent>
                 </GridItem>
 
@@ -55,11 +56,16 @@ export const ProductListItem = memo((props: ProductListPropsItem) => {
                 <GridItem colSpan={2}>
                     <CardTextComponent>{product?.upc}</CardTextComponent>
                 </GridItem>
+{/* 
+                <GridItem colSpan={1}>
 
-                <GridItem colSpan={2}>
+                </GridItem> */}
+
+                <GridItem colSpan={3}>
                     <Link to={`/products/${product?._id}`}>
                         <Button>Learn More</Button>
                     </Link>
+                    <AddToCart product={product}/>
                 </GridItem>
             </Grid>
         </CardComponent>
