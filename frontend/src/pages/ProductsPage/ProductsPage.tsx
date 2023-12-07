@@ -1,9 +1,7 @@
 import { useState, useMemo } from "react";
-import { useDispatch } from "react-redux";
 import { Grid, GridItem } from "@chakra-ui/react";
 
 import { useGetAllProductsQuery } from "../../app/api/apiSlice";
-import { setTotalProducts } from "../../entities/Product/model/slice/productSlice";
 
 import { ProductList } from "../../entities/Product/ui/ProductList/ProductList";
 import { Product } from "../../entities/Product/model/types/product";
@@ -27,10 +25,10 @@ const ProductsPage = () => {
     const [sortBy, setSortBy] = useState("");
 
     // const setProductsData = () => {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        // dispatch(setTotalProducts(products.length));
-        // dispatch(setProducts(products))
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    // dispatch(setTotalProducts(products.length));
+    // dispatch(setProducts(products))
     // };
 
     const filteredAndSortedProducts = useMemo(() => {
@@ -85,7 +83,6 @@ const ProductsPage = () => {
     }
 
     if (isSuccess) {
-
         content = (
             <div className="dash_products_page_wrapper">
                 <Grid templateColumns="repeat(12, 1fr)" gap={4}>
@@ -100,7 +97,7 @@ const ProductsPage = () => {
                             searchTerm={searchTerm}
                             setSearchTerm={setSearchTerm}
                         />
-                        
+
                         <ProductSortBar sortBy={sortBy} setSortBy={setSortBy} />
                         <ProductList products={filteredAndSortedProducts} />
                     </GridItem>

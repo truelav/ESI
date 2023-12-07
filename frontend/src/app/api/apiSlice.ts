@@ -182,6 +182,7 @@ export const apiSlice = createApi({
                 body: products,
             }),
         }),
+
         addToCart: builder.mutation<unknown, void>({
             query: (products) => ({
                 url: `/order`,
