@@ -14,12 +14,8 @@ export const addMultipleProducts = async (req, res, next) => {
       .createReadStream(buffer)
       .pipe(parse({ delimiter: ",", ignoreEmpty: true }))
       .on("data", (row) => {
-        console.log(row)
-        let numPrice
 
-        if(row.Price && typeof(row.Price) === "string" && row.Price[0] === "$"){
-          numPrice = Number(row.Price.slice(1))
-        }
+        let numPrice = transformPrice(row.Price)
 
         const product = new Product({
           brand: row.Brand,
@@ -33,7 +29,6 @@ export const addMultipleProducts = async (req, res, next) => {
           images: row.images,
         });
 
-        console.log(product)
         newProducts.push(product);
       })
       .on("end", async () => {
