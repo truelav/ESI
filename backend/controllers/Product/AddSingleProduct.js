@@ -4,28 +4,26 @@ import Product from "../../models/Product/Product.js";
 
 export const addSingleProduct = async (req, res, next) => {
     const {
-        name,
         brand,
+        model,
         description,
         category,
         subcategory,
-        quantity,
-        price,
-        model,
         upc,
+        price,
+        quantity,
     } = req.body;
 
     try {
         const newProduct = new Product({
-            name,
             brand,
+            model,
             description,
             category,
             subcategory,
-            quantity,
-            price,
-            model,
             upc,
+            price,
+            quantity,
             images: "http://localhost:8888/static/images/" + req.file?.filename || 'fallback_image.jpeg',
         });
 

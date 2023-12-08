@@ -3,8 +3,9 @@ import parse from "csv-parser";
 import createError from 'http-errors';
 import { HTTPStatusCodes } from '../../utils/constants.js';
 import Product from "../../models/Product/Product.js";
+import { transformPrice } from "../../utils/transformPrice.js";
 
-export const addMultipleProducts = async (req, res) => {
+export const addMultipleProducts = async (req, res, next) => {
   try {
     const { buffer } = req.file;
     const newProducts = [];
@@ -13,19 +14,26 @@ export const addMultipleProducts = async (req, res) => {
       .createReadStream(buffer)
       .pipe(parse({ delimiter: ",", ignoreEmpty: true }))
       .on("data", (row) => {
+        console.log(row)
+        let numPrice
+
+        if(row.Price && typeof(row.Price) === "string" && row.Price[0] === "$"){
+          numPrice = Number(row.Price.slice(1))
+        }
+
         const product = new Product({
-          name: row.Name,
           brand: row.Brand,
           model: row.Model,
-          price: row.Price,
           description: row.Description,
           category: row.Category,
           subcategory: row.subcategory,
+          upc: row.UPC || 'No UPC Provided',
+          price: numPrice || 1,
           quantity: row["Qty's"],
           images: row.images,
-          upc: row.UPC || 'No UPC Provided',
         });
-        //  console.log(product)
+
+        console.log(product)
         newProducts.push(product);
       })
       .on("end", async () => {
@@ -34,7 +42,6 @@ export const addMultipleProducts = async (req, res) => {
             filter: { model: product.model },
             update: {
               $set: {
-                name: product.name,
                 brand: product.brand,
                 model: product.model,
                 price: product.price,
@@ -57,8 +64,8 @@ export const addMultipleProducts = async (req, res) => {
               .json(`success, all ${newProducts.length} were added, ${result}`);
           })
           .catch((error) => {
-            console.error(error);
-            res.status(500).send("Internal Server Error");
+            console.log(error);
+            next(createError(HTTPStatusCodes.InternalServerError, error.message));
           });
       });
   } catch (error) {

@@ -27,6 +27,7 @@ const ProductSchema = new Schema(
         },
         price: {
             type: Number,
+            default: 1,
         },
         images: {
             type: String,
@@ -38,7 +39,7 @@ const ProductSchema = new Schema(
         },
         isActive: {
             type: Boolean,
-            default: true,
+            default: false,
         },
     },
     { timestamps: true }

@@ -115,11 +115,6 @@ export const sendDeleteUserEmail = async (email) => {
 
 
 export const sendPlaceOrderEmail = async (email, products) => {
-    // const productsContent = (
-    //     products.map((product) => {
-
-    //     })
-    // )
 
     let htmlContent = (`
         <div style="max-width: 700px; margin:auto; border: 10px solid #ddd; padding: 50px 20px; font-size: 110%;">
