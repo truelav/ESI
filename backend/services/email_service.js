@@ -114,36 +114,22 @@ export const sendDeleteUserEmail = async (email) => {
 
 
 
-export const sendPlaceOrderEmail = async (email, cart) => {
+export const sendPlaceOrderEmail = async (email, products) => {
+    // const productsContent = (
+    //     products.map((product) => {
+
+    //     })
+    // )
 
     let htmlContent = (`
         <div style="max-width: 700px; margin:auto; border: 10px solid #ddd; padding: 50px 20px; font-size: 110%;">
             <h2
             style="text-align: center; text-transform: uppercase;color: teal;"
             >
-                A new order was places.
+                A new order was placed.
             </h2>
             <div style=" font-size: 1.3rem ">
-                <p>Congratulations! Your account was successfully created!</p>
-                <p> click the button below go to ESI Products Page </p>
-                <a
-                    href="http://localhost:5173"
-                    style="background: crimson; text-decoration: none; color: white; padding: 10px 30px; margin: 10px 0; display: inline-block;  border-radius: 6px;"
-                >
-                    Go to website
-                </a>
-                <p style="color:#455056; font-size:15px;line-height:24px; margin:0;">
-                    Your login email is : 
-                    <span style="color: #4A35EA;">
-                        ${email}
-                    </span>
-                </p>
-                <p style="color:#455056; font-size:15px;line-height:24px; margin:0;">
-                    Your login password is : 
-                    <span style="color: #4A35EA;">
-                        ${password}
-                    </span>
-                </p>
+                Go to <a href="http://localhost:5173/dashboard"> admin/order </a> to view the order.
             </div>
         </div>
     `)
@@ -151,7 +137,7 @@ export const sendPlaceOrderEmail = async (email, cart) => {
     const emailContent = {
       from: emailConfig.auth.user,
       to: email,
-      subject: 'ESI Account Created',
+      subject: 'ESI an order was placed',
       html: htmlContent,
     };
   

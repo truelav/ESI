@@ -30,6 +30,7 @@ const UserSchema = new Schema(
       type: String,
       required: true,
     },
+    orders: [],
     phone: String,
   },
   { timestamps: true }
