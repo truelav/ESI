@@ -21,8 +21,8 @@ const CartPage = () => {
     } else {
         cartContent = (
             <>
-                <CartProductList cart={cart} />
-                <CartOrderSummary cart={cart}/>
+                <CartProductList />
+                <CartOrderSummary />
             </>
         )
     }

@@ -9,3 +9,7 @@ export interface CartProps {
     products: CartProductsInterface[],
     totalAmount: number
 }
+
+export interface CartProductsList {
+
+}

@@ -8,7 +8,6 @@ import CardComponent, { CardVariants } from "../../../../shared/ui/Product/Card/
 import { CardTextComponent } from "../../../../shared/ui/Product/Card/CardText";
 
 import fallback_image from "/fallback_image.jpeg";
-import { useState } from "react";
 
 interface ProductListItem {
     className?: string;
@@ -26,6 +25,9 @@ export const CartListItem = (props: CartProductProps) => {
     const dispatch = useDispatch()
     const { product } = props.product;
     const { cartQuantity } = props.product
+    const { price } = product
+
+    const subTotal = price * cartQuantity
 
     const handleRemoveProductFromCart = () => {
         dispatch(removeProductFromCart(product._id))
@@ -65,7 +67,7 @@ export const CartListItem = (props: CartProductProps) => {
                 </GridItem>
 
                 <GridItem colSpan={1}>
-                    <CardTextComponent>${ (cartQuantity || 1) * (product?.price || 1)  }</CardTextComponent>
+                    <CardTextComponent>${ subTotal }</CardTextComponent>
                 </GridItem>
 
                 <GridItem colSpan={1}>

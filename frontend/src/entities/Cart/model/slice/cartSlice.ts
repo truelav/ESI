@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { throttle } from "lodash"
 
 interface Product {
     _id: string;
@@ -31,30 +30,6 @@ const initialState: CartState =  {
     totalAmount: 0
 }
 
-const addToLocalStorage = (product) => {
-    console.log(product)
-    const { _id } = product.product
-
-    const storageProduct = JSON.parse(localStorage.getItem(_id))
-
-    if(storageProduct){
-        storageProduct.cartQuantity = product.cartQuantity
-    }
-
-    localStorage.setItem(_id, JSON.stringify(product))
-}
-
-// const saveCartDataThrottled = throttle(saveCartData, 2000)
-
-
-const removeFromLocalStorage = (_id) => {
-    const storageProduct = JSON.parse(localStorage.getItem(_id))
-
-    if(storageProduct){
-        localStorage.removeItem(_id)
-    }
-}
-
 const cartSlice = createSlice({
     name: "cart",
     initialState,
@@ -72,14 +47,12 @@ const cartSlice = createSlice({
                 // state.products.push({id: cartProd.product._id});
                 state.products.push(cartProd);
             }   
-            addToLocalStorage(cartProd)
         },
 
         removeProductFromCart: (state, action) => {
             const prodId: string = action.payload;
             console.log(prodId)
             state.products = state.products.filter(({ product }) => product._id !== prodId );
-            removeFromLocalStorage(prodId)
         },
 
         updateCart: (state, action) => {

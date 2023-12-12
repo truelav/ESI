@@ -1,5 +1,5 @@
 import { Grid, GridItem, Button } from "@chakra-ui/react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import CardComponent, {
     CardVariants,
 } from "../../../../shared/ui/Product/Card/CardComponent";
@@ -7,14 +7,12 @@ import { CardTextComponent } from "../../../../shared/ui/Product/Card/CardText";
 import { clearCart } from "../../model/slice/cartSlice";
 
 export const CartListHeader = () => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    const cart = useSelector((state) => state.cart);
+
     const dispatch = useDispatch()
     const handleClearCart = () => {
         dispatch(clearCart())
     }
-    console.log(cart)
+
     return (
         <CardComponent
             cardVariant={CardVariants.outline}
