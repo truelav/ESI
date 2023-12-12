@@ -41,11 +41,12 @@ const cartSlice = createSlice({
             const index = state.products.findIndex(({ product }) => product._id === cartProd.product._id)
             // console.log(index)
             if (index > -1) {
-                state.totalAmount++
+                state.totalAmount += 1 
                 state.products[index].cartQuantity++
             } else {
                 // state.products.push({id: cartProd.product._id});
                 state.products.push(cartProd);
+                state.totalAmount = 1
             }   
         },
 
