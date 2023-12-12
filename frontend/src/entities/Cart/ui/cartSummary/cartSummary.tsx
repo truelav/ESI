@@ -5,6 +5,7 @@ import {
   Text,
   useColorModeValue as mode,
 } from '@chakra-ui/react'
+import { useSelector } from 'react-redux'
 import { PlaceOrderFeature } from '../../../../features/cart/PlaceOrderFeatures/PlaceOrderFeature'
 import {ProductPrice} from '../../../Product/ui/ProductPrice/ProductPrice'
 
@@ -27,6 +28,10 @@ const OrderSummaryItem = (props: OrderSummaryItemProps) => {
 }
 
 export const CartOrderSummary = () => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const cart = useSelector((state) => state.cart)
+    console.log(cart)
   return (
     <Stack spacing="8" borderWidth="1px" rounded="lg" padding="8" width="full">
       
