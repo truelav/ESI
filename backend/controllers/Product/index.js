@@ -1,5 +1,6 @@
 
 export {getSingleProduct} from './GetSingleProduct.js'
+export {getBrandedProducts} from './GetBrandedProducts.js'
 export {getAllProducts} from './GetAllProducts.js'
 export {addSingleProduct} from './AddSingleProduct.js'
 export {addMultipleProducts} from './AddMultipleProducts.js'

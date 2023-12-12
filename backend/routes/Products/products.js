@@ -8,6 +8,7 @@ const router = express.Router();
 router.delete("/image/:id", ProductControllers.deleteProductImage);
 
 router.get("/", ProductControllers.getAllProducts);
+router.get("/brandedProducts", ProductControllers.getBrandedProducts);
 router.get("/:id", ProductControllers.getSingleProduct);
 router.put("/", ProductControllers.editMultipleProducts);
 router.delete("/:id", ProductControllers.deleteSingleProduct);

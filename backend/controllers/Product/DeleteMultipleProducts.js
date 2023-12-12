@@ -21,6 +21,7 @@ export const deleteMultipleProducts = async (req, res, next) => {
       } 
       // delete image
       const { images } = product
+      
       // fallback image
       const backend_fallback_image = "http://localhost:8888/static/images/fallback_image.jpeg"
       const frontend_fallback_image = "/fallback_image.jpeg"

@@ -15,7 +15,9 @@ import { HTTPStatusCodes } from "../../utils/constants.js";
 export const login = async (req, res) => {
   const { email, password } = req.body;
   try {
+
     const user = await User.findOne({ email });
+    
     if (!user) {
       return next(createError(HTTPStatusCodes.NotFound, `User with ${email} not found`))
     }

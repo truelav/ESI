@@ -1,15 +1,14 @@
-import { Product } from "../../../Product/model/types/product";
+import { useSelector } from "react-redux";
+import { CartProductsInterface } from "../../model/types/Cart";
 import { CartListHeader } from "../cartListHeader/cartListHeader";
 import { CartListItem } from "../cartProductListItem/CartProductListItem";
 
-// interface cartProduct {
-//     product: Product,
-//     cartQuantity: number
-// }
 
-export const CartProductList = (props: { products: Product[] | never[] }) => {
-    const { products } = props;
-
+export const CartProductList = () => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const products = useSelector((state) => state.cart.products)
+    console.log(products)
     return (
         <>
             <h2>Cart Products: </h2>
@@ -17,8 +16,8 @@ export const CartProductList = (props: { products: Product[] | never[] }) => {
                 <CartListHeader />
             </div>
             <div>
-                {products.map((product : Product) => (
-                    <CartListItem key={"" + product?.product._id} product={product} />
+                {products.map((product: CartProductsInterface) => (
+                    <CartListItem key={`${product?.product._id}`} product={product} cartQuantity={product.cartQuantity}/>
                 ))}
             </div>
         </>

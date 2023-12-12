@@ -1,24 +1,19 @@
 import { Button, Grid, GridItem, Image } from "@chakra-ui/react";
+import { useDispatch } from "react-redux";
 import { FaTrash } from "react-icons/fa";
 import { removeProductFromCart } from "../../model/slice/cartSlice";
-import {
-    ProductView,
-    Product,
-} from "../../../../entities/Product/model/types/product";
+import { ProductView, Product } from "../../../../entities/Product/model/types/product";
 
-import CardComponent, {
-    CardVariants,
-} from "../../../../shared/ui/Product/Card/CardComponent";
+import CardComponent, { CardVariants } from "../../../../shared/ui/Product/Card/CardComponent";
 import { CardTextComponent } from "../../../../shared/ui/Product/Card/CardText";
 
 import fallback_image from "/fallback_image.jpeg";
-import { useDispatch } from "react-redux";
 
 interface ProductListItem {
     className?: string;
     product: Product;
     view?: ProductView;
-    cartQuantity?: number;
+    cartQuantity: number;
 }
 
 interface CartProductProps {
@@ -30,6 +25,11 @@ export const CartListItem = (props: CartProductProps) => {
     const dispatch = useDispatch()
     const { product } = props.product;
     const { cartQuantity } = props.product
+    const { price } = product
+    
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const subTotal: number = price * cartQuantity
 
     const handleRemoveProductFromCart = () => {
         dispatch(removeProductFromCart(product._id))
@@ -43,6 +43,8 @@ export const CartListItem = (props: CartProductProps) => {
             <Grid templateColumns="repeat(12, 1fr)" gap={4}>
                 <GridItem colSpan={2}>
                     <Image
+                        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                        // @ts-ignore
                         src={product?.images}
                         fallbackSrc={fallback_image}
                         alt={product?.brand}
@@ -60,16 +62,19 @@ export const CartListItem = (props: CartProductProps) => {
 
                 <GridItem colSpan={2}>
                     <CardTextComponent>
-                        {product.price}
+                        ${product.price}.00
                     </CardTextComponent>
                 </GridItem>
 
-
-                <GridItem colSpan={2}>
+                <GridItem colSpan={1}>
                     <CardTextComponent>X{ cartQuantity }</CardTextComponent>
                 </GridItem>
 
-                <GridItem colSpan={2}>
+                <GridItem colSpan={1}>
+                    <CardTextComponent>${ subTotal }</CardTextComponent>
+                </GridItem>
+
+                <GridItem colSpan={1}>
                     <Button onClick={handleRemoveProductFromCart}>
                         <FaTrash />
                     </Button>

@@ -6,10 +6,10 @@ import { CartOrderSummary } from "../../entities/Cart/ui/cartSummary/CartSummary
 const CartPage = () => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    const products = useSelector((state) => state.cart.products);
+    const cart = useSelector((state) => state.cart);
     let cartContent = <></>
 
-    if(products.length === 0){
+    if(cart.products.length === 0){
         cartContent = (
             <>
                 <Heading>
@@ -21,7 +21,7 @@ const CartPage = () => {
     } else {
         cartContent = (
             <>
-                <CartProductList products={products} />
+                <CartProductList />
                 <CartOrderSummary />
             </>
         )

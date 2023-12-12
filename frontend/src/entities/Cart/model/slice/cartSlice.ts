@@ -41,11 +41,12 @@ const cartSlice = createSlice({
             const index = state.products.findIndex(({ product }) => product._id === cartProd.product._id)
             // console.log(index)
             if (index > -1) {
-                state.totalAmount++
+                state.totalAmount += 1 
                 state.products[index].cartQuantity++
             } else {
                 // state.products.push({id: cartProd.product._id});
                 state.products.push(cartProd);
+                state.totalAmount = 1
             }   
         },
 
@@ -55,7 +56,7 @@ const cartSlice = createSlice({
             state.products = state.products.filter(({ product }) => product._id !== prodId );
         },
 
-        setProductNumber: (state, action) => {
+        updateCart: (state, action) => {
             const { productId, quantity } = action.payload;
             {/* 
                eslint-disable-next-line @typescript-eslint/ban-ts-comment */} 
@@ -77,5 +78,5 @@ const cartSlice = createSlice({
     },
 });
 
-export const {  addProductToCart,  removeProductFromCart, setProductNumber, clearCart} = cartSlice.actions;
+export const { addProductToCart,  removeProductFromCart, updateCart, clearCart } = cartSlice.actions;
 export default cartSlice.reducer;

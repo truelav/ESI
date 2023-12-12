@@ -1,14 +1,12 @@
-
 import {
-  Button,
   Flex,
   Heading,
-  Link,
   Stack,
   Text,
   useColorModeValue as mode,
 } from '@chakra-ui/react'
-import { FaArrowRight } from 'react-icons/fa'
+import { useSelector } from 'react-redux'
+import { PlaceOrderFeature } from '../../../../features/cart/PlaceOrderFeatures/PlaceOrderFeature'
 import {ProductPrice} from '../../../Product/ui/ProductPrice/ProductPrice'
 
 type OrderSummaryItemProps = {
@@ -30,17 +28,17 @@ const OrderSummaryItem = (props: OrderSummaryItemProps) => {
 }
 
 export const CartOrderSummary = () => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const cart = useSelector((state) => state.cart)
+    console.log(cart)
   return (
     <Stack spacing="8" borderWidth="1px" rounded="lg" padding="8" width="full">
+      
       <Heading size="md">Order Summary</Heading>
 
       <Stack spacing="6">
         <OrderSummaryItem label="Subtotal" value={ProductPrice(597)} />
-        {/* <OrderSummaryItem label="Shipping + Tax">
-          <Link href="#" textDecor="underline">
-            Calculate shipping
-          </Link>
-        </OrderSummaryItem> */}
         <Flex justify="space-between">
           <Text fontSize="lg" fontWeight="semibold">
             Total
@@ -50,9 +48,9 @@ export const CartOrderSummary = () => {
           </Text>
         </Flex>
       </Stack>
-      <Button colorScheme="blue" size="lg" fontSize="md" rightIcon={<FaArrowRight />}>
-        Send Order
-      </Button>
+
+      <PlaceOrderFeature />
+
     </Stack>
   )
 }

@@ -30,33 +30,8 @@ export const apiSlice = createApi({
         }),
 
         getGroupedProducts: builder.query<GroupedProducts[], void>({
-            query: () => `/products`,
-            // @ts-nocheck
-            /* eslint-disable-next-line */
-            transformResponse: (response: Product[]) => {
-                // Modify the response data as needed
-                const groupedProducts: { [brand: string]: Product[] } = {};
-
-                response.forEach((product: Product) => {
-                    const { brand } = product;
-                    // if (!groupedProducts[brand]) {
-                    // }
-
-                    groupedProducts[brand] = [];
-                    groupedProducts[brand].push(product);
-                });
-
-                // // Convert the grouped products into an array of objects
-                const transformedData = Object.entries(groupedProducts).map(
-                    ([brand, products]) => ({
-                        brand,
-                        products,
-                    })
-                );
-
-                return transformedData;
-            },
-            // providesTags: [{ type: "Products", id: "List" }],
+            query: () => `/products/brandedProducts`,
+            providesTags: [{ type: "Products", id: "List" }],
         }),
 
         getSingleProduct: builder.query<Product, string | undefined>({
@@ -177,7 +152,7 @@ export const apiSlice = createApi({
         // Cart Routes
         placeOrder: builder.mutation<unknown, void>({
             query: (products) => ({
-                url: `/order`,
+                url: `/cart/placeOrder`,
                 method: "POST",
                 body: products,
             }),
