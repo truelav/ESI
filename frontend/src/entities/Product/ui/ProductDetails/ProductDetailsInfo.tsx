@@ -24,7 +24,7 @@ export const ProductDetailsInfo: React.FC<ProductProps> = ({ product } ) => {
                     {description}
                 </Text>
                 <Text color='blue.600' fontSize='2xl'>
-                    {price}
+                    ${price}.00
                 </Text>
                 <Text>
                     UPC: {upc}

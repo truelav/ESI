@@ -8,6 +8,7 @@ import CardComponent, { CardVariants } from "../../../../shared/ui/Product/Card/
 import { CardTextComponent } from "../../../../shared/ui/Product/Card/CardText";
 
 import fallback_image from "/fallback_image.jpeg";
+import { useState } from "react";
 
 interface ProductListItem {
     className?: string;
@@ -55,16 +56,19 @@ export const CartListItem = (props: CartProductProps) => {
 
                 <GridItem colSpan={2}>
                     <CardTextComponent>
-                        {product.price}
+                        ${product.price}.00
                     </CardTextComponent>
                 </GridItem>
 
-
-                <GridItem colSpan={2}>
+                <GridItem colSpan={1}>
                     <CardTextComponent>X{ cartQuantity }</CardTextComponent>
                 </GridItem>
 
-                <GridItem colSpan={2}>
+                <GridItem colSpan={1}>
+                    <CardTextComponent>${ (cartQuantity || 1) * (product?.price || 1)  }</CardTextComponent>
+                </GridItem>
+
+                <GridItem colSpan={1}>
                     <Button onClick={handleRemoveProductFromCart}>
                         <FaTrash />
                     </Button>

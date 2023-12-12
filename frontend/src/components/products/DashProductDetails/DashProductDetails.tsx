@@ -25,7 +25,7 @@ export const DashProductDetails = memo(( props : EditProductFormProps) => {
         description: "",
         subcategory: "",
         price: "",
-        quantity: 0,
+        quantity: "",
         images: null,
         upc: "",
         category: "",
@@ -35,6 +35,8 @@ export const DashProductDetails = memo(( props : EditProductFormProps) => {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         setFormData({...product})
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         setImagePreview(product.images)
         // if(formData.price === undefined){
             //     formData.price = "$0"
@@ -58,6 +60,8 @@ export const DashProductDetails = memo(( props : EditProductFormProps) => {
             const reader = new FileReader();
       
             reader.onloadend = () => {
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore
               setImagePreview(reader.result);
             };
       

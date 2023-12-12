@@ -49,7 +49,7 @@ export const ProductListItem = memo((props: ProductListPropsItem) => {
 
                 <GridItem colSpan={1}>
                     <CardTextComponent>
-                        {product.price}
+                        ${product.price}.00
                     </CardTextComponent>
                 </GridItem>
 
