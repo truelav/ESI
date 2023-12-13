@@ -16,19 +16,20 @@ interface Product {
 }
 
 interface CartProduct {
-    product: Product
-    cartQuantity: number
+    product: Product;
+    cartQuantity: number;
+    subTotal: number;
 }
 
 interface CartState {
-    products: CartProduct[],
-    totalAmount: number
+    products: CartProduct[];
+    totalAmount: number;
 }
 
-const initialState: CartState =  {
+const initialState: CartState = {
     products: [],
-    totalAmount: 0
-}
+    totalAmount: 0,
+};
 
 const cartSlice = createSlice({
     name: "cart",
@@ -36,47 +37,56 @@ const cartSlice = createSlice({
     reducers: {
         addProductToCart: (state, action) => {
             const cartProd: CartProduct = action.payload;
+            const { cartQuantity } = cartProd;
+            const { price } = cartProd.product;
+            const subTotal = price * cartQuantity;
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
-            const index = state.products.findIndex(({ product }) => product._id === cartProd.product._id)
+            const index = state.products.findIndex(
+                ({ product }) => product._id === cartProd.product._id
+            );
             // console.log(index)
             if (index > -1) {
-                state.totalAmount += 1 
-                state.products[index].cartQuantity++
+                state.totalAmount += subTotal;
+                state.products[index].cartQuantity++;
             } else {
                 // state.products.push({id: cartProd.product._id});
                 state.products.push(cartProd);
-                state.totalAmount = 1
-            }   
+                state.totalAmount += subTotal;
+            }
         },
 
         removeProductFromCart: (state, action) => {
             const prodId: string = action.payload;
-            console.log(prodId)
-            state.products = state.products.filter(({ product }) => product._id !== prodId );
+            state.products = state.products.filter(
+                ({ product }) => product._id !== prodId
+            );
         },
 
         updateCart: (state, action) => {
             const { productId, quantity } = action.payload;
-            {/* 
-               eslint-disable-next-line @typescript-eslint/ban-ts-comment */} 
-              {/* 
-              // @ts-ignore */}
-            const cartItem = state.products.find((product) => product._id === productId);
-      
+            const cartItem = state.products.find(
+                (product) => product._id === productId
+            );
+
             if (cartItem) {
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-              cartItem.quantity = quantity;
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore
+                cartItem.quantity = quantity;
             }
         },
         clearCart: (state) => {
-            console.log(state)
+            console.log(state);
             state.products = [];
-            state.totalAmount = 0
+            state.totalAmount = 0;
         },
     },
 });
 
-export const { addProductToCart,  removeProductFromCart, updateCart, clearCart } = cartSlice.actions;
+export const {
+    addProductToCart,
+    removeProductFromCart,
+    updateCart,
+    clearCart,
+} = cartSlice.actions;
 export default cartSlice.reducer;

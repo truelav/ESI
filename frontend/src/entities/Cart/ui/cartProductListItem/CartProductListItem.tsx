@@ -2,9 +2,14 @@ import { Button, Grid, GridItem, Image } from "@chakra-ui/react";
 import { useDispatch } from "react-redux";
 import { FaTrash } from "react-icons/fa";
 import { removeProductFromCart } from "../../model/slice/cartSlice";
-import { ProductView, Product } from "../../../../entities/Product/model/types/product";
+import {
+    ProductView,
+    Product,
+} from "../../../../entities/Product/model/types/product";
 
-import CardComponent, { CardVariants } from "../../../../shared/ui/Product/Card/CardComponent";
+import CardComponent, {
+    CardVariants,
+} from "../../../../shared/ui/Product/Card/CardComponent";
 import { CardTextComponent } from "../../../../shared/ui/Product/Card/CardText";
 
 import fallback_image from "/fallback_image.jpeg";
@@ -22,18 +27,18 @@ interface CartProductProps {
 }
 
 export const CartListItem = (props: CartProductProps) => {
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
     const { product } = props.product;
-    const { cartQuantity } = props.product
-    const { price } = product
-    
+    const { cartQuantity } = props.product;
+    const { price } = product;
+
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    const subTotal: number = price * cartQuantity
+    const subTotal: number = price * cartQuantity;
 
     const handleRemoveProductFromCart = () => {
-        dispatch(removeProductFromCart(product._id))
-    }
+        dispatch(removeProductFromCart(product._id));
+    };
 
     return (
         <CardComponent
@@ -53,25 +58,24 @@ export const CartListItem = (props: CartProductProps) => {
                     />
                 </GridItem>
 
-                <GridItem colSpan={3}>
-                    <CardTextComponent>{product?.brand} : {product?.model}</CardTextComponent>
-                </GridItem>
-
-                <GridItem colSpan={1}>
-                </GridItem>
-
                 <GridItem colSpan={2}>
                     <CardTextComponent>
-                        ${product.price}.00
+                        {product?.brand} : {product?.model}
                     </CardTextComponent>
                 </GridItem>
 
-                <GridItem colSpan={1}>
-                    <CardTextComponent>X{ cartQuantity }</CardTextComponent>
+                <GridItem colSpan={1}></GridItem>
+
+                <GridItem colSpan={2}>
+                    <CardTextComponent>${product.price}.00</CardTextComponent>
                 </GridItem>
 
                 <GridItem colSpan={1}>
-                    <CardTextComponent>${ subTotal }</CardTextComponent>
+                    <CardTextComponent>X{cartQuantity}</CardTextComponent>
+                </GridItem>
+
+                <GridItem colSpan={2}>
+                    <CardTextComponent>${subTotal}</CardTextComponent>
                 </GridItem>
 
                 <GridItem colSpan={1}>

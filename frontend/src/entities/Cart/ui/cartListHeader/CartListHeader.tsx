@@ -7,11 +7,10 @@ import { CardTextComponent } from "../../../../shared/ui/Product/Card/CardText";
 import { clearCart } from "../../model/slice/cartSlice";
 
 export const CartListHeader = () => {
-
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
     const handleClearCart = () => {
-        dispatch(clearCart())
-    }
+        dispatch(clearCart());
+    };
 
     return (
         <CardComponent
@@ -19,27 +18,33 @@ export const CartListHeader = () => {
             additionalClassNames="Dash_ProductListItem"
         >
             <Grid templateColumns="repeat(12, 1fr)" gap={4}>
-                <GridItem colSpan={2}>
-                </GridItem>
+                <GridItem colSpan={2}></GridItem>
 
-                <GridItem colSpan={3}>
+                <GridItem colSpan={2}>
                     <CardTextComponent>Brand Model</CardTextComponent>
                 </GridItem>
 
-                <GridItem colSpan={1}>
-                </GridItem>
+                <GridItem colSpan={1}></GridItem>
 
                 <GridItem colSpan={2}>
                     <CardTextComponent> Price </CardTextComponent>
                 </GridItem>
 
-                <GridItem colSpan={2}>
+                <GridItem colSpan={1}>
                     <CardTextComponent> Quantity </CardTextComponent>
                 </GridItem>
 
                 <GridItem colSpan={2}>
+                    <CardTextComponent> Subtotal </CardTextComponent>
+                </GridItem>
+
+                <GridItem colSpan={2}>
                     {/* <CardTextComponent> Remove </CardTextComponent> */}
-                    <Button variant='solid' colorScheme='red' onClick={handleClearCart}>
+                    <Button
+                        variant="solid"
+                        colorScheme="red"
+                        onClick={handleClearCart}
+                    >
                         Clear Cart
                     </Button>
                 </GridItem>
