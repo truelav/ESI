@@ -151,10 +151,10 @@ export const apiSlice = createApi({
 
         // Cart Routes
         placeOrder: builder.mutation<unknown, void>({
-            query: (cart) => ({
+            query: (order) => ({
                 url: `/cart/placeOrder`,
                 method: "POST",
-                body: cart,
+                body: order,
             }),
         }),
 

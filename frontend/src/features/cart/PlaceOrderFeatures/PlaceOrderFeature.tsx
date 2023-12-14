@@ -6,11 +6,16 @@ import { usePlaceOrderMutation } from "../../../app/api/apiSlice"
 export const PlaceOrderFeature = () => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    const products = useSelector((state) => state.cart.products);
+    const cart = useSelector((state) => state.cart);
+    const profile = useSelector((state) => state.auth.profile)
+
     const [placeOrder,  { isLoading, error, isSuccess }] = usePlaceOrderMutation()
 
     const handlePlaceOrder = async () => {
-        placeOrder(products)
+        console.log(cart, profile)
+        const order = {cart, profile}
+        const result = await placeOrder(order)
+        console.log(result)
     }
 
     if (isSuccess) {

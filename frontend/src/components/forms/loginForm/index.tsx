@@ -15,6 +15,8 @@ import { Formik, Form, Field } from "formik";
 import { useCookies } from "react-cookie";
 import { useLoginMutation } from "../../../app/api/apiSlice";
 import { FormResult } from "../FormResult/FormResult";
+import { useDispatch } from "react-redux";
+import { setCredentials } from "../../../features/auth/slice/authSlice";
 // import logo from "/logo.png";
 // import { OAuthButtonGroup } from "./OAuthButtonGroup";
 // import { PasswordField } from "./PasswordField";
@@ -44,8 +46,9 @@ export function LoginForm() {
       isSuccess: isSuccessLogin 
     }
   ] = useLoginMutation();
-  const [cookies, setCookie] = useCookies(["authToken"]);
+  const dispatch = useDispatch()
   const navigate = useNavigate();
+  const [cookies, setCookie] = useCookies(["authToken"]);
 
   let content = <></>
 
@@ -109,11 +112,13 @@ export function LoginForm() {
                 password: "",
               }}
               onSubmit={async (values, actions) => {
+
                 const response = await login(values).unwrap();
+
                 try {
-                  const { accessToken } = response;
+                  const { accessToken, userDto } = response;
                   setCookie("authToken", accessToken, { path: "/" });
-                  console.log(response);
+                  dispatch(setCredentials({accessToken, userDto}))
                   actions.resetForm();
                   navigate("/products");
                 } catch(err){
