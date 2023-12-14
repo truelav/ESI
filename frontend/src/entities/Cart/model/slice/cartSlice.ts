@@ -89,4 +89,5 @@ export const {
     updateCart,
     clearCart,
 } = cartSlice.actions;
+
 export default cartSlice.reducer;
