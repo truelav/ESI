@@ -12,8 +12,10 @@ import { HTTPStatusCodes } from "../../utils/constants.js";
 
 
 
-export const login = async (req, res) => {
+export const login = async (req, res, next) => {
+
   const { email, password } = req.body;
+
   try {
 
     const user = await User.findOne({ email });
@@ -43,6 +45,7 @@ export const login = async (req, res) => {
       refreshToken,
       userDto,
     });
+    
   } catch (error) {
     next(createError(HTTPStatusCodes.InternalServerError, error.message));
   }
