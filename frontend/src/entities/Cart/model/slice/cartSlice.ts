@@ -21,7 +21,7 @@ interface CartProduct {
     subTotal: number;
 }
 
-interface CartState {
+export interface CartState {
     products: CartProduct[];
     totalAmount: number;
 }

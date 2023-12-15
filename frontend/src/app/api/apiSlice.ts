@@ -2,6 +2,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { Product } from "../../entities/Product/model/types/product";
 import { FormDataProps } from "../../shared/ui/Modals/ImportProducts/ImportProductsModal";
+import { Order } from "./types/Cart/Order";
 import { GroupedProducts } from "./types/Product";
 import { User } from "./types/User/User";
 
@@ -150,7 +151,7 @@ export const apiSlice = createApi({
         }),
 
         // Cart Routes
-        placeOrder: builder.mutation<unknown, void>({
+        placeOrder: builder.mutation<unknown, Order>({
             query: (order) => ({
                 url: `/cart/placeOrder`,
                 method: "POST",
@@ -165,6 +166,7 @@ export const apiSlice = createApi({
                 body: products,
             }),
         }),
+
         removeFromCart: builder.mutation({
             query: (product) => ({
                 url: `/products`,

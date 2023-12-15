@@ -117,8 +117,10 @@ export function LoginForm() {
 
                 try {
                   const { accessToken, userDto } = response;
+
                   setCookie("authToken", accessToken, { path: "/" });
                   dispatch(setCredentials({accessToken, userDto}))
+                  
                   actions.resetForm();
                   navigate("/products");
                 } catch(err){

@@ -1,18 +1,20 @@
 import { Button } from "@chakra-ui/react"
 import { FaArrowRight } from 'react-icons/fa'
 import { useSelector } from "react-redux"
+import { useCookies } from "react-cookie"
 import { usePlaceOrderMutation } from "../../../app/api/apiSlice"
+import { jwtDecode } from "jwt-decode"
 
 export const PlaceOrderFeature = () => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     const cart = useSelector((state) => state.cart);
-    const profile = useSelector((state) => state.auth.profile)
-
+    // const profile = useSelector((state) => state.auth.profile)
+    const [cookies] = useCookies(["authToken"]);
     const [placeOrder,  { isLoading, error, isSuccess }] = usePlaceOrderMutation()
 
     const handlePlaceOrder = async () => {
-        console.log(cart, profile)
+        const profile = jwtDecode(cookies.authToken)
         const order = {cart, profile}
         const result = await placeOrder(order)
         console.log(result)
