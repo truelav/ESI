@@ -34,8 +34,9 @@ const LinkItems: Array<LinkItemProps> = [
     { name: "dashboard", icon: FiHome, link: "" },
     { name: "products", icon: FiCompass, link: "products" },
     { name: "presentation", icon: FiStar, link: "presentation" },
-    { name: "inventory", icon: FiTrendingUp, link: "inventory" },
+    { name: "orders", icon: FiTrendingUp, link: "orders" },
     { name: "users", icon: FiSettings, link: "users" },
+    { name: "inventory", icon: FiTrendingUp, link: "inventory" },
 ];
 
 export default function SimpleSidebar() {
@@ -185,24 +186,3 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
         </Flex>
     );
 };
-
-{
-    /* <NavLink to="/dashboard" className="sidebar-navlink">
-Dashboard
-</NavLink>
-<NavLink to="products" className="sidebar-navlink">
-Products
-</NavLink>
-<NavLink to="inventory" className="sidebar-navlink">
-Inventory
-</NavLink>
-<NavLink to="orders" className="sidebar-navlink">
-Orders
-</NavLink>
-<NavLink to="users" className="sidebar-navlink">
-Users
-</NavLink>
-<NavLink to="presentation" className="sidebar-navlink">
-Presentations
-</NavLink> */
-}
