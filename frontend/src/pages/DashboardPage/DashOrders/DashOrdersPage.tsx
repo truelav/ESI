@@ -1,10 +1,12 @@
-import { Container, Text } from "@chakra-ui/react"
+import { Container, Text } from "@chakra-ui/react";
 
-export const OrdersPage = () => {
+
+
+function DashOrders() {
     return (
         <>
             <Container>
-                <Text> Welcome to Orders Page</Text>
+                <Text> Welcome to Orders</Text>
             </Container>
             <Container>
                 <Text> Coming Soon</Text>
@@ -12,3 +14,5 @@ export const OrdersPage = () => {
         </>
     )
 }
+
+export default DashOrders

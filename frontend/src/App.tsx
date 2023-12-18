@@ -21,7 +21,7 @@ import DashUsersPage from "./pages/DashboardPage/DashUsersPage/DashUsersPage";
 import DashProductsPage from "./pages/DashboardPage/DashProductsPage/DashProductsPage";
 import DashProductDetailsPage from "./pages/DashboardPage/DashProductDetailsPage/DashProductDetailsPage";
 import DashAddSingleProduct from "./pages/DashboardPage/DashAddSingleProduct/DashAddSingleProduct";
-import DashOrders from "./pages/DashboardPage/DashOrders/DashOrders";
+import DashOrders from "./pages/DashboardPage/DashOrders/DashOrdersPage";
 import DashInventory from "./pages/DashboardPage/DashInventory/DashInventory";
 import DashPresentationPage from "./pages/DashboardPage/DashPresentationsPage/DashPresentationPage";
 import CartPage from "./pages/CartPage/CartPage";

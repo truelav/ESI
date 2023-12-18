@@ -22,7 +22,7 @@ const baseQuery = fetchBaseQuery({
 
 export const apiSlice = createApi({
     baseQuery,
-    tagTypes: ["Products", "Product", "User"],
+    tagTypes: ["Products", "Product", "User", "Order"],
     endpoints: (builder) => ({
         // Products API Routes [ 1. /products  2. /products/:id]
         getAllProducts: builder.query<Product, void>({
@@ -191,6 +191,12 @@ export const apiSlice = createApi({
                 formData: true,
             }),
         }),
+
+        //Orders
+        getAllOrders: builder.query<Order, void>({
+            query: () => `/orders`,
+            providesTags: ["Order"],
+        }),
     }),
 });
 
@@ -215,4 +221,6 @@ export const {
     useCreatePresentationMutation,
 
     usePlaceOrderMutation,
+
+    useGetAllOrdersQuery,
 } = apiSlice;
