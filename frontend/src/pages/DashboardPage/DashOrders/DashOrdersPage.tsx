@@ -1,6 +1,7 @@
 import { Container, Text } from "@chakra-ui/react";
 
 import { useGetAllOrdersQuery } from "../../../app/api/apiSlice";
+import { OrderList } from "../../../entities/Order/ui/OrderList/OrderList";
 
 function DashOrders() {
     const {
@@ -27,12 +28,10 @@ function DashOrders() {
                 {/* {usersData?.map((user: User) =>  (
                         <UsersListItem user={user} key={user._id} />
                 ))} */}
-            <Container>
-                <Text> Welcome to Orders</Text>
-            </Container>
-            <Container>
-                <Text> Coming Soon</Text>
-            </Container>
+                <Container>
+                    <Text> Welcome to Orders</Text>
+                </Container>
+                <OrderList orders={ordersData} />
             </div>
         )
     }

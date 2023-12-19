@@ -19,8 +19,7 @@ export const PlaceOrderFeature = () => {
         const user = jwtDecode(cookies.authToken)
         const order = {cart, user}
         console.log(order)
-        const result = await placeOrder(order)
-        console.log(result)
+        placeOrder(order)
         dispatch(clearCart())
     }
 

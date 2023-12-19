@@ -4,4 +4,5 @@ import { CartState } from "../../../../entities/Cart/model/slice/cartSlice";
 export interface Order {
     cart: CartState;
     user: JwtPayload;
+    _id?: string;
 }
