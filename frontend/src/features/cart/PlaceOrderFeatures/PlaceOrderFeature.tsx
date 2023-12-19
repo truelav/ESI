@@ -16,8 +16,9 @@ export const PlaceOrderFeature = () => {
     const [placeOrder,  { isLoading, error, isSuccess }] = usePlaceOrderMutation()
 
     const handlePlaceOrder = async () => {
-        const profile = jwtDecode(cookies.authToken)
-        const order = {cart, profile}
+        const user = jwtDecode(cookies.authToken)
+        const order = {cart, user}
+        console.log(order)
         const result = await placeOrder(order)
         console.log(result)
         dispatch(clearCart())

@@ -151,13 +151,13 @@ export const apiSlice = createApi({
         }),
 
         // Cart Routes
-        placeOrder: builder.mutation<unknown, Order>({
-            query: (order) => ({
-                url: `/cart/placeOrder`,
-                method: "POST",
-                body: order,
-            }),
-        }),
+        // placeOrder: builder.mutation<unknown, Order>({
+        //     query: (order) => ({
+        //         url: `/cart/placeOrder`,
+        //         method: "POST",
+        //         body: order,
+        //     }),
+        // }),
 
         addToCart: builder.mutation<unknown, void>({
             query: (products) => ({
@@ -191,11 +191,17 @@ export const apiSlice = createApi({
                 formData: true,
             }),
         }),
-
         //Orders
         getAllOrders: builder.query<Order, void>({
             query: () => `/orders`,
             providesTags: ["Order"],
+        }),
+        placeOrder: builder.mutation<unknown, Order>({
+            query: (order) => ({
+                url: `/orders`,
+                method: "POST",
+                body: order,
+            }),
         }),
     }),
 });
