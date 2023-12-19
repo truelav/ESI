@@ -1,18 +1,47 @@
 import createError from 'http-errors';
 import User from "../../models/User/User.js";
+import Order from '../../models/Order/Order.js';
 import { HTTPStatusCodes } from "../../utils/constants.js";
 
 export const getAllOrders = async (req, res, next) => {
     try {
-      const users = await User.find({});
+      const orders = await Order.find({});
   
-      if (!users) {
-        res.status(400).json({ message: "no users found", users: [] });
+      if (!orders) {
+        res.status(400).json({ message: "no users found", orders: [] });
       }
   
-      return res.json(users);
+      return res.json(orders);
     } catch (error) {
       next(createError(HTTPStatusCodes.InternalServerError, error.message));
     }
-  };
+};
+
+export const placeOrder = async (req, res, next) => {
+  try {
+    console.log(req.body)
+
+    if(!req.body.user || !req.body.cart){
+      return res.status(500).json({ message: "The was an error with placing your order, please try again later" })
+    }
+
+    const user = req.body.user.id
+    const orderSummary = {
+      totalAmount: req.body.cart.totalAmount,
+      totalProducts: req.body.cart.products.length
+    }
+    const products = req.body.cart.products
+    const newOrder = new Order({ user, orderSummary, products })
+
+    await newOrder.save()
+
+    res.status(200).json({
+      message: `The Order was place with success`,
+      newOrder,
+    });
+
+  } catch(error){
+    next(createError(HTTPStatusCodes.InternalServerError, error.message))
+  }
+}
   
