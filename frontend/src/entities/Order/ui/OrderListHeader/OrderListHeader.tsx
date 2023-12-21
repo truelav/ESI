@@ -1,5 +1,4 @@
-import { Grid, GridItem, Button, Checkbox, Box } from "@chakra-ui/react";
-import { FaTrash } from "react-icons/fa";
+import { Grid, GridItem, Box } from "@chakra-ui/react";
 
 import CardComponent, { CardVariants } from "../../../../shared/ui/Product/Card/CardComponent";
 import { CardTextComponent } from "../../../../shared/ui/Product/Card/CardText";

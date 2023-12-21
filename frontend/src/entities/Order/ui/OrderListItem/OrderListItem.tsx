@@ -8,7 +8,11 @@ import { Order } from "../../../../app/api/types/Cart/Order";
 import CardComponent, { CardVariants } from "../../../../shared/ui/Product/Card/CardComponent";
 import { CardTextComponent } from "../../../../shared/ui/Product/Card/CardText";
 
-export const OrderListItem = memo(({ order }: Order) => {
+interface OrderProps {
+    order: Order
+}
+
+export const OrderListItem = memo(({ order }: OrderProps) => {
     console.log(order)
     return (
         <CardComponent
