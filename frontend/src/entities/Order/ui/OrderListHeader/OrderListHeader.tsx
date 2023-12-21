@@ -31,9 +31,9 @@ export const OrderListHeader = () => {
                             </CardTextComponent>
                         </GridItem>
 
-                        <GridItem colSpan={1}>
+                        <GridItem colSpan={2}>
                             <CardTextComponent>
-                                User
+                                User Email
                             </CardTextComponent>
                         </GridItem>
 
@@ -49,11 +49,6 @@ export const OrderListHeader = () => {
                             </CardTextComponent>
                         </GridItem>
 
-                        <GridItem colSpan={1}>
-                            <CardTextComponent>
-                                Total Products
-                            </CardTextComponent>
-                        </GridItem>
                     </Grid>
                 </GridItem>
 

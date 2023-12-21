@@ -46,9 +46,9 @@ export const OrderListItem = memo(({ order }: OrderProps) => {
                                 </CardTextComponent>
                             </GridItem>
 
-                            <GridItem colSpan={1}>
+                            <GridItem colSpan={2}>
                                 <CardTextComponent>
-                                    {order?.user}
+                                    {order?.user.userEmail}
                                 </CardTextComponent>
                             </GridItem>
 
@@ -61,12 +61,6 @@ export const OrderListItem = memo(({ order }: OrderProps) => {
                             <GridItem colSpan={1}>
                                 <CardTextComponent>
                                     {order?.orderSummary?.totalAmount}
-                                </CardTextComponent>
-                            </GridItem>
-
-                            <GridItem colSpan={1}>
-                                <CardTextComponent>
-                                    {order?.orderSummary.totalProducts}
                                 </CardTextComponent>
                             </GridItem>
                         </Grid>
