@@ -25,9 +25,6 @@ function DashOrders() {
     if (isSuccess) {
         content = (
             <div>
-                {/* {usersData?.map((user: User) =>  (
-                        <UsersListItem user={user} key={user._id} />
-                ))} */}
                 <Container>
                     <Text> Welcome to Orders</Text>
                 </Container>
