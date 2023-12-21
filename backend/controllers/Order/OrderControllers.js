@@ -25,7 +25,11 @@ export const placeOrder = async (req, res, next) => {
       return res.status(500).json({ message: "The was an error with placing your order, please try again later" })
     }
 
-    const user = req.body.user.id
+    const userId = req.body.user.id
+    const userEmail = req.body.user.email
+    
+    const user = {userId, userEmail}
+
     const orderSummary = {
       totalAmount: req.body.cart.totalAmount,
       totalProducts: req.body.cart.products.length
@@ -45,3 +49,10 @@ export const placeOrder = async (req, res, next) => {
   }
 }
   
+export const deleteOrder = async (req, res, next) => {
+  try {
+    console.log(req)
+  } catch(error){
+    next(createError(HTTPStatusCodes.InternalServerError, error.message))
+  }
+}

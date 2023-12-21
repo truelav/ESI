@@ -3,9 +3,12 @@ const { Schema } = mongoose;
 
 const OrderSchema = new Schema({
     user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        required: true,
+        userId : {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User',
+            required: true,
+        },
+        userEmail: String,
     },
     orderSummary: {
         totalAmount: {
