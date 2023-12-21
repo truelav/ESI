@@ -32,7 +32,7 @@ export const OrderListItem = memo(({ order }: Order) => {
                         <Grid templateColumns="repeat(6, 1fr)" gap={4}>
                             <GridItem colSpan={1}>
                                 <CardTextComponent>
-                                    {order?._id}
+                                    {order?._id.slice(10)}
                                 </CardTextComponent>
                             </GridItem>
 
