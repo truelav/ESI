@@ -8,6 +8,7 @@ export const editSingleProduct = async (req, res) => {
         _id,
         name,
         brand,
+        model,
         price,
         description,
         category,
@@ -16,7 +17,7 @@ export const editSingleProduct = async (req, res) => {
         upc,
         images
     } = req.body;
-
+    console.log(req.body)
     try {
         console.log("request file: " + req.file);
 
@@ -26,6 +27,7 @@ export const editSingleProduct = async (req, res) => {
                 _id,
                 name,
                 brand,
+                model,
                 price,
                 description,
                 category,
