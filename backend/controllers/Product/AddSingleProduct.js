@@ -15,7 +15,13 @@ export const addSingleProduct = async (req, res, next) => {
     } = req.body;
 
     try {
-        
+        let existingProduct = await Product.findOne({ model })
+
+        if(existingProduct){
+            return res.status(300).json({ message: `The new product ${existingProduct.name} already exists`});
+        }
+
+        // If Image not provided
         let images = "http://localhost:8888/static/images/"
         if(!req.file || !req.file.filename){
             images += "fallback_image.jpeg"

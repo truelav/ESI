@@ -30,11 +30,11 @@ describe('Product Routes', () => {
     // })
 
     it('GET /api/products It should return all products', async () => {
-        const res = await request("http://localhost:8888/api").get('/products')
+        const res = await request(app).get('api/products')
 
         console.log(res.body)
         expect(res.status).toBe(200);
-        expect(res.body).toHaveLength(5);
+        expect(res.body).toHaveLength(13);
 
         return res    
     })
