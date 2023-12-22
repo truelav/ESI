@@ -15,6 +15,14 @@ export const addSingleProduct = async (req, res, next) => {
     } = req.body;
 
     try {
+        
+        let images = "http://localhost:8888/static/images/"
+        if(!req.file || !req.file.filename){
+            images += "fallback_image.jpeg"
+        } else {
+            images += req.file?.filename
+        }
+
         const newProduct = new Product({
             brand,
             model,
@@ -24,7 +32,7 @@ export const addSingleProduct = async (req, res, next) => {
             upc,
             price,
             quantity,
-            images: "http://localhost:8888/static/images/" + req.file?.filename || 'fallback_image.jpeg',
+            images,
         });
 
         await newProduct.save();
