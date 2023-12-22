@@ -20,7 +20,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-
 // to serve files from uploads directory
 app.use("/static", express.static("static"));
 
@@ -34,3 +33,5 @@ app.listen(PORT, (err) => {
   connectDB();
   console.log(`Server running on port: ${PORT}`);
 });
+
+export default app
