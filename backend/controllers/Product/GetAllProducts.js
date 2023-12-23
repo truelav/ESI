@@ -7,7 +7,7 @@ export const getAllProducts = async (req, res) => {
     const allProducts = await Product.find({});
 
     if(!allProducts){
-      res.status(400).json({message: "no products found", allProducts: []})
+      res.status(300).json({message: "no products found", allProducts: []})
     }
 
     res.status(200).json(allProducts);

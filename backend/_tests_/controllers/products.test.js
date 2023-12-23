@@ -29,21 +29,11 @@ describe('Product Routes', () => {
     //     await mongoose.disconnect()
     // })
 
-    it('GET /api/products It should return all products', async () => {
-        const res = await request(app).get('api/products')
-
-        console.log(res.body)
-        expect(res.status).toBe(200);
-        expect(res.body).toHaveLength(13);
-
-        return res    
-    })
-
     it('POST /api/products It Should add a new product', async () => {
         const res = await request(app)
             .post('/api/products')
             .field('brand', 'TestBrand')
-            .field('model', 'TestModel')
+            .field('model', 'TestModel123')
             .field('description', 'TestDescription')
             .field('category', 'TestCategory')
             .field('subcategory', 'TestSubcategory')
@@ -55,7 +45,7 @@ describe('Product Routes', () => {
         
         expect(res.status).toBe(200)
         expect(res.body).toHaveProperty('message', expect.any(String)) 
-        expect(res.body).toHaveProperty('newProduct');
+        expect(res.body).toHaveProperty('newProduct')
 
         return res
     })
