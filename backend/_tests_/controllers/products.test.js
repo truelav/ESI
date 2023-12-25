@@ -30,10 +30,10 @@ describe('Product Routes', () => {
     // })
 
     it('POST /api/products It Should add a new product', async () => {
-        const res = await request(app)
-            .post('/api/products')
+        const res = await request(baseURL)
+            .post('/products')
             .field('brand', 'TestBrand')
-            .field('model', 'TestModel123')
+            .field('model', 'TestModel__11')
             .field('description', 'TestDescription')
             .field('category', 'TestCategory')
             .field('subcategory', 'TestSubcategory')
@@ -47,6 +47,24 @@ describe('Product Routes', () => {
         expect(res.body).toHaveProperty('message', expect.any(String)) 
         expect(res.body).toHaveProperty('newProduct')
 
-        return res
+        const { newProduct } = res.body;
+
+        // Check if the product was saved in the database
+        const savedProduct = await Product.findById(newProduct._id);
+        expect(savedProduct).not.toBeNull();
+        expect(savedProduct.images).toContain('fallback_image.jpeg'); // Assuming fallback_image.jpeg is used for testing
+    
+        // Clean up: Delete the test product
+        await Product.deleteOne({ _id: newProduct._id });
+
+        return
+    })
+
+    it('It should return all products when products exist', async () => {
+        const res = await request(baseURL).get('/products')
+
+        expect(res.status).toBe(200)
+        
+        return
     })
 })
