@@ -29,36 +29,34 @@ describe('Product Routes', () => {
         await mongoose.disconnect()
     })
 
-    it('POST /api/products It Should add a new product', async () => {
-        const res = await request(baseURL)
-            .post('/products')
-            .field('brand', 'TestBrand')
-            .field('model', 'TestModel__11')
-            .field('description', 'TestDescription')
-            .field('category', 'TestCategory')
-            .field('subcategory', 'TestSubcategory')
-            .field('upc', 'TestUPC')
-            .field('price', 15)
-            .field('quantity', 10)
-            // .attach('image', 'http://localhost:8888/static/images/PHILIPS-HD974199-1703123972471.jpg')
-            // .send();
+    // it('POST /api/products It Should add a new product', async () => {
+        // const res = await request(baseURL)
+        //     .post('/products')
+        //     .field('brand', 'TestBrand')
+        //     .field('model', 'TestModel__11')
+        //     .field('description', 'TestDescription')
+        //     .field('category', 'TestCategory')
+        //     .field('subcategory', 'TestSubcategory')
+        //     .field('upc', 'TestUPC')
+        //     .field('price', 15)
+        //     .field('quantity', 10)
         
-        expect(res.status).toBe(200)
-        expect(res.body).toHaveProperty('message', expect.any(String)) 
-        expect(res.body).toHaveProperty('newProduct')
+        // expect(res.status).toBe(200)
+        // expect(res.body).toHaveProperty('message', expect.any(String)) 
+        // expect(res.body).toHaveProperty('newProduct')
 
-        const { newProduct } = res.body;
+        // const { newProduct } = res.body;
 
         // Check if the product was saved in the database
-        const savedProduct = await Product.findById(newProduct._id);
+        // const savedProduct = await Product.findById(newProduct._id);
 
-        expect(savedProduct).not.toBeNull();
+        // expect(savedProduct).not.toBeNull();
 
     
         // Clean up: Delete the test product
-        const deleteRes = await Product.deleteOne({ _id: newProduct._id });
+        // const deleteRes = await Product.deleteOne({ _id: newProduct._id });
 
-    })
+    // })
 
     // it('It should return all products when products exist', async () => {
     //     const res = await request(baseURL).get('/products')

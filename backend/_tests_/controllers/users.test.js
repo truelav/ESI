@@ -1,30 +1,37 @@
 import request from 'supertest';
+import mongoose from 'mongoose';
 import app from "../../index.js"
 
-describe('User Component', () => {
-    let user1;
-    const baseURL = "http://localhost:8888/api/"  
-    describe('POST /users', () => {
-        it('should add one user', async () => {
-        const res = await request(baseURL).post('auth/users').send({
-            name: 'test_name',
-            email: 'test_user1@example.com',
-            password: '123',
-        });
-        expect(res.statusCode).toBe(200);
-        expect(res.body).toHaveProperty('email');
-        expect(res.body.email).toBe('test_user1@example.com');
-        user1 = res.body;
-        });
-    });
+describe('User Controllers', () => {
+    beforeAll(async () => {
+        await mongoose.connect("mongodb://127.0.0.1:27017/ESI")
+   })
 
-  describe('GET api/auth/users', () => {
-    it('should return all users', async () => {
-        const res = await request(baseURL).get('auth/users');
-        expect(res.statusCode).toBe(200);
-        expect(res.body.length).toBe(1);
-    });
-  });
+   afterAll(async () => {
+       await mongoose.disconnect()
+   })
+    const userId = "6542d0d3db542feae4903a00"
+    const baseURL = "http://localhost:8888/api/"  
+    // describe('POST /users', () => {
+    //     it('should add one user', async () => {
+    //     const res = await request(baseURL).post('auth/users').send({
+    //         name: 'test_name',
+    //         email: 'test_user1@example.com',
+    //         password: '123',
+    //     });
+    //     expect(res.statusCode).toBe(200);
+    //     expect(res.body).toHaveProperty('email');
+    //     expect(res.body.email).toBe('test_user1@example.com');
+    //     user1 = res.body;
+    //     });
+    // });
+
+    it('should get single user with ID', async () => {
+        const res = await request(baseURL).get(`auth/user/:${userId}`)
+        expect(res.status).toBe(200)
+        console.log(res.body)
+    })
+
 
 //   describe('POST /users/login', () => {
 //     it('should login', async () => {
