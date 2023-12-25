@@ -1,6 +1,6 @@
-/** @returns {Promise<import('jest').Config>} */
-export default async () => {
-    return {
-      verbose: true,
-    };
+export default {
+  clearMocks: true,
+  collectCoverage: true,
+  coverageDirectory: 'coverage',
+  coverageProvider: 'v8',
 };

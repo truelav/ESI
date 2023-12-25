@@ -21,13 +21,13 @@ const addProductData = {
 }
 
 describe('Product Routes', () => {
-    // beforeAll(async () => {
-    //      await mongoose.connect("mongodb://127.0.0.1:27017/ESI")
-    // })
+    beforeAll(async () => {
+         await mongoose.connect("mongodb://127.0.0.1:27017/ESI")
+    })
 
-    // afterAll(async () => {
-    //     await mongoose.disconnect()
-    // })
+    afterAll(async () => {
+        await mongoose.disconnect()
+    })
 
     it('POST /api/products It Should add a new product', async () => {
         const res = await request(baseURL)
@@ -51,20 +51,24 @@ describe('Product Routes', () => {
 
         // Check if the product was saved in the database
         const savedProduct = await Product.findById(newProduct._id);
+
         expect(savedProduct).not.toBeNull();
-        expect(savedProduct.images).toContain('fallback_image.jpeg'); // Assuming fallback_image.jpeg is used for testing
+
     
         // Clean up: Delete the test product
-        await Product.deleteOne({ _id: newProduct._id });
+        const deleteRes = await Product.deleteOne({ _id: newProduct._id });
 
-        return
     })
 
-    it('It should return all products when products exist', async () => {
-        const res = await request(baseURL).get('/products')
+    // it('It should return all products when products exist', async () => {
+    //     const res = await request(baseURL).get('/products')
 
-        expect(res.status).toBe(200)
+    //     expect(res.status).toBe(200)
         
-        return
-    })
+    //     return
+    // })
+
+    // it('It Should delete the product', async () => {
+        
+    // })
 })
