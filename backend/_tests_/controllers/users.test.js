@@ -1,25 +1,40 @@
 import request from 'supertest';
 import mongoose from 'mongoose';
 import dontenv from  "dotenv"
+import app  from "../../server"
+import connectDB from '../../config/db.config';
 dontenv.config()
 
 const userId = "6542d0d3db542feae4903a00"
-const baseURL = "http://localhost:8888/api/auth"  
+const baseURL = "http://localhost:8888"  
+let server
 
 describe('User Controllers', () => {
-//     beforeAll((done) => {
-//         mongoose.connect("mongodb://127.0.0.1:27017/ESI", () => done())
-//    })
-
-//    afterAll(() => {
-//         mongoose.disconnect()
-//    })
-
-    it('should get all users', async () => {
-        const res = await
+    beforeAll(async () => {
+        connectDB()
+        server = app.listen(8886, (err) => {
+            if (err) return console.log(err);
+            console.log('testing server running')
+        })
+    })    
+      
+    afterAll(async () => {
+        // Closing the DB connection allows Jest to exit successfully.
+        server.close()
+        await mongoose.connection.close()
+        console.log('server and mongoDB closed')
     })
 
-    // describe('POST /users', () => {
+
+    it('should get all users', async () => {
+        const res = await request(server).get("/api/auth/users")
+        const data = res.body
+
+        expect(res.statusCode).toBe(200)
+        expect(Array.isArray(data))
+    })
+
+    // describe('POST /users', () => {ß
     //     it('should add one user', async () => {
     //     const res = await request(baseURL).post('auth/users').send({
     //         name: 'test_name',
@@ -61,3 +76,4 @@ describe('User Controllers', () => {
 //     });
 //   });
 });
+
