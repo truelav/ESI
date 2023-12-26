@@ -1,17 +1,24 @@
 import request from 'supertest';
 import mongoose from 'mongoose';
-import app from "../../index.js"
+import dontenv from  "dotenv"
+dontenv.config()
+
+const userId = "6542d0d3db542feae4903a00"
+const baseURL = "http://localhost:8888/api/auth"  
 
 describe('User Controllers', () => {
-    beforeAll(async () => {
-        await mongoose.connect("mongodb://127.0.0.1:27017/ESI")
-   })
+//     beforeAll((done) => {
+//         mongoose.connect("mongodb://127.0.0.1:27017/ESI", () => done())
+//    })
 
-   afterAll(async () => {
-       await mongoose.disconnect()
-   })
-    const userId = "6542d0d3db542feae4903a00"
-    const baseURL = "http://localhost:8888/api/"  
+//    afterAll(() => {
+//         mongoose.disconnect()
+//    })
+
+    it('should get all users', async () => {
+        const res = await
+    })
+
     // describe('POST /users', () => {
     //     it('should add one user', async () => {
     //     const res = await request(baseURL).post('auth/users').send({
@@ -25,13 +32,6 @@ describe('User Controllers', () => {
     //     user1 = res.body;
     //     });
     // });
-
-    it('should get single user with ID', async () => {
-        const res = await request(baseURL).get(`auth/user/:${userId}`)
-        expect(res.status).toBe(200)
-        console.log(res.body)
-    })
-
 
 //   describe('POST /users/login', () => {
 //     it('should login', async () => {
