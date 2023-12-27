@@ -17,7 +17,7 @@ export const deleteUser = async (req, res, next) => {
 
     const emailResult = await sendDeleteUserEmail(user.email)
 
-    return res.json({ message: `user ${user.email} deleted success`, userDto });
+    return res.status(200).json({ message: `user ${user.email} deleted success`, userDto });
   } catch (error) {
     next(createError(HTTPStatusCodes.InternalServerError, error.message));
   }

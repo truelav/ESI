@@ -9,7 +9,6 @@ import {
 import { sendCreateUserEmail } from "../../services/email_service.js";
 import { HTTPStatusCodes } from "../../utils/constants.js";
 
-
 export const register = async (req, res, next) => {
   const { name, email, password, role } = req.body;
   try {
