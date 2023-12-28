@@ -165,6 +165,21 @@ export const getUsers = async (req, res, next) => {
   }
 };
 
+export const getSingleUser = async (req, res, next) => {
+  try {
+    const userId = req.params.id
+    const user = await User.findById(userId);
+
+    if (!user) {
+      res.status(400).json({ message: "no user found", user: {} });
+    }
+
+    return res.json(user);
+  } catch (error) {
+    next(createError(HTTPStatusCodes.InternalServerError, error.message));
+  }
+}
+
 export const deleteUser = async (req, res, next) => {
   try {
     const userId = req.params.id;
