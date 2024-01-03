@@ -1,11 +1,10 @@
-import nodemailer from 'nodemailer';
-import emailConfig from '../config/email.config.js';
+import nodemailer from "nodemailer";
+import emailConfig from "../config/email.config.js";
 
-const transporter = nodemailer.createTransport(emailConfig)
+const transporter = nodemailer.createTransport(emailConfig);
 
 export const sendCreateUserEmail = async (email, password) => {
-
-    let htmlContent = (`
+  let htmlContent = `
         <div style="max-width: 700px; margin:auto; border: 10px solid #ddd; padding: 50px 20px; font-size: 110%;">
             <h2
             style="text-align: center; text-transform: uppercase;color: teal;"
@@ -35,34 +34,33 @@ export const sendCreateUserEmail = async (email, password) => {
                 </p>
             </div>
         </div>
-    `)
+    `;
 
-    const emailContent = {
-      from: emailConfig.auth.user,
-      to: email,
-      subject: 'ESI Account Created',
-      html: htmlContent,
-    };
-  
-    transporter.sendMail(emailContent, function (error, _info) {
-        if (error) {
-            // if (process?.env?.NODE_ENV && process.env.NODE_ENV === 'development') {
-            //     console.log('Sending Email error:', error);
-            //     console.log('Sending Email error:');
-            // }
-            console.log('Sending Email error:', error);
-        // } else if (process?.env?.NODE_ENV && process.env.NODE_ENV === 'development') {
-        //     console.log(`Successfully  send email to ${userEmail}...`);
-        // }
-        } else {
-            console.log(`Successfully  send email to ${email}...`)
-        }
-    });
+  const emailContent = {
+    from: emailConfig.auth.user,
+    to: email,
+    subject: "ESI Account Created",
+    html: htmlContent,
+  };
+
+  transporter.sendMail(emailContent, function (error, _info) {
+    if (error) {
+      // if (process?.env?.NODE_ENV && process.env.NODE_ENV === 'development') {
+      //     console.log('Sending Email error:', error);
+      //     console.log('Sending Email error:');
+      // }
+      console.log("Sending Email error:", error);
+      // } else if (process?.env?.NODE_ENV && process.env.NODE_ENV === 'development') {
+      //     console.log(`Successfully  send email to ${userEmail}...`);
+      // }
+    } else {
+      console.log(`Successfully  send email to ${email}...`);
+    }
+  });
 };
 
-
 export const sendDeleteUserEmail = async (email) => {
-    let htmlContent = (`
+  let htmlContent = `
         <div style="max-width: 700px; margin:auto; border: 10px solid #ddd; padding: 50px 20px; font-size: 110%;">
             <h2
             style="text-align: center; text-transform: uppercase;color: teal;"
@@ -86,37 +84,33 @@ export const sendDeleteUserEmail = async (email) => {
                 </p>
             </div>
         </div>
-    `)
+    `;
 
-    const emailContent = {
-        from: emailConfig.auth.user,
-        to: email,
-        subject: 'ESI Account Deleted',
-        html: htmlContent,
-    };
+  const emailContent = {
+    from: emailConfig.auth.user,
+    to: email,
+    subject: "ESI Account Deleted",
+    html: htmlContent,
+  };
 
-    transporter.sendMail(emailContent, function (error, _info) {
-        if (error) {
-            // if (process?.env?.NODE_ENV && process.env.NODE_ENV === 'development') {
-            //     console.log('Sending Email error:', error);
-            //     console.log('Sending Email error:');
-            // }
-            console.log('Sending Email error:', error);
-        // } else if (process?.env?.NODE_ENV && process.env.NODE_ENV === 'development') {
-        //     console.log(`Successfully  send email to ${userEmail}...`);
-        // }
-        } else {
-            console.log(`Successfully  send email to ${email}...`)
-        }
-    });
-}
-
-
-
+  transporter.sendMail(emailContent, function (error, _info) {
+    if (error) {
+      // if (process?.env?.NODE_ENV && process.env.NODE_ENV === 'development') {
+      //     console.log('Sending Email error:', error);
+      //     console.log('Sending Email error:');
+      // }
+      console.log("Sending Email error:", error);
+      // } else if (process?.env?.NODE_ENV && process.env.NODE_ENV === 'development') {
+      //     console.log(`Successfully  send email to ${userEmail}...`);
+      // }
+    } else {
+      console.log(`Successfully  send email to ${email}...`);
+    }
+  });
+};
 
 export const sendPlaceOrderEmail = async (email, products) => {
-
-    let htmlContent = (`
+  let htmlContent = `
         <div style="max-width: 700px; margin:auto; border: 10px solid #ddd; padding: 50px 20px; font-size: 110%;">
             <h2
             style="text-align: center; text-transform: uppercase;color: teal;"
@@ -127,27 +121,27 @@ export const sendPlaceOrderEmail = async (email, products) => {
                 Go to <a href="http://localhost:5173/dashboard"> admin/order </a> to view the order.
             </div>
         </div>
-    `)
+    `;
 
-    const emailContent = {
-      from: emailConfig.auth.user,
-      to: email,
-      subject: 'ESI an order was placed',
-      html: htmlContent,
-    };
-  
-    transporter.sendMail(emailContent, function (error, _info) {
-        if (error) {
-            // if (process?.env?.NODE_ENV && process.env.NODE_ENV === 'development') {
-            //     console.log('Sending Email error:', error);
-            //     console.log('Sending Email error:');
-            // }
-            console.log('Sending Email error:', error);
-        // } else if (process?.env?.NODE_ENV && process.env.NODE_ENV === 'development') {
-        //     console.log(`Successfully  send email to ${userEmail}...`);
-        // }
-        } else {
-            console.log(`Successfully  send email to ${email}...`)
-        }
-    });
+  const emailContent = {
+    from: emailConfig.auth.user,
+    to: email,
+    subject: "ESI an order was placed",
+    html: htmlContent,
+  };
+
+  transporter.sendMail(emailContent, function (error, _info) {
+    if (error) {
+      // if (process?.env?.NODE_ENV && process.env.NODE_ENV === 'development') {
+      //     console.log('Sending Email error:', error);
+      //     console.log('Sending Email error:');
+      // }
+      console.log("Sending Email error:", error);
+      // } else if (process?.env?.NODE_ENV && process.env.NODE_ENV === 'development') {
+      //     console.log(`Successfully  send email to ${userEmail}...`);
+      // }
+    } else {
+      console.log(`Successfully  send email to ${email}...`);
+    }
+  });
 };

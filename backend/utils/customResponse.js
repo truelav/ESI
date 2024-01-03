@@ -1,4 +1,3 @@
-
 export const customResponse = ({ data, success, error, message, status }) => {
   return {
     success,

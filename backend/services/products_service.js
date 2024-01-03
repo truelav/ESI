@@ -1,4 +1,4 @@
-import fs from 'fs';
+import fs from "fs";
 import Product from "../models/Product/Product.js";
 
 export const findAllProductsById = async ({ IDs }) => {
@@ -14,16 +14,15 @@ export const findAllProductsById = async ({ IDs }) => {
   return productDetails;
 };
 
-
 export const deleteProductImage = async ({ product }) => {
   // const [] = fileLink.split("-")
-  console.log(product)
-  const { images } = product
+  console.log(product);
+  const { images } = product;
   return fs.unlink(images, (err) => {
     if (err) {
       return err;
     }
 
-    return true
+    return true;
   });
-}
+};

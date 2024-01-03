@@ -38,7 +38,7 @@ export const validateRefreshToken = (token) => {
   try {
     const userData = jwt.verify(
       token,
-      process.env.JWT_REFRESH_TOKEN_SECRET
+      process.env.JWT_REFRESH_TOKEN_SECRET,
       //   (error, decoded) => {
       //     if (error) {
       //       return null; //invalid token
