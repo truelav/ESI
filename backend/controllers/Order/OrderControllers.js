@@ -2,6 +2,7 @@ import createError from 'http-errors';
 import User from "../../models/User/User.js";
 import Order from '../../models/Order/Order.js';
 import { HTTPStatusCodes } from "../../utils/constants.js";
+import * as OrderServices from "../../services/orders/order_services.js"
 
 export const getAllOrders = async (req, res, next) => {
     try {
@@ -19,25 +20,14 @@ export const getAllOrders = async (req, res, next) => {
 
 export const placeOrder = async (req, res, next) => {
   try {
-    console.log(req.body)
+    const data = req.body
 
-    if(!req.body.user || !req.body.cart){
+    if(!data.user || !data.cart){
       return res.status(500).json({ message: "The was an error with placing your order, please try again later" })
     }
 
-    const userId = req.body.user.id
-    const userEmail = req.body.user.email
-    
-    const user = {userId, userEmail}
-
-    const orderSummary = {
-      totalAmount: req.body.cart.totalAmount,
-      totalProducts: req.body.cart.products.length
-    }
-    const products = req.body.cart.products
-    const newOrder = new Order({ user, orderSummary, products })
-
-    await newOrder.save()
+    const newOrder = OrderServices.saveOrderToOrders(data)
+    const updatedUser = OrderServices.saveOrderToUser(data)
 
     res.status(200).json({
       message: `The Order was place with success`,
