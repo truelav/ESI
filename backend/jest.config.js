@@ -1,16 +1,19 @@
-export default {
-  // clearMocks: true,
-  // coverageProvider: 'v8',
-  // verbose: true,
-  // testEnvironmentOptions: {
-  //   url: 'http://localhost:8889',
-  // },
-  testEnvironment: 'node',
-  testEnvironmentOptions: {
-    NODE_ENV: 'test',
-    url: 'http://localhost:8889',
-  },
-  restoreMocks: true,
-  coveragePathIgnorePatterns: ['node_modules', 'src/config', 'src/app.js', 'tests'],
-  coverageReporters: ['text', 'lcov', 'clover', 'html'],
+/**
+ * For a detailed explanation regarding each configuration property, visit:
+ * https://jestjs.io/docs/configuration
+ */
+
+/** @type {import('jest').Config} */
+const config = {
+
+  forceExit: true,
+  verbose: true,  
+  // Automatically clear mock calls, instances, contexts and results before every test
+  clearMocks: true,
+
+  // Indicates which provider should be used to instrument code for coverage
+  coverageProvider: "v8",
+
 };
+
+export default config;
