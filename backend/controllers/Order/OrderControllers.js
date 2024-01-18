@@ -12,7 +12,7 @@ export const getAllOrders = async (req, res, next) => {
         res.status(400).json({ message: "no users found", orders: [] });
       }
   
-      return res.json(orders);
+      return res.status(200).json(orders);
     } catch (error) {
       next(createError(HTTPStatusCodes.InternalServerError, error.message));
     }
@@ -41,7 +41,16 @@ export const placeOrder = async (req, res, next) => {
   
 export const deleteOrder = async (req, res, next) => {
   try {
-    console.log(req)
+    const idsToDelete = req.body
+
+    const deletedOrders = []
+
+    idsToDelete.forEach((orderId) => {
+      const deletedOrder = OrderServices.deleteOrder(orderId)
+      deletedOrders.push(deletedOrder)
+    })
+
+    res.status(200).json({ message: "Orders deleted success", deletedOrders })
   } catch(error){
     next(createError(HTTPStatusCodes.InternalServerError, error.message))
   }

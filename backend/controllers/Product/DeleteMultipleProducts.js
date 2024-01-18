@@ -13,6 +13,7 @@ export const deleteMultipleProducts = async (req, res, next) => {
     }
 
     const deletedProducts = []
+    
     const findAndDeleteProducts = async(id) => {
       let product = await Product.findById(id);
 
