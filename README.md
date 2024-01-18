@@ -50,32 +50,3 @@ FRONTEND
 
             ( "/presentation" )
 
-TO DO LIST :
-
-    [ ] - BACKEND - Import many items
-                    1. Import CSV File and parse each column, and save in DB
-    [ ] - BACKEND - Save Image for Product
-                    1. Import CSV File and parse each column, and save in DB
-
-
-    [x] - BACKEND : Finish All the Products Controllers (AddMultipleProducts, EditProduct, DeactivateSingle, ActivateSingle, DeactivateMultiple and ActivateMultiple)
-    [x] - BACKEND : Finish Authorization (Create JWT Cookie, Validate JWT Cookie, Refresh JWT and pull user role)
-    [x] - BACKEND : Handle Upload CSV File and save it in the database
-
-    [ ] - BACKEND : Email Service, send registration Notification after Contact Form and after Create New User
-    [ ] - BACKEND : Handle Upload Images For Products and Users
-    [ ] - BACKEND : Create PDF Presentation and Provide Download Link
-    [ ] - BACKEND : Error Handling
-
-    ________________________________________________________________________________________________________________
-
-    [x] - FRONTEND : Create New User Form
-    [ ] - FRONTEND : Login User
-    [ ] - FRONTEND :
-
-    [ ] - FRONTEND : Create Skeletons for Components
-    [ ] - FRONTEND : Implement Async - Lazy Loading
-    [ ] - FRONTEND : Implement Error Boundaries
-    [ ] - FRONTEND : Implement Forms Validations
-    [ ] - FRONTEND : Implement File Upload Validations
-    [ ] - FRONTEND : Create All Dashboard Routes and Pages (Components)
