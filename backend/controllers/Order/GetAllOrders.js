@@ -1,6 +1,10 @@
+import createError from 'http-errors';
+import { HTTPStatusCodes } from "../../utils/constants.js";
+import { getAllOrdersService } from "../../services/orders/order_services.js";
+
 export const getAllOrders = async (req, res, next) => {
     try {
-        const orders = await Order.find({});
+        const orders = getAllOrdersService()
     
         if (!orders) {
             res.status(400).json({ message: "no users found", orders: [] });

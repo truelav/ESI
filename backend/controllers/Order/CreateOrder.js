@@ -1,14 +1,13 @@
+import createError from 'http-errors';
+import { HTTPStatusCodes } from "../../utils/constants.js";
+import { saveOrderToOrdersService, saveOrderToUserService } from '../../services/orders/order_services.js';
 
 export const createOrder = async (req, res, next) => {
     try {
         const data = req.body
     
-        if(!data.user || !data.cart){
-            return res.status(500).json({ message: "The was an error with placing your order, please try again later" })
-        }
-    
-        const newOrder = OrderServices.saveOrderToOrders(data)
-        const updatedUser = OrderServices.saveOrderToUser(data)
+        const newOrder = saveOrderToOrdersService(req.body)
+        const updatedUser = saveOrderToUserService(req.body)
     
         res.status(200).json({
             message: `The Order was place with success`,

@@ -1,7 +1,7 @@
 import User from "../../models/User/User.js"
 import Order from "../../models/Order/Order.js"
 
-export const saveOrderToUser = async (data) => {
+export const saveOrderToUserService = async (data) => {
     const id = data.user.id
     const cart = data.cart
 
@@ -20,9 +20,17 @@ export const saveOrderToUser = async (data) => {
     return updatedUser
 }
 
-export const saveOrderToOrders = async (data) => {
+export const saveOrderToOrdersService = async (data) => {
+    if(!data.user){
+        return null
+    }
+
     const userId = data.user.id
     const userEmail = data.user.email
+
+    if(!userId || !userEmail){
+        return null
+    }
         
     const user = {userId, userEmail}
     
@@ -39,34 +47,30 @@ export const saveOrderToOrders = async (data) => {
     return newOrder
 }
 
-export const getAllOrders = async () => {
+export const getAllOrdersService = async () => {
     const orders = await Order.find({});
 
     if(!orders){
-        return null
+        return []
     }
 
     return orders
 }
 
-export const deleteOrder = async (data) => {
-    const id = data
-
-    if(!id){
-        return null
-    }
-
-    const order = await Order.findById(id)
+export const deleteOrdersService = async (data) => {
+    const idsToDelete = data
+    const deletedOrders = []
+  
+    idsToDelete.forEach(async (id) => {
+        const order = await Order.findById(id)
     
-    if(!order){
-        return null
-    }
+        if(!order){
+            return null
+        }
+    
+        const deletedOrder = await Order.findByIdAndDelete(id)
+        deletedOrders.push(deletedOrder)
+    })
 
-    const deletedOrder = await Order.findByIdAndDelete(id)
-
-    if(deletedOrder){
-        return deletedOrder
-    } else {
-        return null
-    }
+    return deletedOrders
 }

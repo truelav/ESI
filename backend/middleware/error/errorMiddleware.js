@@ -2,7 +2,7 @@ import ApiError from './apiError.js'
 import AppError from './appError.js';
 import UserError from './userError.js';
 
-export const errorHandlerMiddleware = (err, req, res, next) => {
+export const errorMiddleware = (err, req, res, next) => {
     console.log(err);
     console.error(err.stack)
 
@@ -28,7 +28,19 @@ export const errorHandlerMiddleware = (err, req, res, next) => {
     //     return res.status(err.status).json({message: err.message, error: err})
     // }
 
-
-    res.status(err.status).json({message: err.message, error: true})
-
+    if (process.env.NODE_ENV === 'development') {
+        // In development, send detailed error information
+        res.status(err.statusCode).json({
+            status: err.status,
+            error: err,
+            message: err.message,
+            stack: err.stack,
+        });
+    } else {
+        // In production, send a simplified error message
+        res.status(err.statusCode).json({
+            status: err.status,
+            message: err.message,
+        });
+    }
 };

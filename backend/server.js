@@ -5,7 +5,7 @@ import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
 import allRoutes from "./routes/index.js";
 import { corsOptions } from "./config/cors/corsOptions.js";
-import { errorHandlerMiddleware } from "./middleware/error/errorHandlerMiddleware.js";
+import { errorMiddleware } from "./middleware/error/errorMiddleware.js";
 
 //start server
 const app = express();
@@ -24,6 +24,6 @@ app.use("/static", express.static("static"));
 app.use("/api", allRoutes);
 
 // Error Middleware
-app.use(errorHandlerMiddleware);
+app.use(errorMiddleware);
 
 export default app
