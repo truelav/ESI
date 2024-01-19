@@ -26,13 +26,12 @@ function DashOrders() {
         content = (
             <div>
                 <Container>
-                    <Text> Welcome to Orders</Text>
+                    <Text> Welcome to Orders Page</Text>
                 </Container>
                 <OrderList orders={ordersData} />
             </div>
         )
     }
-    console.log(ordersData)
   
     return content
 }

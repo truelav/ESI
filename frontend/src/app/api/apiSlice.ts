@@ -203,6 +203,13 @@ export const apiSlice = createApi({
                 body: order,
             }),
         }),
+        deleteOrders: builder.mutation<unknown, string[]>({
+            query: (orders) => ({   
+                url: `/orders`,
+                method: "DELETE",
+                body: orders
+            })
+        })
     }),
 });
 
@@ -226,7 +233,8 @@ export const {
 
     useCreatePresentationMutation,
 
-    usePlaceOrderMutation,
-
     useGetAllOrdersQuery,
+    usePlaceOrderMutation,
+    useDeleteOrdersMutation,
+    
 } = apiSlice;

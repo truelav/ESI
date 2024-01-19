@@ -4,6 +4,7 @@ import { Grid, GridItem, Button, Checkbox, Box } from "@chakra-ui/react";
 import { FaTrash } from "react-icons/fa";
 
 import { Order } from "../../../../app/api/types/Cart/Order";
+import { useDeleteOrdersMutation } from "../../../../app/api/apiSlice";
 
 import CardComponent, { CardVariants } from "../../../../shared/ui/Product/Card/CardComponent";
 import { CardTextComponent } from "../../../../shared/ui/Product/Card/CardText";
@@ -14,6 +15,20 @@ interface OrderProps {
 
 export const OrderListItem = memo(({ order }: OrderProps) => {
     console.log(order)
+    const [deleteOrders, { isLoading, isError, isSuccess }] = useDeleteOrdersMutation();
+
+    if (isError) {
+        return <div>...Some Error Has Occured with this Product</div>;
+    }
+
+    if (isLoading) {
+        return <div>...Loading</div>;
+    }
+
+    if (isSuccess) {
+        return <div>Deleted</div>;
+    }
+
     return (
         <CardComponent
             cardVariant={CardVariants.outline}
@@ -42,7 +57,7 @@ export const OrderListItem = memo(({ order }: OrderProps) => {
 
                             <GridItem colSpan={1}>
                                 <CardTextComponent>
-                                    {order?.updatedAt.slice(10)}
+                                    {order?.updatedAt.slice(0, 10)}
                                 </CardTextComponent>
                             </GridItem>
 
@@ -68,7 +83,7 @@ export const OrderListItem = memo(({ order }: OrderProps) => {
                 </GridItem>
 
                 <GridItem colSpan={1}>
-                    <Button onClick={() => console.log(order._id)}>
+                    <Button onClick={() => deleteOrders([order._id])}>
                         <FaTrash />
                     </Button>
                 </GridItem>
