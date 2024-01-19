@@ -4,8 +4,8 @@ import { getAllOrdersService } from "../../services/orders/order_services.js";
 
 export const getAllOrders = async (req, res, next) => {
     try {
-        const orders = getAllOrdersService()
-    
+        const orders = await getAllOrdersService()
+        console.log(orders)
         if (!orders) {
             res.status(400).json({ message: "no users found", orders: [] });
         }

@@ -4,7 +4,7 @@ import { deleteOrdersService } from '../../services/orders/order_services.js';
 
 export const deleteOrders = async (req, res, next) => {
     try {
-        const deletedOrders = deleteOrdersService(req.body)
+        const deletedOrders = await deleteOrdersService(req.body)
   
         res.status(200).json({ message: "Orders deleted success", deletedOrders })
     } catch(error){

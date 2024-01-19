@@ -1,6 +1,17 @@
 import User from "../../models/User/User.js"
 import Order from "../../models/Order/Order.js"
 
+
+export const getAllOrdersService = async () => {
+    const orders = await Order.find({});
+
+    if(!orders){
+        return []
+    }
+
+    return orders
+}
+
 export const saveOrderToUserService = async (data) => {
     const id = data.user.id
     const cart = data.cart
@@ -45,16 +56,6 @@ export const saveOrderToOrdersService = async (data) => {
     await newOrder.save()
     
     return newOrder
-}
-
-export const getAllOrdersService = async () => {
-    const orders = await Order.find({});
-
-    if(!orders){
-        return []
-    }
-
-    return orders
 }
 
 export const deleteOrdersService = async (data) => {
