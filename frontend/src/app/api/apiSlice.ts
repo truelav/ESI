@@ -32,7 +32,7 @@ export const apiSlice = createApi({
 
         getGroupedProducts: builder.query<GroupedProducts[], void>({
             query: () => `/products/brandedProducts`,
-            providesTags: [{ type: "Products", id: "List" }],
+            providesTags: [{ type: "Product" }],
         }),
 
         getSingleProduct: builder.query<Product, string | undefined>({
@@ -125,6 +125,7 @@ export const apiSlice = createApi({
             }),
             invalidatesTags: ["User"],
         }),
+
         // Authorization API Routes [ 1. /auth  2. /login  3. /register]
         login: builder.mutation<unknown, User>({
             query: (user) => ({
@@ -140,7 +141,12 @@ export const apiSlice = createApi({
                 body: user,
             }),
         }),
-        // Presentation API Routese
+
+        // Presentation API Routes
+        getPresentationProducts: builder.query<GroupedProducts[], void>({
+            query: () => `/presentation/products`,
+            providesTags: [{ type: "Products", id: "List" }],
+        }),
 
         createPresentation: builder.mutation<unknown, void>({
             query: (products) => ({
@@ -149,15 +155,6 @@ export const apiSlice = createApi({
                 body: products,
             }),
         }),
-
-        // Cart Routes
-        // placeOrder: builder.mutation<unknown, Order>({
-        //     query: (order) => ({
-        //         url: `/cart/placeOrder`,
-        //         method: "POST",
-        //         body: order,
-        //     }),
-        // }),
 
         addToCart: builder.mutation<unknown, void>({
             query: (products) => ({
@@ -191,6 +188,7 @@ export const apiSlice = createApi({
                 formData: true,
             }),
         }),
+
         //Orders
         getAllOrders: builder.query<Order, void>({
             query: () => `/orders`,
@@ -203,7 +201,7 @@ export const apiSlice = createApi({
                 body: order,
             }),
         }),
-        deleteOrders: builder.mutation<unknown, string[]>({
+        deleteOrders: builder.mutation<{ success: boolean; id: string }, string[]>({
             query: (orders) => ({   
                 url: `/orders`,
                 method: "DELETE",
@@ -236,5 +234,5 @@ export const {
     useGetAllOrdersQuery,
     usePlaceOrderMutation,
     useDeleteOrdersMutation,
-    
+
 } = apiSlice;

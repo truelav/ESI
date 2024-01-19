@@ -1,7 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {
-    Container,
-    Text,
     Accordion,
     AccordionItem,
     AccordionButton,
@@ -23,8 +21,6 @@ import {
 } from "../../../app/api/apiSlice";
 
 import { GroupedProducts } from "../../../app/api/types/Product";
-import { StatGroup } from "../../../components/stats/StatGroup/StatGroup";
-// import { Product } from "../../../entities/Product/model/types/product";
 import { ProductItemHorizontal } from "../../../shared/ui/Product/ProductItemHorizontal/ProductItemHorizontal";
 
 const DashPresentationPage = memo(() => {
@@ -49,8 +45,7 @@ const DashPresentationPage = memo(() => {
 
     const [selectedProducts, setSelectedProducts] = useState(new Set());
     const [selectedBrands, setSelectedBrands] = useState(new Set());
-    const [downloadPresentationLink, setDownloadPresentationLink] =
-        useState(null);
+    const [downloadPresentationLink, setDownloadPresentationLink] = useState(null);
 
     const selectItem = (id, set, selector) => {
         const newSet = new Set(set);
@@ -188,20 +183,18 @@ const DashPresentationPage = memo(() => {
                 <GridItem colSpan={12}>
                     <Heading as='h1' size='xl' noOfLines={1}>Welcome to Presentation Page</Heading>
                 </GridItem>
-                <GridItem colSpan={8}>
-                    <StatGroup />
-                </GridItem>
                 <GridItem colSpan={2}>
                     <Button onClick={handleCreatePresentation} colorScheme='blue'>
                         Create Presentation
                     </Button>
                 </GridItem>
                 <GridItem colSpan={12}>
-                    {downloadPresentationLink && (
-                        <Link to={downloadPresentationLink}>
+                    {downloadPresentationLink && isSuccessPresentation && (
+                        <Link to={downloadPresentationLink} target='_blank'>
                             <Button colorScheme='red'>Download Presentation</Button>
                         </Link>
                     )}
+                    {isLoadingPresentation && <div>Presentation is creating ...</div>}
                 </GridItem>
             </Grid>
 
