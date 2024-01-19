@@ -24,13 +24,6 @@ export const createPDFPresentation = async (req, res) => {
             return;
         }
 
-        console.log(productDetails);
-
-        // const presentationResult = generateProductPresentation(
-        //   productDetails,
-        //   "admin"
-        // );
-
         const pdfPresentation = new PDFDocument({
             displayTitle: true,
         });

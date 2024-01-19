@@ -8,7 +8,7 @@ export const getBrandedProducts = async (req, res, next) => {
     const products = await Product.find({});
 
     if(!products){
-      res.status(400).json({message: "no products found", allProducts: []})
+      res.status(400).json({message: "no products found",products: []})
     }
 
     const transformedProducts = transformProductsForPresentation(products)
