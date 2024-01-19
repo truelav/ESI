@@ -46,7 +46,11 @@ FRONTEND
 
             ( "/products" )
 
-            ( "/dashboard" ) -> ( "/inventory" ) -> ( "/users" ) -> ( "/products" )
+            ( "/dashboard" ) 
+                -> ( "/users" ) 
+                -> ( "/products" )
+                --> ( "/orders" )
+                -> ( "/inventory" ) 
 
             ( "/presentation" )
 

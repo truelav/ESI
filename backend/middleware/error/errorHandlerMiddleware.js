@@ -8,7 +8,7 @@ export const errorHandlerMiddleware = (err, req, res, next) => {
 
     err.statusCode = err.statusCode || 500
     err.status = err.status || 'error'
-    err.message = err.message || 'Oops, Something Unexpected Happened !!!'
+    err.message = err.message || 'Oops, Something Unexpected Happened Custom error!!!'
 
     // Here I need to check for each type of error that can occur
     // Http Error
