@@ -1,33 +1,30 @@
 import { memo } from "react";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { Grid, GridItem, Image, Button, Checkbox, Box } from "@chakra-ui/react";
 import { FaTrash } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
+import { Grid, GridItem, Image, Button, Checkbox, Box } from "@chakra-ui/react";
 
-import { useDeleteSingleProductMutation } from "../../../../app/api/apiSlice";
-import {
-    ProductView,
-    Product,
-} from "../../../../entities/Product/model/types/product";
-import { addSelectedProduct, removeSelectedProduct } from "../../../../entities/Product/model/slice/productSlice";
-import CardComponent, { CardVariants } from "../Card/CardComponent";
 import { CardTextComponent } from "../Card/CardText";
+import CardComponent, { CardVariants } from "../Card/CardComponent";
+import { useDeleteSingleProductMutation } from "../../../../app/api/apiSlice";
+import { Product } from "../../../../entities/Product/model/types/product";
+import { addSelectedProduct, removeSelectedProduct } from "../../../../entities/Product/model/slice/productSlice";
 
 import fallback_image from "/fallback_image.jpeg";
 
-interface ProductListPropsItem {
+export interface ProductItemProps {
     className?: string;
     product: Product;
-    view?: ProductView;
-    selectedProducts?: SetConstructor;
-    setSelectedProducts?: () => void;
-    isSelected?: boolean;
-    handleToggleSelectProducts: (arg: string) => void;
+    // isSelected: boolean;
 }
 
-export const ProductItemHorizontal = memo((props: ProductListPropsItem) => {
+export const ProductItem = memo((props: ProductItemProps) => {
     const dispatch = useDispatch();
-    const { product, isSelected } = props;
+    const { product } = props;
+
+    const selectedProductIds = useSelector(state => state.products.selectedProductIds)
+    const isSelected = selectedProductIds.filter((id: string) => id === product._id).length === 1
+
     const [deleteSingleProduct, { isLoading, isError, isSuccess }] = useDeleteSingleProductMutation();
 
     const handleAddRemoveId = (id: string) => {

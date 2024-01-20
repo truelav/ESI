@@ -4,9 +4,6 @@ import { useSelector } from "react-redux";
 import { Grid, GridItem, Heading, Button } from "@chakra-ui/react"
 import { useCreatePresentationMutation } from "../../../../app/api/apiSlice";
 
-// interface PresentationHeaderProps {
-
-// }
 
 const PresentationHeader = () => {
     const [downloadPresentationLink, setDownloadPresentationLink] = useState(null);

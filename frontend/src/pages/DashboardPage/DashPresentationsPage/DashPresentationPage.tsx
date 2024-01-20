@@ -60,7 +60,6 @@ const DashPresentationPage = memo(() => {
     };
 
     const handleToggleSelectCategoryProducts = (brandName: string) => {
-        // adding brands to selected
         if (selectedBrands.has(brandName)) {
             const newSelectedBrands = new Set(selectedBrands);
             newSelectedBrands.delete(brandName);
