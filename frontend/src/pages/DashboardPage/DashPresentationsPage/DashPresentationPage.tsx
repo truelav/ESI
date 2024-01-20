@@ -120,10 +120,10 @@ const DashPresentationPage = memo(() => {
     let content = <div></div>;
 
     if (isLoadingDataProducts || isLoadingPresentation) {
-        content = <>Loading...</>;
+        content = <>Loading Presentation Products ...</>;
     }
 
-    if (isErrorDataProducts || isLoadingPresentation) {
+    if (isErrorDataProducts || isErrorPresentation) {
         content = (
             <>
                 No Products Found :{" "}
@@ -183,12 +183,12 @@ const DashPresentationPage = memo(() => {
                 <GridItem colSpan={12}>
                     <Heading as='h1' size='xl' noOfLines={1}>Welcome to Presentation Page</Heading>
                 </GridItem>
-                <GridItem colSpan={2}>
+                <GridItem colSpan={4}>
                     <Button onClick={handleCreatePresentation} colorScheme='blue'>
                         Create Presentation
                     </Button>
                 </GridItem>
-                <GridItem colSpan={12}>
+                <GridItem colSpan={4}>
                     {downloadPresentationLink && isSuccessPresentation && (
                         <Link to={downloadPresentationLink} target='_blank'>
                             <Button colorScheme='red'>Download Presentation</Button>

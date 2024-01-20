@@ -148,7 +148,7 @@ export const apiSlice = createApi({
             providesTags: [{ type: "Products", id: "List" }],
         }),
 
-        createPresentation: builder.mutation<unknown, void>({
+        createPresentation: builder.mutation<unknown, string[]>({
             query: (products) => ({
                 url: `/presentation`,
                 method: "POST",
