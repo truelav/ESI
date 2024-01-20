@@ -13,6 +13,10 @@ export const getBrandedProducts = async (req, res, next) => {
 
     const transformedProducts = transformProductsForPresentation(products)
 
+    if(!transformedProducts){
+      res.status(400).json({message: "no products found", allProducts: []})
+    }
+
     res.status(200).json(transformedProducts);
     
   } catch (error) {
