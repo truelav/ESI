@@ -4,12 +4,13 @@ import { useSelector } from "react-redux";
 import { Grid, GridItem, Heading, Button } from "@chakra-ui/react"
 import { useCreatePresentationMutation } from "../../../../app/api/apiSlice";
 
+const selectSelectedProductIds = (state) => state.product.selectedProductIds
 
 const PresentationHeader = () => {
-    const [downloadPresentationLink, setDownloadPresentationLink] = useState(null);
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    const selectedProductIds = useSelector(state => state.products.selectedProductIds)
+    const selectedProductIds = useSelector(selectSelectedProductIds)
+    const [downloadPresentationLink, setDownloadPresentationLink] = useState(null);
 
     const [
         createPresentation,
@@ -23,11 +24,11 @@ const PresentationHeader = () => {
     ] = useCreatePresentationMutation();
 
     const handleCreatePresentation = async () => {
-        const prodIDs: string[] = Array.from(selectedProductIds);
+        // const prodIDs: string[] = Array.from(selectedProductIds);
 
         try {
-            console.log(prodIDs);
-            const result = await createPresentation(prodIDs);
+            console.log(selectedProductIds);
+            const result = await createPresentation(selectedProductIds);
             if (isLoadingPresentation) {
                 console.log("creating presentation loading...");
             }

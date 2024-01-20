@@ -23,13 +23,21 @@ const productSlice = createSlice({
             state.categoryProducts = action.payload
         },
         addSelectedProduct: (state, action) => {
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
             state.selectedProductIds.push(action.payload);
           },
         removeSelectedProduct: (state, action) => {
             state.selectedProductIds = state.selectedProductIds.filter(
                 (id) => id !== action.payload
+            );
+        },
+        addSelectedProductCategory: (state, action) => {
+            const newIds = action.payload.filter((id) => !state.selectedProductIds.includes(id));
+            state.selectedProductIds = [...state.selectedProductIds, ...newIds];
+        },
+        removeSelectedProductCategory: (state, action) => {
+            // Remove the specified ids
+            state.selectedProductIds = state.selectedProductIds.filter(
+                (id) => !action.payload.includes(id)
             );
         },
         clearSelectedProducts: (state) => {
@@ -38,5 +46,15 @@ const productSlice = createSlice({
     },
 });
 
-export const { setTotalProducts, setProducts, setCategoryProducts, addSelectedProduct,  removeSelectedProduct, clearSelectedProducts} = productSlice.actions;
+export const 
+    { 
+        setTotalProducts, 
+        setProducts, 
+        setCategoryProducts, 
+        addSelectedProduct,  
+        removeSelectedProduct, 
+        clearSelectedProducts,
+        addSelectedProductCategory,
+        removeSelectedProductCategory
+    } = productSlice.actions;
 export default productSlice.reducer;

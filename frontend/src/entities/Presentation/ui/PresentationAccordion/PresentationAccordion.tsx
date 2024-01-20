@@ -1,15 +1,10 @@
 import {
     Accordion,
-    AccordionItem,
-    AccordionButton,
-    AccordionPanel,
-    AccordionIcon,
-    Checkbox,
 } from "@chakra-ui/react";
 
 import { useGetGroupedProductsQuery } from "../../../../app/api/apiSlice";
 import { GroupedProducts } from "../../../../app/api/types/Product";
-import { ProductItem } from "../../../../shared/ui/Product/ProductItem/ProductItem";
+import PresentationAccordionItem from "../PresentationAccordionItem/PresentationAccordionItem";
 
 const PresentationAccordion = () => {
 
@@ -20,6 +15,7 @@ const PresentationAccordion = () => {
         isError: isErrorDataProducts,
         error: errorDataProducts,
     } = useGetGroupedProductsQuery();
+
 
     let content = <div></div>;
 
@@ -41,25 +37,29 @@ const PresentationAccordion = () => {
             <>
                 <Accordion defaultIndex={[0]} allowMultiple>
                     {dataProducts?.map((brandGroup: GroupedProducts) => (
-                        <AccordionItem key={brandGroup.brand}>
-                            <h2>
-                                <AccordionButton>
-                                    <Checkbox
-                                        onChange={() => console.log()}>
-                                        All {brandGroup.brand}
-                                    </Checkbox>
-                                    <AccordionIcon />
-                                </AccordionButton>
-                            </h2>
-                            <AccordionPanel pb={4}>
-                                {brandGroup.products.map((product: any) => (
-                                    <ProductItem
-                                        key={product._id}
-                                        product={product}
-                                    />
-                                ))}
-                            </AccordionPanel>
-                        </AccordionItem>
+                        <PresentationAccordionItem 
+                            brandGroup={brandGroup}
+                            key={brandGroup.brand}
+                        />
+                        // <AccordionItem key={brandGroup.brand}>
+                        //     <h2>
+                        //         <AccordionButton>
+                        //             <Checkbox
+                        //                 onChange={() => console.log()}>
+                        //                 All {brandGroup.brand}
+                        //             </Checkbox>
+                        //             <AccordionIcon />
+                        //         </AccordionButton>
+                        //     </h2>
+                        //     <AccordionPanel pb={4}>
+                        //         {brandGroup.products.map((product: any) => (
+                        //             <ProductItem
+                        //                 key={product._id}
+                        //                 product={product}
+                        //             />
+                        //         ))}
+                        //     </AccordionPanel>
+                        // </AccordionItem>
                     ))}
                 </Accordion>
             </>

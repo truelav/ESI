@@ -15,19 +15,19 @@ import fallback_image from "/fallback_image.jpeg";
 export interface ProductItemProps {
     className?: string;
     product: Product;
-    // isSelected: boolean;
 }
 
 export const ProductItem = memo((props: ProductItemProps) => {
     const dispatch = useDispatch();
     const { product } = props;
-
-    const selectedProductIds = useSelector(state => state.products.selectedProductIds)
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const selectedProductIds = useSelector((state) => state.product.selectedProductIds)
     const isSelected = selectedProductIds.filter((id: string) => id === product._id).length === 1
 
     const [deleteSingleProduct, { isLoading, isError, isSuccess }] = useDeleteSingleProductMutation();
 
-    const handleAddRemoveId = (id: string) => {
+    const handleToggleProduct = (id: string) => {
         if (isSelected){
             dispatch(removeSelectedProduct(id))
         } else {
@@ -59,8 +59,7 @@ export const ProductItem = memo((props: ProductItemProps) => {
                             size="lg"
                             isChecked={isSelected}
                             onChange={() =>
-                                // handleToggleSelectProducts(product?._id)
-                                handleAddRemoveId(product?._id)
+                                handleToggleProduct(product?._id)
                             }
                         >
                             Check
