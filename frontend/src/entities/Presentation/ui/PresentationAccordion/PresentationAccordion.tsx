@@ -41,25 +41,6 @@ const PresentationAccordion = () => {
                             brandGroup={brandGroup}
                             key={brandGroup.brand}
                         />
-                        // <AccordionItem key={brandGroup.brand}>
-                        //     <h2>
-                        //         <AccordionButton>
-                        //             <Checkbox
-                        //                 onChange={() => console.log()}>
-                        //                 All {brandGroup.brand}
-                        //             </Checkbox>
-                        //             <AccordionIcon />
-                        //         </AccordionButton>
-                        //     </h2>
-                        //     <AccordionPanel pb={4}>
-                        //         {brandGroup.products.map((product: any) => (
-                        //             <ProductItem
-                        //                 key={product._id}
-                        //                 product={product}
-                        //             />
-                        //         ))}
-                        //     </AccordionPanel>
-                        // </AccordionItem>
                     ))}
                 </Accordion>
             </>

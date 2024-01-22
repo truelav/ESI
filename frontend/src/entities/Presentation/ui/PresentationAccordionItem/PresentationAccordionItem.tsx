@@ -10,6 +10,7 @@ import { useDispatch } from "react-redux";
 
 import { ProductItem } from "../../../../shared/ui/Product/ProductItem/ProductItem";
 import { addSelectedProductCategory, removeSelectedProductCategory } from "../../../Product/model/slice/productSlice";
+import { Product } from "../../../Product/model/types/product";
 
 // interface PresentationAccordionItemProps {
 //     brandGroup: 
@@ -18,7 +19,7 @@ import { addSelectedProductCategory, removeSelectedProductCategory } from "../..
 const PresentationAccordionItem = ({ brandGroup }) => {
     const dispatch = useDispatch()
     const [isSelected, setIsSelected] = useState(false)
-    const brandIds = brandGroup.products.map((product) => product._id)
+    const brandIds = brandGroup.products.map((product: Product) => product._id)
 
     const toggleProductCategory = () => {
         if (isSelected){
@@ -29,7 +30,7 @@ const PresentationAccordionItem = ({ brandGroup }) => {
             setIsSelected(true)
         }
     }
-    
+
     return (
             <AccordionItem >
                 <h2>

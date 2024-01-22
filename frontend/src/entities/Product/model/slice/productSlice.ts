@@ -57,4 +57,5 @@ export const
         addSelectedProductCategory,
         removeSelectedProductCategory
     } = productSlice.actions;
+    
 export default productSlice.reducer;
