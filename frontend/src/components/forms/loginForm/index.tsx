@@ -149,7 +149,7 @@ export function LoginForm() {
                         isInvalid={form.errors.name && form.touched.name}
                       >
                         <FormLabel>Password</FormLabel>
-                        <Input {...field} placeholder="password" />
+                        <Input {...field} placeholder="password" type="password" />
                         <FormErrorMessage>
                           {form.errors.password}
                         </FormErrorMessage>

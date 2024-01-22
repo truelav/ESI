@@ -27,7 +27,6 @@ const PresentationHeader = () => {
         // const prodIDs: string[] = Array.from(selectedProductIds);
 
         try {
-            console.log(selectedProductIds);
             const result = await createPresentation(selectedProductIds);
             if (isLoadingPresentation) {
                 console.log("creating presentation loading...");
@@ -61,14 +60,19 @@ const PresentationHeader = () => {
     }
 
     if(isSuccessPresentation){
-        <GridItem colSpan={4}>
-            {downloadPresentationLink && isSuccessPresentation && (
-                <Link to={downloadPresentationLink} target='_blank'>
-                    <Button colorScheme='red'>Download Presentation</Button>
-                </Link>
-            )}
-            {isLoadingPresentation && <div>Presentation is creating ...</div>}
-        </GridItem>
+
+        content = (
+            <>    
+                <GridItem colSpan={4}>
+                    {downloadPresentationLink && isSuccessPresentation && (
+                        <Link to={downloadPresentationLink} target='_blank'>
+                            <Button colorScheme='red'>Download Presentation</Button>
+                        </Link>
+                    )}
+                    {isLoadingPresentation && <div>Presentation is creating ...</div>}
+                </GridItem>
+            </>
+        ) 
     }
 
 
