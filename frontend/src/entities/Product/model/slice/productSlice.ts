@@ -40,7 +40,11 @@ const productSlice = createSlice({
                 (id) => !action.payload.includes(id)
             );
         },
-        clearSelectedProducts: (state) => {
+        selectAllProducts: (state, action) => {
+            state.selectedProductIds = []
+            state.selectedProductIds = [...action.payload]
+        },
+        deselectAllProducts: (state) => {
             state.selectedProductIds = [];
         },
     },
@@ -53,9 +57,10 @@ export const
         setCategoryProducts, 
         addSelectedProduct,  
         removeSelectedProduct, 
-        clearSelectedProducts,
         addSelectedProductCategory,
-        removeSelectedProductCategory
+        removeSelectedProductCategory,
+        selectAllProducts,
+        deselectAllProducts,
     } = productSlice.actions;
     
 export default productSlice.reducer;

@@ -1,17 +1,17 @@
 import { memo, useState } from "react";
-import { Divider } from "@chakra-ui/react";
-import { useSelector } from "react-redux";
+import { Button, Text } from "@chakra-ui/react";
+import { useDispatch } from "react-redux";
 
 import { Product } from "../../../entities/Product/model/types/product";
+import { selectAllProducts, deselectAllProducts } from "../../../entities/Product/model/slice/productSlice";
 
-import { useGetAllProductsQuery } from "../../../app/api/apiSlice";
 import { DashProductListHead } from "./DashProductListHead";
-import { ProductItemHorizontal } from "../../../shared/ui/Product/ProductItemHorizontal/ProductItemHorizontal";
+import { useGetAllProductsQuery } from "../../../app/api/apiSlice";
+import { ProductItem } from "../../../shared/ui/Product/ProductItem/ProductItem";
 
 export const DashProductsList = memo(() => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    const selectedProductIds = useSelector((state) => state.product.selectedProductIds);
+
+    const dispatch = useDispatch()
     const {
         data: products,
         isLoading,
@@ -20,23 +20,18 @@ export const DashProductsList = memo(() => {
         error,
     } = useGetAllProductsQuery();
 
-    const [selectedProducts, setSelectedProducts] = useState({});
-    const handleToggleSelectProducts = (id: string) => {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        if (selectedProducts[id]) {
-            setSelectedProducts({
-                ...selectedProducts,
-                [id]: false,
-            });
+    const [areAllProductsSelected, setAreAllProductsSelected] = useState(false)
+    const allProductIds = products?.map((product: Product) => product._id)
+
+    const handleToggleSelectAllProducts = () => {
+        if(areAllProductsSelected){
+            dispatch(deselectAllProducts())
+            setAreAllProductsSelected(false)
         } else {
-            setSelectedProducts({
-                ...selectedProducts,
-                [id]: true,
-            });
+            dispatch(selectAllProducts(allProductIds))  
+            setAreAllProductsSelected(true)
         }
-    };
-    // console.log(products)
+    }
 
     let content = <div></div>;
 
@@ -52,16 +47,18 @@ export const DashProductsList = memo(() => {
         content = (
             <>
                 <DashProductListHead />
-                <Divider orientation="horizontal" />
+
+                {products?.length > 0 && (
+                    <Button onClick={() => handleToggleSelectAllProducts() }>
+                        <Text>{areAllProductsSelected ? `Deselect All Products` : `Select All Products`}</Text>
+                    </Button>
+                )}
+
                 <div>
                     {products?.map((product: Product) => (
-                        <ProductItemHorizontal
+                        <ProductItem
                             key={product._id}
                             product={product}
-                            isSelected={selectedProductIds.includes(product._id)}
-                            handleToggleSelectProducts={
-                                handleToggleSelectProducts
-                            }
                         />
                     ))}
                 </div>
