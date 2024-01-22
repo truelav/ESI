@@ -27,6 +27,7 @@ export const register = async (req, res, next) => {
 
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
+    
     const newUser = new User({
       name,
       email,
@@ -65,9 +66,13 @@ export const register = async (req, res, next) => {
 
 
 export const login = async (req, res, next) => {
+
   const { email, password } = req.body;
+
   try {
+
     const user = await User.findOne({ email });
+
     if (!user) {
       return next(createError(HTTPStatusCodes.NotFound, `User with ${email} not found`))
     }
