@@ -1,6 +1,44 @@
 import fs from "fs";
 import Product from "../models/Product/Product.js";
 
+export const findProductService = async (data) => {
+  const product = await Product.findById(data)
+  return product
+}
+
+export const editProductService = async (data) => {
+  const {
+    _id,
+    brand,
+    model,
+    price,
+    description,
+    category,
+    quantity,
+    upc,
+    image
+  } = data;
+
+  console.log(data)
+
+  const updatedProduct = await Product.findOneAndUpdate(
+    {_id},
+    {
+      _id,
+      brand,
+      model,
+      price,
+      description,
+      category,
+      quantity,
+      images: image,
+      upc,
+    },
+  )
+
+  return updatedProduct
+}
+
 export const findAllProductsById = async ({ IDs }) => {
   const productDetails = await Product.find({ _id: { $in: prodIDs } });
 
