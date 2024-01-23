@@ -6,7 +6,6 @@ import { useGetSingleProductQuery } from "../../../app/api/apiSlice";
 
 const DashProductDetailsPage = memo(() => {
   const { id } = useParams() || "";
-  console.log(id);
 
   const {
     data: product,
@@ -15,7 +14,6 @@ const DashProductDetailsPage = memo(() => {
     isError,
     error,
   } = useGetSingleProductQuery(id);
-
 
   let content = <div></div>;
 
@@ -30,11 +28,7 @@ const DashProductDetailsPage = memo(() => {
   if(isSuccess) {
     content = (
       <div className="dash_products_page_wrapper">
-        <DashProductDetails 
-            // handleOnUpdateForm={handleOnUpdateForm} 
-            // handleOnSubmitForm={handleOnSubmitForm} 
-            product={product}
-        />
+        <DashProductDetails   product={product} />
       </div>
     )
   }

@@ -43,8 +43,7 @@ export const DashProductDetails = memo(( props : EditProductFormProps) => {
             // }
             // console.log(product)
     }, [product])
-    console.log(formData.images)
-        
+
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
@@ -82,8 +81,10 @@ export const DashProductDetails = memo(( props : EditProductFormProps) => {
         formDataToSend.append("quantity", formData.quantity);
         formDataToSend.append("image", formData.images);
         formDataToSend.append("_id", formData._id);
+
         try {
             const result = await editSingleProduct(formDataToSend)
+            await 
             console.log(result)
         } catch (err){
             console.log(err)

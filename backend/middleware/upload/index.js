@@ -21,12 +21,12 @@ const storage = multer.diskStorage({
   limits: {
     fileSize: 500000,
   },
-    fileFilter(req, file, cb) {
-      if (!file.originalname.match(/\.(jpg|jpeg|png|webp)$/)) {
-        return cb(new Error("Please upload a valid image file"));
-      }
-      cb(undefined, true);
-    },
+    // fileFilter(req, file, cb) {
+    //   if (!file.originalname.match(/\.(jpg|jpeg|png|webp)$/)) {
+    //     return cb(new Error("Please upload a valid image file"));
+    //   }
+    //   cb(undefined, true);
+    // },
 });
 
 export const upload = multer({ storage });
