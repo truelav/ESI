@@ -17,7 +17,6 @@ const ProductSchema = new Schema(
         },
         subcategory: {
             type: String,
-            default: "electronics",
         },
         quantity: {
             type: Number,

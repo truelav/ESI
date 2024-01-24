@@ -9,7 +9,7 @@ export const addMultipleProducts = async (req, res, next) => {
   try {
     const { buffer } = req.file;
     const newProducts = [];
-    // Parse the document into the fields and add each Product
+
     streamifier
       .createReadStream(buffer)
       .pipe(parse({ delimiter: ",", ignoreEmpty: true }))
@@ -21,7 +21,7 @@ export const addMultipleProducts = async (req, res, next) => {
           brand: row.Brand,
           model: row.Model,
           description: row.Description,
-          category: row.Category,
+          category: row.Category ,
           subcategory: row.subcategory,
           upc: row.UPC || 'No UPC Provided',
           price: numPrice || 1,
