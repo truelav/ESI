@@ -1,15 +1,19 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Grid, GridItem } from "@chakra-ui/react";
 
 import { useGetAllProductsQuery } from "../../app/api/apiSlice";
+import { setFilters } from "../../features/products/FilterProducts/model/slice/filterSlice";
 
+import { ProductSearchBar } from "../../entities/Product/ui/ProductSearchBar/ProductSearchBar";
+import { ProductSortBar } from "../../entities/Product/ui/ProductSortBar/ProductSortBar";
 import { ProductList } from "../../entities/Product/ui/ProductList/ProductList";
 import { Product } from "../../entities/Product/model/types/product";
-import { ProductSearchBar } from "../../entities/Product/ui/ProductSearchBar/ProductSearchBar";
-import { ProductFilterBar } from "../../entities/Product/ui/ProductFilterBar/ProductFilterBar";
-import { ProductSortBar } from "../../entities/Product/ui/ProductSortBar/ProductSortBar";
+import FilterBar from "../../features/products/FilterProducts/ui/FilterBar/FilterBar";
+
 
 const ProductsPage = () => {
+    const dispatch = useDispatch()
     const {
         data: products,
         isLoading,
@@ -19,26 +23,24 @@ const ProductsPage = () => {
     } = useGetAllProductsQuery();
 
     // const dispatch = useDispatch();
-
+    const selectedFilters = useSelector(state => state.filter.selectedFilters)
     const [searchTerm, setSearchTerm] = useState("");
     const [filterBy, setFilterBy] = useState("");
     const [sortBy, setSortBy] = useState("");
 
-    const filterItems = Array.from(
-        new Set(products?.flatMap(product => product.category))
-    );
+    useEffect(() => {
+        if(products){
+            const filterList = Array.from(
+                new Set(products?.flatMap(product => product.category))
+            );
 
-    // const setProductsData = () => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    // dispatch(setTotalProducts(products.length));
-    // dispatch(setProducts(products))
-    // };
+            dispatch(setFilters(filterList))
+        }
+    },[products])
 
     const filteredAndSortedProducts = useMemo(() => {
         let filteredProducts = products || [];
 
-        // Apply search
         if (searchTerm) {
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
@@ -49,11 +51,12 @@ const ProductsPage = () => {
             );
         }
 
-        if (filterBy) {
+        if (selectedFilters.length) {
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
             filteredProducts = filteredProducts.filter((product: Product) =>
-                product.category.toLowerCase().includes(filterBy.toLowerCase())
+                selectedFilters.includes(product.category)
+                // product.category.toLowerCase().includes(filterBy.toLowerCase())
             );
         }
 
@@ -70,14 +73,14 @@ const ProductsPage = () => {
             // @ts-ignore
             filteredProducts = [...newFilteredProducts];
         }
-
+        console.log(selectedFilters, filteredProducts)
         return filteredProducts;
-    }, [searchTerm, products, filterBy, sortBy]);
+    }, [searchTerm, products, selectedFilters, sortBy]);
 
     let content = <div></div>;
 
     if (isLoading) {
-        content = <>Loading...</>;
+        content = <>Loading Products...</>;
     }
 
     if (isError) {
@@ -89,11 +92,7 @@ const ProductsPage = () => {
             <div className="dash_products_page_wrapper">
                 <Grid templateColumns="repeat(12, 1fr)" gap={4}>
                     <GridItem colSpan={2}>
-                        <ProductFilterBar
-                            filterItems={filterItems}
-                            filterBy={filterBy}
-                            setFilterBy={setFilterBy}
-                        />
+                        <FilterBar />
                     </GridItem>
                     <GridItem colSpan={10}>
                         <ProductSearchBar

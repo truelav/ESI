@@ -1,8 +1,9 @@
 import { Product } from "../../model/types/product";
 import { ProductListItem } from "../ProductListItem/ProductListItem";
 export const ProductList = (props: { products: Product[] | never[] }) => {
+
     const { products } = props;
-    console.log(products)
+    
     return (
         <>
             <h2>Products: </h2>
