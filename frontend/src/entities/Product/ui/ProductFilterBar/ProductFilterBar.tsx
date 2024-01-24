@@ -2,9 +2,11 @@ import { Button, Text, Heading, Box } from "@chakra-ui/react";
 
 export const ProductFilterBar = (props: {
     filterBy: string;
+    filterItems: string[];
     setFilterBy: (arg0: string) => void;
 }) => {
-    const { filterBy, setFilterBy } = props;
+    const { filterBy, filterItems, setFilterBy } = props;
+    console.log(filterItems)
     return (
         <>
             <Heading>Filter By:</Heading>

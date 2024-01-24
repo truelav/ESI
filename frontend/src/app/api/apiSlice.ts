@@ -25,7 +25,7 @@ export const apiSlice = createApi({
     tagTypes: ["Product", "User", "Order"],
     endpoints: (builder) => ({
         // Products API Routes [ 1. /products  2. /products/:id]
-        getAllProducts: builder.query<Product, void>({
+        getAllProducts: builder.query<Product[], void>({
             query: () => `/products`,
             providesTags: ['Product']
         }),

@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Grid, GridItem } from "@chakra-ui/react";
 
 import { useGetAllProductsQuery } from "../../app/api/apiSlice";
@@ -24,6 +24,10 @@ const ProductsPage = () => {
     const [filterBy, setFilterBy] = useState("");
     const [sortBy, setSortBy] = useState("");
 
+    const filterItems = Array.from(
+        new Set(products?.flatMap(product => product.subcategory))
+    );
+
     // const setProductsData = () => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
@@ -45,7 +49,6 @@ const ProductsPage = () => {
             );
         }
 
-        // Apply filtering
         if (filterBy) {
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
@@ -54,7 +57,6 @@ const ProductsPage = () => {
             );
         }
 
-        // Apply sorting
         if (sortBy) {
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
@@ -88,6 +90,7 @@ const ProductsPage = () => {
                 <Grid templateColumns="repeat(12, 1fr)" gap={4}>
                     <GridItem colSpan={2}>
                         <ProductFilterBar
+                            filterItems={filterItems}
                             filterBy={filterBy}
                             setFilterBy={setFilterBy}
                         />
