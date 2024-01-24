@@ -1,4 +1,4 @@
-import { Button, Box, Text, Grid, GridItem } from "@chakra-ui/react"
+import { Button, Box } from "@chakra-ui/react"
 import { useState, MouseEvent } from "react"
 import { useDispatch } from "react-redux"
 
@@ -35,8 +35,7 @@ const AddToCart = (product: Product) => {
 
     return (
         <Box>
-
-            <Grid templateColumns="repeat(12, 1fr)" gap={4}>
+            {/* <Grid templateColumns="repeat(12, 1fr)" gap={4}>
                 <GridItem colSpan={1}>
                     <Button onClick={handleDecrementQuantity}> - </Button>
                 </GridItem>
@@ -47,12 +46,12 @@ const AddToCart = (product: Product) => {
                     <Button onClick={handleIncrementQuantity}> + </Button>
                 </GridItem>
                 <GridItem colSpan={2}>
-                    <Button variant='solid' colorScheme='blue' onClick={() => handleAddToCart(product)}>
-                        Add to cart
-                    </Button>
                 </GridItem>
-            </Grid>
+            </Grid> */}
 
+            <Button variant='solid' colorScheme='blue' onClick={() => handleAddToCart(product)}>
+                Add to cart
+            </Button>
             <AlertSuccess isOpen={showSuccessAlert} setShowSuccessAlert={setShowSuccessAlert}/>
 
         </Box>

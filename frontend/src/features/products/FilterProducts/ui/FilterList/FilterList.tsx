@@ -3,8 +3,11 @@ import { useSelector } from "react-redux"
 import FilterItem from "../FilterItem/FilterItem"
 
 const FilterList = () => {
-
-    const filterList = useSelector((state) => state.filter.filters)
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const filterList = useSelector((state) => state.filter.filters)            
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment 
+    //@ts-ignore
     const selectedFilters = useSelector((state) => state.filter.selectedFilters)
 
     return (

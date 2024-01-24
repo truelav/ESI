@@ -24,7 +24,9 @@ const FilterItem = (props: FilterItemProps) => {
     return (
         <Box margin={2}>
             <Button
-                color={isSelected? "green": "blue"}
+                color={isSelected? "blue" : "gray"}
+                isActive={isSelected}
+                // variant={isSelected ? "solid" : "ghost"}
                 onClick={() => handleFilterChange(filterItem, isSelected)}
             >
                 <Text>

@@ -10,13 +10,14 @@ export const ProductSortBar = (props: {
     setSortBy: (arg0: string | number) => void;
 }) => {
     const { sortBy, setSortBy } = props;
+
     return (
         <CardComponent
             cardVariant={CardVariants.outline}
             additionalClassNames="Dash_ProductListItem"
         >
             <Grid templateColumns="repeat(12, 1fr)" gap={4}>
-                <GridItem colSpan={3}>
+                <GridItem colSpan={2}>
                     <CardTextComponent>Sort By: </CardTextComponent>
                 </GridItem>
 
@@ -26,6 +27,10 @@ export const ProductSortBar = (props: {
 
                 <GridItem colSpan={2}>
                     <CardTextComponent>Model</CardTextComponent>
+                </GridItem>
+
+                <GridItem colSpan={1}>
+                    <CardTextComponent>Inventory</CardTextComponent>
                 </GridItem>
 
                 <GridItem colSpan={1}>

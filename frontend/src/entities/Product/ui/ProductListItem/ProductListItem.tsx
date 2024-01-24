@@ -1,6 +1,6 @@
 import { memo } from "react";
 import { Link } from "react-router-dom";
-import { Button, Grid, GridItem, Image } from "@chakra-ui/react";
+import { Button, Grid, GridItem, Image, Box, Flex } from "@chakra-ui/react";
 
 import {
     ProductView,
@@ -39,12 +39,16 @@ export const ProductListItem = memo((props: ProductListPropsItem) => {
                     />
                 </GridItem>
 
-                <GridItem colSpan={1}>
+                <GridItem colSpan={2}>
                     <CardTextComponent fontSize="xl">{product?.brand}</CardTextComponent>
                 </GridItem>
 
                 <GridItem colSpan={2}>
                     <CardTextComponent>{product?.model}</CardTextComponent>
+                </GridItem>
+
+                <GridItem colSpan={1}>
+                    <CardTextComponent fontSize="xl">{product?.quantity}</CardTextComponent>
                 </GridItem>
 
                 <GridItem colSpan={1}>
@@ -57,15 +61,23 @@ export const ProductListItem = memo((props: ProductListPropsItem) => {
                     <CardTextComponent>{product?.upc}</CardTextComponent>
                 </GridItem>
 
-                <GridItem colSpan={1}>
-                <Link to={`/products/${product?._id}`}>
-                        <Button>Learn More</Button>
-                    </Link>
+                <GridItem colSpan={2}>
+                    <Flex 
+                        direction="column"
+                        align="center"
+                        justify="space-evenly"
+                    >
+                        <Box p={2}>
+                            <Link to={`/products/${product?._id}`}>
+                                <Button>Learn More</Button>
+                            </Link>
+                        </Box>
+                        <Box p={2}>
+                            <AddToCart product={product}/>
+                        </Box>
+                    </Flex>
                 </GridItem>
 
-                <GridItem colSpan={2}>
-                    <AddToCart product={product}/>
-                </GridItem>
             </Grid>
         </CardComponent>
     );

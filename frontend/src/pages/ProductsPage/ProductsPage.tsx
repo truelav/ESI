@@ -7,7 +7,7 @@ import { setFilters } from "../../features/products/FilterProducts/model/slice/f
 
 import { ProductSearchBar } from "../../entities/Product/ui/ProductSearchBar/ProductSearchBar";
 import { ProductSortBar } from "../../entities/Product/ui/ProductSortBar/ProductSortBar";
-import { ProductList } from "../../entities/Product/ui/ProductList/ProductList";
+import  ProductList  from "../../entities/Product/ui/ProductList/ProductList";
 import { Product } from "../../entities/Product/model/types/product";
 import FilterBar from "../../features/products/FilterProducts/ui/FilterBar/FilterBar";
 
@@ -24,8 +24,8 @@ const ProductsPage = () => {
 
     // const dispatch = useDispatch();
     const selectedFilters = useSelector(state => state.filter.selectedFilters)
+
     const [searchTerm, setSearchTerm] = useState("");
-    const [filterBy, setFilterBy] = useState("");
     const [sortBy, setSortBy] = useState("");
 
     useEffect(() => {
@@ -73,8 +73,9 @@ const ProductsPage = () => {
             // @ts-ignore
             filteredProducts = [...newFilteredProducts];
         }
-        console.log(selectedFilters, filteredProducts)
+
         return filteredProducts;
+
     }, [searchTerm, products, selectedFilters, sortBy]);
 
     let content = <div></div>;
