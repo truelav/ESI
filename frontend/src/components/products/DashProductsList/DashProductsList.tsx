@@ -54,14 +54,12 @@ export const DashProductsList = memo(() => {
                     </Button>
                 )}
 
-                <div>
-                    {products?.map((product: Product) => (
-                        <ProductItem
-                            key={product._id}
-                            product={product}
-                        />
-                    ))}
-                </div>
+                {products?.map((product: Product) => (
+                    <ProductItem
+                        key={product._id}
+                        product={product}
+                    />
+                ))}
             </>
         );
     }

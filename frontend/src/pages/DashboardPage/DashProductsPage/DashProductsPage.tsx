@@ -1,6 +1,7 @@
 import { Button, ButtonGroup, Grid, GridItem, Text } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+
 import { useDeleteMultipleProductsMutation } from "../../../app/api/apiSlice";
 import { deselectAllProducts } from "../../../entities/Product/model/slice/productSlice";
 import { DashProductsList } from "../../../components/products/DashProductsList/DashProductsList";
@@ -73,8 +74,11 @@ function DashProductsPage() {
                         </ButtonGroup>
                     </GridItem>
                 </Grid>
+
                 {content}
+
                 <DashProductsList />
+
             </div>
         </>
     );

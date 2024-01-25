@@ -1,17 +1,15 @@
+import { Link } from "react-router-dom";
 import { ChangeEvent, FormEvent, memo, useEffect, useState } from "react";
 import { Button, VStack, FormControl, FormLabel, Input, Image, Grid, GridItem } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+
 import { Product } from "../../../entities/Product/model/types/product";
 import { useEditSingleProductMutation } from "../../../app/api/apiSlice";
 import { FormResult } from "../../forms/FormResult/FormResult";
 
 import fallback_image from "/fallback_image.jpeg";
 
-
 export interface EditProductFormProps {
     product: Partial<Product>;
-    // handleOnUpdateForm: () => void;
-    // handleOnSubmitForm: () => void
 }
 
 export const DashProductDetails = memo(( props : EditProductFormProps) => {
@@ -23,12 +21,12 @@ export const DashProductDetails = memo(( props : EditProductFormProps) => {
         brand: "",
         model: "",
         description: "",
+        category: "",
         subcategory: "",
         price: "",
         quantity: "",
-        images: null,
+        images: "",
         upc: "",
-        category: "",
     });
 
     useEffect(() => {
@@ -38,10 +36,6 @@ export const DashProductDetails = memo(( props : EditProductFormProps) => {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         setImagePreview(product.images)
-        // if(formData.price === undefined){
-            //     formData.price = "$0"
-            // }
-            // console.log(product)
     }, [product])
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -73,9 +67,11 @@ export const DashProductDetails = memo(( props : EditProductFormProps) => {
         e.preventDefault();
 
         const formDataToSend = new FormData();
+        
         formDataToSend.append("brand", formData.brand);
         formDataToSend.append("model", formData.model);
         formDataToSend.append("description", formData.description);
+        formDataToSend.append("category", formData.category)
         formDataToSend.append("upc", formData.upc);
         formDataToSend.append("price", formData.price);
         formDataToSend.append("quantity", formData.quantity);
@@ -84,7 +80,6 @@ export const DashProductDetails = memo(( props : EditProductFormProps) => {
 
         try {
             const result = await editSingleProduct(formDataToSend)
-            await 
             console.log(result)
         } catch (err){
             console.log(err)
@@ -205,6 +200,7 @@ export const DashProductDetails = memo(( props : EditProductFormProps) => {
                                         onChange={handleChange}
                                     />
                                 </FormControl>
+
                             <Button type="submit" colorScheme='blue'>Save Product</Button>
                         </VStack>
                     </form>

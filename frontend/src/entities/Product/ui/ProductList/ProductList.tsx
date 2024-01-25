@@ -1,8 +1,9 @@
 import { useMemo } from "react";
 import { useSelector } from "react-redux";
-import { updateProductsByFilter, updateProductsBySearchTerm, updateProductsBySort } from "../../model/service/filterSortAndSearchProduct";
+
 import { Product } from "../../model/types/product";
 import { ProductListItem } from "../ProductListItem/ProductListItem";
+import { updateProductsByFilter, updateProductsBySearchTerm, updateProductsBySort } from "../../model/service/filterSortAndSearchProduct";
 
 const ProductList = (props: { products: Product[] | never[], searchTerm: string }) => {
     const { products, searchTerm } = props;
