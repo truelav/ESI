@@ -5,6 +5,7 @@ import authSlice from "../features/auth/slice/authSlice";
 import cartSlice from "../entities/Cart/model/slice/cartSlice";
 import productSlice from "../entities/Product/model/slice/productSlice";
 import filterSlice from "../features/products/FilterProducts/model/slice/filterSlice";
+import sortSlice from "../features/products/SortProducts/model/slice/sortSlice";
 
 export const store = configureStore({
     reducer: {
@@ -12,6 +13,7 @@ export const store = configureStore({
         auth: authSlice,
         product: productSlice,
         filter: filterSlice,
+        sort: sortSlice,
         cart: cartSlice,
     },
     middleware: (getDefaultMiddleware) =>

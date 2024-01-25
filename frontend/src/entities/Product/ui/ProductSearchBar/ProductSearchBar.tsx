@@ -1,4 +1,5 @@
 import { Input, Button, Text, Grid, GridItem } from "@chakra-ui/react";
+import { useSelector } from "react-redux";
 
 export const ProductSearchBar = (props: {
     searchTerm: string;
@@ -13,6 +14,7 @@ export const ProductSearchBar = (props: {
                     <Input
                         type="text"
                         name="brand"
+                        placeholder="Search for product..."
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                     />

@@ -5,11 +5,13 @@ interface CardTextComponentProps {
     children: ReactNode
     fontSize?: string
     color?: string
+    isSelected?: boolean
 }
 
 export const CardTextComponent = (props: CardTextComponentProps) => {
 
-    const {fontSize, color,children} = props
+    const {fontSize, color, children} = props
+
     return (
         <Text fontSize={fontSize} color={color}>
             {children}
