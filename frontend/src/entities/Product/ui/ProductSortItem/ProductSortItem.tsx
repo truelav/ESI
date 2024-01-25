@@ -3,7 +3,6 @@ import { useDispatch } from "react-redux"
 import { GoArrowDown, GoArrowUp } from "react-icons/go";
 import { Button, GridItem, Text } from "@chakra-ui/react"
 
-
 import {setSort} from "../../../../features/products/SortProducts/model/slice/sortSlice"
 
 interface SelectedSort {

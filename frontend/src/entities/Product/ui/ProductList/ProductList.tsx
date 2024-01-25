@@ -1,48 +1,27 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { useSelector } from "react-redux";
+import { updateProductsByFilter, updateProductsBySearchTerm, updateProductsBySort } from "../../model/service/filterSortAndSearchProduct";
 import { Product } from "../../model/types/product";
 import { ProductListItem } from "../ProductListItem/ProductListItem";
 
-const ProductList = (props: { products: Product[] | never[] }) => {
-    const { products } = props;
-    const [searchTerm, setSearchTerm] = useState("");
-
+const ProductList = (props: { products: Product[] | never[], searchTerm: string }) => {
+    const { products, searchTerm } = props;
+    
     const selectedFilters = useSelector(state => state.filter.selectedFilters)
     const selectedSort = useSelector(state => state.sort.selectedSort)
-
-    console.log(selectedSort)
 
     const filteredAndSortedProducts = useMemo(() => {
         let filteredProducts = products || [];
 
-        if (searchTerm) {
-            filteredProducts = filteredProducts.filter((product) =>
-                product.description
-                    .toLowerCase()
-                    .includes(searchTerm.toLowerCase())
-            );
+        if(searchTerm){
+            filteredProducts = updateProductsBySearchTerm(filteredProducts, searchTerm)
         }
-
-        if (selectedFilters.length) {
-            filteredProducts = filteredProducts.filter((product: Product) =>
-                selectedFilters.includes(product.category)
-            );
+        if(selectedFilters.length){
+            filteredProducts = updateProductsByFilter(filteredProducts, selectedFilters)
         }
-
-        if (selectedSort.name) {
-            const newFilteredProducts = [...filteredProducts];
-            const sortBy: string = selectedSort.name
-
-            newFilteredProducts.sort((a: Product, b: Product) => {
-                if(selectedSort.ascending){
-                    return a[sortBy] > b[sortBy] ? 1 : -1;
-                } else {
-                    return a[sortBy] > b[sortBy] ? -1 : 1;
-                }
-            });
-            filteredProducts = [...newFilteredProducts];
+        if(selectedSort.name){
+            filteredProducts = updateProductsBySort(filteredProducts, selectedSort)
         }
-
         return filteredProducts;
 
     }, [searchTerm, products, selectedFilters, selectedSort]);

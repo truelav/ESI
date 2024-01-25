@@ -1,10 +1,12 @@
 import { Input, Button, Text, Grid, GridItem } from "@chakra-ui/react";
-import { useSelector } from "react-redux";
 
-export const ProductSearchBar = (props: {
-    searchTerm: string;
+interface ProductSearchBarProps {
+    searchTerm: string
     setSearchTerm: (arg0: string) => void;
-}) => {
+}
+
+export const ProductSearchBar = (props: ProductSearchBarProps) => {
+
     const { searchTerm, setSearchTerm } = props;
 
     return (

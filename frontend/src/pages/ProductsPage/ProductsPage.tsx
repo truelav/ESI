@@ -10,7 +10,6 @@ import { ProductSortBar } from "../../entities/Product/ui/ProductSortBar/Product
 import  ProductList  from "../../entities/Product/ui/ProductList/ProductList";
 import FilterBar from "../../features/products/FilterProducts/ui/FilterBar/FilterBar";
 
-
 const ProductsPage = () => {
     const dispatch = useDispatch()
     const {
@@ -25,10 +24,7 @@ const ProductsPage = () => {
 
     useEffect(() => {
         if(products){
-            const filterList = Array.from(
-                new Set(products?.flatMap(product => product.category))
-            );
-
+            const filterList = Array.from( new Set(products?.flatMap(product => product.category)));
             dispatch(setFilters(filterList))
         }
     },[products])
@@ -52,13 +48,9 @@ const ProductsPage = () => {
                         <FilterBar />
                     </GridItem>
                     <GridItem colSpan={10}>
-                        <ProductSearchBar
-                            searchTerm={searchTerm}
-                            setSearchTerm={setSearchTerm}
-                        />
-
+                        <ProductSearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
                         <ProductSortBar />
-                        <ProductList products={products}/>
+                        <ProductList products={products} searchTerm={searchTerm} />
                     </GridItem>
                 </Grid>
             </div>
