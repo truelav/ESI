@@ -27,6 +27,7 @@ export const DashProductDetails = memo(( props : EditProductFormProps) => {
         quantity: "",
         images: "",
         upc: "",
+        bulletpoint: ""
     });
 
     useEffect(() => {
@@ -67,7 +68,7 @@ export const DashProductDetails = memo(( props : EditProductFormProps) => {
         e.preventDefault();
 
         const formDataToSend = new FormData();
-        
+
         formDataToSend.append("brand", formData.brand);
         formDataToSend.append("model", formData.model);
         formDataToSend.append("description", formData.description);
@@ -77,6 +78,7 @@ export const DashProductDetails = memo(( props : EditProductFormProps) => {
         formDataToSend.append("quantity", formData.quantity);
         formDataToSend.append("image", formData.images);
         formDataToSend.append("_id", formData._id);
+        formDataToSend.append("bulletpoint", formData.bulletpoint);
 
         try {
             const result = await editSingleProduct(formDataToSend)
@@ -200,6 +202,18 @@ export const DashProductDetails = memo(( props : EditProductFormProps) => {
                                         onChange={handleChange}
                                     />
                                 </FormControl>
+
+                                <FormControl>
+                                    <FormLabel>Bullet Point</FormLabel>
+                                    <Input
+                                        type="text"
+                                        name="bulletpoint"
+                                        value={formData.bulletpoint}
+                                        onChange={handleChange}
+                                    />
+                                </FormControl>
+
+                                {/* <BulletPoints Components /> */}
 
                             <Button type="submit" colorScheme='blue'>Save Product</Button>
                         </VStack>
