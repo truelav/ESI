@@ -1,6 +1,7 @@
 import { Card, CardBody, Stack, Heading, Text, Divider, CardFooter } from "@chakra-ui/react";
 import React from "react";
 import AddToCart from "../../../../features/cart/addToCart/AddToCartFeature";
+import { ProductBulletList } from "../../../../shared/ui/Product/ProductBulletList/ProductBulletList";
 import { Product } from "../../model/types/product";
 
 interface ProductProps {
@@ -30,6 +31,7 @@ export const ProductDetailsInfo: React.FC<ProductProps> = ({ product } ) => {
                     UPC: {upc}
                 </Text>
                 </Stack>
+                <ProductBulletList />
             </CardBody>
             <Divider />
             <CardFooter>

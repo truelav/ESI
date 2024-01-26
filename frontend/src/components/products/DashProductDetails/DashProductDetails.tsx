@@ -7,6 +7,7 @@ import { useEditSingleProductMutation } from "../../../app/api/apiSlice";
 import { FormResult } from "../../forms/FormResult/FormResult";
 
 import fallback_image from "/fallback_image.jpeg";
+import { ProductBulletList } from "../../../shared/ui/Product/ProductBulletList/ProductBulletList";
 
 export interface EditProductFormProps {
     product: Partial<Product>;
@@ -214,6 +215,7 @@ export const DashProductDetails = memo(( props : EditProductFormProps) => {
                                 </FormControl>
 
                                 {/* <BulletPoints Components /> */}
+                                <ProductBulletList />
 
                             <Button type="submit" colorScheme='blue'>Save Product</Button>
                         </VStack>
