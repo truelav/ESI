@@ -3,19 +3,14 @@ import React from "react";
 import { ImageSlider } from "../../../../shared/ui/Images/ImageSlider/ImageSlider";
 
 interface ProductImageProps {
-    imageSource: string
+    images: string[] | []
 }
 
-export const ProductDetailsImage: React.FC<ProductImageProps> = ({ imageSource }) => {
+export const ProductDetailsImage: React.FC<ProductImageProps> = ({ images }) => {
 
     return (
       <>
         <Card maxW='' variant="unstyled">
-            {/* <Image
-                src={imageSource}
-                alt={imageSource}
-                borderRadius='lg'
-            /> */}
             <ImageSlider />
         </Card>
       </>

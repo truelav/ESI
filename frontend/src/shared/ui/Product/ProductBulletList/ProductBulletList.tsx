@@ -1,4 +1,4 @@
-import { UnorderedList } from "@chakra-ui/react"
+import { Heading, UnorderedList } from "@chakra-ui/react"
 import { ProductBulletListItem } from "../ProductBulletListItem/ProductBulletListItem"
 
 const bulletList = [
@@ -12,7 +12,9 @@ const bulletList = [
 export const ProductBulletList = () => {
     return (
         <>
-            Product Features:
+            <Heading size="md" my={2}>
+                Product Features:
+            </Heading>
             <UnorderedList spacing={2}>
                 {bulletList.map((bulletItem: string) => (
                     <ProductBulletListItem bulletItem={bulletItem} key={bulletItem} />

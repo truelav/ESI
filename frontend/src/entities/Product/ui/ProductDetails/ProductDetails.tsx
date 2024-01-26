@@ -36,14 +36,14 @@ export const ProductDetails = memo(() => {
   if (isSuccess) {
     content = (
         <Grid templateColumns="repeat(12, 1fr)" gap={4}>
-          <GridItem colSpan={6}>
+          <GridItem colSpan={8}>
               {/* 
                eslint-disable-next-line @typescript-eslint/ban-ts-comment */} 
               {/* 
               // @ts-ignore */}
               <ProductDetailsImage imageSource={product?.images}/>
           </GridItem>
-          <GridItem colSpan={6}>
+          <GridItem colSpan={4}>
               <ProductDetailsInfo product={product}/>
             </GridItem>
         </Grid>
