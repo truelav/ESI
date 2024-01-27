@@ -6,8 +6,13 @@ import { Product } from "../../../entities/Product/model/types/product";
 import { useEditSingleProductMutation } from "../../../app/api/apiSlice";
 import { FormResult } from "../../forms/FormResult/FormResult";
 
-import fallback_image from "/fallback_image.jpeg";
+import { initialStore } from "../../../features/products/EditSingleProduct/model/store/EditSingleProductInitialStore";
 import { ProductBulletList } from "../../../shared/ui/Product/ProductBulletList/ProductBulletList";
+import { FormControlItem } from "../../../features/products/EditSingleProduct/ui/FormControlItem/FormControlItem";
+import { FormControlFeature } from "../../../features/products/EditSingleProduct/ui/FormControlItem/FormControlFeature";
+import { prepareDataToSave } from "../../../features/products/EditSingleProduct/model/service/EditSingleProductServices";
+
+import fallback_image from "/fallback_image.jpeg";
 
 export interface EditProductFormProps {
     product: Partial<Product>;
@@ -16,50 +21,42 @@ export interface EditProductFormProps {
 export const DashProductDetails = memo(( props : EditProductFormProps) => {
     const { product } = props
     const [editSingleProduct, { isLoading, error, isSuccess }] = useEditSingleProductMutation()
+    const [formData, setFormData] = useState(initialStore)
     const [imagePreview, setImagePreview] = useState("")
-    const [formData, setFormData] = useState({
-        _id: "",
-        brand: "",
-        model: "",
-        description: "",
-        category: "",
-        subcategory: "",
-        price: "",
-        quantity: "",
-        images: "",
-        upc: "",
-        bulletpoint: ""
-    });
 
     useEffect(() => {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        setFormData({...product})
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
+        setFormData({...initialStore, ...product})
         setImagePreview(product.images)
     }, [product])
+
+    console.log(formData)
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
     };
 
+    const handleEditFeature = (index: number, updatedFeature: string) => {
+        const features = formData.features
+        const updatedFeatures = [...features]
+        updatedFeatures[index] = updatedFeature
+        setFormData({ ...formData, ["features"]: updatedFeature })
+    }
+
+    const handleAddFeature = () => {
+        const updatedFeatures = [...formData.features, formData.newFeature]
+        setFormData({ ...formData, features: updatedFeatures, newFeature: "" })
+    }
+
     const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files ? e.target.files[0] : null;
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
         setFormData({ ...formData, images: file});
 
         if (file) {
             const reader = new FileReader();
-      
             reader.onloadend = () => {
-                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                // @ts-ignore
               setImagePreview(reader.result);
-            };
-      
+            }
             reader.readAsDataURL(file);
         }
     };
@@ -68,18 +65,7 @@ export const DashProductDetails = memo(( props : EditProductFormProps) => {
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
 
-        const formDataToSend = new FormData();
-
-        formDataToSend.append("brand", formData.brand);
-        formDataToSend.append("model", formData.model);
-        formDataToSend.append("description", formData.description);
-        formDataToSend.append("category", formData.category)
-        formDataToSend.append("upc", formData.upc);
-        formDataToSend.append("price", formData.price);
-        formDataToSend.append("quantity", formData.quantity);
-        formDataToSend.append("image", formData.images);
-        formDataToSend.append("_id", formData._id);
-        formDataToSend.append("bulletpoint", formData.bulletpoint);
+        const formDataToSend = prepareDataToSave(formData)
 
         try {
             const result = await editSingleProduct(formDataToSend)
@@ -92,7 +78,7 @@ export const DashProductDetails = memo(( props : EditProductFormProps) => {
     if (isSuccess) {
         return (
             <FormResult
-                headlineText={`Product Saved ${formData.model} Succress`}
+                headlineText={`Product Saved ${formData.model} Success`}
                 bodyText={formData.description}
             >
                 <Link to={`/products`}>
@@ -130,91 +116,32 @@ export const DashProductDetails = memo(( props : EditProductFormProps) => {
                             onChange={handleFileChange}
                         />
                     </FormControl>
+
                 </GridItem>
                 <GridItem colSpan={6}>
                     <form onSubmit={handleSubmit} encType="multipart/form-data">
                         <VStack spacing={4}>
-                                <FormControl>
-                                    <FormLabel>Brand</FormLabel>
-                                    <Input
-                                        type="text"
-                                        name="brand"
-                                        value={formData.brand}
-                                        onChange={handleChange}
-                                    />
-                                </FormControl>
 
-                                <FormControl>
-                                    <FormLabel>Model</FormLabel>
-                                    <Input
-                                        type="text"
-                                        name="model"
-                                        value={formData.model}
-                                        onChange={handleChange}
-                                    />
-                                </FormControl>
-
-                                <FormControl>
-                                    <FormLabel>Description</FormLabel>
-                                    <Input
-                                        type="text"
-                                        name="description"
-                                        value={formData.description}
-                                        onChange={handleChange}
-                                    />
-                                </FormControl>
-
-                                <FormControl>
-                                    <FormLabel>Category</FormLabel>
-                                    <Input
-                                        type="text"
-                                        name="category"
-                                        value={formData.subcategory}
-                                        onChange={handleChange}
-                                    />
-                                </FormControl>
-
-                                <FormControl>
-                                    <FormLabel>UPC</FormLabel>
-                                    <Input
-                                        type="text"
-                                        name="upc"
-                                        value={formData.upc}
-                                        onChange={handleChange}
-                                    />
-                                </FormControl>
-
-                                <FormControl>
-                                    <FormLabel>Price</FormLabel>
-                                    <Input
-                                        type="string"
-                                        name="price"
-                                        value={formData.price}
-                                        onChange={handleChange}
-                                    />
-                                </FormControl>
-
-                                <FormControl>
-                                    <FormLabel>Quantity</FormLabel>
-                                    <Input
-                                        type="number"
-                                        name="quantity"
-                                        value={formData.quantity}
-                                        onChange={handleChange}
-                                    />
-                                </FormControl>
-
-                                <FormControl>
-                                    <FormLabel>Bullet Point</FormLabel>
-                                    <Input
-                                        type="text"
-                                        name="bulletpoint"
-                                        value={formData.bulletpoint}
-                                        onChange={handleChange}
-                                    />
-                                </FormControl>
+                               <FormControlItem type="text" title="brand" label="brand" value={formData.brand} handleChange={handleChange} />
+                               <FormControlItem type="text" title="model" label="model" value={formData.model} handleChange={handleChange} />
+                               <FormControlItem type="text" title="description" label="description" value={formData.description} handleChange={handleChange} />
+                               <FormControlItem type="text" title="category" label="category" value={formData.category} handleChange={handleChange} />
+                               <FormControlItem type="text" title="upc" label="upc" value={formData.upc} handleChange={handleChange} />
+                               <FormControlItem type="text" title="price" label="price" value={formData.price} handleChange={handleChange} />
+                               <FormControlItem type="text" title="quantity" label="quantity" value={formData.quantity} handleChange={handleChange} />
 
                                 {/* <BulletPoints Components /> */}
+                                {/* <EditProductFeatures features={formData.features} newFeature={formData.newFeature} /> */}
+
+                                <FormControlItem type="text" title="newFeature" label="newFeature" value={formData.newFeature} handleChange={handleChange} />
+                                <Button onClick={handleAddFeature}>Add Feature</Button>
+
+
+                                {formData?.features?.map((feature: string, idx: number) => (
+                                    <FormControlFeature feature={feature} key={feature} index={idx} handleEditFeature={handleEditFeature}/>
+                                ))}
+
+
                                 <ProductBulletList />
 
                             <Button type="submit" colorScheme='blue'>Save Product</Button>

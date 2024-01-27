@@ -2,16 +2,18 @@ import { Card } from "@chakra-ui/react";
 import React from "react";
 import { ImageSlider } from "../../../../shared/ui/Images/ImageSlider/ImageSlider";
 
-interface ProductImageProps {
+interface ProductImagesProps {
     images: string[] | []
 }
 
-export const ProductDetailsImage: React.FC<ProductImageProps> = ({ images }) => {
+export const ProductDetailsImage: React.FC<ProductImagesProps> = (props : ProductImagesProps) => {
+
+    const { images } = props
 
     return (
       <>
         <Card maxW='' variant="unstyled">
-            <ImageSlider />
+            <ImageSlider images={images} />
         </Card>
       </>
     );

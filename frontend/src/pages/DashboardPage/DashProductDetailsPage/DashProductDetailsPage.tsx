@@ -26,17 +26,13 @@ const DashProductDetailsPage = memo(() => {
   }
 
   if(isSuccess) {
-    content = (
-      <div className="dash_products_page_wrapper">
-        <DashProductDetails   product={product} />
-      </div>
-    )
+    content = <DashProductDetails  product={product} />
   }
 
   return (
-    <>
+    <div className="dash_products_page_wrapper">
       {content}
-    </>
+    </div>
   );
 })
 

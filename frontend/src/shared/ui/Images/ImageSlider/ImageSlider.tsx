@@ -2,7 +2,7 @@ import ImageGallery from "react-image-gallery"
 import  "../../../../../node_modules/react-image-gallery/styles/css/image-gallery.css"
 import "./ImageSlider.css"
 
-const images = [
+const imageList = [
     {
       original: "https://picsum.photos/id/1018/1000/600/",
       thumbnail: "https://picsum.photos/id/1018/250/150/",
@@ -17,9 +17,16 @@ const images = [
     },
   ];
 
-export const ImageSlider = () => {
+interface ProductImagesProps {
+    images: string[] | []
+}  
 
+export const ImageSlider = (props: ProductImagesProps) => {
+
+    const { images } = props
+    console.log(images)
+    
     return (
-        <ImageGallery items={images} />
+        <ImageGallery items={imageList} />
     )
 }
