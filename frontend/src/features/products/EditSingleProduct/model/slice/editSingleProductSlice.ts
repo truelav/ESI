@@ -20,8 +20,8 @@ const editSingleProductSlice = createSlice({
   name: 'editSingleProduct',
   initialState,
   reducers: {
-    setFormData: (state, action) => {
-        state.formData = action.payload
+    setProductData: (state, action) => {
+        state.formData = {...action.payload}
     },
     setBrand: (state, action) => {
         state.formData.brand = action.payload;
@@ -62,7 +62,7 @@ const editSingleProductSlice = createSlice({
 });
 
 export const {
-    setFormData,
+    setProductData,
     setBrand,
     setModel,
     setDescription,

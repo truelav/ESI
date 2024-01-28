@@ -1,14 +1,17 @@
+
+
 import { FormControlItem } from "../FormControlItem/FormControlItem"
 
 import { EditProductInfoType } from "../../model/type/EditProductTypes"
+
 
 interface EditProductInfoProps {
     productInfo: EditProductInfoType
 }
 
 export const EditProductInfo = (props: EditProductInfoProps) => {
-
     const { brand, model, description, price, quantity,  upc, category, subcategory, handleChange } = props.productInfo
+
     // const prodInfoItems = [brand, model, description, price, quantity, upc, category, subcategory]
 
     return (

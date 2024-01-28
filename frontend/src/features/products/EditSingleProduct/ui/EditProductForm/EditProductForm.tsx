@@ -1,15 +1,16 @@
 import { useEffect, useState, FormEvent } from "react"
 import { Grid,Button } from "@chakra-ui/react"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 
 import { useEditSingleProductMutation } from "../../../../../app/api/apiSlice"
+import { setProductData } from "../../model/slice/editSingleProductSlice"
 
 import { EditProductFeatures } from "../EditProductFeatures/EditProductFeatures"
 import { EditProductImages } from "../EditProductImages/EditProductImages"
 import { EditProductInfo } from "../EditProductInfo/EditProductInfo"
 
 import { initialStore } from "../../model/store/EditSingleProductInitialStore"
-import { prepareDataToSave, handleChange } from "../../model/service/EditSingleProductServices"
+import { prepareDataToSave } from "../../model/service/EditSingleProductServices"
 
 import { EditProductFormProps } from "../../../../../components/products/DashProductDetails/DashProductDetails"
 
@@ -24,6 +25,7 @@ export const EditProductForm = ( props : EditProductFormProps ) => {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         setFormData({...product})
+        dispatch(setProductData(product))
     }, [product])
 
     const handleTextChange = () => {

@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { ChangeEvent, FormEvent, memo, useEffect, useState } from "react";
 import { Button, VStack, FormControl, FormLabel, Input, Image, Grid, GridItem } from "@chakra-ui/react";
 
@@ -24,12 +25,13 @@ export const DashProductDetails = memo(( props : EditProductFormProps) => {
     const [formData, setFormData] = useState(initialStore)
     const [imagePreview, setImagePreview] = useState("")
 
+    const productInfo = useSelector(state => state.editSingleProduct.formData)
+    console.log(productInfo)
+
     useEffect(() => {
         setFormData({...initialStore, ...product})
-        setImagePreview(product.images)
+        setImagePreview(product.images[0])
     }, [product])
-
-    console.log(formData)
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;

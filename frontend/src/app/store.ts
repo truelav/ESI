@@ -6,6 +6,7 @@ import cartSlice from "../entities/Cart/model/slice/cartSlice";
 import productSlice from "../entities/Product/model/slice/productSlice";
 import filterSlice from "../features/products/FilterProducts/model/slice/filterSlice";
 import sortSlice from "../features/products/SortProducts/model/slice/sortSlice";
+import editSingleProductSlice from "../features/products/EditSingleProduct/model/slice/editSingleProductSlice";
 
 export const store = configureStore({
     reducer: {
@@ -15,6 +16,7 @@ export const store = configureStore({
         filter: filterSlice,
         sort: sortSlice,
         cart: cartSlice,
+        editSingleProduct: editSingleProductSlice,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware().concat(apiSlice.middleware),
