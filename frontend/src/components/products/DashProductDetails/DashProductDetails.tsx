@@ -14,6 +14,8 @@ import { FormControlFeature } from "../../../features/products/EditSingleProduct
 import { prepareDataToSave } from "../../../features/products/EditSingleProduct/model/service/EditSingleProductServices";
 
 import fallback_image from "/fallback_image.jpeg";
+import { FormControlInput } from "../../../features/products/EditSingleProduct/ui/FormControlItem/FormControlInput";
+import { EditProductInfo } from "../../../features/products/EditSingleProduct/ui/EditProductInfo/EditProductInfo";
 
 export interface EditProductFormProps {
     product: Partial<Product>;
@@ -124,8 +126,9 @@ export const DashProductDetails = memo(( props : EditProductFormProps) => {
                     <form onSubmit={handleSubmit} encType="multipart/form-data">
                         <VStack spacing={4}>
 
-                               <FormControlItem type="text" title="brand" label="brand" value={formData.brand} handleChange={handleChange} />
-                               <FormControlItem type="text" title="model" label="model" value={formData.model} handleChange={handleChange} />
+                               {/* <FormControlItem type="text" title="brand" label="brand" value={formData.brand} handleChange={handleChange} /> */}
+                               {/* <FormControlItem type="text" title="model" label="model" value={formData.model} handleChange={handleChange} /> */}
+                               <EditProductInfo />
                                <FormControlItem type="text" title="description" label="description" value={formData.description} handleChange={handleChange} />
                                <FormControlItem type="text" title="category" label="category" value={formData.category} handleChange={handleChange} />
                                <FormControlItem type="text" title="upc" label="upc" value={formData.upc} handleChange={handleChange} />

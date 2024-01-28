@@ -44,7 +44,7 @@ const editSingleProductSlice = createSlice({
     setImages: (state, action) => {
         state.formData.images = action.payload;
     },
-      clearFormData: (state) => {
+    clearFormData: (state) => {
         state.formData = initialState.formData;
     },
     addImage: (state, action) => {

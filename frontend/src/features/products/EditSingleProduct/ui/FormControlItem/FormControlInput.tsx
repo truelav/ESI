@@ -1,18 +1,24 @@
 import { ChangeEvent } from "react"
+import { useDispatch } from "react-redux"
 import { FormControl, FormLabel, Input } from "@chakra-ui/react"
 
-export interface FormControlItemProps {
+export interface FormControlInputProps {
     type: string
     title: string   
     label: string
     value: string | number
-    handleChange?: (e: ChangeEvent<HTMLInputElement>) => void
 }
 
-export const FormControlItem = (props: FormControlItemProps) => {
-
+export const FormControlInput = (props: FormControlInputProps) => {
+    const dispatch = useDispatch()
     const { type, label, title, value, handleChange } = props
-    
+
+    const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        console.log(value)
+        dispatch(handleChange(value))
+    }
+
     return (
         <FormControl>
             <FormLabel>{label}</FormLabel>
@@ -20,7 +26,7 @@ export const FormControlItem = (props: FormControlItemProps) => {
                 type={type}
                 name={title}
                 value={value}
-                onChange={handleChange}
+                onChange={handleInputChange}
             />
         </FormControl>
     )

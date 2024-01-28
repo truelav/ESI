@@ -1,24 +1,16 @@
+import { useSelector } from "react-redux"
+import { setBrand, setModel } from "../../model/slice/editSingleProductSlice"
+import { FormControlInput } from "../FormControlItem/FormControlInput"
 
 
-import { FormControlItem } from "../FormControlItem/FormControlItem"
-
-import { EditProductInfoType } from "../../model/type/EditProductTypes"
-
-
-interface EditProductInfoProps {
-    productInfo: EditProductInfoType
-}
-
-export const EditProductInfo = (props: EditProductInfoProps) => {
-    const { brand, model, description, price, quantity,  upc, category, subcategory, handleChange } = props.productInfo
-
-    // const prodInfoItems = [brand, model, description, price, quantity, upc, category, subcategory]
-
+export const EditProductInfo = () => {
+    const product = useSelector(state => state.editSingleProduct.formData)
+    const { brand, model, description, category, subcategory, upc, price, quantity } = product
+    console.log(product)
     return (
         <>
-            <FormControlItem type="text" title="model" label="model" value={model} handleChange={handleChange} />
-
-            <FormControlItem type="text" title="brand" label="brand" value={brand} handleChange={handleChange} />
+            <FormControlInput type="text" title="model" label="model" value={model} handleChange={setModel}/>
+            <FormControlInput type="text" title="brand" label="brand" value={brand} handleChange={setBrand}/>
         </>
     )
 }
