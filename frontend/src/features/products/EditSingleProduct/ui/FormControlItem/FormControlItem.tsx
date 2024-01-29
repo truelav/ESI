@@ -6,7 +6,7 @@ export interface FormControlItemProps {
     title: string   
     label: string
     value: string | number
-    handleChange?: (e: ChangeEvent<HTMLInputElement>) => void
+    handleChange: (e: ChangeEvent<HTMLInputElement>) => void
 }
 
 export const FormControlItem = (props: FormControlItemProps) => {

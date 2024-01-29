@@ -43,7 +43,7 @@ function CardComponent(props : CardComponentProps) {
     const {cardVariant, size, direction, additionalClassNames, children} = props
     const classNames = `CardComponent ${additionalClassNames}`
     return (
-        <Card variant={cardVariant} size={size} direction={direction} className={classNames} p={4} my={4}>
+        <Card variant={cardVariant} size={size} direction={direction} className={classNames} p={2} my={2}>
             {children}
         </Card>
     )

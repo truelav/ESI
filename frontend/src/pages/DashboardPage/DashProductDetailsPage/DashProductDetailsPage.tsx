@@ -6,7 +6,7 @@ import { useGetSingleProductQuery } from "../../../app/api/apiSlice";
 
 const DashProductDetailsPage = memo(() => {
   const { id } = useParams() || "";
-
+  
   const {
     data: product,
     isLoading,

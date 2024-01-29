@@ -34,7 +34,7 @@ export const ProductListItem = memo((props: ProductListPropsItem) => {
                         src={product?.images}
                         fallbackSrc={fallback_image}
                         alt={product?.brand}
-                        boxSize="125px"
+                        boxSize="110px"
                         objectFit="contain"
                     />
                 </GridItem>

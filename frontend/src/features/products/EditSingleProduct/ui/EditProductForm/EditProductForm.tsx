@@ -49,9 +49,9 @@ export const EditProductForm = ( props : EditProductFormProps ) => {
 
     return (
         <Grid templateColumns='repeat(12, 1fr)' gap={4}>
-            {/* <GridItem colSpan={6}> </GridItem> */}
             <form onSubmit={handleSubmit} encType="multipart/form-data">
-                <EditProductInfo productInfo={formData} formData={formData} setFormData={setFormData} handleChan/>
+
+                <EditProductInfo  />
                 <EditProductImages />
                 <EditProductFeatures />
 

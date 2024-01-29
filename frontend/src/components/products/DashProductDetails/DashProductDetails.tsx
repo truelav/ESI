@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { ChangeEvent, FormEvent, memo, useEffect, useState } from "react";
 import { Button, VStack, FormControl, FormLabel, Input, Image, Grid, GridItem } from "@chakra-ui/react";
 
 import { Product } from "../../../entities/Product/model/types/product";
 import { useEditSingleProductMutation } from "../../../app/api/apiSlice";
+import { setProductData } from "../../../features/products/EditSingleProduct/model/slice/editSingleProductSlice";
 import { FormResult } from "../../forms/FormResult/FormResult";
 
 import { initialStore } from "../../../features/products/EditSingleProduct/model/store/EditSingleProductInitialStore";
@@ -14,29 +15,31 @@ import { FormControlFeature } from "../../../features/products/EditSingleProduct
 import { prepareDataToSave } from "../../../features/products/EditSingleProduct/model/service/EditSingleProductServices";
 
 import fallback_image from "/fallback_image.jpeg";
-import { FormControlInput } from "../../../features/products/EditSingleProduct/ui/FormControlItem/FormControlInput";
 import { EditProductInfo } from "../../../features/products/EditSingleProduct/ui/EditProductInfo/EditProductInfo";
+import { EditProductPrice } from "../../../features/products/EditSingleProduct/ui/EditProductPrice/EditProductPrice";
 
 export interface EditProductFormProps {
     product: Partial<Product>;
 }
 
 export const DashProductDetails = memo(( props : EditProductFormProps) => {
+    // const dispatch = useDispatch()
     const { product } = props
     const [editSingleProduct, { isLoading, error, isSuccess }] = useEditSingleProductMutation()
     const [formData, setFormData] = useState(initialStore)
     const [imagePreview, setImagePreview] = useState("")
 
-    const productInfo = useSelector(state => state.editSingleProduct.formData)
-    console.log(productInfo)
+    // const productInfo = useSelector(state => state.editSingleProduct.formData)
 
     useEffect(() => {
         setFormData({...initialStore, ...product})
+        // dispatch(setProductData(product))
         setImagePreview(product.images[0])
     }, [product])
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
+        console.log(value, name)
         setFormData({ ...formData, [name]: value });
     };
 
@@ -44,7 +47,7 @@ export const DashProductDetails = memo(( props : EditProductFormProps) => {
         const features = formData.features
         const updatedFeatures = [...features]
         updatedFeatures[index] = updatedFeature
-        setFormData({ ...formData, ["features"]: updatedFeature })
+        setFormData({ ...formData, features: updatedFeature })
     }
 
     const handleAddFeature = () => {
@@ -126,14 +129,8 @@ export const DashProductDetails = memo(( props : EditProductFormProps) => {
                     <form onSubmit={handleSubmit} encType="multipart/form-data">
                         <VStack spacing={4}>
 
-                               {/* <FormControlItem type="text" title="brand" label="brand" value={formData.brand} handleChange={handleChange} /> */}
-                               {/* <FormControlItem type="text" title="model" label="model" value={formData.model} handleChange={handleChange} /> */}
-                               <EditProductInfo />
-                               <FormControlItem type="text" title="description" label="description" value={formData.description} handleChange={handleChange} />
-                               <FormControlItem type="text" title="category" label="category" value={formData.category} handleChange={handleChange} />
-                               <FormControlItem type="text" title="upc" label="upc" value={formData.upc} handleChange={handleChange} />
-                               <FormControlItem type="text" title="price" label="price" value={formData.price} handleChange={handleChange} />
-                               <FormControlItem type="text" title="quantity" label="quantity" value={formData.quantity} handleChange={handleChange} />
+                               <EditProductInfo productInfo={formData} handleChange={handleChange}/>
+                               <EditProductPrice productInfo={formData} handleChange={handleChange} />
 
                                 {/* <BulletPoints Components /> */}
                                 {/* <EditProductFeatures features={formData.features} newFeature={formData.newFeature} /> */}

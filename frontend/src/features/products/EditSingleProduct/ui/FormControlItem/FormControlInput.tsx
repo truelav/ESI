@@ -11,13 +11,12 @@ export interface FormControlInputProps {
 
 export const FormControlInput = (props: FormControlInputProps) => {
     const dispatch = useDispatch()
-    const { type, label, title, value, handleChange } = props
+    const { type, label, title, value } = props
 
-    const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
-        console.log(value)
-        dispatch(handleChange(value))
-    }
+        setFormData({ ...formData, [name]: value });
+    };
 
     return (
         <FormControl>
@@ -26,7 +25,7 @@ export const FormControlInput = (props: FormControlInputProps) => {
                 type={type}
                 name={title}
                 value={value}
-                onChange={handleInputChange}
+                onChange={() => console.log(value)}
             />
         </FormControl>
     )

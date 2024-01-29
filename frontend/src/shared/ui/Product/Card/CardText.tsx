@@ -13,7 +13,7 @@ export const CardTextComponent = (props: CardTextComponentProps) => {
     const {fontSize, color, children} = props
 
     return (
-        <Text fontSize={fontSize} color={color}>
+        <Text fontSize={fontSize} color={color} pt={6}>
             {children}
         </Text>
     )
