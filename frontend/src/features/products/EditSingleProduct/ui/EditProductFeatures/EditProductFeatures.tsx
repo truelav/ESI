@@ -3,9 +3,9 @@ import { FormControlFeature } from "../FormControlItem/FormControlFeature"
 
 interface EditProductFeaturesProps {
     features: string[]
-    handleChange: (e: ChangeEvent<HTMLInputElement>) => void
     handleDeleteFeature: (feature: string) => void
-    handleEditFeature: (index: number, updatedFeature: string) => void
+    handleChange: (e: ChangeEvent<HTMLInputElement>) => void
+    handleEditFeature: (feature: string, updatedFeature: string) => void
 }
 
 export const EditProductFeatures = (props: EditProductFeaturesProps) => {

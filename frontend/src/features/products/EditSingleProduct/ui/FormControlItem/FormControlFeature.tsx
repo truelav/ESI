@@ -5,6 +5,7 @@ export interface FormControlFeatureProps {
     feature: string
     index: number
     handleDeleteFeature: (feature: string) => void
+    handleChange: (e: ChangeEvent<HTMLInputElement>) => void
     handleEditFeature: (feature: string, updatedFeature: string) => void
 }
 
