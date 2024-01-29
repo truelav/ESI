@@ -3,20 +3,26 @@ import { FormControlFeature } from "../FormControlItem/FormControlFeature"
 
 interface EditProductFeaturesProps {
     features: string[]
-    newFeature: string
     handleChange: (e: ChangeEvent<HTMLInputElement>) => void
+    handleDeleteFeature: (feature: string) => void
+    handleEditFeature: (index: number, updatedFeature: string) => void
 }
 
 export const EditProductFeatures = (props: EditProductFeaturesProps) => {
 
-    const {features, newFeature} = props
+    const {features, handleChange, handleEditFeature, handleDeleteFeature} = props
 
     return (
         <>
-            Features List:
-            <FormControlFeature feature={newFeature}/>
-            {features.map((feature: string, idx: number) => (
-                <FormControlFeature feature={feature} key={feature} index={idx} />
+            {features?.map((feature: string, idx: number) => (
+                <FormControlFeature 
+                    key={feature} 
+                    index={idx}
+                    feature={feature} 
+                    handleChange={handleChange}
+                    handleEditFeature={handleEditFeature}
+                    handleDeleteFeature={handleDeleteFeature}
+                />
             ))}
         </>
     )

@@ -1,22 +1,19 @@
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
 import { ChangeEvent, FormEvent, memo, useEffect, useState } from "react";
 import { Button, VStack, FormControl, FormLabel, Input, Image, Grid, GridItem } from "@chakra-ui/react";
 
-import { Product } from "../../../entities/Product/model/types/product";
 import { useEditSingleProductMutation } from "../../../app/api/apiSlice";
-import { setProductData } from "../../../features/products/EditSingleProduct/model/slice/editSingleProductSlice";
+import { Product } from "../../../entities/Product/model/types/product";
 import { FormResult } from "../../forms/FormResult/FormResult";
 
 import { initialStore } from "../../../features/products/EditSingleProduct/model/store/EditSingleProductInitialStore";
-import { ProductBulletList } from "../../../shared/ui/Product/ProductBulletList/ProductBulletList";
-import { FormControlItem } from "../../../features/products/EditSingleProduct/ui/FormControlItem/FormControlItem";
-import { FormControlFeature } from "../../../features/products/EditSingleProduct/ui/FormControlItem/FormControlFeature";
 import { prepareDataToSave } from "../../../features/products/EditSingleProduct/model/service/EditSingleProductServices";
 
 import fallback_image from "/fallback_image.jpeg";
 import { EditProductInfo } from "../../../features/products/EditSingleProduct/ui/EditProductInfo/EditProductInfo";
 import { EditProductPrice } from "../../../features/products/EditSingleProduct/ui/EditProductPrice/EditProductPrice";
+import { EditProductFeatures } from "../../../features/products/EditSingleProduct/ui/EditProductFeatures/EditProductFeatures";
+import { AddProductFeatures } from "../../../features/products/EditSingleProduct/ui/EditProductFeatures/AddProductFeature";
 
 export interface EditProductFormProps {
     product: Partial<Product>;
@@ -29,11 +26,9 @@ export const DashProductDetails = memo(( props : EditProductFormProps) => {
     const [formData, setFormData] = useState(initialStore)
     const [imagePreview, setImagePreview] = useState("")
 
-    // const productInfo = useSelector(state => state.editSingleProduct.formData)
-
     useEffect(() => {
-        setFormData({...initialStore, ...product})
         // dispatch(setProductData(product))
+        setFormData({...initialStore, ...product})
         setImagePreview(product.images[0])
     }, [product])
 
@@ -43,16 +38,22 @@ export const DashProductDetails = memo(( props : EditProductFormProps) => {
         setFormData({ ...formData, [name]: value });
     };
 
-    const handleEditFeature = (index: number, updatedFeature: string) => {
-        const features = formData.features
-        const updatedFeatures = [...features]
-        updatedFeatures[index] = updatedFeature
-        setFormData({ ...formData, features: updatedFeature })
+    const handleEditFeature = (oldFeature: string, newFeature: string) => {
+        const updatedFeatures = formData.features.map((feature) => (feature === oldFeature ? newFeature : feature))
+        setFormData({...formData, features: updatedFeatures});
     }
 
     const handleAddFeature = () => {
         const updatedFeatures = [...formData.features, formData.newFeature]
         setFormData({ ...formData, features: updatedFeatures, newFeature: "" })
+    }
+
+    const handleDeleteFeature = (feature: string) => {
+        console.log(feature, formData.features)
+        const updatedFeatures = formData.features.filter((existingFeature) => {
+           return existingFeature != feature
+        })
+        setFormData({...formData, features: updatedFeatures})
     }
 
     const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -129,23 +130,21 @@ export const DashProductDetails = memo(( props : EditProductFormProps) => {
                     <form onSubmit={handleSubmit} encType="multipart/form-data">
                         <VStack spacing={4}>
 
-                               <EditProductInfo productInfo={formData} handleChange={handleChange}/>
-                               <EditProductPrice productInfo={formData} handleChange={handleChange} />
+                                <EditProductInfo productInfo={formData} handleChange={handleChange}/>
+                                <EditProductPrice productInfo={formData} handleChange={handleChange} />
 
-                                {/* <BulletPoints Components /> */}
-                                {/* <EditProductFeatures features={formData.features} newFeature={formData.newFeature} /> */}
-
-                                <FormControlItem type="text" title="newFeature" label="newFeature" value={formData.newFeature} handleChange={handleChange} />
-                                <Button onClick={handleAddFeature}>Add Feature</Button>
-
-
-                                {formData?.features?.map((feature: string, idx: number) => (
-                                    <FormControlFeature feature={feature} key={feature} index={idx} handleEditFeature={handleEditFeature}/>
-                                ))}
-
-
-                                <ProductBulletList />
-
+                                <AddProductFeatures 
+                                    newFeature={formData.newFeature}  
+                                    handleChange={handleChange} 
+                                    handleAddFeature={handleAddFeature}
+                                /> 
+                                <EditProductFeatures 
+                                    features={formData.features} 
+                                    handleChange={handleChange}
+                                    handleEditFeature={handleEditFeature} 
+                                    handleDeleteFeature={handleDeleteFeature} 
+                                /> 
+                               
                             <Button type="submit" colorScheme='blue'>Save Product</Button>
                         </VStack>
                     </form>
