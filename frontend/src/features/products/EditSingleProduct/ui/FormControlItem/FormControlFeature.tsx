@@ -16,8 +16,7 @@ export const FormControlFeature= (props: FormControlFeatureProps) => {
     const hasChanged = updatedFeature !== feature
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target;
-        console.log(value, name)
+        const { value } = e.target;
         setUpdatedFeature(value);
     };
 

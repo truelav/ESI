@@ -36,6 +36,9 @@ const ProductSchema = new Schema(
             type: Boolean,
             default: true,
         },
+        features: {
+            type: Array
+        }
     },
     { timestamps: true }
 );

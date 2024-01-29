@@ -1,28 +1,11 @@
 import { ChangeEvent } from "react";
 
-export const handleChange = (e: ChangeEvent<HTMLInputElement>, formData, setFormData) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-};
 
-// export const handleFileChange = (e: ChangeEvent<HTMLInputElement>, formData, setFormData) => {
-//     const file = e.target.files ? e.target.files[0] : null;
-//     setFormData({ ...formData, images: file});
-
-//     if (file) {
-//         const reader = new FileReader();
-//         reader.onloadend = () => {
-//         //   setImagePreview(reader.result);
-//         }
-//         reader.readAsDataURL(file);
-//     }
-// };
-
-export const setImagePreview = () => {
+export const handleTextChange = () => {
 
 }
 
-export const prepareDataToSave = (formData) => {
+export const prepareDataToSave = (formData: any) => {
     const formDataToSend = new FormData();
 
     formDataToSend.append("_id", formData._id);

@@ -20,14 +20,12 @@ export interface EditProductFormProps {
 }
 
 export const DashProductDetails = memo(( props : EditProductFormProps) => {
-    // const dispatch = useDispatch()
     const { product } = props
-    const [editSingleProduct, { isLoading, error, isSuccess }] = useEditSingleProductMutation()
-    const [formData, setFormData] = useState(initialStore)
     const [imagePreview, setImagePreview] = useState("")
+    const [formData, setFormData] = useState(initialStore)
+    const [editSingleProduct, { isLoading, error, isSuccess }] = useEditSingleProductMutation()
 
     useEffect(() => {
-        // dispatch(setProductData(product))
         setFormData({...initialStore, ...product})
         setImagePreview(product.images[0])
     }, [product])

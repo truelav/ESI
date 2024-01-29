@@ -16,6 +16,7 @@ export const editProductService = async (data) => {
     category,
     quantity,
     upc,
+    features,
     image
   } = data;
 
@@ -31,8 +32,9 @@ export const editProductService = async (data) => {
       description,
       category,
       quantity,
-      images: image,
+      features,
       upc,
+      images: image,
     },
   )
 
