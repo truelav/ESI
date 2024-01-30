@@ -10,9 +10,8 @@ export const initialStore = {
     price: "",
     quantity: "",
     upc: "",
-    images: [],
+    images: null,
     newImage: "",
     features: [],
     newFeature: ""
-
 }

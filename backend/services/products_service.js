@@ -17,9 +17,10 @@ export const editProductService = async (data) => {
     quantity,
     upc,
     features,
-    image
+    images
   } = data;
 
+  const updatedFeatures = JSON.parse(features)
   console.log(data)
 
   const updatedProduct = await Product.findOneAndUpdate(
@@ -32,9 +33,9 @@ export const editProductService = async (data) => {
       description,
       category,
       quantity,
-      features,
+      features: updatedFeatures,
       upc,
-      images: image,
+      images: images,
     },
   )
 

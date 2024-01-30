@@ -5,7 +5,6 @@ import { uploadProductsFile } from "../../middleware/upload/uploadProductsFile.j
 
 const router = express.Router();
 
-
 router.get("/", ProductControllers.getAllProducts);
 router.get("/brandedProducts", ProductControllers.getBrandedProducts);
 router.get("/:id", ProductControllers.getSingleProduct);
@@ -17,7 +16,7 @@ router.delete("/image/:id", ProductControllers.deleteProductImage);
 router.post("/", upload.single("image"), ProductControllers.addSingleProduct);
 router.post("/addMultiple", uploadProductsFile.single("csv"), ProductControllers.addMultipleProducts);
 
-router.put("/:id", upload.single("image"), ProductControllers.editSingleProduct);
+router.put("/:id", upload.single("images"), ProductControllers.editSingleProduct);
 router.put("/", ProductControllers.editMultipleProducts);
 
 

@@ -28,9 +28,6 @@ export const EditProductForm = ( props : EditProductFormProps ) => {
         dispatch(setProductData(product))
     }, [product])
 
-    const handleTextChange = () => {
-        
-    }
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();

@@ -6,10 +6,10 @@ export const editSingleProduct = async (req, res, next) => {
 
     try {
         const data = req.body
-        console.log("request: " + typeof(req.body.features))
+        console.log('file: ' + req.file)
 
         if(req.file){
-            data.image = "http://localhost:8888/static/images/" + req.file?.filename
+            data.images = "http://localhost:8888/static/images/" + req.file?.filename
         }
 
         const updatedProduct = await editProductService(data)

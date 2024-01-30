@@ -21,13 +21,15 @@ export interface EditProductFormProps {
 
 export const DashProductDetails = memo(( props : EditProductFormProps) => {
     const { product } = props
-    const [imagePreview, setImagePreview] = useState("")
     const [formData, setFormData] = useState(initialStore)
+    const [imagePreview, setImagePreview] = useState(formData.images)
     const [editSingleProduct, { isLoading, error, isSuccess }] = useEditSingleProductMutation()
+
+    console.log(product)
 
     useEffect(() => {
         setFormData({...initialStore, ...product})
-        setImagePreview(product.images[0])
+        setImagePreview(product.images)
     }, [product])
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -71,11 +73,11 @@ export const DashProductDetails = memo(( props : EditProductFormProps) => {
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
-        // const formDataToSend = prepareDataToSave(formData)
+        const formDataToSend = prepareDataToSave(formData)
 
         try {
             console.log(formData)
-            const result = await editSingleProduct(formData)
+            const result = await editSingleProduct(formDataToSend)
             console.log(result)
         } catch (err){
             console.log(err)

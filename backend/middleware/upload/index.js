@@ -5,7 +5,7 @@ import { createFilename } from "../../utils/files/files.js";
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    console.log(req.body)
+    console.log(req)
     cb(null, path.join('static/images'));
   },
 
@@ -13,7 +13,7 @@ const storage = multer.diskStorage({
     // cb(null, file.originalname);
     
     const data = req.body
-    const fileName = createFilename(data)
+    const fileName = ("" +  Date.now()).trim();
     const extName = path.extname(file.originalname)
 
     cb(null, fileName + extName);
@@ -21,12 +21,12 @@ const storage = multer.diskStorage({
   limits: {
     fileSize: 500000,
   },
-    // fileFilter(req, file, cb) {
-    //   if (!file.originalname.match(/\.(jpg|jpeg|png|webp)$/)) {
-    //     return cb(new Error("Please upload a valid image file"));
-    //   }
-    //   cb(undefined, true);
-    // },
+  // fileFilter(req, file, cb) {
+  //   if (!file.originalname.match(/\.(jpg|jpeg|png|webp)$/)) {
+  //     return cb(new Error("Please upload a valid image file"));
+  //   }
+  //   cb(undefined, true);
+  // },
 });
 
 export const upload = multer({ storage });

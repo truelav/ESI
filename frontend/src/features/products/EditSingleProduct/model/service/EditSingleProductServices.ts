@@ -1,9 +1,4 @@
-import { ChangeEvent } from "react";
-
-
-export const handleTextChange = () => {
-
-}
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 export const prepareDataToSave = (formData: any) => {
     const formDataToSend = new FormData();
@@ -17,11 +12,7 @@ export const prepareDataToSave = (formData: any) => {
     formDataToSend.append("price", formData.price);
     formDataToSend.append("quantity", formData.quantity);
     formDataToSend.append("images", formData.images);
+    formDataToSend.append("features", JSON.stringify(formData.features));
     
-    console.log(formData.features)
-    formData.features.forEeach((value, index) => {
-        formDataToSend.append(`features[${index}]`, value)
-    })
-
     return formDataToSend
 }
