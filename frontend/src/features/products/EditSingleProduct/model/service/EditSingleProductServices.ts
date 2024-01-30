@@ -17,7 +17,11 @@ export const prepareDataToSave = (formData: any) => {
     formDataToSend.append("price", formData.price);
     formDataToSend.append("quantity", formData.quantity);
     formDataToSend.append("images", formData.images);
-    formDataToSend.append("features", formData.features);
+    
+    console.log(formData.features)
+    formData.features.forEeach((value, index) => {
+        formDataToSend.append(`features[${index}]`, value)
+    })
 
     return formDataToSend
 }

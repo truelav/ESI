@@ -6,6 +6,7 @@ export const editSingleProduct = async (req, res, next) => {
 
     try {
         const data = req.body
+        console.log("request: " + typeof(req.body.features))
 
         if(req.file){
             data.image = "http://localhost:8888/static/images/" + req.file?.filename

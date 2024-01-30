@@ -44,6 +44,7 @@ export const DashProductDetails = memo(( props : EditProductFormProps) => {
     const handleAddFeature = () => {
         const updatedFeatures = [...formData.features, formData.newFeature]
         setFormData({ ...formData, features: updatedFeatures, newFeature: "" })
+        console.log(formData.features)
     }
 
     const handleDeleteFeature = (feature: string) => {
@@ -70,11 +71,11 @@ export const DashProductDetails = memo(( props : EditProductFormProps) => {
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
-
-        const formDataToSend = prepareDataToSave(formData)
+        // const formDataToSend = prepareDataToSave(formData)
 
         try {
-            const result = await editSingleProduct(formDataToSend)
+            console.log(formData)
+            const result = await editSingleProduct(formData)
             console.log(result)
         } catch (err){
             console.log(err)

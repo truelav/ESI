@@ -65,7 +65,7 @@ export const apiSlice = createApi({
                 body: product,
                 formData: true,
             }),
-            invalidatesTags: [ "Product"],
+            invalidatesTags: ["Product"],
         }),
 
         deleteSingleProduct: builder.mutation<
