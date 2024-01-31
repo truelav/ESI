@@ -21,25 +21,32 @@ export const editProductService = async (data) => {
   } = data;
 
   const updatedFeatures = JSON.parse(features)
-  console.log(data)
+  data.features = updatedFeatures
 
   const updatedProduct = await Product.findOneAndUpdate(
     {_id},
     {
-      _id,
       brand,
       model,
       price,
       description,
       category,
       quantity,
-      features: updatedFeatures,
       upc,
+      features: updatedFeatures,
       images: images,
     },
   )
 
   return updatedProduct
+}
+
+export const findSingleProductById = async (id) => {
+  try {
+
+  } catch(error){
+
+  }
 }
 
 export const findAllProductsById = async ({ IDs }) => {
