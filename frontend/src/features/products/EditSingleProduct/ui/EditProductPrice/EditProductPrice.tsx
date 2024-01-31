@@ -1,7 +1,6 @@
 import { ChangeEvent } from "react"
 import {FormControlItem } from "../FormControlItem/FormControlItem"
 
-
 interface ProductPriceProps {
     price: string,
     quantity: string
@@ -19,8 +18,8 @@ export const EditProductPrice = (props: EditProductPriceProps) => {
     return (
         <>
 
-            <FormControlItem type="text" title="model" label="model" value={price} handleChange={handleChange} />
-            <FormControlItem type="text" title="brand" label="brand" value={quantity} handleChange={handleChange} />
+            <FormControlItem type="text" title="price" label="price" value={price} handleChange={handleChange} />
+            <FormControlItem type="text" title="quantity" label="quantity" value={quantity} handleChange={handleChange} />
             
         </>
     )
