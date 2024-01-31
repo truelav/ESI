@@ -5,7 +5,6 @@ import { createFilename } from "../../utils/files/files.js";
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    console.log(req)
     cb(null, path.join('static/images'));
   },
 

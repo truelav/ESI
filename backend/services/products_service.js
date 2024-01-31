@@ -6,47 +6,23 @@ export const findProductService = async (data) => {
   return product
 }
 
-export const editProductService = async (data) => {
-  const {
-    _id,
-    brand,
-    model,
-    price,
-    description,
-    category,
-    quantity,
-    upc,
-    features,
-    images
-  } = data;
+export const updateProductService = (product) => {
+  const { features } = product
 
   const updatedFeatures = JSON.parse(features)
-  data.features = updatedFeatures
+  product.features = updatedFeatures
 
-  const updatedProduct = await Product.findOneAndUpdate(
-    {_id},
-    {
-      brand,
-      model,
-      price,
-      description,
-      category,
-      quantity,
-      upc,
-      features: updatedFeatures,
-      images: images,
-    },
-  )
-
-  return updatedProduct
+  return product
 }
 
-export const findSingleProductById = async (id) => {
-  try {
+export const editProductService = async (product) => {
 
-  } catch(error){
+  const newProduct = updateProductService(product)
+  const { _id } = product
 
-  }
+  const updatedProduct = await Product.findOneAndUpdate({_id},{ ...newProduct })
+
+  return updatedProduct
 }
 
 export const findAllProductsById = async ({ IDs }) => {
