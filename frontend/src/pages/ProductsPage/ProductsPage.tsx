@@ -7,7 +7,7 @@ import { setFilters } from "../../features/products/FilterProducts/model/slice/f
 
 import { ProductSearchBar } from "../../entities/Product/ui/ProductSearchBar/ProductSearchBar";
 import { ProductSortBar } from "../../entities/Product/ui/ProductSortBar/ProductSortBar";
-import  ProductList  from "../../entities/Product/ui/ProductList/ProductList";
+import ProductList  from "../../entities/Product/ui/ProductList/ProductList";
 import FilterBar from "../../features/products/FilterProducts/ui/FilterBar/FilterBar";
 
 const ProductsPage = () => {

@@ -22,7 +22,7 @@ const baseQuery = fetchBaseQuery({
 
 export const apiSlice = createApi({
     baseQuery,
-    tagTypes: ["Product", "User", "Order"],
+    tagTypes: ["Product", "User", "Order", "Profile"],
     endpoints: (builder) => ({
         // Products API Routes [ 1. /products  2. /products/:id]
         getAllProducts: builder.query<Product[], void>({
@@ -96,6 +96,10 @@ export const apiSlice = createApi({
         getAllUsers: builder.query<User, void>({
             query: () => `/auth/users`,
             providesTags: ["User"],
+        }),
+        //Profile - getUserInfo
+        getProfile: builder.query<User, string | undefined>({
+            query: (id) => `/auth/users/${id}`
         }),
 
         addUser: builder.mutation<User, User>({
@@ -206,6 +210,8 @@ export const apiSlice = createApi({
                 body: orders
             })
         })
+
+
     }),
 });
 
@@ -226,6 +232,7 @@ export const {
     useDeleteUserMutation,
 
     useLoginMutation,
+    useGetProfileQuery,
 
     useCreatePresentationMutation,
 

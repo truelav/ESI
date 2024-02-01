@@ -6,7 +6,7 @@ import { useEditSingleProductMutation } from "../../../app/api/apiSlice";
 import { Product } from "../../../entities/Product/model/types/product";
 import { FormResult } from "../../forms/FormResult/FormResult";
 
-import { initialStore } from "../../../features/products/EditSingleProduct/model/store/EditSingleProductInitialStore";
+import { initialStore, productInitialStoreTypes } from "../../../features/products/EditSingleProduct/model/store/EditSingleProductInitialStore";
 import { prepareDataToSave } from "../../../features/products/EditSingleProduct/model/service/EditSingleProductServices";
 
 import { EditProductInfo } from "../../../features/products/EditSingleProduct/ui/EditProductInfo/EditProductInfo";
@@ -21,7 +21,7 @@ export interface EditProductFormProps {
 
 export const DashProductDetails = memo(( props : EditProductFormProps) => {
     const { product } = props
-    const [formData, setFormData] = useState(initialStore)
+    const [formData, setFormData] = useState<productInitialStoreTypes>(initialStore)
     const [imagePreview, setImagePreview] = useState(formData.images)
     const [editSingleProduct, { isLoading, error, isSuccess }] = useEditSingleProductMutation()
 
