@@ -6,12 +6,6 @@ import { useGetSingleProductQuery } from "../../../../app/api/apiSlice";
 import { ProductDetailsImage } from "./ProductsDetailsImage";
 import { ProductDetailsInfo } from "./ProductDetailsInfo";
 
-// interface ProductDetailsItemProps {
-//   className?: string;
-//   product?: Product;
-//   view?: ProductView;
-// }
-
 export const ProductDetails = memo(() => {
   const { id } = useParams();
 
