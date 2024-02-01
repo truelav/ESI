@@ -5,8 +5,7 @@ export default function Home() {
   return (
     <Container maxW="full"  minH="700px" mt="100px" centerContent overflow="hidden">
       <Grid templateColumns='repeat(12, 1fr)' gap={6}>
-        <GridItem colSpan={2}></GridItem>
-        <GridItem colSpan={4}>
+        <GridItem colSpan={4} colStart={3}>
           <Heading as='h1' size='4xl' noOfLines={4}>
             <span color="blue">Unlock</span> Your Exclusive Catalog with a Single Account
           </Heading>
@@ -19,9 +18,7 @@ export default function Home() {
             Our user-friendly interface ensures a seamless experience as you explore the catalog, offering detailed information, specifications, and pricing. The account-based access not only provides you with a convenient way to manage your purchases but also opens doors to exclusive deals and tailored solutions. Simplify your B2B transactions, enhance your sourcing strategy, and elevate your business to new heights with our intuitive platform and personalized catalog.
           </Text>
         </GridItem>
-        <GridItem colSpan={2}></GridItem>
-        <GridItem colSpan={3}></GridItem>
-        <GridItem colSpan={6}>
+        <GridItem colSpan={6} colStart={3}>
           <div className="home-container" >
             <Heading >
               Please 
@@ -54,7 +51,6 @@ export default function Home() {
             <Link to="products">Find your products</Link>
           </div>
         </GridItem>
-        <GridItem colSpan={3}></GridItem>
       </Grid>
     </Container>
   );
