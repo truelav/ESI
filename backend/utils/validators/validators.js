@@ -27,6 +27,18 @@ const loginUser_Schema = {
     additionalProperties: false,
 }
 
+const product_schema = {
+    type: 'object', 
+    properties: {
+
+    }
+}
+
+const order_schema = {
+    type: 'object',
+    properties: {}
+}
+
 const validateCreateUser = ajv.compile(createUser_Schema);
 const validateLoginUser = ajv.compile(loginUser_Schema);
 
