@@ -7,6 +7,7 @@ const router = express.Router();
 
 router.get("/", ProductControllers.getAllProducts);
 router.get("/brandedProducts", ProductControllers.getBrandedProducts);
+router.get("/transformedProducts", ProductControllers.getTransformedProductsBy)
 router.get("/:id", ProductControllers.getSingleProduct);
 
 router.delete("/", ProductControllers.deleteMultipleProducts);
@@ -17,8 +18,7 @@ router.post("/", upload.single("image"), ProductControllers.addSingleProduct);
 router.post("/addMultiple", uploadProductsFile.single("csv"), ProductControllers.addMultipleProducts);
 
 router.put("/:id", upload.single("images"), ProductControllers.editSingleProduct);
+router.put("/upload", uploadProductsFile.single("csv"), ProductControllers.addMultipleProducts)
 router.put("/", ProductControllers.editMultipleProducts);
-
-
 
 export default router;

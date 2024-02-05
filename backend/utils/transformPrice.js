@@ -25,3 +25,25 @@ export const transformProductsForPresentation = (products) => {
 
   return transformedProducts
 }
+
+export const transformProductsBy = (products, transformBy) => {
+  const groupedProducts = {};
+
+  products.forEach((product) => {
+      const { transformBy } = product;
+      if(!groupedProducts[transformBy]){        
+        groupedProducts[transformBy] = [product];
+      } else {
+        groupedProducts[transformBy].push(product);
+      }
+  });
+
+  const transformedProducts = Object.entries(groupedProducts).map(
+      ([transformBy, products]) => ({
+        transformBy,
+          products,
+      })
+  );
+
+  return transformedProducts
+}
