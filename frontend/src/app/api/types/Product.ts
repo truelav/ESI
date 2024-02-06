@@ -1,5 +1,5 @@
 export interface GroupedProducts {
-    brand: string;
+    category: string;
     products: ProductN[]
 }
 

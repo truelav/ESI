@@ -16,10 +16,10 @@ import { Product } from "../../../Product/model/types/product";
 //     brandGroup: 
 // }
 
-const PresentationAccordionItem = ({ brandGroup }) => {
+const PresentationAccordionItem = ({ category }) => {
     const dispatch = useDispatch()
     const [isSelected, setIsSelected] = useState(false)
-    const brandIds = brandGroup.products.map((product: Product) => product._id)
+    const brandIds = category.products.map((product: Product) => product._id)
 
     const toggleProductCategory = () => {
         if (isSelected){
@@ -37,13 +37,14 @@ const PresentationAccordionItem = ({ brandGroup }) => {
                     <AccordionButton>
                         <Checkbox
                             onChange={() => toggleProductCategory()}>
-                            All {brandGroup.brand}
+                           {category.category}
                         </Checkbox>
                         <AccordionIcon />
+                    {category.products.length} - items available
                     </AccordionButton>
                 </h2>
                 <AccordionPanel pb={4}>
-                    {brandGroup.products.map((product: any) => (
+                    {category.products.map((product: any) => (
                         <ProductItem
                             key={product._id}
                             product={product}

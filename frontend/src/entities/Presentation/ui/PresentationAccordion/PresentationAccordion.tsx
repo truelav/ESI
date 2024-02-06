@@ -16,7 +16,7 @@ const PresentationAccordion = () => {
         error: errorDataProducts,
     } = useGetGroupedProductsQuery();
 
-
+    console.log(dataProducts)
     let content = <div></div>;
 
     if (isLoadingDataProducts) {
@@ -36,10 +36,10 @@ const PresentationAccordion = () => {
         content = (
             <>
                 <Accordion defaultIndex={[0]} allowMultiple>
-                    {dataProducts?.map((brandGroup: GroupedProducts) => (
+                    {dataProducts?.map((category: GroupedProducts) => (
                         <PresentationAccordionItem 
-                            brandGroup={brandGroup}
-                            key={brandGroup.brand}
+                            category={category}
+                            key={category.category}
                         />
                     ))}
                 </Accordion>
