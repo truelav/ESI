@@ -8,17 +8,17 @@ export const transformProductsForPresentation = (products) => {
   const groupedProducts = {};
 
   products.forEach((product) => {
-      const { brand } = product;
-      if(!groupedProducts[brand]){        
-        groupedProducts[brand] = [product];
+      const { category } = product;
+      if(!groupedProducts[category]){        
+        groupedProducts[category] = [product];
       } else {
-        groupedProducts[brand].push(product);
+        groupedProducts[category].push(product);
       }
   });
 
   const transformedProducts = Object.entries(groupedProducts).map(
-      ([brand, products]) => ({
-          brand,
+      ([category, products]) => ({
+        category,
           products,
       })
   );

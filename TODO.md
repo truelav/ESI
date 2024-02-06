@@ -9,7 +9,6 @@ TO DO LIST :
         [ ] - On login check if User isActive
 
 
-
         [ ] - Error Handling (Test Everything to make sure the App Doesnt Crash)
         [ ] - Save Cart To User Profile ( In case page refresh to not loose Cart Data)
         [ ] - Cart is a global state now, make instance of cart for each user

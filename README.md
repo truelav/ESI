@@ -3,9 +3,10 @@ An Inventory management system for keeping track of available products, adding, 
 
 BACKEND
 
+    BasicURL: "localhostt:8888/api/"
+
     Routes:
-        GET : ('/') =>
-        GET : ('/products') =>
+        GET : ('/products') => statusCode: 200, body: { }
         GET : ('/products/:id') =>
         GET : ('/users') =>
         GET : ('/users/:id') =>
