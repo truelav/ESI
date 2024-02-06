@@ -44,7 +44,7 @@ const PresentationAccordionItem = ({ category }) => {
                     </AccordionButton>
                 </h2>
                 <AccordionPanel pb={4}>
-                    {category.products.map((product: any) => (
+                    {category.products.map((product: Product) => (
                         <ProductItem
                             key={product._id}
                             product={product}

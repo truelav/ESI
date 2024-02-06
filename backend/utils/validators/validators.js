@@ -30,8 +30,29 @@ const loginUser_Schema = {
 const product_schema = {
     type: 'object', 
     properties: {
-
-    }
+        brand: { type: 'string'},
+        model: { type: 'string'},
+        description: { type: 'string' },
+        category: { type: 'string' },
+        subcategory: { type: 'string' },
+        quantity: { type: 'string' },
+        price: { type: 'string'},
+        images: { type: 'string' },
+        upc: { type: 'string' },
+        isActive: { type: "boolean" },
+        features: { type: 'array' }
+    },
+    required: [
+        'brand',
+        'model',
+        'description',
+        'category',
+        'subcategory',
+        'quantity',
+        'price',
+        'upc',
+        'isActive',
+    ],
 }
 
 const order_schema = {
