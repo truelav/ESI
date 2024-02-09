@@ -3,6 +3,10 @@ import emailConfig from "../config/email.config.js";
 
 const transporter = nodemailer.createTransport(emailConfig);
 
+export const sendUserSignUpToAdming = async () => {
+  
+}
+
 export const sendCreateUserEmail = async (email, password) => {
   let htmlContent = `
         <div style="max-width: 700px; margin:auto; border: 10px solid #ddd; padding: 50px 20px; font-size: 110%;">
@@ -21,15 +25,10 @@ export const sendCreateUserEmail = async (email, password) => {
                     Go to website
                 </a>
                 <p style="color:#455056; font-size:15px;line-height:24px; margin:0;">
-                    Your login email is : 
+                    Your login account was created with success, a sales person soon will authenticate and activate your account shortly:
+                    Thank your for start doing business with us 
                     <span style="color: #4A35EA;">
                         ${email}
-                    </span>
-                </p>
-                <p style="color:#455056; font-size:15px;line-height:24px; margin:0;">
-                    Your login password is : 
-                    <span style="color: #4A35EA;">
-                        ${password}
                     </span>
                 </p>
             </div>
@@ -38,7 +37,7 @@ export const sendCreateUserEmail = async (email, password) => {
 
   const emailContent = {
     from: emailConfig.auth.user,
-    to: email,
+    to: email, 
     subject: "ESI Account Created",
     html: htmlContent,
   };

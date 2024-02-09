@@ -29,25 +29,13 @@ export const signUp = async (req, res, next) => {
       password: hashedPassword,
     });
 
-    const accessToken = generateAccessToken({ ...newUser });
-    const refreshToken = generateRefreshToken({ ...newUser });
-    const newToken = new JWToken({
-      user: newUser.id,
-      refreshToken,
-    });
-
     await newUser.save();
-    await newToken.save();
 
     const emailResult = await sendCreateUserEmail(email, password)
-
-    //Send Email That User SignUp to user and admin
 
     res.status(201).json({
       message: `${req.body.name} was created with success`,
       newUser,
-      accessToken,
-      refreshToken,
     });
   } catch (error) {
     next(createError(HTTPStatusCodes.InternalServerError, error.message));
