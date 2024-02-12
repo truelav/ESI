@@ -5,9 +5,9 @@
 
 /** @type {import('jest').Config} */
 const config = {
-
-  forceExit: true,
+  // forceExit: true,
   verbose: true,  
+  testEnvironment: 'node',
   // Automatically clear mock calls, instances, contexts and results before every test
   clearMocks: true,
 

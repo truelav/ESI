@@ -9,6 +9,8 @@ const app = createServer()
 describe("Product Integration", () => {
     beforeAll(async () => {
         const mongoServer = await MongoMemoryServer.create()
+
+        await mongoose.connect(mongoServer.getUri())
     })    
       
     afterAll(async () => {
@@ -18,7 +20,7 @@ describe("Product Integration", () => {
     })
 
     describe("get Product Route", () => {
-        describe("given the product doesnt exists", () => {
+        describe("given the product doesn't exists", () => {
 
             test("returns a list of products", async () => {
                 const response = await supertest(app).get("/api/products")
