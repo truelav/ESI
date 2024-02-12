@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { SignupUserType } from "../../components/forms/SignupForm/model/types";
 import { Product } from "../../entities/Product/model/types/product";
 import { FormDataProps } from "../../shared/ui/Modals/ImportProducts/ImportProductsModal";
 import { Order } from "./types/Cart/Order";
@@ -143,7 +144,7 @@ export const apiSlice = createApi({
                 body: user,
             }),
         }),
-        signup: builder.mutation<User, User>({
+        signup: builder.mutation<SignupUserType, SignupUserType>({
             query: (user) => ({
                 url: `/auth/signup`,
                 method: "POST",

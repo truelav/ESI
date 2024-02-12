@@ -4,10 +4,8 @@ import {
     Container,
     FormControl,
     FormLabel,
-    Input,
     Stack,
-    FormErrorMessage,
-  } from "@chakra-ui/react";
+} from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useSignupMutation } from "../../../../app/api/apiSlice"; 
@@ -17,7 +15,7 @@ import ErrorText from "../../../../shared/ui/Error/ErrorText";
 import { initialValues } from "../model/initialValues";
 import { validateSignupInput } from "../model/validators";
     
-
+import "./SignupStyle.css"
   
 export const SignupForm = () => {
     const [signup, 
@@ -37,7 +35,7 @@ export const SignupForm = () => {
     if(errorSignup){
       content = (
         <>
-          <ErrorText errorMessage={`An error has occured while logging in:`}/>
+          <ErrorText errorMessage={`An error has occured while Signing Up, please try again later`}/>
           <ErrorText errorMessage={`${errorSignup}`}/>
         </>
       )
@@ -81,7 +79,6 @@ export const SignupForm = () => {
                     const response = await signup(values).unwrap();
                     console.log(response)
                     actions.resetForm();
-                    // navigate("/products");
                 } catch(err){
                     throw Error("Signup Error occured");
                 }
@@ -94,34 +91,34 @@ export const SignupForm = () => {
                         <Field 
                             type="text" 
                             name="fullname" 
-                            className="css-1cjy4zv"
+                            className="signup-input"
                         />
-                        <ErrorMessage name="fullname" component="div" />
+                        <ErrorMessage name="fullname" component={`div`}className="error-message"/>
                     </FormControl>
                     <FormControl>
                         <FormLabel>Company</FormLabel>
-                        <Field type="text" name="company" className="css-1cjy4zv"/>
-                        <ErrorMessage name="company" component="div" />
+                        <Field type="text" name="company" className="signup-input"/>
+                        <ErrorMessage name="company" component={`div`}className="error-message"/>
                     </FormControl>
                     <FormControl>
                         <FormLabel>Phone Number</FormLabel>
-                        <Field type="text" name="phone" className="css-1cjy4zv"/>
-                        <ErrorMessage name="phone" component="div" />
+                        <Field type="text" name="phone" className="signup-input"/>
+                        <ErrorMessage name="phone" component={`div`}className="error-message"/>
                     </FormControl>
                     <FormControl>
                         <FormLabel>Email</FormLabel>
-                        <Field type="email" name="email" className="css-1cjy4zv"/>
-                        <ErrorMessage name="email" component="div" />
+                        <Field type="email" name="email" className="signup-input"/>
+                        <ErrorMessage name="email" component={`div`}className="error-message"/>
                     </FormControl>
                     <FormControl>
                         <FormLabel>Password</FormLabel>
-                        <Field type="password" name="password" className="css-1cjy4zv"/>
-                        <ErrorMessage name="password" component="div" />
+                        <Field type="password" name="password" className="signup-input"/>
+                        <ErrorMessage name="password" component={`div`}className="error-message"/>
                     </FormControl>
                     <FormControl>
                         <FormLabel>Retype Password</FormLabel>
-                        <Field type="password" name="retypePassword" className="css-1cjy4zv"/>
-                        <ErrorMessage name="retypePassword" component="div" />
+                        <Field type="password" name="retypePassword" className="signup-input"/>
+                        <ErrorMessage name="retypePassword" component={`div`} className="error-message"/>
                     </FormControl>
 
                     <Button
