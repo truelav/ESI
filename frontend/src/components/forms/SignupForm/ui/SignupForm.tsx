@@ -8,24 +8,16 @@ import {
     Stack,
     FormErrorMessage,
   } from "@chakra-ui/react";
-    import { Link } from "react-router-dom";
-    import { Formik, Form, Field } from "formik";
-    import { useSignupMutation } from "../../../../app/api/apiSlice"; 
-    import { FormResult } from "../../FormResult/FormResult";
-    import { FormHeader } from "../../../../shared/ui/Forms/FormHeader/FormHeader";
-    import ErrorText from "../../../../shared/ui/Error/ErrorText";
+import { Link } from "react-router-dom";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import { useSignupMutation } from "../../../../app/api/apiSlice"; 
+import { FormResult } from "../../FormResult/FormResult";
+import { FormHeader } from "../../../../shared/ui/Forms/FormHeader/FormHeader";
+import ErrorText from "../../../../shared/ui/Error/ErrorText";
+import { initialValues } from "../model/initialValues";
+import { validateSignupInput } from "../model/validators";
     
 
-  
-  function validateInput() {
-    let error;
-    // if (!value) {
-    //   error = 'Name is required'
-    // } else if (value.toLowerCase() !== 'naruto') {
-    //   error = "Jeez! You're not a fan 😱"
-    // }
-    return error;
-  }
   
 export const SignupForm = () => {
     const [signup, 
@@ -39,7 +31,7 @@ export const SignupForm = () => {
     let content = <></>
   
     if(isLoadingSignup){
-      content = (<>Login Loading ...</>)
+      content = (<>Signup Loading ...</>)
     }
   
     if(errorSignup){
@@ -82,14 +74,8 @@ export const SignupForm = () => {
         >
           <Stack spacing="6">
             <Formik
-              initialValues={{
-                email: "",
-                company: "",
-                fullname: "",
-                phone: "",
-                password: "",
-                re_password: "",
-              }}
+              initialValues={initialValues}
+              validationSchema={validateSignupInput}
               onSubmit={async (values, actions) => {
                   try {
                     const response = await signup(values).unwrap();
@@ -101,43 +87,52 @@ export const SignupForm = () => {
                 }
               }}
             >
-              {(props) => (
-                <Form>
-
-                  <Field name="email" validate={validateInput}>
-                    {({ field, form }: never) => (
-                      <FormControl
-                        isInvalid={form.errors.name && form.touched.name}
-                      >
+              {({ isSubmitting }) => (
+                <Form>            
+                    <FormControl>
+                        <FormLabel>Full Name</FormLabel>
+                        <Field 
+                            type="text" 
+                            name="fullname" 
+                            className="css-1cjy4zv"
+                        />
+                        <ErrorMessage name="fullname" component="div" />
+                    </FormControl>
+                    <FormControl>
+                        <FormLabel>Company</FormLabel>
+                        <Field type="text" name="company" className="css-1cjy4zv"/>
+                        <ErrorMessage name="company" component="div" />
+                    </FormControl>
+                    <FormControl>
+                        <FormLabel>Phone Number</FormLabel>
+                        <Field type="text" name="phone" className="css-1cjy4zv"/>
+                        <ErrorMessage name="phone" component="div" />
+                    </FormControl>
+                    <FormControl>
                         <FormLabel>Email</FormLabel>
-                        <Input {...field} placeholder="email" />
-                        <FormErrorMessage>{form.errors.name}</FormErrorMessage>
-                      </FormControl>
-                    )}
-                  </Field>
-
-                  <Field name="password" validate={validateInput}>
-                    {({ field, form }: never) => (
-                      <FormControl
-                        isInvalid={form.errors.name && form.touched.name}
-                      >
+                        <Field type="email" name="email" className="css-1cjy4zv"/>
+                        <ErrorMessage name="email" component="div" />
+                    </FormControl>
+                    <FormControl>
                         <FormLabel>Password</FormLabel>
-                        <Input {...field} placeholder="password" type="password" />
-                        <FormErrorMessage>
-                          {form.errors.password}
-                        </FormErrorMessage>
-                      </FormControl>
-                    )}
-                  </Field>
-  
-                  <Button
-                    mt={4}
-                    colorScheme="teal"
-                    isLoading={props.isSubmitting}
-                    type="submit"
-                  >
-                    Sign Up
-                  </Button>
+                        <Field type="password" name="password" className="css-1cjy4zv"/>
+                        <ErrorMessage name="password" component="div" />
+                    </FormControl>
+                    <FormControl>
+                        <FormLabel>Retype Password</FormLabel>
+                        <Field type="password" name="retypePassword" className="css-1cjy4zv"/>
+                        <ErrorMessage name="retypePassword" component="div" />
+                    </FormControl>
+
+                    <Button
+                        mt={4}
+                        colorScheme="teal"
+                        isLoading={isSubmitting}
+                        disabled={isSubmitting}
+                        type="submit"
+                    >
+                        Sign Up
+                    </Button>
                 </Form>
               )}
             </Formik>
