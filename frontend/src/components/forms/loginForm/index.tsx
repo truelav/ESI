@@ -147,7 +147,7 @@ export function LoginForm() {
                   isLoading={props.isSubmitting}
                   type="submit"
                 >
-                  Submit
+                  Log In
                 </Button>
               </Form>
             )}

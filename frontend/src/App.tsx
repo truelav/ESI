@@ -26,6 +26,7 @@ import DashInventory from "./pages/DashboardPage/DashInventory/DashInventory";
 import DashPresentationPage from "./pages/DashboardPage/DashPresentationsPage/DashPresentationPage";
 import CartPage from "./pages/CartPage/CartPage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
+import SignupPage from "./pages/SignupPage/SignupPage";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -75,6 +76,7 @@ const router = createBrowserRouter(
             <Route path="profile" element={<ProfilePage />} />
 
             <Route path="login" element={<LoginPage />} />
+            <Route path="signup" element={<SignupPage />} />
 
             <Route path="contact" element={<ContactPage />} />
 

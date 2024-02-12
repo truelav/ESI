@@ -13,7 +13,7 @@ const config = {
 
   // Indicates which provider should be used to instrument code for coverage
   coverageProvider: "v8",
-
+  coverageReporters: ['text', 'html']
 };
 
 export default config;

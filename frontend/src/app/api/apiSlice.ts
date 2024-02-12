@@ -143,6 +143,13 @@ export const apiSlice = createApi({
                 body: user,
             }),
         }),
+        signup: builder.mutation<User, User>({
+            query: (user) => ({
+                url: `/auth/signup`,
+                method: "POST",
+                body: { ...user }
+            })
+        }),
 
         // Presentation API Routes
         getPresentationProducts: builder.query<GroupedProducts[], void>({
@@ -233,6 +240,7 @@ export const {
 
     useLoginMutation,
     useGetProfileQuery,
+    useSignupMutation,
 
     useCreatePresentationMutation,
 
