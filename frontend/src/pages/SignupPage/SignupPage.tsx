@@ -1,9 +1,6 @@
-// Login Page
-// import { LoginForm } from "../../components/forms/LoginForm";
-
 import { SignupForm } from "../../components/forms/SignupForm";
 
-function SignupPage() {
+const SignupPage = () => {
   return (
     <>
       <SignupForm />
