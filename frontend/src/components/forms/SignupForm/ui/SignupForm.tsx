@@ -44,9 +44,9 @@ export const SignupForm = () => {
     if(isSuccessSignup){
         content = (
             <FormResult headlineText="Create account request send with Success" bodyText="Welcome to ESI">
-                <Link to="login">
+                <Link to="/login">
                     <Button>
-                    Go To Log in
+                        Go To Log in
                     </Button>
                 </Link>  
             </FormResult>

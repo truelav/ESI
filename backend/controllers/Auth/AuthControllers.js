@@ -64,6 +64,47 @@ export const register = async (req, res, next) => {
   }
 };
 
+export const signup = async (req, res, next) => {
+  try {
+    const { fullname, company, phone, email, password } = req.body;
+
+    const user = await User.findOne({ email });
+
+    if (user) {
+      return next(createError(HTTPStatusCodes.ExistsAlready, `user with ${email} already exists`))
+    }
+
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+    
+    const newUser = new User({
+      name: fullname,
+      company,
+      phone,
+      email,
+      role: "CUSTOMER",
+      password: hashedPassword,
+      isActive: false
+    });
+
+    await newUser.save();
+
+    res.status(201).json({
+      message: `$Dear ${fullname}, your account was created, we will review your application shortly`,
+      body: {
+        company,
+        phone,
+        email
+      }
+    });
+
+  } catch(error){
+    next(createError(HTTPStatusCodes.InternalServerError, error.message));
+  }
+}
+
+
+
 
 export const login = async (req, res, next) => {
 
@@ -198,12 +239,10 @@ export const deleteUser = async (req, res, next) => {
 
     const emailResult = await sendDeleteUserEmail(user.email)
 
-    return res.json({ message: `user ${user.email} deleted success`, userDto });
+    return res.json({ message: `user ${user.email} deleted success`, emailResult });
   } catch (error) {
     next(createError(HTTPStatusCodes.InternalServerError, error.message));
   }
 };
-
-
 
 
