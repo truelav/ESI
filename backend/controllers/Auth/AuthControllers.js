@@ -103,9 +103,6 @@ export const signup = async (req, res, next) => {
   }
 }
 
-
-
-
 export const login = async (req, res, next) => {
 
   const { email, password } = req.body;
@@ -121,7 +118,11 @@ export const login = async (req, res, next) => {
     const isPasswordCorrect = await bcrypt.compare(password, user?.password);
 
     if (!isPasswordCorrect) {
-      return next(createError(HTTPStatusCodes.Forbidden, `password or email are incorrect or does not match`))
+      return next(createError(HTTPStatusCodes.Forbidden, `Password or Email are incorrect or do not match`))
+    }
+
+    if (!user.isActive) {
+      return next(createError(HTTPStatusCodes.Forbidden, `Your account is not active, please contact us to activate it`))
     }
 
     const role = user.role;
@@ -232,7 +233,7 @@ export const deleteUser = async (req, res, next) => {
     const user = await User.findByIdAndDelete(userId);
 
     if (!user) {
-      return next(createError(HTTPStatusCodes.NotFound, `No use found`))
+      return next(createError(HTTPStatusCodes.NotFound, `User not found`))
     }
 
     const userDto = new UserDto(user);
@@ -245,4 +246,22 @@ export const deleteUser = async (req, res, next) => {
   }
 };
 
+export const activateDeactivateUser = async (req, res, next) => {
+  try {
+    const userId = req.params.id;
+    const user = await User.findById(userId);
 
+    if (!user) {
+      return next(createError(HTTPStatusCodes.NotFound, `User not found`))
+    }
+
+    let isUserActive = !user.isActive
+    const updatedUser = await User.findOneAndUpdate({ _id: userId }, { isActive: isUserActive })
+
+    // Update user about his account update email service
+
+    return res.json({ message: `user ${user.email} was ${isUserActive? "activated" : "deactivated"}` });
+  } catch (error) {
+    next(createError(HTTPStatusCodes.InternalServerError, error.message));
+  }
+}
