@@ -112,17 +112,20 @@ export const login = async (req, res, next) => {
     const user = await User.findOne({ email });
 
     if (!user) {
-      return next(createError(HTTPStatusCodes.NotFound, `User with ${email} not found`))
+      next(createError(HTTPStatusCodes.NotFound, `User with ${email} not found`))
+      return
     }
 
     const isPasswordCorrect = await bcrypt.compare(password, user?.password);
 
     if (!isPasswordCorrect) {
-      return next(createError(HTTPStatusCodes.Forbidden, `Password or Email are incorrect or do not match`))
+      next(createError(HTTPStatusCodes.Forbidden, `Password or Email are incorrect or do not match`))
+      return
     }
 
     if (!user.isActive) {
-      return next(createError(HTTPStatusCodes.Forbidden, `Your account is not active, please contact us to activate it`))
+      next(createError(HTTPStatusCodes.Forbidden, `Your account is not active, please contact us to activate it`))
+      return
     }
 
     const role = user.role;
@@ -140,6 +143,7 @@ export const login = async (req, res, next) => {
       refreshToken,
       userDto,
     });
+    return
   } catch (error) {
     next(createError(HTTPStatusCodes.InternalServerError, error.message));
   }
@@ -156,7 +160,7 @@ export const logout = async (req, res, next) => {
 
     const token = await deleteToken(refreshToken);
     res.clearCookie("refreshToken");
-    res.status(200).json({ message: "Logout success", token });
+    return res.status(200).json({ message: "Logout success", token });
   } catch (error) {
     next(createError(HTTPStatusCodes.InternalServerError, error.message));
   }
@@ -188,6 +192,7 @@ export const refresh = async (req, res, next) => {
       httpOnly: true,
       secure: true,
     });
+
     return res.json({
       userDto,
       accessToken: tokens.accessToken,
@@ -203,7 +208,7 @@ export const getUsers = async (req, res, next) => {
     const users = await User.find({});
 
     if (!users) {
-      res.status(400).json({ message: "no users found", users: [] });
+      return res.status(400).json({ message: "no users found", users: [] });
     }
 
     return res.json(users);
@@ -218,7 +223,7 @@ export const getSingleUser = async (req, res, next) => {
     const user = await User.findById(userId);
 
     if (!user) {
-      res.status(400).json({ message: "no user found", user: {} });
+      return res.status(400).json({ message: "no user found", user: {} });
     }
 
     return res.json(user);
