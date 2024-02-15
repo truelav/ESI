@@ -129,6 +129,14 @@ export const apiSlice = createApi({
             invalidatesTags: ["User"],
         }),
 
+        activateDeactivateUser: builder.mutation<User, User>({
+            query: (user) => ({
+                url: `/auth/users/activate`,
+                method: "PUT",
+                body: user,
+            }),
+        }),
+
         // Authorization API Routes [ 1. /auth  2. /login  3. /register]
         login: builder.mutation<unknown, User>({
             query: (user) => ({
@@ -237,6 +245,7 @@ export const {
     useGetAllUsersQuery,
     useAddUserMutation,
     useEditUserMutation,
+    useActivateDeactivateUserMutation,
     useDeleteUserMutation,
 
     useLoginMutation,

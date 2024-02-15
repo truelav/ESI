@@ -8,7 +8,6 @@ import {
 } from "@chakra-ui/react";
 
 import { UsersList } from "../../../features/users/ui/usersList/usersList";
-
 import CreateUserModal from "../../../shared/ui/Modals/CreateUser/CreateUserModal";
 
 function DashUsersPage() {

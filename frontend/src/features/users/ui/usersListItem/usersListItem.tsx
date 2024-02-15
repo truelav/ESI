@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, useState } from "react";
 import { Grid, GridItem, Avatar, Button } from "@chakra-ui/react";
 import { FaTrash } from "react-icons/fa";
 import { CardTextComponent } from "../../../../shared/ui/Product/Card/CardText";
@@ -7,6 +7,7 @@ import CardComponent, {
 } from "../../../../shared/ui/Product/Card/CardComponent";
 import { User } from "../../../../app/api/types/User/User";
 import { useDeleteUserMutation } from "../../../../app/api/apiSlice";
+import { UsersActivationSwitch } from "../usersActivationSwitch/usersActivationSwitch";
 
 export interface UsersListITemProps {
   user: User;
@@ -15,6 +16,7 @@ export interface UsersListITemProps {
 export const UsersListItem = memo((props: UsersListITemProps) => {
   const { user } = props;
   const [deletePost] = useDeleteUserMutation();
+  const [isActive, setIsActive] = useState(user.isActive)
 
   return (
     <CardComponent
@@ -22,17 +24,6 @@ export const UsersListItem = memo((props: UsersListITemProps) => {
       additionalClassNames="Dash_ProductListItem"
     >
       <Grid templateColumns="repeat(12, 1fr)" gap={4}>
-        <GridItem colSpan={1}>
-          <div>
-            <input
-              type="checkbox"
-              className="input_checkbox"
-              // onChange={() => handleToggleSelectProducts(product?._id)}
-            />
-          </div>
-        </GridItem>
-        <GridItem colSpan={11}>
-          <Grid templateColumns="repeat(12, 1fr)" gap={4}>
             <GridItem colSpan={2}>
               <Avatar src="" name={user.name} size="lg" objectFit="contain" />
             </GridItem>
@@ -45,13 +36,11 @@ export const UsersListItem = memo((props: UsersListITemProps) => {
               <CardTextComponent>{user.email}</CardTextComponent>
             </GridItem>
 
-            <GridItem colSpan={1}>
-              <CardTextComponent>
-                {user.isActive ? "Active" : "Disabled"}
-              </CardTextComponent>
+            <GridItem colSpan={2} display='flex' >
+              <UsersActivationSwitch isActive={isActive} setIsActive={setIsActive} />
             </GridItem>
 
-            <GridItem colSpan={2}>
+            <GridItem colSpan={1}>
               <CardTextComponent>
                 {user?.role ? user.role : "unknown"}
               </CardTextComponent>
@@ -66,8 +55,6 @@ export const UsersListItem = memo((props: UsersListITemProps) => {
                 <FaTrash />
               </Button>
             </GridItem>
-          </Grid>
-        </GridItem>
       </Grid>
     </CardComponent>
   );
