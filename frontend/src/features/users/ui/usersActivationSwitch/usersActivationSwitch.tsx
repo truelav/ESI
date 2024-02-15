@@ -8,15 +8,33 @@ interface UserActivationProps {
 
 export const UsersActivationSwitch = (props: UserActivationProps) => {
     const { isActive, setIsActive } = props
-    const [activateDeactivateUser, { 
+    const [activateDeactivateUser, 
+      { 
           isLoading, 
           isError, 
           isSuccess,
           error 
     }] = useActivateDeactivateUserMutation();
 
+    const handleToggleUserActivation = () => {
+      activateDeactivateUser()
+    }
+
+    let content = <></>
+
+    if(isLoading){
+      content = <>loading...</>
+    }
+    if(isError){
+      content = <>Error {error}</>
+    }
+    if(isSuccess){
+      content = <>User {isActive ? 'deactivated': 'activated'} success</>
+    }
+
     return (
         <FormControl display='grid' gridTemplateColumns="repeat(2, 1fr)">
+          {content}
           <FormLabel htmlFor='isUserActive' m="auto">
             {isActive ? "Active" : "Disabled"}
           </FormLabel>
