@@ -9,7 +9,7 @@ interface UserActivationProps {
 }
 
 export const UsersActivationSwitch = (props: UserActivationProps) => {
-    const { isActive, setIsActive, user } = props
+    const { setIsActive, user } = props
     const [activateDeactivateUser, 
       { 
           isLoading, 
@@ -18,10 +18,13 @@ export const UsersActivationSwitch = (props: UserActivationProps) => {
           error 
     }] = useActivateDeactivateUserMutation();
     const isAdmin = user.role === "ADMIN"
+    const isActive = user.isActive
     console.log(user)
-    // const handleToggleUserActivation = () => {
-    //   activateDeactivateUser()
-    // }
+
+    const handleToggleUserActivation = async (id: string) => {
+      console.log(id)
+      await activateDeactivateUser(id)
+    }
 
     let content = <></>
 
@@ -29,7 +32,7 @@ export const UsersActivationSwitch = (props: UserActivationProps) => {
       content = <>loading...</>
     }
     if(isError){
-      content = <>Error {error}</>
+      content = <>Error {console.log(error)}</>
     }
     if(isSuccess){
       content = <>User {isActive ? 'deactivated': 'activated'} success</>
@@ -41,7 +44,8 @@ export const UsersActivationSwitch = (props: UserActivationProps) => {
           <FormLabel htmlFor='isUserActive' m="auto">
             {isActive ? "Active" : "Disabled"}
           </FormLabel>
-          <Switch m="auto" id='isUserActive' onChange={() => setIsActive((state) => !state)} isDisabled={isAdmin}  isChecked={isActive}/>
+          {/* <Switch m="auto" id='isUserActive' onChange={() => setIsActive((state) => !state)} isDisabled={isAdmin}  isChecked={isActive}/> */}
+          <Switch m="auto" id='isUserActive' onChange={() => handleToggleUserActivation(user._id)} isDisabled={isAdmin}  isChecked={isActive}/>
         </FormControl>
     )
 }

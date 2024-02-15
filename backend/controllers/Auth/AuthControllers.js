@@ -254,6 +254,7 @@ export const deleteUser = async (req, res, next) => {
 export const activateDeactivateUser = async (req, res, next) => {
   try {
     const userId = req.params.id;
+    console.log(req.body)
     const user = await User.findById(userId);
 
     if (!user) {

@@ -15,6 +15,8 @@ router.post("/signup", AuthControllers.signup)
 router.post("/users/", AuthControllers.register);
 router.post("/users/edit", editUser);
 
+router.put("/users/activate/:id", AuthControllers.activateDeactivateUser);
+
 router.delete("/users/:id", AuthControllers.deleteUser);
 
 export default router;
