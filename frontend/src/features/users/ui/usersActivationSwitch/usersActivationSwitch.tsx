@@ -1,13 +1,15 @@
 import { FormControl, FormLabel, Switch } from "@chakra-ui/react"
 import {useActivateDeactivateUserMutation} from "../../../../app/api/apiSlice"
+import { User } from "../../../../app/api/types/User/User"
 
 interface UserActivationProps {
     isActive: boolean
     setIsActive: React.Dispatch<React.SetStateAction<boolean>>
+    user: User
 }
 
 export const UsersActivationSwitch = (props: UserActivationProps) => {
-    const { isActive, setIsActive } = props
+    const { isActive, setIsActive, user } = props
     const [activateDeactivateUser, 
       { 
           isLoading, 
@@ -15,10 +17,11 @@ export const UsersActivationSwitch = (props: UserActivationProps) => {
           isSuccess,
           error 
     }] = useActivateDeactivateUserMutation();
-
-    const handleToggleUserActivation = () => {
-      activateDeactivateUser()
-    }
+    const isAdmin = user.role === "ADMIN"
+    console.log(user)
+    // const handleToggleUserActivation = () => {
+    //   activateDeactivateUser()
+    // }
 
     let content = <></>
 
@@ -38,7 +41,7 @@ export const UsersActivationSwitch = (props: UserActivationProps) => {
           <FormLabel htmlFor='isUserActive' m="auto">
             {isActive ? "Active" : "Disabled"}
           </FormLabel>
-          <Switch m="auto" id='isUserActive' isChecked={isActive} onChange={() => setIsActive((state) => !state)} />
+          <Switch m="auto" id='isUserActive' onChange={() => setIsActive((state) => !state)} isDisabled={isAdmin}  isChecked={isActive}/>
         </FormControl>
     )
 }

@@ -37,7 +37,7 @@ export const UsersListItem = memo((props: UsersListITemProps) => {
             </GridItem>
 
             <GridItem colSpan={2} display='flex' >
-              <UsersActivationSwitch isActive={isActive} setIsActive={setIsActive} />
+              <UsersActivationSwitch isActive={isActive} setIsActive={setIsActive} user={user}/>
             </GridItem>
 
             <GridItem colSpan={1}>
