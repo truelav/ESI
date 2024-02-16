@@ -2,7 +2,7 @@ import express from "express";
 import * as AuthControllers from "../../controllers/Auth/AuthControllers.js";
 import { editUser } from "../../controllers/Auth/Edit.js";
 
-const router = express.Router();
+const router = express.Router(); 
 
 router.get("/refresh", AuthControllers.refresh);
 router.get("/users", AuthControllers.getUsers);

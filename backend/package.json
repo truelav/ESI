@@ -44,7 +44,10 @@
     "passport-jwt": "^4.0.1",
     "pdfkit": "^0.13.0",
     "sharp": "^0.32.6",
-    "streamifier": "^0.1.1"
+    "streamifier": "^0.1.1",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui": "^5.11.6",
+    "swagger-ui-express": "^5.0.0"
   },
   "type": "module",
   "devDependencies": {
