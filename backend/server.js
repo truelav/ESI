@@ -23,18 +23,37 @@ app.use(cookieParser());
 
 //Swagger Options
 const swaggerOptions = {
-    swaggerDefinition: {
+    definition: {
+        openapi: "3.0.0",
         info: {
-            title: 'Library API',
+            title: 'ESI Library API',
             version: '1.0.0'
-        }
+        },
+        components: {
+            schemas: {
+              Product: {
+                type: 'object',
+                properties: {
+                  id: { type: 'integer' },
+                  name: { type: 'string' },
+                  price: { type: 'number' },
+                },
+              },
+              productResponse: {
+                type: 'object',
+                properties: {
+                  product: { $ref: '#/components/schemas/Product' },
+                },
+              },
+            },
+        },
     },
-    apis: ['server.js']
+    apis: ['./server.js', './routes/*.js', './routes/Products/*.js'],
+
 }
 const swaggerDocs = swaggerJsDoc(swaggerOptions)
-console.log(swaggerDocs)
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
-// to serve files from uploads directory
 app.use("/static", express.static("static"));
 
 app.use("/api", allRoutes);
