@@ -9,7 +9,7 @@ interface UserActivationProps {
 }
 
 export const UsersActivationSwitch = (props: UserActivationProps) => {
-    const { setIsActive, user } = props
+    const { user } = props
     const [activateDeactivateUser, 
       { 
           isLoading, 
@@ -44,7 +44,6 @@ export const UsersActivationSwitch = (props: UserActivationProps) => {
           <FormLabel htmlFor='isUserActive' m="auto">
             {isActive ? "Active" : "Disabled"}
           </FormLabel>
-          {/* <Switch m="auto" id='isUserActive' onChange={() => setIsActive((state) => !state)} isDisabled={isAdmin}  isChecked={isActive}/> */}
           <Switch m="auto" id='isUserActive' onChange={() => handleToggleUserActivation(user._id)} isDisabled={isAdmin}  isChecked={isActive}/>
         </FormControl>
     )

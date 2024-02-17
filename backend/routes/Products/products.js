@@ -13,7 +13,8 @@ router.get("/", ProductControllers.getAllProducts);
  *     Product:
  *       type: object
  *       required:
- *        - title
+ *        - model
+ *        - brand
  *        - description
  *        - price
  *        - image
@@ -33,33 +34,39 @@ router.get("/", ProductControllers.getAllProducts);
  *     productResponse:
  *       type: object
  *       properties:
- *         user:
- *           type: string
  *         _id:
  *           type: string
- *         title:
+ *         model:
+ *           type: string
+ *         brand:
+ *           type: string
+ *         category:
  *           type: string
  *         description:
  *           type: string
+ *         features: 
+ *           type: [string]
  *         price:
+ *           type: number
+ *         quantity:
  *           type: number
  *         image:
  *           type: string
  *         id:
  *           type: string
+ *         upc:
+ *           type: string
  *         createdAt:
  *           type: string
  *         updatedAt:
- *           type: string
- *         __v:
- *           type: number
+ *           type: string       
  *
  */
 
 
 /**
  * @openapi
- * api/products/:
+ * /api/products/:
  *  get:
  *     tags:
  *     - Get All Products
@@ -72,7 +79,7 @@ router.get("/brandedProducts", ProductControllers.getBrandedProducts);
 
 /**
  * @openapi
- * api/products/brandedProducts:
+ * /api/products/brandedProducts:
  *  get:
  *     tags:
  *     - Get All Products Sorted By Brands
@@ -86,7 +93,7 @@ router.get("/transformedProducts", ProductControllers.getTransformedProductsBy)
 
  /**
  * @openapi
- * '/products/{id}':
+ * '/api/products/{id}':
  *  get:
  *     tags:
  *     - Single Product
@@ -104,6 +111,32 @@ router.get("/transformedProducts", ProductControllers.getTransformedProductsBy)
  *          application/json:
  *           schema:
  *              $ref: '#/components/schema/productResponse'
+ *       404:
+ *         description: Product not found
+ *  post:
+ *     tags:
+ *     - Single Product
+ *     summary: Create a single product
+ *     parameters:
+ *      - name: id
+ *        in: path
+ *        description: The id of the product
+ *        required: true
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schema/Product'
+ *     responses:
+ *       200:
+ *         description: Success
+ *         content:
+ *          application/json:
+ *           schema:
+ *              $ref: '#/components/schema/productResponse'
+ *       403:
+ *         description: Forbidden
  *       404:
  *         description: Product not found
  *  put:

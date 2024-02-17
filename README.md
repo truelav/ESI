@@ -1,59 +1,31 @@
+[Getting Started](#getting-started)
+
 ABOUT
 An Inventory management system for keeping track of available products, adding, modifying and removing. Also it will have account permissions based on roles (Sales, Customer). It will have a searchable catalog and multiple filters and sorts. Also it will have a function to automatically create a PDF presentation based o selected products
 
-BACKEND
+[Tech Stack](#tech stack)
+    Backenmd
 
-    BasicURL: "localhostt:8888/api/"
+[Installation](#installation)
+    Backend - 
 
-    Routes:
-        GET : ('/products') => statusCode: 200, body: { }
-        GET : ('/products/:id') =>
-        GET : ('/users') =>
-        GET : ('/users/:id') =>
-        GET : ('/presentation') =>
-
-        POST : ('/products') =>
-        POST : ('/products/:id') =>
-        POST : ('/users/:id') =>
-        POST : ('/presentation')
-
-        PUT : ('/products') =>
-        PUT : ('/products/:id') =>
-        PUT : ('/users/:id') =>
-
-        DELETE : ('/products') =>
-        DELETE : ('/products/:id') =>
-        DELETE : ('/users/:id') =>
-
-    Controllers:
+API Endpoints
+Below are the endpoints available in this API:
 
 
-    Error Handling:
+    GET /api/users: Retrieve a list of users.
+    POST /api/users: Create a new user.
 
+For detailed information on each endpoint, refer to the Swagger documentation provided at /api-docs.
 
-    Validators:
+Authentication
+[Explain how authentication works in your API, if applicable.]
 
-FRONTEND
+Examples
+[Provide examples of how to use your API, including sample requests and responses.]
 
-    Routes:
+Contributing
+We welcome contributions from the community. If you find any issues or have suggestions for improvements, please open an issue or submit a pull request.
 
-        ( "/" )
-
-        PUBLIC ROUTES
-            ( "/login" )
-            ( "/contact" )
-
-        PROTECTED ROUTES
-
-            ( "/products" )
-
-            ( "/dashboard" ) 
-                -> ( "/users" ) 
-                -> ( "/products" )
-                --> ( "/orders" )
-                -> ( "/inventory" ) 
-
-            ( "/presentation" )
-
-
-
+License
+This project is licensed under the [License Name] - see the LICENSE.md file for details.
