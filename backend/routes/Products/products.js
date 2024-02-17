@@ -8,64 +8,6 @@ router.get("/", ProductControllers.getAllProducts);
 
 /**
  * @openapi
- * components:
- *   schema:
- *     Product:
- *       type: object
- *       required:
- *        - model
- *        - brand
- *        - description
- *        - price
- *        - image
- *       properties:
- *         title:
- *           type: string
- *           default: "Canon EOS 1500D DSLR Camera with 18-55mm Lens"
- *         description:
- *           type: string
- *           default: "Designed for first-time DSLR owners who want impressive results straight out of the box, capture those magic moments no matter your level with the EOS 1500D. With easy to use automatic shooting modes, large 24.1 MP sensor, Canon Camera Connect app integration and built-in feature guide, EOS 1500D is always ready to go."
- *         price:
- *           type: number
- *           default: 879.99
- *         image:
- *           type: string
- *           default: "https://i.imgur.com/QlRphfQ.jpg"
- *     productResponse:
- *       type: object
- *       properties:
- *         _id:
- *           type: string
- *         model:
- *           type: string
- *         brand:
- *           type: string
- *         category:
- *           type: string
- *         description:
- *           type: string
- *         features: 
- *           type: [string]
- *         price:
- *           type: number
- *         quantity:
- *           type: number
- *         image:
- *           type: string
- *         id:
- *           type: string
- *         upc:
- *           type: string
- *         createdAt:
- *           type: string
- *         updatedAt:
- *           type: string       
- *
- */
-
-
-/**
- * @openapi
  * /api/products/:
  *  get:
  *     tags:
@@ -96,7 +38,7 @@ router.get("/transformedProducts", ProductControllers.getTransformedProductsBy)
  * '/api/products/{id}':
  *  get:
  *     tags:
- *     - Single Product
+ *     - Product
  *     summary: Get a single product by the id
  *     description: Retrieve a product based on its ID.
  *     parameters:
@@ -115,7 +57,7 @@ router.get("/transformedProducts", ProductControllers.getTransformedProductsBy)
  *         description: Product not found
  *  post:
  *     tags:
- *     - Single Product
+ *     - Product
  *     summary: Create a single product
  *     parameters:
  *      - name: id
@@ -141,7 +83,7 @@ router.get("/transformedProducts", ProductControllers.getTransformedProductsBy)
  *         description: Product not found
  *  put:
  *     tags:
- *     - Single Product
+ *     - Product
  *     summary: Update a single product
  *     parameters:
  *      - name: id
@@ -167,7 +109,7 @@ router.get("/transformedProducts", ProductControllers.getTransformedProductsBy)
  *         description: Product not found
  *  delete:
  *     tags:
- *     - Single Product
+ *     - Product
  *     summary: Delete a single product
  *     parameters:
  *      - name: id
