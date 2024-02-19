@@ -136,7 +136,9 @@ router.post("/register", AuthControllers.register);
 *           schema:
 *             type: object
 *             properties:
-*                email: string
+*               email:
+*                 type: string
+*                 default: user@email.com
 *
 *     responses:
 *       200:
@@ -177,6 +179,30 @@ router.post("/register", AuthControllers.resetPassword);
 */
 router.put("/users/edit", AuthControllers.editUser);
 
+
+/**
+* @openapi
+* '/api/auth/activate/{id}':
+*  put:
+*     tags:
+*     - Auth
+*     summary: Activate / Deactivate user
+*     requestBody:
+*       required: true
+*       content:
+*         application/json:
+*           schema:
+*             $ref: '#/components/schema/SignupRequestUser'
+*     responses:
+*       200:
+*         description: Success 
+*       403:
+*         description: Forbidden
+*       404:
+*         description: User not found
+*       500:
+*         description: Something went wrong
+*/
 router.put("/users/activate/:id", AuthControllers.activateDeactivateUser);
 
 router.delete("/users/:id", AuthControllers.deleteUser);
