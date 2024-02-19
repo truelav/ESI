@@ -30,7 +30,7 @@ const swaggerOptions = {
             version: '1.0.0'
         },
     },
-    apis: ['./server.js', './routes/*.js', './routes/Products/*.js'],
+    apis: ['./server.js', './routes/Products/*.js', './routes/Auth/*.js'],
 
 }
 const swaggerDocs = swaggerJsDoc(swaggerOptions)
