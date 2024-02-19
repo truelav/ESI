@@ -71,4 +71,10 @@
  *           type: string       
  *         isActive:
  *           type: boolean
+ *     brandedProductResponse:
+ *       type: object
+ *       propreties:
+ *         _id:
+ *           type: string
+ *  
  */

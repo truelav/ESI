@@ -29,24 +29,6 @@ const swaggerOptions = {
             title: 'ESI Library API',
             version: '1.0.0'
         },
-        // components: {
-        //     schemas: {
-        //       Product: {
-        //         type: 'object',
-        //         properties: {
-        //           id: { type: 'integer' },
-        //           name: { type: 'string' },
-        //           price: { type: 'number' },
-        //         },
-        //       },
-        //       productResponse: {
-        //         type: 'object',
-        //         properties: {
-        //           product: { $ref: '#/components/schemas/Product' },
-        //         },
-        //       },
-        //     },
-        // },
     },
     apis: ['./server.js', './routes/*.js', './routes/Products/*.js'],
 

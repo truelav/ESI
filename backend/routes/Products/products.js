@@ -28,14 +28,31 @@ router.get("/", ProductControllers.getAllProducts);
 
 /**
  * @openapi
- * /api/products/brandedProducts:
+ * /api/brandedProducts:
  *  get:
  *     tags:
  *     - Product
- *     description: Responds if the app is up and running
+ *     summary: Get branded products categorized by category
+ *     description: Retriveves products categorized on brands or categories
  *     responses:
  *       200:
- *         description: App is up and running
+ *         description: Success
+ *         content:
+ *          application/json:
+ *           schema:
+ *              type: array
+ *              items:
+ *                type: object
+ *                properties:
+ *                  category:
+ *                    type: string
+ *                    description: The category of products.
+ *                  products:
+ *                    type: array
+ *                    items:
+ *                      $ref: '#/components/schema/productResponse'
+ *       404:
+ *         description: Product not found
  */
 router.get("/brandedProducts", ProductControllers.getBrandedProducts);
 
@@ -141,39 +158,6 @@ router.delete("/:id", ProductControllers.deleteSingleProduct);
  *         description: Product not found
  */
 router.put("/:id", upload.single("images"), ProductControllers.editSingleProduct);
-
- /**
- * @openapi
- * '/api/products/{id}':
- *  put:
- *     tags:
- *     - Product
- *     summary: Update a single product
- *     parameters:
- *      - name: id
- *        in: path
- *        description: The id of the product
- *        required: true
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schema/Product'
- *     responses:
- *       200:
- *         description: Success
- *         content:
- *          application/json:
- *           schema:
- *              $ref: '#/components/schema/productResponse'
- *       403:
- *         description: Forbidden
- *       404:
- *         description: Product not found
- */
-router.put("/:id/uploadImage", upload.single("images"), ProductControllers.editSingleProduct);
-
 
 
 /**
