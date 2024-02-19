@@ -10,6 +10,7 @@
  *        - description
  *        - price
  *        - image
+ *        - isActive
  *       properties:
  *         _id:
  *           type: string
@@ -18,8 +19,8 @@
  *           type: string
  *           default: "ACHOM-001"
  *         brand:
- *            type: string
- *            default: "Go Pro"
+ *           type: string
+ *           default: "Go Pro"
  *         description:
  *           type: string
  *           default: "Headstrap + quickclip -black"
@@ -29,9 +30,18 @@
  *         price:
  *           type: number
  *           default: 879.99
+ *         quantity:
+ *           type: number
+ *           default: 99
  *         image:
  *           type: string
  *           default: "https://i.imgur.com/QlRphfQ.jpg"
+ *         isActive:
+ *           type: boolean
+ *           default: true
+ *         features:
+ *           type: array
+ *           default: ["feature 1", "feature 2"]
  *     productResponse:
  *       type: object
  *       properties:
@@ -53,13 +63,12 @@
  *           type: number
  *         image:
  *           type: string
- *         id:
- *           type: string
  *         upc:
  *           type: string
  *         createdAt:
  *           type: string
  *         updatedAt:
  *           type: string       
- *
+ *         isActive:
+ *           type: boolean
  */
