@@ -1,7 +1,5 @@
 import express from "express";
 import * as AuthControllers from "../../controllers/Auth/AuthControllers.js";
-import { editUser } from "../../controllers/Auth/Edit.js";
-
 const router = express.Router(); 
 
 
@@ -94,8 +92,90 @@ router.post("/logout", AuthControllers.logout);
 *         description: Something went wrong
 */
 router.post("/signup", AuthControllers.signup)
+
+
+
+/**
+* @openapi
+* '/api/auth/register':
+*  post:
+*     tags:
+*     - Auth
+*     summary: Admin registers new user
+*     requestBody:
+*       required: true
+*       content:
+*         application/json:
+*           schema:
+*             $ref: '#/components/schema/SignupRequestUser'
+*     responses:
+*       200:
+*         description: Success Signup, user approved automatically
+*       403:
+*         description: Forbidden
+*       404:
+*         description: User not found
+*       500:
+*         description: Something went wrong
+*/
 router.post("/register", AuthControllers.register);
-router.put("/users/edit", editUser);
+
+
+
+/**
+* @openapi
+* '/api/auth/resetPassword':
+*  post:
+*     tags:
+*     - Auth
+*     summary: Resets user password
+*     requestBody:
+*       required: true
+*       content:
+*         application/json:
+*           schema:
+*             type: object
+*             properties:
+*                email: string
+*
+*     responses:
+*       200:
+*         description: Success Signup, user approved automatically
+*       403:
+*         description: Forbidden
+*       404:
+*         description: User not found
+*       500:
+*         description: Something went wrong
+*/
+router.post("/register", AuthControllers.resetPassword);
+
+
+
+/**
+* @openapi
+* '/api/auth/edit':
+*  put:
+*     tags:
+*     - Auth
+*     summary: Update user info
+*     requestBody:
+*       required: true
+*       content:
+*         application/json:
+*           schema:
+*             $ref: '#/components/schema/SignupRequestUser'
+*     responses:
+*       200:
+*         description: Success Signup, user approved automatically
+*       403:
+*         description: Forbidden
+*       404:
+*         description: User not found
+*       500:
+*         description: Something went wrong
+*/
+router.put("/users/edit", AuthControllers.editUser);
 
 router.put("/users/activate/:id", AuthControllers.activateDeactivateUser);
 

@@ -251,6 +251,34 @@ export const deleteUser = async (req, res, next) => {
   }
 };
 
+export const editUser = async (req, res, next) => {
+  try {
+      const { name, email, password} = req.body
+      
+  } catch (error) {
+    next(createError(HTTPStatusCodes.InternalServerError, error.message));
+  }
+};
+
+export const resetPassword = async (req, res, next) => {
+  try {
+    const { email } = req.body
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(400).json({ message: "no users found", users: [] });
+    }
+
+    // resetPasswordService
+
+    // Send the email to user that the password was reseted
+    res.status(200).json({ message: `Dear ${email} your password was reseted succes, please check your email` })
+
+  } catch(error){
+    next(createError(HTTPStatusCodes.InternalServerError, error.message));
+  }
+}
+
 export const activateDeactivateUser = async (req, res, next) => {
   try {
     const userId = req.params.id;
