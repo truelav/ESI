@@ -28,7 +28,7 @@ router.get("/", ProductControllers.getAllProducts);
 
 /**
  * @openapi
- * /api/brandedProducts:
+ * /api/products/brandedProducts:
  *  get:
  *     tags:
  *     - Product
@@ -58,11 +58,12 @@ router.get("/brandedProducts", ProductControllers.getBrandedProducts);
 
 /**
  * @openapi
- * /api/products/brandedProducts:
+ * /api/products/transformedProducts:
  *  get:
  *     tags:
  *     - Product
- *     description: Responds if the app is up and running
+ *     summary: Get branded products categorized by category
+ *     description: Retriveves products categorized on brands or categories
  *     responses:
  *       200:
  *         description: Success
@@ -71,7 +72,15 @@ router.get("/brandedProducts", ProductControllers.getBrandedProducts);
  *           schema:
  *              type: array
  *              items:
- *                 $ref: '#/components/schema/productResponse'
+ *                type: object
+ *                properties:
+ *                  category:
+ *                    type: string
+ *                    description: The category of products.
+ *                  products:
+ *                    type: array
+ *                    items:
+ *                      $ref: '#/components/schema/productResponse'
  *       404:
  *         description: Product not found
  */
@@ -125,6 +134,37 @@ router.get("/:id", ProductControllers.getSingleProduct);
  *         description: Product not found
  */
 router.delete("/:id", ProductControllers.deleteSingleProduct);
+
+
+
+/**
+ * @openapi
+ * /api/products:
+ *   delete:
+ *     tags:
+ *     - Product
+ *     summary: Delete products by IDs
+ *     description: Deletes products based on the provided array of product IDs.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: array
+ *             items:
+ *               type: string
+ *               format: uuid
+ *             example: ["818279010800", "818279010802", "818279010804"]
+ *     responses:
+ *       200:
+ *         description: Products deleted successfully.
+ *       400:
+ *         description: Invalid request. Please provide an array of product IDs.
+ *       404:
+ *         description: Products not found.
+ */
+ router.delete("/", ProductControllers.deleteMultipleProducts);
+
 
 
  /**
@@ -192,10 +232,36 @@ router.put("/:id", upload.single("images"), ProductControllers.editSingleProduct
 */
 router.post("/", upload.single("image"), ProductControllers.addSingleProduct);
 
-router.delete("/", ProductControllers.deleteMultipleProducts);
-router.delete("/image/:id", ProductControllers.deleteProductImage);
+
+/**
+ * @openapi
+ * /api/products/addMultiple:
+ *   post:
+ *     tags:
+ *     - Product
+ *     summary: Upload CSV file for products,
+ *     description: Uploads a CSV file containing products,  if product not available it will create one, it available it will update it
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               file:
+ *                 type: string
+ *                 format: binary
+ *     responses:
+ *       200:
+ *         description: CSV file uploaded successfully.
+ *         content:
+ *         schema: 
+ *           type: object
+ *           properties:
+ *             message: string
+ *       400:
+ *         description: Invalid request. Please provide a CSV file.
+ */
 router.post("/addMultiple", uploadProductsFile.single("csv"), ProductControllers.addMultipleProducts);
-router.put("/upload", uploadProductsFile.single("csv"), ProductControllers.addMultipleProducts)
-router.put("/", ProductControllers.editMultipleProducts);
 
 export default router;
