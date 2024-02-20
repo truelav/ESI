@@ -1,6 +1,5 @@
 
-import redactLogData from './redact-logs.utils';
-
+import redactLogData from './redact_logs.utils.js';
 
 const formatHTTPLoggerResponse = (context) => {
   let requestDuration = '.';
