@@ -7,7 +7,7 @@ export const serializeProductData = (product) => {
 
 
 export const updateProductService = (newProducts, row) => {
-    const fallbackImage = "http://localhost:8888/static/images/fallback_image.jpeg"
+
     let numPrice = transformPrice(row.Price)
 
     const product = new Product({
@@ -15,11 +15,10 @@ export const updateProductService = (newProducts, row) => {
         model: row.Model,
         description: row.Description,
         category: row.Category ,
-        subcategory: row.subcategory,
+        subcategory: row.Subcategory,
         upc: row.UPC || 'No UPC Provided',
         price: numPrice || 1,
         quantity: row["Qty's"],
-        images: row.images || fallbackImage,
         isActive: true
     });
 
@@ -39,7 +38,6 @@ export const bulkProductOperations = (newProducts) => {
                     category: product.category,
                     subcategory: product.subcategory,
                     quantity: product.quantity,
-                    images: product.images,
                     upc: product.upc,
                 },
             },

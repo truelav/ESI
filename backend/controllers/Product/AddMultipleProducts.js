@@ -19,14 +19,15 @@ export const addMultipleProducts = async (req, res, next) => {
       .on("end", async () => {
 
         const bulkOps = bulkProductOperations(newProducts)
+
         await Product.bulkWrite(bulkOps)
-          .then((result) => {
-            res.status(200).json(`success, all ${newProducts.length} were added, ${result}`);
-          })
-          .catch((error) => {
-            console.log(error);
-            next(createError(HTTPStatusCodes.InternalServerError, error.message));
-          });
+        .then((result) => {
+          res.status(200).json(`success, all ${newProducts.length} were added, ${result}`);
+        })
+        .catch((error) => {
+          console.log(error);
+          next(createError(HTTPStatusCodes.InternalServerError, error.message));
+        });
       });
   } catch (error) {
     console.log(error);

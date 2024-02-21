@@ -236,7 +236,7 @@ router.post("/", upload.single("image"), ProductControllers.addSingleProduct);
 /**
  * @openapi
  * /api/products/addMultiple:
- *   post:
+ *   put:
  *     tags:
  *     - Product
  *     summary: Upload CSV file for products,
