@@ -1,6 +1,6 @@
 import createError from 'http-errors';
 import { HTTPStatusCodes } from '../../utils/constants.js';
-import Product from "../../models/Product/Product.js";
+import Product from "../../models/Product/Product.Schema.js";
 import { createPDFService } from "../../services/presentation/presentation_services.js";
 
 export const createPDFPresentation = async (req, res, next) => {

@@ -2,7 +2,7 @@ import streamifier from "streamifier";
 import parse from "csv-parser";
 import createError from 'http-errors';
 import { HTTPStatusCodes } from '../../utils/constants.js';
-import Product from "../../models/Product/Product.js";
+import Product from "../../models/Product/Product.Schema.js";
 import { bulkProductOperations, updateProductService } from "../../services/product/product_service.js";
 
 export const addMultipleProducts = async (req, res, next) => {

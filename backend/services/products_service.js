@@ -1,5 +1,5 @@
 import fs from "fs";
-import Product from "../models/Product/Product.js";
+import Product from "../models/Product/Product.Schema.js";
 
 export const findProductService = async (data) => {
   const product = await Product.findById(data)

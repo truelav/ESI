@@ -1,6 +1,6 @@
 import createError from 'http-errors';
 import { HTTPStatusCodes } from '../../utils/constants.js';
-import Product from "../../models/Product/Product.js";
+import Product from "../../models/Product/Product.Schema.js";
 import { transformProductsForPresentation } from '../../utils/transformPrice.js';
 
 export const getBrandedProducts = async (req, res, next) => {

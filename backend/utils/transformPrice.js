@@ -47,3 +47,8 @@ export const transformProductsBy = (products, transformBy) => {
 
   return transformedProducts
 }
+
+
+export const extractSubcategory = (category) => {
+  
+}

@@ -1,21 +1,41 @@
-import Product from "../../models/Product/Product.js";
+import Product from "../../models/Product/Product.Schema.js";
 import { transformPrice } from "../../utils/transformPrice.js"
 
 export const serializeProductData = (product) => {
 
 }
 
+export const extractSubcategory = (categoryRow) => {
+    let result = ["unknown", null]
+
+    if(!categoryRow){
+        return result
+    } 
+
+    if(categoryRow.includes("-")){
+        const firstDashIndex = categoryRow.indexOf("-");
+        let category = categoryRow.substring(0, firstDashIndex).trim()
+        let subcategory = categoryRow.substring(firstDashIndex + 1).trim()
+        result = [category, subcategory]
+    } else {
+        result[0] = categoryRow
+    }
+    // console.log(result)
+    return result
+}
 
 export const updateProductService = (newProducts, row) => {
 
+    const rowCategory = row.Category
     let numPrice = transformPrice(row.Price)
+    const [category, subcategory] = extractSubcategory(rowCategory)
 
     const product = new Product({
         brand: row.Brand,
         model: row.Model,
         description: row.Description,
-        category: row.Category ,
-        subcategory: row.Subcategory,
+        category,
+        subcategory,
         upc: row.UPC || 'No UPC Provided',
         price: numPrice || 1,
         quantity: row["Qty's"],
