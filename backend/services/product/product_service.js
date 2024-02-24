@@ -1,28 +1,5 @@
 import Product from "../../models/Product/Product.Schema.js";
-import { transformPrice } from "../../utils/transformPrice.js"
-
-export const serializeProductData = (product) => {
-
-}
-
-export const extractSubcategory = (categoryRow) => {
-    let result = ["unknown", null]
-
-    if(!categoryRow){
-        return result
-    } 
-
-    if(categoryRow.includes("-")){
-        const firstDashIndex = categoryRow.indexOf("-");
-        let category = categoryRow.substring(0, firstDashIndex).trim()
-        let subcategory = categoryRow.substring(firstDashIndex + 1).trim()
-        result = [category, subcategory]
-    } else {
-        result[0] = categoryRow
-    }
-    // console.log(result)
-    return result
-}
+import { extractSubcategory, transformPrice } from "../../utils/product.utils.js";
 
 export const updateProductService = (newProducts, row) => {
 
