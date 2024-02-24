@@ -13,7 +13,7 @@ import FilterBar from "../../features/products/FilterProducts/ui/FilterBar/Filte
 const ProductsPage = () => {
     const dispatch = useDispatch()
     const {
-        data: products,
+        data,
         isLoading,
         isSuccess,
         isError,
@@ -22,12 +22,15 @@ const ProductsPage = () => {
 
     const [searchTerm, setSearchTerm] = useState("");
 
+    console.log(data)
+
     useEffect(() => {
-        if(products){
-            const filterList = Array.from( new Set(products?.flatMap(product => product.category)));
+        if(data){
+            // const filterList = Array.from( new Set(products?.flatMap(product => product.category)));
+            const filterList = data.categories
             dispatch(setFilters(filterList))
         }
-    },[products])
+    },[data, dispatch])
 
 
     let content = <div></div>;
@@ -44,13 +47,13 @@ const ProductsPage = () => {
         content = (
             <div className="dash_products_page_wrapper">
                 <Grid templateColumns="repeat(12, 1fr)" gap={4}>
-                    <GridItem colSpan={2}>
+                    <GridItem colSpan={3}>
                         <FilterBar />
                     </GridItem>
-                    <GridItem colSpan={10}>
+                    <GridItem colSpan={9}>
                         <ProductSearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
                         <ProductSortBar />
-                        <ProductList products={products} searchTerm={searchTerm} />
+                        <ProductList products={data.allProducts} searchTerm={searchTerm} />
                     </GridItem>
                 </Grid>
             </div>

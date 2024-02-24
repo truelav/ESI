@@ -40,7 +40,7 @@ const PresentationAccordionItem = ({ category }) => {
                            {category.category}
                         </Checkbox>
                         <AccordionIcon />
-                    {category.products.length} - items available
+                        {category.products.length} - items available
                     </AccordionButton>
                 </h2>
                 <AccordionPanel pb={4}>

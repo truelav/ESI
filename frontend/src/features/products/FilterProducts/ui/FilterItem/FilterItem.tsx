@@ -2,6 +2,7 @@ import { Button, Text, Box } from "@chakra-ui/react";
 import { useDispatch } from "react-redux";
 
 import { addSelectedFilter, removeSelectedFilter } from "../../model/slice/filterSlice"
+import { SubcategoryAccordion } from "../SubcategoryAccordion/SubcategoryAccordion";
 
 interface FilterItemProps {
     filterItem: string
@@ -23,16 +24,16 @@ const FilterItem = (props: FilterItemProps) => {
 
     return (
         <Box margin={2}>
-            <Button
+            {/* <Button
                 color={isSelected? "blue" : "gray"}
                 isActive={isSelected}
-                // variant={isSelected ? "solid" : "ghost"}
                 onClick={() => handleFilterChange(filterItem, isSelected)}
             >
                 <Text>
-                    {filterItem}
+                    {filterItem.name}
                 </Text>
-            </Button>
+            </Button> */}
+            <SubcategoryAccordion subcategories={filterItem.subcategories} category={filterItem.name}/>
         </Box>
     )
 }
