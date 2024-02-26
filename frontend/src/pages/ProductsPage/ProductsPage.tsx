@@ -26,7 +26,6 @@ const ProductsPage = () => {
 
     useEffect(() => {
         if(data){
-            // const filterList = Array.from( new Set(products?.flatMap(product => product.category)));
             const filterList = data.categories
             dispatch(setFilters(filterList))
         }

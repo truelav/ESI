@@ -1,4 +1,3 @@
-
 export interface Product {
     map(
         arg0: (
@@ -19,6 +18,16 @@ export interface Product {
     upc: string;
 }
 
+export interface filterCategory {
+    name: string;
+    subcategories: string[]
+}
+
+export interface ProductsAPIData extends Product {
+    allProducts: Product[];
+    categories: filterCategory[];
+}
+
 //need to add active and inactive property to users and products
 
 export interface ProductImage {
@@ -29,3 +38,4 @@ export enum ProductView {
     BIG = "BIG",
     SMALL = "SMALL",
 }
+

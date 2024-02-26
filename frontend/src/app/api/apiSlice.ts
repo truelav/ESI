@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { SignupUserType } from "../../components/forms/SignupForm/model/types";
-import { Product } from "../../entities/Product/model/types/product";
+import { Product, ProductsAPIData } from "../../entities/Product/model/types/product";
 import { FormDataProps } from "../../shared/ui/Modals/ImportProducts/ImportProductsModal";
 import { Order } from "./types/Cart/Order";
 import { GroupedProducts } from "./types/Product";
@@ -26,7 +26,7 @@ export const apiSlice = createApi({
     tagTypes: ["Product", "User", "Order", "Profile"],
     endpoints: (builder) => ({
         // Products API Routes [ 1. /products  2. /products/:id]
-        getAllProducts: builder.query<Product[], void>({
+        getAllProducts: builder.query<ProductsAPIData, void>({
             query: () => `/products`,
             providesTags: ['Product']
         }),
