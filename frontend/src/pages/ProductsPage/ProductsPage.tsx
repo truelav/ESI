@@ -42,18 +42,16 @@ const ProductsPage = () => {
 
     if (isSuccess) {
         content = (
-            <div className="dash_products_page_wrapper">
-                <Grid templateColumns="repeat(12, 1fr)" gap={4}>
-                    <GridItem colSpan={3}>
-                        <FilterBar />
-                    </GridItem>
-                    <GridItem colSpan={9}>
-                        <ProductSearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-                        <ProductSortBar />
-                        <ProductList products={data.allProducts} searchTerm={searchTerm} />
-                    </GridItem>
-                </Grid>
-            </div>
+            <Grid templateColumns="repeat(12, 1fr)" gap={4}>
+                <GridItem colSpan={3}>
+                    <FilterBar />
+                </GridItem>
+                <GridItem colSpan={9}>
+                    <ProductSearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+                    <ProductSortBar />
+                    <ProductList products={data.allProducts} searchTerm={searchTerm} />
+                </GridItem>
+            </Grid>
         );
     }
 

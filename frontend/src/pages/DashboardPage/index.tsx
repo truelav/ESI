@@ -1,9 +1,4 @@
 import { Container, Grid, GridItem, Heading, Text, Highlight } from "@chakra-ui/react";
-// import { useDispatch } from "react-redux";
-// import { useGetAllProductsQuery } from "../../app/api/apiSlice";
-// import { setProducts, setCategoryProducts, setTotalProducts } from "../../entities/Product/model/slice/productSlice";
-// import { StatGroup } from "../../components/stats/StatGroup/StatGroup";
-// import { Product } from "../../entities/Product/model/types/product";
 import { Link } from "react-router-dom";
 
 export default function Dashboard() {

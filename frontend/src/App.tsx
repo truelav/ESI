@@ -8,6 +8,7 @@ import {
 // LAYOUTS
 import MainLayout from "./components/layouts/main";
 import DashboardLayout from "./components/layouts/dashboard";
+import ProductsLayout from "./components/layouts/userProducts";
 
 // PAGES
 import Home from "./pages/HomePage";
@@ -66,7 +67,7 @@ const router = createBrowserRouter(
             </Route>
             {/* END DASHBOARD */}
 
-            <Route path="products">
+            <Route path="products" element={<ProductsLayout />}>
                 <Route index element={<ProductsPage />} />
                 <Route path=":id">
                     <Route index element={<ProductDetailsPage />} />

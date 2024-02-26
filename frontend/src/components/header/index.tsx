@@ -18,8 +18,6 @@ export default function Header() {
   const { isAdmin, isUser } = useAuth();
 
   const logOut = () => {
-    console.log(cookies);
-
     if (cookies.authToken) {
       removeCookie("authToken", { path: "/" });
     }
