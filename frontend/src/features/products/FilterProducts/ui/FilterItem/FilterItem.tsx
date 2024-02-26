@@ -5,18 +5,16 @@ import { SubcategoryAccordion } from "../SubcategoryAccordion/SubcategoryAccordi
 
 interface FilterItemProps {
     filterItem: filterCategory
-    selectedFilters: string[]
 }
 
 const FilterItem = (props: FilterItemProps) => {
-    const { filterItem, selectedFilters } = props
+    const { filterItem } = props
 
     return (
         <Box margin={2}>
             <SubcategoryAccordion 
                 category={filterItem.name} 
                 subcategories={filterItem.subcategories} 
-                selectedFilters={selectedFilters}
             />
         </Box>
     )

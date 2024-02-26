@@ -6,16 +6,12 @@ const FilterList = () => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     const filterList = useSelector((state) => state.filter.filters)            
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment 
-    //@ts-ignore
-    const selectedFilters = useSelector((state) => state.filter.selectedFilters)
 
     return (
         <>
             {filterList.map((filterItem) => (
                 <FilterItem  
                     filterItem={filterItem} 
-                    selectedFilters={selectedFilters} 
                     key={filterItem.name}
                 />
             ))}

@@ -7,7 +7,11 @@ import { FilterCategoriesList } from "./FilterCategoryList"
 export const SubcategoryAccordion = (props) => {
     const dispatch = useDispatch()
     const { category, subcategories } = props
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     const selectedCategories = useSelector(state => state.filter.categories)
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     const selectedSubCategories = useSelector(state => state.filter.subcategories)
 
     const handleToggleCategory = (filterItem) => {
@@ -26,10 +30,8 @@ export const SubcategoryAccordion = (props) => {
                     <AccordionIcon />
                 </AccordionButton>
                 <AccordionPanel pb={4}>
-
                     <FilterCategoriesList category={category} subcategories={subcategories} selectedCategories={selectedCategories} handleToggleCategory={handleToggleCategory} />
                     <FilterSubcategoriesList category={category} subcategories={subcategories} selectedSubCategories={selectedSubCategories} handleToggleSubcategory={handleToggleSubcategory} />
-                    
                 </AccordionPanel>
             </AccordionItem>
         </Accordion>

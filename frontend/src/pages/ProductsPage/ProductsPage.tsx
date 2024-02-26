@@ -22,8 +22,6 @@ const ProductsPage = () => {
 
     const [searchTerm, setSearchTerm] = useState("");
 
-    console.log(data)
-
     useEffect(() => {
         if(data){
             const filterList = data.categories

@@ -4,7 +4,7 @@ import FilterList from "../FilterList/FilterList";
 const FilterBar = () => {
     return (
         <>
-            <Heading>Filter By:</Heading>
+            <Heading>Select Filter By:</Heading>
             <FilterList />
         </>
     );
