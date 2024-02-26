@@ -6,9 +6,8 @@ const filterSlice = createSlice({
         filters: [],
         selectedFilters: [],
         selectedSubcategories: [],
-        metadataFilters: {
-            totalFilters: 0,
-        }
+        categories: [], // Array of selected categories
+        subcategories: [] // Array of selected subcategories
     },
     reducers: {
         setFilters: (state, action) => {
@@ -24,14 +23,37 @@ const filterSlice = createSlice({
         deselectAllFilters: (state) => {
             state.selectedFilters = [];
         },
+        toggleCategory(state, action) {
+            const { category, subcategories } = action.payload;
+            if (state.categories.includes(category)) {
+              // Deselect category and its subcategories
+              state.categories = state.categories.filter(cat => cat !== category);
+              state.subcategories = state.subcategories.filter(subcat => !subcategories.includes(subcat));
+            } else {
+              // Select category and its subcategories
+              state.categories.push(category);
+              state.subcategories.push(...subcategories);
+            }
+          },
+          toggleSubcategory(state, action) {
+            const { subcategory } = action.payload;
+            if (state.subcategories.includes(subcategory)) {
+              state.subcategories = state.subcategories.filter(subcat => subcat !== subcategory);
+            } else {
+              state.subcategories.push(subcategory);
+            }
+          }
     },
 });
 
 export const { 
+    
     setFilters,
     addSelectedFilter,
     removeSelectedFilter,
-    deselectAllFilters
+    deselectAllFilters,
+    toggleCategory,
+    toggleSubcategory
 
 } = filterSlice.actions;
     
