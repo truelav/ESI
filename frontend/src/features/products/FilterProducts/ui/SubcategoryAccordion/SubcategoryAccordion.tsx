@@ -10,11 +10,11 @@ export const SubcategoryAccordion = (props) => {
 
     const isSelected = selectedFilters.includes(category)
 
-    const handleFilterChange = (filterItem: string, isSelected: boolean) => {
+    const handleFilterChange = (category: string, isSelected: boolean) => {
         if(isSelected){
-            dispatch(removeSelectedFilter(filterItem))
+            dispatch(removeSelectedFilter(category))
         } else {
-            dispatch(addSelectedFilter(filterItem))
+            dispatch(addSelectedFilter(category))
         }
     }
 
@@ -39,7 +39,14 @@ export const SubcategoryAccordion = (props) => {
                     </Box>
                     <>
                         {subcategories.map((subcat: string) => (
-                            <Button key={subcat}><Text >{subcat}</Text></Button>
+                            <Button 
+                                key={subcat}
+                                colorScheme={isSelected? "whatsapp" : "gray"}
+                                color={isSelected? "white": "green"}
+                                onClick={() => handleFilterChange(subcat)}
+                            >
+                                <Text >{subcat}</Text>
+                            </Button>
                         ))}
                     </>
                 </AccordionPanel>

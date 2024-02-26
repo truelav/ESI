@@ -9,7 +9,7 @@ export const updateProductsBySearchTerm = (products: Product[], searchTerm: stri
 
 export const updateProductsByFilter = (products: Product[], selectedFilters: string[]) => {
     const filteredProducts = products.filter((product: Product) =>
-        selectedFilters.includes(product.category)
+        selectedFilters.includes(product.subcategory)
     );
     return filteredProducts
 }

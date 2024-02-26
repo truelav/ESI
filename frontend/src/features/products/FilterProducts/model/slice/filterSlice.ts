@@ -15,7 +15,8 @@ const filterSlice = createSlice({
             state.filters = action.payload;
         },
         addSelectedFilter: (state, action) => {
-            state.selectedFilters.push(action.payload);
+            const category = action.payload
+            state.selectedFilters.push(category);
         },
         removeSelectedFilter: (state, action) => {
             state.selectedFilters = state.selectedFilters.filter((filter) => filter !== action.payload);
