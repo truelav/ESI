@@ -1,10 +1,22 @@
-import { Accordion, AccordionItem, AccordionPanel, AccordionIcon, AccordionButton, Text, Button } from "@chakra-ui/react"
+import { useDispatch } from "react-redux"
+import { Accordion, AccordionItem, AccordionPanel, AccordionIcon, AccordionButton, Text, Button, Box } from "@chakra-ui/react"
 
+
+import { addSelectedFilter, removeSelectedFilter } from "../../model/slice/filterSlice"
 
 export const SubcategoryAccordion = (props) => {
+    const {category, subcategories, selectedFilters} = props
+    const dispatch = useDispatch()
 
-    const {subcategories, category} = props
-    console.log(subcategories)
+    const isSelected = selectedFilters.includes(category)
+
+    const handleFilterChange = (filterItem: string, isSelected: boolean) => {
+        if(isSelected){
+            dispatch(removeSelectedFilter(filterItem))
+        } else {
+            dispatch(addSelectedFilter(filterItem))
+        }
+    }
 
     return (
         <Accordion defaultIndex={[]} allowMultiple>
@@ -16,9 +28,15 @@ export const SubcategoryAccordion = (props) => {
                     </AccordionButton>
                 </h2>
                 <AccordionPanel pb={4}>
-                    <>
-                        <Button>All {category}</Button>
-                    </>
+                    <Box bg='' p={4}>
+                        <Button
+                            colorScheme={isSelected? "whatsapp" : "gray"}
+                            color={isSelected? "white": "green"}
+                            onClick={() => handleFilterChange(category, isSelected)}
+                        >
+                            All {category}
+                        </Button>
+                    </Box>
                     <>
                         {subcategories.map((subcat: string) => (
                             <Button key={subcat}><Text >{subcat}</Text></Button>

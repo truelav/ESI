@@ -13,7 +13,11 @@ const FilterList = () => {
     return (
         <>
             {filterList.map((filterItem) => (
-                <FilterItem  filterItem={filterItem} selectedFilters={selectedFilters} key={filterItem.name}/>
+                <FilterItem  
+                    filterItem={filterItem} 
+                    selectedFilters={selectedFilters} 
+                    key={filterItem.name}
+                />
             ))}
         </>
     )

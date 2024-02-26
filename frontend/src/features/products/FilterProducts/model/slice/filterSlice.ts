@@ -5,6 +5,7 @@ const filterSlice = createSlice({
     initialState: {
         filters: [],
         selectedFilters: [],
+        selectedSubcategories: [],
         metadataFilters: {
             totalFilters: 0,
         }

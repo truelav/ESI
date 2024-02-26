@@ -9,13 +9,13 @@ export const updateProductsBySearchTerm = (products: Product[], searchTerm: stri
 
 export const updateProductsByFilter = (products: Product[], selectedFilters: string[]) => {
     const filteredProducts = products.filter((product: Product) =>
-        selectedFilters.includes(product.subcategory)
+        selectedFilters.includes(product.category)
     );
     return filteredProducts
 }
 
 export const updateProductsByFilterCategoryAndSubcategory = () => {
-    
+
 }
 
 export const updateProductsBySort = (products: Product[], selectedSort) => {

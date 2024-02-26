@@ -1,39 +1,23 @@
-import { Button, Text, Box } from "@chakra-ui/react";
-import { useDispatch } from "react-redux";
+import { Box } from "@chakra-ui/react";
+import { filterCategory } from "../../../../../entities/Product/model/types/product";
 
-import { addSelectedFilter, removeSelectedFilter } from "../../model/slice/filterSlice"
 import { SubcategoryAccordion } from "../SubcategoryAccordion/SubcategoryAccordion";
 
 interface FilterItemProps {
-    filterItem: string
+    filterItem: filterCategory
     selectedFilters: string[]
 }
 
 const FilterItem = (props: FilterItemProps) => {
-    const dispatch = useDispatch()
     const { filterItem, selectedFilters } = props
-    const isSelected = selectedFilters.includes(filterItem)
-
-    const handleFilterChange = (filterItem: string, isSelected: boolean) => {
-        if(isSelected){
-            dispatch(removeSelectedFilter(filterItem))
-        } else {
-            dispatch(addSelectedFilter(filterItem))
-        }
-    }
 
     return (
         <Box margin={2}>
-            {/* <Button
-                color={isSelected? "blue" : "gray"}
-                isActive={isSelected}
-                onClick={() => handleFilterChange(filterItem, isSelected)}
-            >
-                <Text>
-                    {filterItem.name}
-                </Text>
-            </Button> */}
-            <SubcategoryAccordion subcategories={filterItem.subcategories} category={filterItem.name}/>
+            <SubcategoryAccordion 
+                category={filterItem.name} 
+                subcategories={filterItem.subcategories} 
+                selectedFilters={selectedFilters}
+            />
         </Box>
     )
 }
