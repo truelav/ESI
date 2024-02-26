@@ -14,8 +14,13 @@ export const updateProductsByFilter = (products: Product[], selectedFilters: str
     return filteredProducts
 }
 
-export const updateProductsByFilterCategoryAndSubcategory = () => {
+export const updateProductsByFilterCategoryAndSubcategory = (products: Product[], selectedCategories, selectedSubcategories) => {
+    const filteredProducts = products.filter((product: Product) =>
+        selectedCategories.includes(product.category) || selectedSubcategories.includes(product.subcategory)
+    );
 
+    console.log(filteredProducts)
+    return filteredProducts
 }
 
 export const updateProductsBySort = (products: Product[], selectedSort) => {

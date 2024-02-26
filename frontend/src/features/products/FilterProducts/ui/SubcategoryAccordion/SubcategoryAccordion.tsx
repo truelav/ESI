@@ -1,58 +1,35 @@
-import { useDispatch } from "react-redux"
-import { Accordion, AccordionItem, AccordionPanel, AccordionIcon, AccordionButton, Text, Button, Box } from "@chakra-ui/react"
-
-
-import { addSelectedFilter, removeSelectedFilter, toggleCategory, toggleSubcategory } from "../../model/slice/filterSlice"
+import { useDispatch, useSelector } from "react-redux"
+import { Accordion, AccordionItem, AccordionPanel, AccordionIcon, AccordionButton } from "@chakra-ui/react"
+import { toggleCategory, toggleSubcategory } from "../../model/slice/filterSlice"
+import { FilterSubcategoriesList } from "./FilterSubcategoriesList"
+import { FilterCategoriesList } from "./FilterCategoryList"
 
 export const SubcategoryAccordion = (props) => {
-    const {category, subcategories, selectedFilters} = props
     const dispatch = useDispatch()
+    const { category, subcategories } = props
+    const selectedCategories = useSelector(state => state.filter.categories)
+    const selectedSubCategories = useSelector(state => state.filter.subcategories)
 
-    const isSelected = selectedFilters.includes(category)
-
-    const handleFilterChange = (category: string, isSelected: boolean) => {
-        if(isSelected){
-            dispatch(removeSelectedFilter(category))
-        } else {
-            dispatch(addSelectedFilter(category))
-        }
+    const handleToggleCategory = (filterItem) => {
+        dispatch(toggleCategory(filterItem))
     }
 
-    // implement handleToggleCategory
-
-    // implement handleToggleSubcategory
+    const handleToggleSubcategory = (filterItem) => {
+        dispatch(toggleSubcategory(filterItem))
+    }
 
     return (
         <Accordion defaultIndex={[]} allowMultiple>
             <AccordionItem>
-                <h2>
-                    <AccordionButton>
-                        {category}
-                        <AccordionIcon />
-                    </AccordionButton>
-                </h2>
+                <AccordionButton>
+                    {category}
+                    <AccordionIcon />
+                </AccordionButton>
                 <AccordionPanel pb={4}>
-                    <Box bg='' p={4}>
-                        <Button
-                            colorScheme={isSelected? "whatsapp" : "gray"}
-                            color={isSelected? "white": "green"}
-                            onClick={() => handleFilterChange(category, isSelected)}
-                        >
-                            All {category}
-                        </Button>
-                    </Box>
-                    <>
-                        {subcategories.map((subcat: string) => (
-                            <Button 
-                                key={subcat}
-                                colorScheme={isSelected? "whatsapp" : "gray"}
-                                color={isSelected? "white": "green"}
-                                onClick={() => handleFilterChange(subcat)}
-                            >
-                                <Text >{subcat}</Text>
-                            </Button>
-                        ))}
-                    </>
+
+                    <FilterCategoriesList category={category} subcategories={subcategories} selectedCategories={selectedCategories} handleToggleCategory={handleToggleCategory} />
+                    <FilterSubcategoriesList category={category} subcategories={subcategories} selectedSubCategories={selectedSubCategories} handleToggleSubcategory={handleToggleSubcategory} />
+                    
                 </AccordionPanel>
             </AccordionItem>
         </Accordion>

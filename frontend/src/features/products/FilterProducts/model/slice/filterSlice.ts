@@ -36,7 +36,7 @@ const filterSlice = createSlice({
             }
           },
           toggleSubcategory(state, action) {
-            const { subcategory } = action.payload;
+            const { category, subcategory } = action.payload;
             if (state.subcategories.includes(subcategory)) {
               state.subcategories = state.subcategories.filter(subcat => subcat !== subcategory);
             } else {
@@ -47,7 +47,7 @@ const filterSlice = createSlice({
 });
 
 export const { 
-    
+
     setFilters,
     addSelectedFilter,
     removeSelectedFilter,
