@@ -18,47 +18,36 @@ interface CreateUserFormProps {
 
 export function CreateUserForm({ onClose }: CreateUserFormProps) {
   const [ addUser, 
-    { 
-      isLoading: isLoadingCreateUser, 
-      error: errorCreateUser, 
-      isSuccess: isSuccessCreateUser 
-    }
+    // { 
+    //   isLoading: isLoadingCreateUser, 
+    //   error: errorCreateUser, 
+    //   isSuccess: isSuccessCreateUser 
+    // }
   ] = useAddUserMutation();
   const RolesOptions = ["CUSTOMER", "ADMIN"];
 
-  let content = <></>
+  // let content = <></>
   
-  if(isLoadingCreateUser){
-    content = (<>Signup Loading ...</>)
-  }
+  // if(isLoadingCreateUser){
+  //   content = (<>Signup Loading ...</>)
+  // }
 
-  if(errorCreateUser){
-    content = (
-      <>
-        <ErrorText errorMessage={`An error has occured while Signing Up, please try again later`}/>
-        <ErrorText errorMessage={`${errorCreateUser}`}/>
-      </>
-    )
-  } 
+  // if(errorCreateUser){
+  //   content = (
+  //     <>
+  //       <ErrorText errorMessage={`An error has occured while Signing Up, please try again later`}/>
+  //       <ErrorText errorMessage={`${errorCreateUser}`}/>
+  //     </>
+  //   )
+  // } 
 
-  if(isSuccessCreateUser){
-      content = (
-        <>
-          <Text>User Created with Success</Text>
-        </>
-      )
-  }
-
-
-  function validateName() {
-    let error;
-    // if (!value) {
-    //   error = 'Name is required'
-    // } else if (value.toLowerCase() !== 'naruto') {
-    //   error = "Jeez! You're not a fan 😱"
-    // }
-    return error;
-  }
+  // if(isSuccessCreateUser){
+  //     content = (
+  //       <>
+  //         <Text>User Created with Success</Text>
+  //       </>
+  //     )
+  // }
 
   return (
     <Formik
@@ -79,7 +68,7 @@ export function CreateUserForm({ onClose }: CreateUserFormProps) {
     >
       {(props) => (
         <Form>
-          <Field name="name" validate={validateName}>
+          <Field name="name">
             {({ field, form }: any) => (
               <FormControl isInvalid={form.errors.name && form.touched.name}>
                 <FormLabel>Name</FormLabel>
@@ -88,7 +77,7 @@ export function CreateUserForm({ onClose }: CreateUserFormProps) {
               </FormControl>
             )}
           </Field>
-          <Field name="email" validate={validateName}>
+          <Field name="email">
             {({ field, form }: any) => (
               <FormControl isInvalid={form.errors.name && form.touched.name}>
                 <FormLabel>Email</FormLabel>
@@ -97,7 +86,7 @@ export function CreateUserForm({ onClose }: CreateUserFormProps) {
               </FormControl>
             )}
           </Field>
-          <Field name="password" validate={validateName}>
+          <Field name="password">
             {({ field, form }: any) => (
               <FormControl isInvalid={form.errors.name && form.touched.name}>
                 <FormLabel>Password</FormLabel>
@@ -107,7 +96,7 @@ export function CreateUserForm({ onClose }: CreateUserFormProps) {
             )}
           </Field>
 
-          <Field name="role" validate={validateName}>
+          <Field name="role">
             {({ field, form }: any) => (
               <FormControl isInvalid={form.errors.name && form.touched.name}>
                 <FormLabel>Role</FormLabel>

@@ -1,10 +1,10 @@
-import { Heading} from "@chakra-ui/react";
+import { Text } from "@chakra-ui/react";
 import FilterList from "../FilterList/FilterList";
 
 const FilterBar = () => {
     return (
         <>
-            <Heading>Select Filter By:</Heading>
+            <Text>Select Filter By:</Text>
             <FilterList />
         </>
     );

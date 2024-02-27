@@ -1,3 +1,6 @@
+import { useSelector } from "react-redux";
+import { MdShoppingCart } from 'react-icons/md';
+import { Link } from "react-router-dom";
 import {
   Box,
   Flex,
@@ -22,12 +25,14 @@ import {
 } from "@chakra-ui/icons";
 
 import { LogoutProps } from "./index";
-
 import logo from "/logo.png";
 
 export default function UserNav({ logOut }: LogoutProps) {
   const { isOpen, onToggle } = useDisclosure();
 
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment 
+  // @ts-ignore 
+  const products = useSelector((state) => state.cart.products);
   return (
     <Box>
       <Flex
@@ -62,6 +67,23 @@ export default function UserNav({ logOut }: LogoutProps) {
             <DesktopNav />
           </Flex>
         </Flex>
+
+        <Stack
+          flex={{ base: 1, md: 0 }}
+          justify={"flex-end"}
+          direction={"row"}
+          spacing={6}
+          mr={4}
+        >
+          <Link to="/cart">
+            <div className="cart">
+              <span className="cart-icon">
+                <MdShoppingCart size={32} />
+              </span>
+              <span className={products.length ? "count" : ""}>{products.length ? products.length : ""} </span>
+            </div>
+          </Link>
+        </Stack>
 
         <Stack
           flex={{ base: 1, md: 0 }}

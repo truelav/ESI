@@ -1,3 +1,6 @@
+import { useSelector } from "react-redux";
+import { MdShoppingCart } from 'react-icons/md';
+import { Link } from "react-router-dom";
 import {
   Box,
   Flex,
@@ -14,9 +17,6 @@ import {
   useDisclosure,
   Image,
 } from "@chakra-ui/react";
-import { useSelector } from "react-redux";
-import { MdShoppingCart } from 'react-icons/md';
-import { Link } from "react-router-dom";
 import {
   HamburgerIcon,
   CloseIcon,
