@@ -6,8 +6,8 @@ export const FilterCategoriesList = (props) => {
     return (
         <Box bg='' p={4}>
             <Button
-                colorScheme={isCategorySelected? "whatsapp" : "gray"}
-                color={isCategorySelected? "white": "green"}
+                colorScheme={isCategorySelected? "blue" : "gray"}
+                color={isCategorySelected? "white": "black"}
                 onClick={() => handleToggleCategory({category, subcategories})}
             >
                 {isCategorySelected? "Deselect": "Select"} All {category}

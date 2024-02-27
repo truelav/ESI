@@ -8,8 +8,8 @@ export const FilterSubcategoriesList = (props) => {
             {subcategories.map((subcategory: string) => (
                 <Button 
                     key={subcategory}
-                    colorScheme={selectedSubCategories.includes(subcategory)? "whatsapp" : "gray"}
-                    color={selectedSubCategories.includes(subcategory)? "white": "green"}
+                    isActive={selectedSubCategories.includes(subcategory)}
+                    color={selectedSubCategories.includes(subcategory)? "blue": "black"}
                     onClick={() => handleToggleSubcategory({category, subcategory})}
                 >
                     <Text >{subcategory}</Text>

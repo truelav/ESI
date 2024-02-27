@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux"
-import { Accordion, AccordionItem, AccordionPanel, AccordionIcon, AccordionButton } from "@chakra-ui/react"
+import { Accordion, AccordionItem, AccordionPanel, AccordionIcon, AccordionButton, Flex } from "@chakra-ui/react"
 import { toggleCategory, toggleSubcategory } from "../../model/slice/filterSlice"
 import { FilterSubcategoriesList } from "./FilterSubcategoriesList"
 import { FilterCategoriesList } from "./FilterCategoryList"
@@ -26,8 +26,7 @@ export const SubcategoryAccordion = (props) => {
         <Accordion defaultIndex={[]} allowMultiple>
             <AccordionItem>
                 <AccordionButton>
-                    {category}
-                    <AccordionIcon />
+                    {category}  <AccordionIcon />
                 </AccordionButton>
                 <AccordionPanel pb={4}>
                     <FilterCategoriesList category={category} subcategories={subcategories} selectedCategories={selectedCategories} handleToggleCategory={handleToggleCategory} />
