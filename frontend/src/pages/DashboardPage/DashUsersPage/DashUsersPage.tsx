@@ -16,7 +16,7 @@ function DashUsersPage() {
             <Grid templateColumns="repeat(12, 1fr)" gap={6}>
                 <GridItem colSpan={12}>
                     <Heading as="h1" size="xl" noOfLines={1}>
-                        Welcome to Users Page
+                        Manage App Users
                     </Heading>
                 </GridItem>
                 <GridItem colSpan={4}>

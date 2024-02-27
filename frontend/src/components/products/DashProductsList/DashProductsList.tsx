@@ -13,7 +13,7 @@ export const DashProductsList = memo(() => {
 
     const dispatch = useDispatch()
     const {
-        data: products,
+        data,
         isLoading,
         isSuccess,
         isError,
@@ -21,8 +21,7 @@ export const DashProductsList = memo(() => {
     } = useGetAllProductsQuery();
 
     const [areAllProductsSelected, setAreAllProductsSelected] = useState(false)
-    const allProductIds = products?.map((product: Product) => product._id)
-
+    const allProductIds = data?.allProducts.map((product: Product) => product._id)
     const handleToggleSelectAllProducts = () => {
         if(areAllProductsSelected){
             dispatch(deselectAllProducts())
@@ -48,13 +47,13 @@ export const DashProductsList = memo(() => {
             <>
                 <DashProductListHead />
 
-                {products?.length > 0 && (
+                {data?.allProducts?.length > 0 && (
                     <Button onClick={() => handleToggleSelectAllProducts() }>
                         <Text>{areAllProductsSelected ? `Deselect All Products` : `Select All Products`}</Text>
                     </Button>
                 )}
 
-                {products?.map((product: Product) => (
+                {data?.allProducts?.map((product: Product) => (
                     <ProductItem
                         key={product._id}
                         product={product}

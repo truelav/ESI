@@ -105,7 +105,7 @@ export const apiSlice = createApi({
 
         addUser: builder.mutation<User, User>({
             query: (user) => ({
-                url: `/auth/users`,
+                url: `/auth/register`,
                 method: "POST",
                 body: user,
             }),

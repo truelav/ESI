@@ -7,7 +7,9 @@ import {
   Input,
   Button,
   Select,
+  Text
 } from "@chakra-ui/react";
+import ErrorText from "../../../shared/ui/Error/ErrorText";
 import { useAddUserMutation } from "../../../app/api/apiSlice";
 
 interface CreateUserFormProps {
@@ -15,8 +17,39 @@ interface CreateUserFormProps {
 }
 
 export function CreateUserForm({ onClose }: CreateUserFormProps) {
-  const [addNewUser] = useAddUserMutation();
-  const RolesOptions = ["USER", "ADMIN", "MODERATOR"];
+  const [ addUser, 
+    { 
+      isLoading: isLoadingCreateUser, 
+      error: errorCreateUser, 
+      isSuccess: isSuccessCreateUser 
+    }
+  ] = useAddUserMutation();
+  const RolesOptions = ["CUSTOMER", "ADMIN"];
+
+  let content = <></>
+  
+  if(isLoadingCreateUser){
+    content = (<>Signup Loading ...</>)
+  }
+
+  if(errorCreateUser){
+    content = (
+      <>
+        <ErrorText errorMessage={`An error has occured while Signing Up, please try again later`}/>
+        <ErrorText errorMessage={`${errorCreateUser}`}/>
+      </>
+    )
+  } 
+
+  if(isSuccessCreateUser){
+      content = (
+        <>
+          <Text>User Created with Success</Text>
+        </>
+      )
+  }
+
+
   function validateName() {
     let error;
     // if (!value) {
@@ -33,14 +66,12 @@ export function CreateUserForm({ onClose }: CreateUserFormProps) {
         name: "",
         email: "",
         password: "",
-        role: "USER",
+        role: "CUSTOMER",
         isActive: true,
       }}
       onSubmit={async (values, actions) => {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
         console.log(values);
-        const response = await addNewUser(values).unwrap();
+        const response = await addUser(values).unwrap();
         console.log(response);
         actions.resetForm();
         onClose();
@@ -79,7 +110,7 @@ export function CreateUserForm({ onClose }: CreateUserFormProps) {
           <Field name="role" validate={validateName}>
             {({ field, form }: any) => (
               <FormControl isInvalid={form.errors.name && form.touched.name}>
-                <FormLabel>User Role</FormLabel>
+                <FormLabel>Role</FormLabel>
                 <Select onChange={field.onChange} name="role" value="role">
                   {RolesOptions?.map((optionVal) => (
                     <option value={optionVal} key={optionVal}>
