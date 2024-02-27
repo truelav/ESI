@@ -17,8 +17,6 @@ export default function Header() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [cookies, _, removeCookie] = useCookies(["authToken"]);
   const { isAdmin, isUser, id } = useAuth();
-  console.log('header :', id)
-  
   const logOut = () => {
     if (cookies.authToken) {
       removeCookie("authToken", { path: "/" });

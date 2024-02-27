@@ -10,8 +10,6 @@ import {
   Stack,
   Collapse,
   Icon,
-  Popover,
-  PopoverTrigger,
   useColorModeValue,
   useDisclosure,
   Image,
@@ -27,7 +25,6 @@ import logo from "/logo.png";
 
 export default function UserNav({ logOut, id }: LogoutProps) {
   const { isOpen, onToggle } = useDisclosure();
-  console.log("UserNav: ", id )
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment 
   // @ts-ignore 
   const products = useSelector((state) => state.cart.products);
@@ -115,46 +112,35 @@ export default function UserNav({ logOut, id }: LogoutProps) {
 
 const DesktopNav = ({ id }) => {
   const linkColor = useColorModeValue("gray.600", "gray.200");
-  const linkHoverColor = useColorModeValue("gray.800", "white");
-
   return (
     <Stack direction={"row"} spacing={4}>
+      <Box m="auto">
+        <Link to={`profile/${id}` ?? "#"}>
+          <Box
+              p={2}
+              fontSize={"md"}
+              fontWeight={500}
+              color={linkColor}
+            >
+              Profile
+          </Box>
+        </Link>
+      </Box>
+
       {NAV_ITEMS.map((navItem) => (
-        <Box key={navItem.label}>
-          <Popover trigger={"hover"} placement={"bottom-start"}>
-            <PopoverTrigger>
-              <Box
-                as="a"
-                p={2}
-                href={navItem.href ?? "#"}
-                fontSize={"md"}
-                fontWeight={500}
-                color={linkColor}
-                _hover={{
-                  textDecoration: "none",
-                  color: linkHoverColor,
-                }}
-              >
-                {navItem.label}
-              </Box>
-            </PopoverTrigger>
-          </Popover>
+        <Box key={navItem.label} m="auto">
+          <Link to={navItem.href ?? "#"}>
+            <Box
+              p={2}
+              fontSize={"md"}
+              fontWeight={500}
+              color={linkColor}
+            >
+              {navItem.label}
+            </Box>
+          </Link>
         </Box>
       ))}
-      <Box
-          as="a"
-          p={2}
-          href={`profile/${id}` ?? "#"}
-          fontSize={"md"}
-          fontWeight={500}
-          color={linkColor}
-          _hover={{
-            textDecoration: "none",
-            color: linkHoverColor,
-          }}
-        >
-          Profile
-      </Box>
     </Stack>
   );
 };

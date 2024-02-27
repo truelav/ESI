@@ -16,7 +16,6 @@ const useAuth = () => {
   if (accessToken) {
     const decoded: DecodedToken = jwtDecode(accessToken);
     const { role, email, id } = decoded;
-    console.log(decoded);
 
     if (role === "ADMIN") isAdmin = true;
     else if (role === "CUSTOMER") isUser = true;
