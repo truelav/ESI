@@ -8,6 +8,7 @@ import GuestNav from "./GuestNav";
 
 export interface LogoutProps {
   logOut: () => void
+  id: string
 }
 
 export default function Header() {
@@ -15,8 +16,9 @@ export default function Header() {
   const navigate = useNavigate();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [cookies, _, removeCookie] = useCookies(["authToken"]);
-  const { isAdmin, isUser } = useAuth();
-
+  const { isAdmin, isUser, id } = useAuth();
+  console.log('header :', id)
+  
   const logOut = () => {
     if (cookies.authToken) {
       removeCookie("authToken", { path: "/" });
@@ -31,13 +33,13 @@ export default function Header() {
   if (isAdmin) {
     content = (
       <>
-        <AdminNav logOut={logOut} />
+        <AdminNav logOut={logOut} id={id}/>
       </>
     );
   } else if (isUser) {
     content = (
       <>
-        <UserNav logOut={logOut} />
+        <UserNav logOut={logOut} id={id}/>
       </>
     );
   } else {

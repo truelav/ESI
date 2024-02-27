@@ -9,6 +9,7 @@ import {
 import MainLayout from "./components/layouts/main";
 import DashboardLayout from "./components/layouts/dashboard";
 import ProductsLayout from "./components/layouts/userProducts";
+import ProfileLayout from "./components/layouts/profile";
 
 // PAGES
 import Home from "./pages/HomePage";
@@ -74,7 +75,9 @@ const router = createBrowserRouter(
                 </Route>
             </Route>
 
-            <Route path="profile" element={<ProfilePage />} />
+            <Route path="profile/:id" element={<ProfileLayout />}>
+                <Route index element={<ProfilePage />} />
+            </Route>
 
             <Route path="login" element={<LoginPage />} />
             <Route path="signup" element={<SignupPage />} />

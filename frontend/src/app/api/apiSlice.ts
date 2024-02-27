@@ -98,8 +98,8 @@ export const apiSlice = createApi({
             query: () => `/auth/users`,
             providesTags: ["User"],
         }),
-        //Profile - getUserInfo
-        getProfile: builder.query<User, string | undefined>({
+
+        getUserProfile: builder.query<User, string>({
             query: (id) => `/auth/users/${id}`
         }),
 
@@ -249,7 +249,7 @@ export const {
     useDeleteUserMutation,
 
     useLoginMutation,
-    useGetProfileQuery,
+    useGetUserProfileQuery,
     useSignupMutation,
 
     useCreatePresentationMutation,

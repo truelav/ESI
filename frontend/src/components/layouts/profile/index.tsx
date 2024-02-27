@@ -1,10 +1,8 @@
 import { Outlet } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 
-export default function ProductsLayout() {
+export default function ProfileLayout() {
     const { isAdmin, isUser } = useAuth();
-    
-    console.log(isUser, isAdmin)
 
     if (isAdmin || isUser) {
         return (

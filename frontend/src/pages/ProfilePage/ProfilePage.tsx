@@ -1,20 +1,51 @@
 import { Container } from "@chakra-ui/react";
 import { ProfileCard } from "../../entities/Profile";
 
-const ProfilePage = () => {
+import { useGetUserProfileQuery } from "../../app/api/apiSlice";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../entities/Profile/model/profileSlice";
+import { useParams } from "react-router-dom";
 
-    // const {
-    //     data: profile,
-    //     isLoading,
-    //     isSuccess,
-    //     isError,
-    //     error,
-    // } = useGetProfileQuery(id);
+const ProfilePage = () => {
+    const dispatch = useDispatch()
+    const { id } = useParams()
+    const {
+        data,
+        isLoading,
+        isSuccess,
+        isError,
+        error,
+    } = useGetUserProfileQuery(id);
+
+    useEffect(() => {
+        if(data){
+            dispatch(setUser(data))
+        }
+    }, [data, dispatch])
+
+    console.log(data)
+
+    let content = <div></div>;
+
+    if (isLoading) {
+        content = <>Loading Products...</>;
+    }
+
+    if (isError) {
+        content = <>No Products Found : {JSON.stringify(error)}</>;
+    }
+
+    if (isSuccess) {
+        content = (
+            <Container maxW="full"  minH="700px" mt="100px" centerContent overflow="hidden">
+                <ProfileCard />;
+            </Container>
+        )
+    }
 
     return (
-        <Container maxW="full"  minH="700px" mt="100px" centerContent overflow="hidden">
-            <ProfileCard />;
-        </Container>
+        content
     )
     
 };
