@@ -4,6 +4,7 @@ import { setupListeners } from "@reduxjs/toolkit/query";
 import authSlice from "../features/auth/slice/authSlice";
 import cartSlice from "../entities/Cart/model/slice/cartSlice";
 import productSlice from "../entities/Product/model/slice/productSlice";
+import profileSlice from "../entities/Profile/model/profileSlice";
 import filterSlice from "../features/products/FilterProducts/model/slice/filterSlice";
 import sortSlice from "../features/products/SortProducts/model/slice/sortSlice";
 import editSingleProductSlice from "../features/products/EditSingleProduct/model/slice/editSingleProductSlice";
@@ -13,6 +14,7 @@ export const store = configureStore({
         [apiSlice.reducerPath]: apiSlice.reducer,
         auth: authSlice,
         product: productSlice,
+        profile: profileSlice,
         filter: filterSlice,
         sort: sortSlice,
         cart: cartSlice,
