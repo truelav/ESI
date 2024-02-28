@@ -1,6 +1,5 @@
 import { Button, Box } from "@chakra-ui/react"
-import { useState } from "react"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { Product } from "../../../entities/Product/model/types/product"
 import { addToCart } from "../../../entities/Profile/model/profileSlice"
 
@@ -11,16 +10,16 @@ interface AddToCartProps {
 const AddToCart = (props: AddToCartProps) => {
     const { product } = props
     const dispatch = useDispatch()
-    const [isSuccess, setIsSuccess] = useState(false)
+    const cart = useSelector(state => state.profile.cart)
+    const isProductsInCart = cart.includes(product)
 
     const handleAddToCart = (product: Product) => {
         dispatch(addToCart(product))
-        setIsSuccess(true);
     }
 
     let content = <></>
 
-    if(isSuccess){
+    if(isProductsInCart){
         content = (
             <Button variant='solid' colorScheme='blue' isDisabled={true}>
                 Product Added

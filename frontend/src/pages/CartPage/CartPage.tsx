@@ -9,7 +9,7 @@ const CartPage = () => {
     const profile = useSelector((state) => state.profile);
     const {cart, user} = profile
     console.log(cart, user)
-    
+
     let cartContent = <></>
     if(cart.length === 0){
         cartContent = (
@@ -23,8 +23,8 @@ const CartPage = () => {
     } else {
         cartContent = (
             <>
-                {/* <CartProductList />
-                <CartOrderSummary /> */}
+                <CartProductList products={cart}/>
+                <CartOrderSummary products={cart}/>
             </>
         )
     }

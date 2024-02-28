@@ -4,7 +4,7 @@ import CardComponent, {
     CardVariants,
 } from "../../../../shared/ui/Product/Card/CardComponent";
 import { CardTextComponent } from "../../../../shared/ui/Product/Card/CardText";
-import { clearCart } from "../../model/slice/cartSlice";
+import { clearCart } from "../../../Profile/model/profileSlice";
 
 export const CartListHeader = () => {
     const dispatch = useDispatch();
@@ -39,7 +39,6 @@ export const CartListHeader = () => {
                 </GridItem>
 
                 <GridItem colSpan={2}>
-                    {/* <CardTextComponent> Remove </CardTextComponent> */}
                     <Button
                         variant="solid"
                         colorScheme="red"

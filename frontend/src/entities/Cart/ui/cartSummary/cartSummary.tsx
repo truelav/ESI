@@ -5,15 +5,19 @@ import {
     Text,
     useColorModeValue as mode,
 } from "@chakra-ui/react";
-import { useSelector } from "react-redux";
 import { PlaceOrderFeature } from "../../../../features/cart/PlaceOrderFeatures/PlaceOrderFeature";
 import { ProductPrice } from "../../../Product/ui/ProductPrice/ProductPrice";
+import { Product } from "../../../Product/model/types/product";
 
 type OrderSummaryItemProps = {
     label: string;
     value?: string;
     children?: React.ReactNode;
 };
+interface CartOrderSummaryProps {
+    products: Product[]
+}
+
 
 const OrderSummaryItem = (props: OrderSummaryItemProps) => {
     const { label, value, children } = props;
@@ -27,11 +31,8 @@ const OrderSummaryItem = (props: OrderSummaryItemProps) => {
     );
 };
 
-export const CartOrderSummary = () => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    const totalAmount = useSelector((state) => state.cart.totalAmount);
-    console.log(totalAmount);
+export const CartOrderSummary = (props: CartOrderSummaryProps) => {
+    const { products } = props
     return (
         <Stack
             spacing="8"
@@ -44,15 +45,15 @@ export const CartOrderSummary = () => {
 
             <Stack spacing="6">
                 <OrderSummaryItem
-                    label="Subtotal"
-                    value={ProductPrice(totalAmount)}
+                    label="Total Products"
+                    value={ProductPrice(products.length)}
                 />
                 <Flex justify="space-between">
                     <Text fontSize="lg" fontWeight="semibold">
                         Total
                     </Text>
                     <Text fontSize="xl" fontWeight="extrabold">
-                        {ProductPrice(totalAmount)}
+                        {ProductPrice(products.length)}
                     </Text>
                 </Flex>
             </Stack>

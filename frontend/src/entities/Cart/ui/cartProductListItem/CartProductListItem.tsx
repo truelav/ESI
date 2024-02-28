@@ -1,43 +1,24 @@
-import { Button, Grid, GridItem, Image } from "@chakra-ui/react";
 import { useDispatch } from "react-redux";
 import { FaTrash } from "react-icons/fa";
-import { removeProductFromCart } from "../../model/slice/cartSlice";
-import {
-    ProductView,
-    Product,
-} from "../../../../entities/Product/model/types/product";
+import { Button, Grid, GridItem, Image } from "@chakra-ui/react";
+import { Product } from "../../../../entities/Product/model/types/product";
+import { deleteFromCart } from "../../../Profile/model/profileSlice";
 
-import CardComponent, {
-    CardVariants,
-} from "../../../../shared/ui/Product/Card/CardComponent";
+import CardComponent, { CardVariants } from "../../../../shared/ui/Product/Card/CardComponent";
 import { CardTextComponent } from "../../../../shared/ui/Product/Card/CardText";
 
 import fallback_image from "/fallback_image.jpeg";
 
-interface ProductListItem {
-    className?: string;
-    product: Product;
-    view?: ProductView;
-    cartQuantity: number;
-}
-
 interface CartProductProps {
-    product: ProductListItem;
-    cartQuantity: number;
+    product: Product;
 }
 
 export const CartListItem = (props: CartProductProps) => {
     const dispatch = useDispatch();
-    const { product } = props.product;
-    const { cartQuantity } = props.product;
-    const { price } = product;
-
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    const subTotal: number = price * cartQuantity;
+    const { product } = props
 
     const handleRemoveProductFromCart = () => {
-        dispatch(removeProductFromCart(product._id));
+        dispatch(deleteFromCart(product._id));
     };
 
     return (
@@ -60,8 +41,12 @@ export const CartListItem = (props: CartProductProps) => {
 
                 <GridItem colSpan={2}>
                     <CardTextComponent>
-                        {product?.brand} : {product?.model}
+                        {product?.brand}
                     </CardTextComponent>
+                </GridItem>
+
+                <GridItem colSpan={1}>
+                    <CardTextComponent>{product?.model}</CardTextComponent>
                 </GridItem>
 
                 <GridItem colSpan={1}></GridItem>
@@ -70,12 +55,8 @@ export const CartListItem = (props: CartProductProps) => {
                     <CardTextComponent>${product.price}.00</CardTextComponent>
                 </GridItem>
 
-                <GridItem colSpan={1}>
-                    <CardTextComponent>X{cartQuantity}</CardTextComponent>
-                </GridItem>
-
                 <GridItem colSpan={2}>
-                    <CardTextComponent>${subTotal}</CardTextComponent>
+                    <CardTextComponent>${product.upc}</CardTextComponent>
                 </GridItem>
 
                 <GridItem colSpan={1}>
