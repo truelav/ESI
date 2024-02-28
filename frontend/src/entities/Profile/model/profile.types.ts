@@ -1,3 +1,4 @@
+import { Product } from "../../Product/model/types/product";
 
 export interface User {
     id?: string;
@@ -10,8 +11,7 @@ export interface User {
 }
 
 export interface CartItem {
-    productId: number;
-    quantity: number;
+    product: Product;
     // Add other cart item fields as needed
 }
   

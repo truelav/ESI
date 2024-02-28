@@ -1,4 +1,4 @@
-import { Container, Grid, GridItem, Heading } from "@chakra-ui/react";
+import { Container, Grid, GridItem, Heading, Text } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
 import { CartProductList } from "../../entities/Cart/ui/cartProductList/CartProductList";
 import { CartOrderSummary } from "../../entities/Cart/ui/cartSummary/CartSummary";
@@ -6,10 +6,12 @@ import { CartOrderSummary } from "../../entities/Cart/ui/cartSummary/CartSummary
 const CartPage = () => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    const cart = useSelector((state) => state.cart);
+    const profile = useSelector((state) => state.profile);
+    const {cart, user} = profile
+    console.log(cart, user)
+    
     let cartContent = <></>
-
-    if(cart.products.length === 0){
+    if(cart.length === 0){
         cartContent = (
             <>
                 <Heading>
@@ -21,8 +23,8 @@ const CartPage = () => {
     } else {
         cartContent = (
             <>
-                <CartProductList />
-                <CartOrderSummary />
+                {/* <CartProductList />
+                <CartOrderSummary /> */}
             </>
         )
     }
@@ -33,6 +35,7 @@ const CartPage = () => {
                 <Grid templateColumns="repeat(12, 1fr)" gap={4}>
                     <GridItem colSpan={12}>
                         <Heading>My Cart</Heading>
+                        {/* <Text>{user.username}</Text> */}
                     </GridItem>
                     <GridItem colSpan={12}>
                         {cartContent}

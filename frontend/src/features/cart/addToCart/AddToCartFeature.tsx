@@ -1,59 +1,42 @@
 import { Button, Box } from "@chakra-ui/react"
-import { useState, MouseEvent } from "react"
+import { useState } from "react"
 import { useDispatch } from "react-redux"
-
-import { addProductToCart } from "../../../entities/Cart/model/slice/cartSlice"
-// import { cartProduct } from "../../../entities/Cart/model/slice/cartSlice"
 import { Product } from "../../../entities/Product/model/types/product"
-import { AlertSuccess } from "../../../shared/ui/Alerts/Success/AlertSuccess"
- 
+import { addToCart } from "../../../entities/Profile/model/profileSlice"
 
-const AddToCart = (product: Product) => {
+interface AddToCartProps {
+    product: Product
+}
+
+const AddToCart = (props: AddToCartProps) => {
+    const { product } = props
     const dispatch = useDispatch()
-    const [productQuantity, setProductQuantity] = useState(1)
-    const [showSuccessAlert, setShowSuccessAlert] = useState(false)
+    const [isSuccess, setIsSuccess] = useState(false)
 
     const handleAddToCart = (product: Product) => {
-        const cartProduct = {...product, cartQuantity: productQuantity}
-        dispatch(addProductToCart(cartProduct))
-        setShowSuccessAlert(true);
-
-        setTimeout(() => {
-            setShowSuccessAlert(false)
-        }, 2000)
+        dispatch(addToCart(product))
+        setIsSuccess(true);
     }
 
-    const handleIncrementQuantity = (e: MouseEvent<HTMLButtonElement>) => {
-        e.preventDefault()
-        setProductQuantity(state => state + 1)
-    }
+    let content = <></>
 
-    const handleDecrementQuantity = (e: MouseEvent<HTMLButtonElement>) => {
-        e.preventDefault()
-        setProductQuantity(state => state - 1)
+    if(isSuccess){
+        content = (
+            <Button variant='solid' colorScheme='blue' isDisabled={true}>
+                Product Added
+            </Button>
+        )
+    } else {
+        content = (
+            <Button variant='solid' colorScheme='blue' onClick={() => handleAddToCart(product)}>
+                Add to cart
+            </Button>
+        )
     }
 
     return (
         <Box>
-            {/* <Grid templateColumns="repeat(12, 1fr)" gap={4}>
-                <GridItem colSpan={1}>
-                    <Button onClick={handleDecrementQuantity}> - </Button>
-                </GridItem>
-                <GridItem colSpan={1}>
-                    <Text>{productQuantity}</Text>
-                </GridItem>
-                <GridItem colSpan={1}>
-                    <Button onClick={handleIncrementQuantity}> + </Button>
-                </GridItem>
-                <GridItem colSpan={2}>
-                </GridItem>
-            </Grid> */}
-
-            <Button variant='solid' colorScheme='blue' onClick={() => handleAddToCart(product)}>
-                Add to cart
-            </Button>
-            <AlertSuccess isOpen={showSuccessAlert} setShowSuccessAlert={setShowSuccessAlert}/>
-
+            {content}
         </Box>
     )
 }

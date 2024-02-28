@@ -19,7 +19,15 @@ const profileSlice = createSlice({
             state.isAuthenticated = action.payload;
         },
         addToCart(state, action: PayloadAction<CartItem>) {
-            state.cart.push(action.payload);
+            if(!state.cart.includes(action.payload)){
+                state.cart.push(action.payload);
+            }
+        },
+        deleteFromCart(state, action: PayloadAction<CartItem>){
+            state.cart.filter((cartItem) => cartItem.product._id !== action.payload.product._id)
+        },
+        clearCart(state){
+            state.cart = []
         },
         addOrder(state, action: PayloadAction<Order>) {
             state.orders.push(action.payload);

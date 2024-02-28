@@ -13,7 +13,7 @@ export interface Product {
     subcategory: string;
     price?: string;
     quantity?: number;
-    images?: File | null | Blob | string;
+    images?: string | undefined;
     model: string;
     upc: string;
 }

@@ -1,5 +1,3 @@
-import { useSelector } from "react-redux";
-import { MdShoppingCart } from 'react-icons/md';
 import { Link } from "react-router-dom";
 import {
   Box,
@@ -22,12 +20,11 @@ import {
 
 import { LogoutProps } from "./index";
 import logo from "/logo.png";
+import { CartHeaderIcon } from "../../entities/Cart/ui/cartHeaderIcon/cartHeaderIcon";
 
 export default function UserNav({ logOut, id }: LogoutProps) {
   const { isOpen, onToggle } = useDisclosure();
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment 
-  // @ts-ignore 
-  const products = useSelector((state) => state.cart.products);
+
 
   return (
     <Box>
@@ -71,14 +68,8 @@ export default function UserNav({ logOut, id }: LogoutProps) {
           spacing={6}
           mr={4}
         >
-          <Link to="/cart">
-            <div className="cart">
-              <span className="cart-icon">
-                <MdShoppingCart size={32} />
-              </span>
-              <span className={products.length ? "count" : ""}>{products.length ? products.length : ""} </span>
-            </div>
-          </Link>
+          <CartHeaderIcon />
+          {/* CART_HEADER_ICON */}
         </Stack>
 
         <Stack
