@@ -28,7 +28,6 @@ export const CartListHeader = () => {
                     <CardTextComponent> Model </CardTextComponent>
                 </GridItem>
 
-
                 <GridItem colSpan={1}></GridItem>
 
                 <GridItem colSpan={2}>

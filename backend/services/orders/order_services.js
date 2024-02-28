@@ -12,66 +12,92 @@ export const getAllOrdersService = async () => {
     return orders
 }
 
-export const saveOrderToUserService = async (data) => {
+export const saveOrderService = async (data) => {
+    const { cart } = data
+    const userId = data.user.id
+    const userEmail = data.user.email
+
+    const userExists = await User.findById(userId)
+
+    if(!userExists){
+        return null
+    }
+    
+    const user = { userId, userEmail }
+    const orderSummary = {
+        totalAmount: cart.length,
+        totalProducts: cart.length
+    }
+
+    const products = cart
+    const newOrder = new Order({ user, orderSummary, products })
+    const updatedOrder = await newOrder.save()
+
+    const updatedUser = await User.findByIdAndUpdate(
+        userId,
+        { $push: { orders: newOrder } }
+    )
+
+    return { updatedUser, updatedOrder }
+}
+
+// export const saveOrderToOrdersService = async (data) => {
+//     if(!data.user){
+//         return null
+//     }
+
+//     const userId = data.user.id
+//     const userEmail = data.user.email
+
+//     if(!userId || !userEmail){
+//         return null
+//     }
+        
+//     const user = { userId, userEmail }
+    
+//     const orderSummary = {
+//         totalAmount: data.cart.length,
+//         totalProducts: data.cart.length
+//     }
+
+//     const products = data.cart.products
+//     const newOrder = new Order({ user, orderSummary, products })
+    
+//     await newOrder.save()
+    
+//     return newOrder
+// }
+
+export const deleteOrdersFromUserService = async (data) => {
     const id = data.user.id
-    const cart = data.cart
 
     const userExists = await User.findById(id)
 
     if(!userExists){
         return null
     }
-
-    const updatedUser = await User.findByIdAndUpdate(
-        id,
-        { $push: { orders: cart } },
-        { new: true, useFindAndModify: false }
-    )
+    
+    const updatedUser = await User.findByIdAndUpdate( id, { $set: { orders: [] } })
 
     return updatedUser
 }
 
-export const saveOrderToOrdersService = async (data) => {
-    if(!data.user){
-        return null
-    }
-
-    const userId = data.user.id
-    const userEmail = data.user.email
-
-    if(!userId || !userEmail){
-        return null
-    }
-        
-    const user = {userId, userEmail}
-    
-    const orderSummary = {
-        totalAmount: data.cart.totalAmount,
-        totalProducts: data.cart.products.length
-    }
-
-    const products = data.cart.products
-    const newOrder = new Order({ user, orderSummary, products })
-    
-    await newOrder.save()
-    
-    return newOrder
-}
-
 export const deleteOrdersService = async (data) => {
-    const idsToDelete = data
-    const deletedOrders = []
+    // const idsToDelete = data
+    // const deletedOrders = []
   
-    idsToDelete.forEach(async (id) => {
-        const order = await Order.findById(id)
+    // idsToDelete.forEach(async (id) => {
+    //     const order = await Order.findById(id)
     
-        if(!order){
-            return null
-        }
+    //     if(!order){
+    //         return null
+    //     }
     
-        const deletedOrder = await Order.findByIdAndDelete(id)
-        deletedOrders.push(deletedOrder)
-    })
+    //     const deletedOrder = await Order.findByIdAndDelete(id)
+    //     deletedOrders.push(deletedOrder)
+    // })
 
-    return deletedOrders
+    // return deletedOrders
+    await Order.deleteMany({})
+    return
 }

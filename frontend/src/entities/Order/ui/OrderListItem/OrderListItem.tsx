@@ -2,10 +2,11 @@ import { memo } from "react";
 import { Link } from "react-router-dom";
 import { Grid, GridItem, Button, Checkbox, Box } from "@chakra-ui/react";
 import { FaTrash } from "react-icons/fa";
+import { useCookies } from "react-cookie"
+import { jwtDecode } from "jwt-decode"
 
 import { Order } from "../../../../app/api/types/Cart/Order";
 import { useDeleteOrdersMutation } from "../../../../app/api/apiSlice";
-
 import CardComponent, { CardVariants } from "../../../../shared/ui/Product/Card/CardComponent";
 import { CardTextComponent } from "../../../../shared/ui/Product/Card/CardText";
 
@@ -15,6 +16,8 @@ interface OrderProps {
 
 export const OrderListItem = memo(({ order }: OrderProps) => {
     console.log(order)
+    const [cookies] = useCookies(["authToken"]);
+    const user = jwtDecode(cookies.authToken)
     const [deleteOrders, { isLoading, isError, isSuccess }] = useDeleteOrdersMutation();
 
     if (isError) {
@@ -51,25 +54,25 @@ export const OrderListItem = memo(({ order }: OrderProps) => {
                         <Grid templateColumns="repeat(6, 1fr)" gap={4}>
                             <GridItem colSpan={1}>
                                 <CardTextComponent>
-                                    {order?._id.slice(10)}
+                                    {order?._id?.slice(10)}
                                 </CardTextComponent>
                             </GridItem>
 
                             <GridItem colSpan={1}>
                                 <CardTextComponent>
-                                    {order?.updatedAt.slice(0, 10)}
+                                    {order?.updatedAt?.slice(0, 10)}
                                 </CardTextComponent>
                             </GridItem>
 
                             <GridItem colSpan={2}>
                                 <CardTextComponent>
-                                    {order?.user.userEmail}
+                                    {order?.user?.userEmail}
                                 </CardTextComponent>
                             </GridItem>
 
                             <GridItem colSpan={1}>
                                 <CardTextComponent>
-                                    {order?.products.length}
+                                    {order?.products?.length}
                                 </CardTextComponent>
                             </GridItem>
 
@@ -83,7 +86,7 @@ export const OrderListItem = memo(({ order }: OrderProps) => {
                 </GridItem>
 
                 <GridItem colSpan={1}>
-                    <Button onClick={() => deleteOrders([order._id])}>
+                    <Button onClick={() => deleteOrders({ user, cart: [order._id] })}>
                         <FaTrash />
                     </Button>
                 </GridItem>
