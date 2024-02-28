@@ -29,11 +29,11 @@ const ProfilePage = () => {
     let content = <div></div>;
 
     if (isLoading) {
-        content = <>Loading Products...</>;
+        content = <>Loading Profile...</>;
     }
 
     if (isError) {
-        content = <>No Products Found : {JSON.stringify(error)}</>;
+        content = <>No Profile Found : {JSON.stringify(error)}</>;
     }
 
     if (isSuccess) {

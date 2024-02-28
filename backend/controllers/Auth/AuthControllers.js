@@ -226,7 +226,7 @@ export const getSingleUser = async (req, res, next) => {
       return res.status(400).json({ message: "no user found", user: {} });
     }
 
-    return res.json(user);
+    return res.status(200).json(user);
   } catch (error) {
     next(createError(HTTPStatusCodes.InternalServerError, error.message));
   }

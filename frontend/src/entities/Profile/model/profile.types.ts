@@ -1,8 +1,11 @@
+import { Product } from "../../Product/model/types/product";
+
 export interface User {
     id?: string;
     username?: string;
     avatar?: string;
     bio?: string;
+    email: string
     orders: [];
     cart: "";
 }
@@ -24,4 +27,17 @@ export interface ProfileState {
     isAuthenticated: boolean;
     cart: CartItem[];
     orders: Order[];
+}
+
+
+export interface UserData {
+    email: string
+    name: string
+    isActive: boolean
+    role: string
+    _id: string
+    createdAt: string
+    updatedAt: string
+    isAuthenticated: boolean
+    orders: []
 }

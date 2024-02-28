@@ -2,6 +2,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { SignupUserType } from "../../components/forms/SignupForm/model/types";
 import { Product, ProductsAPIData } from "../../entities/Product/model/types/product";
+import { UserData } from "../../entities/Profile/model/profile.types";
 import { FormDataProps } from "../../shared/ui/Modals/ImportProducts/ImportProductsModal";
 import { Order } from "./types/Cart/Order";
 import { GroupedProducts } from "./types/Product";
@@ -99,7 +100,7 @@ export const apiSlice = createApi({
             providesTags: ["User"],
         }),
 
-        getUserProfile: builder.query<User, string>({
+        getUserProfile: builder.query<UserData, string>({
             query: (id) => `/auth/users/${id}`
         }),
 
