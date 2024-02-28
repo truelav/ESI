@@ -24,37 +24,37 @@ export const UsersListItem = memo((props: UsersListITemProps) => {
       additionalClassNames="Dash_ProductListItem"
     >
       <Grid templateColumns="repeat(12, 1fr)" gap={4}>
-            <GridItem colSpan={2}>
-              <Avatar src="" name={user.name} size="lg" objectFit="contain" />
-            </GridItem>
+        <GridItem colSpan={2}>
+          <Avatar src="" name={user.name} size="lg" objectFit="contain" />
+        </GridItem>
 
-            <GridItem colSpan={2}>
-              <CardTextComponent>{user.name}</CardTextComponent>
-            </GridItem>
+        <GridItem colSpan={2}>
+          <CardTextComponent>{user.name}</CardTextComponent>
+        </GridItem>
 
-            <GridItem colSpan={2}>
-              <CardTextComponent>{user.email}</CardTextComponent>
-            </GridItem>
+        <GridItem colSpan={2}>
+          <CardTextComponent>{user.email}</CardTextComponent>
+        </GridItem>
 
-            <GridItem colSpan={2} display='flex' >
-              <UsersActivationSwitch isActive={isActive} setIsActive={setIsActive} user={user}/>
-            </GridItem>
+        <GridItem colSpan={2} display='flex' >
+          <UsersActivationSwitch isActive={isActive} setIsActive={setIsActive} user={user}/>
+        </GridItem>
 
-            <GridItem colSpan={1}>
-              <CardTextComponent>
-                {user?.role ? user.role : "unknown"}
-              </CardTextComponent>
-            </GridItem>
+        <GridItem colSpan={1}>
+          <CardTextComponent>
+            {user?.role ? user.role : "unknown"}
+          </CardTextComponent>
+        </GridItem>
 
-            <GridItem colSpan={2}>
-              <CardTextComponent>{user.createdAt}</CardTextComponent>
-            </GridItem>
+        <GridItem colSpan={2}>
+          <CardTextComponent>{user.createdAt}</CardTextComponent>
+        </GridItem>
 
-            <GridItem colSpan={1}>
-              <Button onClick={() => deletePost(user._id)}>
-                <FaTrash />
-              </Button>
-            </GridItem>
+        <GridItem colSpan={1}>
+          <Button onClick={() => deletePost(user._id)}>
+            <FaTrash />
+          </Button>
+        </GridItem>
       </Grid>
     </CardComponent>
   );

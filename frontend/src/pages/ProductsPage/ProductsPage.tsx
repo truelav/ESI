@@ -55,7 +55,7 @@ const ProductsPage = () => {
         );
     }
 
-    return <>{content}</>;
+    return content
 };
 
 export default ProductsPage;

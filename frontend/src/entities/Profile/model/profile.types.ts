@@ -1,4 +1,3 @@
-import { Product } from "../../Product/model/types/product";
 
 export interface User {
     id?: string;

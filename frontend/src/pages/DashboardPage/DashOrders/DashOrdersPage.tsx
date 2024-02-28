@@ -1,5 +1,4 @@
 import { Container, Text } from "@chakra-ui/react";
-
 import { useGetAllOrdersQuery } from "../../../app/api/apiSlice";
 import { OrderList } from "../../../entities/Order/ui/OrderList/OrderList";
 

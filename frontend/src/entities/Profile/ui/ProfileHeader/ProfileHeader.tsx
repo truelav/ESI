@@ -1,33 +1,22 @@
-import { CardHeader, Flex, Avatar, Box, Text, Heading, IconButton } from "@chakra-ui/react"
-import { BsThreeDotsVertical } from "react-icons/bs";
+import { CardHeader, Avatar, Box } from "@chakra-ui/react"
+import { CardTextComponent } from "../../../../shared/ui/Product/Card/CardText"
 
-export const ProfileHeader = () => {
+export const ProfileHeader = (props) => {
+    const { username, email, role, createdAt } = props
     return (
         <CardHeader>
-            <Flex>
-                <Flex
-                    flex="1"
-                    gap="4"
-                    alignItems="center"
-                    flexWrap="wrap"
-                >
-                    <Avatar
-                        name="Segun Adebayo"
-                        src="https://bit.ly/sage-adebayo"
-                    />
-
-                    <Box>
-                        <Heading size="sm">Segun Adebayo</Heading>
-                        <Text>Creator, Chakra UI</Text>
-                    </Box>
-                </Flex>
-                <IconButton
-                    variant="ghost"
-                    colorScheme="gray"
-                    aria-label="See menu"
-                    icon={<BsThreeDotsVertical />}
-                />
-            </Flex>
+            <Box>
+                <Avatar src="" name={username} size="lg" objectFit="contain" />
+            </Box>
+            <Box>
+                <CardTextComponent>Email: {email}</CardTextComponent>
+            </Box>
+            <Box>
+                <CardTextComponent>Role: {role}</CardTextComponent>
+            </Box>
+            <Box>
+                <CardTextComponent>Created: {createdAt.slice(0, 10)}</CardTextComponent>
+            </Box>
         </CardHeader>
     )
 }

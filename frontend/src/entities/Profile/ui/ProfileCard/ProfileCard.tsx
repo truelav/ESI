@@ -2,18 +2,23 @@ import {
     Card,
     Text,
     CardBody,
-    CardFooter,
-    Button,
+    Heading,
 } from "@chakra-ui/react";
-import { BiChat, BiLike, BiShare } from "react-icons/bi";
 
 import { ProfileHeader } from "../ProfileHeader/ProfileHeader";
 
-export const ProfileCard = () => {
+export const ProfileCard = (props) => {
+    const { username, email, role, createdAt } = props
     return (
         <>
-            <Card maxW="">
-                <ProfileHeader />
+            <Card>
+                <Heading>Welcome to ESiP {username}</Heading>
+                <ProfileHeader 
+                    username={username}
+                    email={email}
+                    role={role}
+                    createdAt={createdAt} 
+                />
                 <CardBody>
                     <Text>
                         With Chakra UI, I wanted to sync the speed of
@@ -22,26 +27,6 @@ export const ProfileCard = () => {
                         create a screen.
                     </Text>
                 </CardBody>
-
-                <CardFooter
-                    justify="space-between"
-                    flexWrap="wrap"
-                    sx={{
-                        "& > button": {
-                            minW: "136px",
-                        },
-                    }}
-                >
-                    <Button flex="1" variant="ghost" leftIcon={<BiLike />}>
-                        Like
-                    </Button>
-                    <Button flex="1" variant="ghost" leftIcon={<BiChat />}>
-                        Comment
-                    </Button>
-                    <Button flex="1" variant="ghost" leftIcon={<BiShare />}>
-                        Share
-                    </Button>
-                </CardFooter>
             </Card>
         </>
     );
