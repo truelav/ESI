@@ -12,7 +12,8 @@ export const ProfileCard = (props) => {
     return (
         <>
             <Card>
-                <Heading>Welcome to ESiP {username}</Heading>
+                <Text>Welcome to ESIP</Text>
+                <Heading> {username}</Heading>
                 <ProfileHeader 
                     username={username}
                     email={email}

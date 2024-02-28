@@ -21,8 +21,13 @@ export const CartListHeader = () => {
                 <GridItem colSpan={2}></GridItem>
 
                 <GridItem colSpan={2}>
-                    <CardTextComponent>Brand Model</CardTextComponent>
+                    <CardTextComponent>Brand</CardTextComponent>
                 </GridItem>
+
+                <GridItem colSpan={1}>
+                    <CardTextComponent> Model </CardTextComponent>
+                </GridItem>
+
 
                 <GridItem colSpan={1}></GridItem>
 
@@ -30,12 +35,8 @@ export const CartListHeader = () => {
                     <CardTextComponent> Price </CardTextComponent>
                 </GridItem>
 
-                <GridItem colSpan={1}>
-                    <CardTextComponent> Quantity </CardTextComponent>
-                </GridItem>
-
                 <GridItem colSpan={2}>
-                    <CardTextComponent> Subtotal </CardTextComponent>
+                    <CardTextComponent> Product UPC </CardTextComponent>
                 </GridItem>
 
                 <GridItem colSpan={2}>

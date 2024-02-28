@@ -1,3 +1,4 @@
+import { Box, Container } from "@chakra-ui/react";
 import { Outlet, useParams } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 
@@ -10,14 +11,18 @@ export default function ProfileLayout() {
 
     if (isAdmin || (isUser && isHisOwnProfile)) {
         return (
-            <div className="dash_products_page_wrapper">
-                <Outlet />
-            </div>
+            <Box mx={8}>
+                <div className="dash_products_page_wrapper" >
+                    <Outlet />
+                </div>
+            </Box>
         );
     }
     return (
         <>
-            <h2>Unauthorized</h2>
+            <Container>
+                <h2>Unauthorized</h2>
+            </Container>
         </>
     );
 }

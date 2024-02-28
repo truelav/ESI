@@ -1,4 +1,4 @@
-import { Container, Grid, GridItem, Heading, Text } from "@chakra-ui/react";
+import { Box, Container, Grid, GridItem, Heading, Text } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
 import { CartProductList } from "../../entities/Cart/ui/cartProductList/CartProductList";
 import { CartOrderSummary } from "../../entities/Cart/ui/cartSummary/CartSummary";
@@ -14,10 +14,14 @@ const CartPage = () => {
     if(cart.length === 0){
         cartContent = (
             <>
-                <Heading>
-                    The Cart is Empty
-                    Please Add some products to it
-                </Heading>
+                <Box>
+                    <Heading>
+                        The Cart is Empty
+                    </Heading>
+                    <Text>
+                        Please go to products add the items you are interested in
+                    </Text>
+                </Box>
             </>
         )
     } else {
@@ -35,7 +39,7 @@ const CartPage = () => {
                 <Grid templateColumns="repeat(12, 1fr)" gap={4}>
                     <GridItem colSpan={12}>
                         <Heading>My Cart</Heading>
-                        {/* <Text>{user.username}</Text> */}
+                        <Text>{user?.username}</Text>
                     </GridItem>
                     <GridItem colSpan={12}>
                         {cartContent}
