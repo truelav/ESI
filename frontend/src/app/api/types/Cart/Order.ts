@@ -1,8 +1,21 @@
-import { JwtPayload } from "jwt-decode";
 import { CartState } from "../../../../entities/Cart/model/slice/cartSlice";
 
-export interface Order {
+
+export interface OrderUserProps {
+    userEmail: string
+    userId: string
+}
+
+export interface OrderCartSummaryProps {
+    totalAmount: number
+    totalProducts: number
+}
+
+export interface Order{
     cart: CartState;
-    user: JwtPayload;
+    orderSummary: OrderCartSummaryProps
+    user: OrderUserProps;
+    updatedAt: string
+    products: []
     _id?: string;
 }

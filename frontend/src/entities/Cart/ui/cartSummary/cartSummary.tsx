@@ -5,7 +5,6 @@ import {
     Text,
     useColorModeValue as mode,
 } from "@chakra-ui/react";
-import { PlaceOrderFeature } from "../../../../features/cart/PlaceOrderFeatures/PlaceOrderFeature";
 import { ProductPrice } from "../../../Product/ui/ProductPrice/ProductPrice";
 import { Product } from "../../../Product/model/types/product";
 
@@ -57,8 +56,6 @@ export const CartOrderSummary = (props: CartOrderSummaryProps) => {
                     </Text>
                 </Flex>
             </Stack>
-
-            <PlaceOrderFeature />
         </Stack>
     );
 };

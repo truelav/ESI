@@ -41,48 +41,30 @@ export const saveOrderService = async (data) => {
     return { updatedUser, updatedOrder }
 }
 
-// export const saveOrderToOrdersService = async (data) => {
-//     if(!data.user){
-//         return null
-//     }
+export const deleteOrdersService = async (data) => {
+    const { user, order } = data
+    const userId = user.id
+    const orderId = order._id
 
-//     const userId = data.user.id
-//     const userEmail = data.user.email
-
-//     if(!userId || !userEmail){
-//         return null
-//     }
-        
-//     const user = { userId, userEmail }
-    
-//     const orderSummary = {
-//         totalAmount: data.cart.length,
-//         totalProducts: data.cart.length
-//     }
-
-//     const products = data.cart.products
-//     const newOrder = new Order({ user, orderSummary, products })
-    
-//     await newOrder.save()
-    
-//     return newOrder
-// }
-
-export const deleteOrdersFromUserService = async (data) => {
-    const id = data.user.id
-
-    const userExists = await User.findById(id)
+    const userExists = await User.findById(userId)
 
     if(!userExists){
         return null
     }
-    
-    const updatedUser = await User.findByIdAndUpdate( id, { $set: { orders: [] } })
 
-    return updatedUser
+    console.log("userId: " + userId, "orderId: " + orderId)
+    const updatedOrders = userExists.orders.filter((order) => order._id !== orderId )
+
+    const updatedUser = await User.updateOne( 
+        { _id: userId }, 
+        { $set: { orders: updatedOrders } } 
+    )
+    const deletedOrder = await Order.findByIdAndDelete(orderId)
+
+    return { updatedUser }
 }
 
-export const deleteOrdersService = async (data) => {
+export const deleteOrdersFromUserService = async (data) => {
     // const idsToDelete = data
     // const deletedOrders = []
   
@@ -98,6 +80,6 @@ export const deleteOrdersService = async (data) => {
     // })
 
     // return deletedOrders
-    await Order.deleteMany({})
-    return
+    // await Order.deleteMany({})
+    // return
 }

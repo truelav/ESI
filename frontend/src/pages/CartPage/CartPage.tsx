@@ -2,13 +2,13 @@ import { Box, Container, Grid, GridItem, Heading, Text } from "@chakra-ui/react"
 import { useSelector } from "react-redux";
 import { CartProductList } from "../../entities/Cart/ui/cartProductList/CartProductList";
 import { CartOrderSummary } from "../../entities/Cart/ui/cartSummary/CartSummary";
+import { PlaceOrderFeature } from "../../features/cart/PlaceOrderFeatures/PlaceOrderFeature";
 
 const CartPage = () => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     const profile = useSelector((state) => state.profile);
     const {cart, user} = profile
-    console.log(cart, user)
 
     let cartContent = <></>
     if(cart.length === 0){
@@ -29,6 +29,7 @@ const CartPage = () => {
             <>
                 <CartProductList products={cart}/>
                 <CartOrderSummary products={cart}/>
+                <PlaceOrderFeature />
             </>
         )
     }

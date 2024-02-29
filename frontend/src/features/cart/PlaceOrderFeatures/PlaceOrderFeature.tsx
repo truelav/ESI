@@ -1,4 +1,4 @@
-import { Button } from "@chakra-ui/react"
+import { Alert, AlertIcon, Button, Stack } from "@chakra-ui/react"
 import { FaArrowRight } from 'react-icons/fa'
 import { useDispatch, useSelector } from "react-redux"
 import { useCookies } from "react-cookie"
@@ -11,42 +11,58 @@ export const PlaceOrderFeature = () => {
     // @ts-ignore
     const cart = useSelector((state) => state.profile.cart);
     const dispatch = useDispatch()
-    const [cookies] = useCookies(["authToken"]);
     const [placeOrder,  { isLoading, error, isSuccess }] = usePlaceOrderMutation()
 
-    const handlePlaceOrder = async () => {
-        const user = jwtDecode(cookies.authToken)
-        const order = {cart, user}
+    const [cookies] = useCookies(["authToken"]);
+    const user = jwtDecode(cookies.authToken)
+    const order = {cart, user}
 
-        console.log(order)
-        
-        placeOrder(order)
-        dispatch(clearCart())
+
+    const handlePlaceOrder = async () => {
+        const result = await placeOrder(order)
+        console.log(result)
+
+        setTimeout(() => {
+            dispatch(clearCart())
+        }, 2000)
     }
 
+    let content = <></>
+
     if (isSuccess) {
-        return  <div>The Order was placed successfull</div>;
+        content =  (
+            <Alert status='success' variant='subtle'>
+                <AlertIcon />
+                Order sent to the server. Thank You!
+            </Alert>
+        )
     }
 
     if (error) {
-        return <div>...Error Adding Product</div>;
+        content = <div>...Error Adding Product</div>;
     }
 
     if (isLoading) {
-        return <div>...Is Loading</div>;
+        content = <div>...Is Loading</div>;
+
+    } else {
+        content = (
+            <>
+                <Stack>
+                    {content}
+                </Stack>
+                <Button 
+                    colorScheme="blue" 
+                    size="lg" fontSize="md" 
+                    rightIcon={<FaArrowRight />}
+                    onClick={handlePlaceOrder}
+                >
+                    Send Order
+                </Button>
+            </>
+        )
     }
 
-    return (
-        <>
-            <Button 
-                colorScheme="blue" 
-                size="lg" fontSize="md" 
-                rightIcon={<FaArrowRight />}
-                onClick={handlePlaceOrder}
-            >
-                Send Order
-            </Button>
-        </>
-    )
+    return content
 }
 

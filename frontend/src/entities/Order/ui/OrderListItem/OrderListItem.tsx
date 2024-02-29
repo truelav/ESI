@@ -86,7 +86,7 @@ export const OrderListItem = memo(({ order }: OrderProps) => {
                 </GridItem>
 
                 <GridItem colSpan={1}>
-                    <Button onClick={() => deleteOrders({ user, cart: [order._id] })}>
+                    <Button onClick={() => deleteOrders({ user, order })}>
                         <FaTrash />
                     </Button>
                 </GridItem>
