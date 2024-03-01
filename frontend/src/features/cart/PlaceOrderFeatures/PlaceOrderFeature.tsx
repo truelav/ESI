@@ -31,7 +31,7 @@ export const PlaceOrderFeature = () => {
 
     if (isSuccess) {
         content =  (
-            <Alert status='success' variant='subtle'>
+            <Alert status='success' variant='subtle' height="200px">
                 <AlertIcon />
                 Order sent to the server. Thank You!
             </Alert>
@@ -39,7 +39,12 @@ export const PlaceOrderFeature = () => {
     }
 
     if (error) {
-        content = <div>...Error Adding Product</div>;
+        content = (
+            <Alert status='error' height="200px">
+                <AlertIcon />
+                There was an error processing your request, Refresh the page and try again.
+            </Alert>
+        );
     }
 
     if (isLoading) {
