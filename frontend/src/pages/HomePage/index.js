@@ -1,0 +1,6 @@
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+import { Link } from "react-router-dom";
+import { Container, Grid, GridItem, Heading, Highlight } from "@chakra-ui/react";
+export default function Home() {
+    return (_jsx(Container, { maxW: "full", minH: "700px", mt: "100px", centerContent: true, overflow: "hidden", children: _jsxs(Grid, { templateColumns: 'repeat(12, 1fr)', gap: 6, children: [_jsx(GridItem, { colSpan: 4, colStart: 3, children: _jsx(Heading, { as: 'h1', size: '4xl', children: _jsx("span", { color: "blue", children: "Welcome to ESIP" }) }) }), _jsx(GridItem, { colSpan: 6, colStart: 3, children: _jsxs(Heading, { children: [_jsx(Link, { to: "contact", children: _jsx(Highlight, { query: ['Contact Us'], styles: { px: '1', py: '1', rounded: 'full', bg: 'blue.100' }, children: "Contact Us" }) }), "in order to sign up for an account"] }) }), _jsx(GridItem, { colSpan: 6, colStart: 3, children: _jsxs(Heading, { children: ["Please", _jsx(Link, { to: "/login", children: _jsx(Highlight, { query: ['Log In'], styles: { px: '1', py: '1', rounded: 'full', bg: 'blue.100' }, children: "Log In" }) }), "using provided credentials or", _jsx("br", {})] }) }), _jsx(Link, { to: "products", children: "Find your products" })] }) }));
+}

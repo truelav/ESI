@@ -1,0 +1,19 @@
+import { jwtDecode } from "jwt-decode";
+import { useCookies } from "react-cookie";
+const useAuth = () => {
+    const [cookies] = useCookies();
+    const accessToken = cookies?.authToken;
+    let isAdmin = false;
+    let isUser = false;
+    if (accessToken) {
+        const decoded = jwtDecode(accessToken);
+        const { role, email, id } = decoded;
+        if (role === "ADMIN")
+            isAdmin = true;
+        else if (role === "CUSTOMER")
+            isUser = true;
+        return { username: email, role, isAdmin, isUser, id };
+    }
+    return { username: "", role: null, isAdmin, isUser, id: null };
+};
+export default useAuth;

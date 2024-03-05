@@ -1,51 +1,30 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { SignupUserType } from "../../components/forms/SignupForm/model/types";
-import {
-    Product,
-    ProductsAPIData,
-    GroupedProducts,
-} from "../../entities/Product/model/types/product";
-import { UserData } from "../../entities/Profile/model/profile.types";
-import { FormDataProps } from "../../shared/ui/Modals/ImportProducts/ImportProductsModal";
-import { Order } from "./types/Cart/Order";
-// import { GroupedProducts } from "./types/Product";
-import { User } from "./types/User/User";
-
-// @ts-nocheck
 const baseQuery = fetchBaseQuery({
-    // baseUrl: "http://localhost:8888/api",
-    baseUrl: "https://esi-api-v1.onrender.com/api",
+    baseUrl: "http://localhost:8888/api",
     credentials: "include",
     // prepareHeaders: (headers, { getState }) => {
     //   const token = getState().auth.token;
-
     //   if (token) {
     //     headers.set("authorization", `Bearer ${token}`);
     //   }
     //   return headers;
     // },
 });
-
 export const apiSlice = createApi({
     baseQuery,
     tagTypes: ["Product", "User", "Order", "Profile"],
     endpoints: (builder) => ({
-        // Products API Routes [ 1. /products  2. /products/:id]
-        getAllProducts: builder.query<ProductsAPIData, void>({
+        getAllProducts: builder.query({
             query: () => `/products`,
             providesTags: ["Product"],
         }),
-
-        getGroupedProducts: builder.query<GroupedProducts[], void>({
+        getGroupedProducts: builder.query({
             query: () => `/products/brandedProducts`,
             providesTags: ["Product"],
         }),
-
-        getSingleProduct: builder.query<Product, string | undefined>({
+        getSingleProduct: builder.query({
             query: (id) => `/products/${id}`,
         }),
-
         addSingleProduct: builder.mutation({
             query: (product) => ({
                 url: `/products`,
@@ -55,8 +34,7 @@ export const apiSlice = createApi({
             }),
             invalidatesTags: ["Product"],
         }),
-
-        addMultipleProducts: builder.mutation<unknown, FormDataProps>({
+        addMultipleProducts: builder.mutation({
             query: (products) => ({
                 url: `products/addMultiple`,
                 method: "POST",
@@ -64,11 +42,7 @@ export const apiSlice = createApi({
                 formData: true,
             }),
         }),
-
-        editSingleProduct: builder.mutation<
-            Product,
-            Partial<Product> & Pick<Product, "_id">
-        >({
+        editSingleProduct: builder.mutation({
             query: (product) => ({
                 url: `/products/${product._id}`,
                 method: "PUT",
@@ -77,22 +51,14 @@ export const apiSlice = createApi({
             }),
             invalidatesTags: ["Product"],
         }),
-
-        deleteSingleProduct: builder.mutation<
-            { success: boolean; id: string },
-            string
-        >({
+        deleteSingleProduct: builder.mutation({
             query: (id) => ({
                 url: `/products/${id}`,
                 method: "DELETE",
                 providesTags: [{ type: "Products", id: "List" }],
             }),
         }),
-
-        deleteMultipleProducts: builder.mutation<
-            { success: boolean; productsIds: [] },
-            number
-        >({
+        deleteMultipleProducts: builder.mutation({
             query: (productIds) => ({
                 url: `/products`,
                 method: "DELETE",
@@ -101,18 +67,15 @@ export const apiSlice = createApi({
             }),
             invalidatesTags: [{ type: "Product", id: "List" }],
         }),
-
         // User API Routes [ 1. /auth  2. /login  3. /register]
-        getAllUsers: builder.query<User, void>({
+        getAllUsers: builder.query({
             query: () => `/auth/users`,
             providesTags: ["User"],
         }),
-
-        getUserProfile: builder.query<UserData, string>({
+        getUserProfile: builder.query({
             query: (id) => `/auth/users/${id}`,
         }),
-
-        addUser: builder.mutation<User, User>({
+        addUser: builder.mutation({
             query: (user) => ({
                 url: `/auth/register`,
                 method: "POST",
@@ -120,16 +83,14 @@ export const apiSlice = createApi({
             }),
             invalidatesTags: ["User"],
         }),
-
-        editUser: builder.mutation<User, User>({
+        editUser: builder.mutation({
             query: (user) => ({
                 url: `/auth/users`,
                 method: "PUT",
                 body: user,
             }),
         }),
-
-        deleteUser: builder.mutation<{ success: boolean; id: string }, string>({
+        deleteUser: builder.mutation({
             query: (id) => ({
                 url: `/auth/users/${id}`,
                 method: "DELETE",
@@ -137,60 +98,54 @@ export const apiSlice = createApi({
             }),
             invalidatesTags: ["User"],
         }),
-
-        activateDeactivateUser: builder.mutation<User, string>({
+        activateDeactivateUser: builder.mutation({
             query: (id) => ({
                 url: `/auth/users/activate/${id}`,
                 method: "PUT",
                 body: id,
             }),
         }),
-
         // Authorization API Routes [ 1. /auth  2. /login  3. /register]
-        login: builder.mutation<unknown, User>({
+        login: builder.mutation({
             query: (user) => ({
                 url: `/auth/login`,
                 method: "POST",
                 body: { ...user },
             }),
         }),
-        logout: builder.mutation<unknown, User>({
+        logout: builder.mutation({
             query: (user) => ({
                 url: `/auth/logout`,
                 method: "POST",
                 body: user,
             }),
         }),
-        signup: builder.mutation<SignupUserType, SignupUserType>({
+        signup: builder.mutation({
             query: (user) => ({
                 url: `/auth/signup`,
                 method: "POST",
                 body: { ...user },
             }),
         }),
-
         // Presentation API Routes
-        getPresentationProducts: builder.query<GroupedProducts[], void>({
+        getPresentationProducts: builder.query({
             query: () => `/presentation/products`,
             providesTags: [{ type: "Product", id: "List" }],
         }),
-
-        createPresentation: builder.mutation<unknown, string[]>({
+        createPresentation: builder.mutation({
             query: (products) => ({
                 url: `/presentation`,
                 method: "POST",
                 body: products,
             }),
         }),
-
-        addToCart: builder.mutation<unknown, void>({
+        addToCart: builder.mutation({
             query: (products) => ({
                 url: `/order`,
                 method: "POST",
                 body: products,
             }),
         }),
-
         removeFromCart: builder.mutation({
             query: (product) => ({
                 url: `/products`,
@@ -215,23 +170,19 @@ export const apiSlice = createApi({
                 formData: true,
             }),
         }),
-
         //Orders
-        getAllOrders: builder.query<Order, void>({
+        getAllOrders: builder.query({
             query: () => `/orders`,
             providesTags: ["Order"],
         }),
-        placeOrder: builder.mutation<unknown, Order>({
+        placeOrder: builder.mutation({
             query: (order) => ({
                 url: `/orders`,
                 method: "POST",
                 body: order,
             }),
         }),
-        deleteOrders: builder.mutation<
-            { success: boolean; id: string },
-            string[]
-        >({
+        deleteOrders: builder.mutation({
             query: (orders) => ({
                 url: `/orders`,
                 method: "DELETE",
@@ -240,7 +191,6 @@ export const apiSlice = createApi({
         }),
     }),
 });
-
 export const {
     useGetAllProductsQuery,
     useGetSingleProductQuery,
@@ -248,22 +198,17 @@ export const {
     useEditSingleProductMutation,
     useDeleteSingleProductMutation,
     useDeleteMultipleProductsMutation,
-
     useAddMultipleProductsMutation,
     useGetGroupedProductsQuery,
-
     useGetAllUsersQuery,
     useAddUserMutation,
     useEditUserMutation,
     useActivateDeactivateUserMutation,
     useDeleteUserMutation,
-
     useLoginMutation,
     useGetUserProfileQuery,
     useSignupMutation,
-
     useCreatePresentationMutation,
-
     useGetAllOrdersQuery,
     usePlaceOrderMutation,
     useDeleteOrdersMutation,
